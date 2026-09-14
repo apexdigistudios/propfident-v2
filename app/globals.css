@@ -9,7 +9,6 @@
     --foreground: 240 10% 3.9%;
     --surface: 0 0% 98%;
     --surface-hover: 240 5% 96%;
-    /* Deepened primary purple */
     --primary: 267 83% 43%;
     --primary-foreground: 0 0% 100%;
     --primary-hover: 267 83% 36%;
@@ -23,7 +22,6 @@
     --foreground: 0 0% 98%;
     --surface: 240 10% 6%;
     --surface-hover: 240 10% 9%;
-    /* Deepened primary purple */
     --primary: 267 80% 50%;
     --primary-foreground: 0 0% 100%;
     --primary-hover: 267 80% 58%;
@@ -37,18 +35,51 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground font-sans antialiased overflow-x-hidden;
     font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 }
 
+/* Background Grid Pattern Utility */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+:root:not(.dark) .bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+}
+
 /* Dark outline for solid primary containers and buttons */
 .bg-primary {
   @apply border border-purple-950/80 dark:border-black/90 shadow-sm;
 }
-  ::view-transition-old(root), ::view-transition-new(root) {
-    animation: none;
-    mix-blend-mode: normal;
+
+/* Magic UI View Transition Animations */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+.dark::view-transition-old(root) {
+  z-index: 9999;
+}
+
+.dark::view-transition-new(root) {
+  z-index: 1;
 }
