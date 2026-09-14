@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { Timer, ChevronRight } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -9,10 +12,23 @@ import { Pricing } from "@/components/pricing";
 import { FounderModal } from "@/components/founder-modal";
 
 export default function Home() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 6);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <main className="min-h-screen flex flex-col relative overflow-hidden bg-background text-foreground transition-colors duration-200 font-sans">
       {/* Navigation */}
-      <nav className="z-10 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
+      <nav
+        className={`sticky top-0 z-50 w-full border-b border-border/40 transition-all duration-300 ${
+          scrolled ? "bg-background/70 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,0.08)]" : "bg-background/80 backdrop-blur-md"
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-8 sm:px-12 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Image
@@ -52,10 +68,10 @@ export default function Home() {
             alt="Propfident hero background"
             fill
             priority
-            className="h-full w-full object-cover object-center opacity-80 brightness-95 contrast-110 transition-opacity duration-300 dark:opacity-90 dark:brightness-90"
-            style={{ filter: "saturate(1.15) contrast(1.08)" }}
+            className="h-full w-full object-cover object-center opacity-100 brightness-100 contrast-100 transition-opacity duration-300 dark:opacity-90 dark:brightness-90"
+            style={{ filter: "saturate(1.1) contrast(1.02)" }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/55 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/35 to-background/90 dark:from-background/70 dark:via-background/55 dark:to-background" />
         </div>
 
         <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center justify-center">
