@@ -30,10 +30,9 @@ export function Hero() {
           alt="Propfident Hero Background"
           fill
           priority
-          className="h-full w-full object-cover object-center opacity-40 transition-opacity duration-300 dark:opacity-60 pointer-events-none"
+          className="h-full w-full object-cover object-center opacity-100 pointer-events-none"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/50 to-background pointer-events-none" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/5 via-transparent to-background/75 dark:from-background/35 dark:via-background/35 dark:to-background/95 pointer-events-none" />
       </div>
 
       <div className="container relative z-10 mx-auto max-w-5xl px-4 text-center">
@@ -61,7 +60,7 @@ export function Hero() {
           </Button>
         </div>
 
-        <div className="mt-14 pt-8 border-t border-border/40 flex flex-col sm:flex-row items-center justify-between gap-6 max-w-3xl mx-auto text-xs font-mono text-muted-foreground">
+          <div className="mt-14 pt-8 border-t border-border/40 flex flex-col sm:flex-row items-center justify-between gap-6 max-w-3xl mx-auto text-xs font-mono text-muted-foreground">
           <div className="flex items-center gap-2">
             <ShieldCheck className="h-4 w-4 text-primary" />
             <span>25+ Funded Accounts Protected in Beta</span>

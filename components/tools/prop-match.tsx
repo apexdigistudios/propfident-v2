@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
+import Papa from "papaparse";
 import {
   ArrowRight,
   Download,
@@ -61,43 +62,42 @@ const defaultMetrics: TradeMetrics = {
   profitTarget: 11,
 };
 
-function extractNumber(text: string, labels: string[]) {
-  for (const label of labels) {
-    const match = text.match(new RegExp(`${label}[^0-9-]*(-?\\d+(?:\\.\\d+)?)`, "i"));
-    if (match) return Number(match[1]);
-  }
-  return null;
-}
-
 async function parseTradeLog(file: File): Promise<TradeMetrics> {
-  const lower = file.name.toLowerCase();
-  if (lower.endsWith(".png") || lower.endsWith(".jpg") || lower.endsWith(".jpeg")) {
-    return {
-      winRate: 61,
-      maxDailyDrawdown: 5.2,
-      overallDrawdown: 9.1,
-      weekendPositions: 2,
-      newsTrades: 3,
-      profitTarget: 10.2,
-    };
-  }
+  return new Promise((resolve, reject) => {
+    Papa.parse<Record<string, string>>(file, {
+      header: true,
+      skipEmptyLines: true,
+      complete: ({ data }) => {
+        const rows = data.filter((row) => Object.values(row).some(Boolean));
+        const getColumnValues = (names: string[]) => rows.flatMap((row) => {
+          const entry = Object.entries(row).find(([key]) => names.some((name) => key.toLowerCase().includes(name)));
+          const value = entry ? Number(String(entry[1]).replace(/[^0-9.-]/g, "")) : NaN;
+          return Number.isFinite(value) ? [value] : [];
+        });
+        const equity = getColumnValues(["equity", "balance", "account balance", "net profit", "pnl", "profit"]);
+        const dailyLosses = getColumnValues(["daily max loss", "daily loss", "daily drawdown", "daily dd"]);
+        const totalLosses = getColumnValues(["total loss", "max drawdown", "overall drawdown", "total drawdown"]);
+        const targets = getColumnValues(["profit target", "target profit", "return", "roi"]);
+        const peak = equity.reduce((highest, value) => Math.max(highest, value), equity[0] ?? 0);
+        const trough = equity.reduce((lowest, value) => Math.min(lowest, value), peak);
+        const equityDrawdown = peak > 0 ? Math.abs(((peak - trough) / peak) * 100) : 0;
+        const dailyDrawdown = dailyLosses.length ? Math.max(...dailyLosses.map(Math.abs)) : defaultMetrics.maxDailyDrawdown;
+        const totalDrawdown = totalLosses.length ? Math.max(...totalLosses.map(Math.abs)) : equityDrawdown || defaultMetrics.overallDrawdown;
+        const wins = rows.filter((row) => Object.values(row).some((value) => /win|profit|positive/i.test(String(value)))).length;
+        const losses = rows.filter((row) => Object.values(row).some((value) => /loss|negative|fail/i.test(String(value)))).length;
 
-  const text = await file.text();
-  const daily = extractNumber(text, ["max daily drawdown", "largest daily drawdown", "daily dd"]) ?? 4.8;
-  const total = extractNumber(text, ["max total drawdown", "overall drawdown", "total drawdown", "max drawdown"]) ?? 8.6;
-  const profitTarget = extractNumber(text, ["profit target", "target profit"]) ?? 10.5;
-  const winRate = extractNumber(text, ["win rate", "winning percentage", "wins percentage"]) ?? 58;
-  const weekendPositions = (text.match(/weekend|overnight|hold over weekend/gi) ?? []).length || 1;
-  const newsTrades = (text.match(/news|nfp|fed|cpi|high impact|nonfarm/gi) ?? []).length || 2;
-
-  return {
-    winRate: Number(Math.min(100, Math.max(0, winRate)).toFixed(1)),
-    maxDailyDrawdown: Number(Math.min(12, Math.max(1, daily)).toFixed(1)),
-    overallDrawdown: Number(Math.min(20, Math.max(2, total)).toFixed(1)),
-    weekendPositions: Math.max(0, weekendPositions),
-    newsTrades: Math.max(0, newsTrades),
-    profitTarget: Number(Math.max(0, Math.min(25, profitTarget)).toFixed(1)),
-  };
+        resolve({
+          winRate: Number(Math.min(100, Math.max(0, wins + losses ? (wins / (wins + losses)) * 100 : defaultMetrics.winRate)).toFixed(1)),
+          maxDailyDrawdown: Number(Math.min(100, dailyDrawdown).toFixed(1)),
+          overallDrawdown: Number(Math.min(100, totalDrawdown).toFixed(1)),
+          weekendPositions: rows.filter((row) => Object.values(row).some((value) => /weekend|overnight/i.test(String(value)))).length,
+          newsTrades: rows.filter((row) => Object.values(row).some((value) => /news|nfp|fed|cpi|high impact/i.test(String(value)))).length,
+          profitTarget: Number((targets[targets.length - 1] ?? defaultMetrics.profitTarget).toFixed(1)),
+        });
+      },
+      error: reject,
+    });
+  });
 }
 
 function evaluateFirm(firm: FirmRule, metrics: TradeMetrics) {
@@ -130,7 +130,7 @@ export function PropMatchEvaluator() {
           id: `${firm.firm_name}-${firm.account_model}-${firm.account_size}-${index}`,
           name: `${firm.firm_name} ${firm.account_model} $${Math.round(firm.account_size / 1000)}K`,
           logoUrl: "/logo.png",
-          refUrl: "#pricing",
+          refUrl: firm.firm_name.toLowerCase().includes("ftmo") ? "https://ftmo.com/?ref=propfident" : firm.firm_name.toLowerCase().includes("fundednext") ? "https://fundednext.com/?ref=propfident" : firm.firm_name.toLowerCase().includes("funding pips") ? "https://fundingpips.com/?ref=propfident" : firm.firm_name.toLowerCase().includes("5%") ? "https://www.the5ers.com/?ref=propfident" : "#pricing",
           maxDailyDrawdown: firm.rules.daily_drawdown_percent ?? 5,
           maxTotalDrawdown: firm.rules.max_drawdown_percent ?? 10,
           profitTarget: firm.rules.profit_target_p1_percent ?? 0,
@@ -295,7 +295,7 @@ export function PropMatchEvaluator() {
                 Choose file
                 <input
                   type="file"
-                  accept=".csv,.txt,.png,.jpg,.jpeg"
+                  accept=".csv,.txt,text/csv,text/plain"
                   className="hidden"
                   onChange={(event) => void handleFileSelection(event.target.files?.[0])}
                 />

@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, ChevronRight } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { ChevronDown } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FounderModal } from "@/components/founder-modal";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -20,8 +20,6 @@ import {
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [accessOpen, setAccessOpen] = useState(false);
-  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -29,15 +27,6 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const openOnHover = () => {
-    if (closeTimer.current) clearTimeout(closeTimer.current);
-    setAccessOpen(true);
-  };
-
-  const closeAfterHover = () => {
-    closeTimer.current = setTimeout(() => setAccessOpen(false), 120);
-  };
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 border-b border-border/40 transition-all duration-300 ${scrolled ? "bg-background/70 shadow-[0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl" : "bg-background/85 backdrop-blur-md"}`}>
@@ -81,24 +70,11 @@ export function Navbar() {
 
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <div onMouseEnter={openOnHover} onMouseLeave={closeAfterHover}>
-            <DropdownMenu open={accessOpen} onOpenChange={setAccessOpen}>
-              <DropdownMenuTrigger asChild>
-                <Button size="sm" className="gap-1.5 font-mono text-[10px] uppercase tracking-[0.16em]">Get Access <ChevronDown className="h-3.5 w-3.5" /></Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-72" onPointerEnter={openOnHover} onPointerLeave={closeAfterHover}>
-                <DropdownMenuItem asChild>
-                  <FounderModal>
-                    <button type="button" className="flex w-full items-center justify-between rounded-md px-2 py-1.5 text-left text-sm hover:bg-surface-hover">Founder&apos;s Lifetime ($299) <ChevronRight className="h-4 w-4 text-primary" /></button>
-                  </FounderModal>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild><Link href="/tools/position-sizer">Position Sizer Utility</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/tools/prop-match">Prop Match Auditor</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/tools/ai-trade-planner">AI Trade Planner</Link></DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+          <FounderModal>
+            <Button size="sm" className="font-mono text-[10px] uppercase tracking-[0.16em]">
+              Founder&apos;s Access
+            </Button>
+          </FounderModal>
         </div>
       </div>
     </header>

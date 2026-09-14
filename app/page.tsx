@@ -25,10 +25,9 @@ export default function Home() {
             alt="Propfident hero background"
             fill
             priority
-            className="h-full w-full object-cover object-center opacity-100 brightness-100 contrast-100 transition-opacity duration-300 dark:opacity-90 dark:brightness-90"
-            style={{ filter: "saturate(1.1) contrast(1.02)" }}
+            className="h-full w-full object-cover object-center opacity-100 transition-opacity duration-300 dark:opacity-95"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/35 to-background/90 dark:from-background/70 dark:via-background/55 dark:to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/5 via-transparent to-background/75 dark:from-background/35 dark:via-background/35 dark:to-background/95" />
         </div>
 
         <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center justify-center">
@@ -61,7 +60,7 @@ export default function Home() {
           </div>
 
           {/* Launch Timer Banner */}
-          <div className="mt-16 flex flex-col sm:flex-row items-center gap-6 p-5 rounded-lg border border-primary/30 bg-primary/5 backdrop-blur-sm w-full max-w-xl text-left">
+          <div className="mt-16 flex flex-col sm:flex-row items-center gap-6 p-5 rounded-lg border border-primary/30 bg-primary/5 w-full max-w-xl text-left">
             <div className="p-2.5 bg-primary/10 rounded-md text-primary shrink-0 border border-primary/30">
               <Timer className="w-6 h-6" />
             </div>
