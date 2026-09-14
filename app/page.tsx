@@ -37,14 +37,14 @@ export default function Home() {
           </Badge>
           
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight max-w-4xl mb-6 leading-[1.1]">
-            Keep your funded accounts <br className="hidden md:block" />
+            Risk Management for <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-400">
-              safe and scalable.
+              Funded Traders
             </span>
           </h1>
           
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mb-10 text-balance font-normal">
-            The ultimate SaaS for prop firm traders. AI-driven planning, risk management, and lot sizing. Secure your spot before the public launch.
+            Protect your prop firm account with real-time drawdown monitoring, dynamic position sizing, trade journaling, and MT4/MT5 analytics. Start free.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">

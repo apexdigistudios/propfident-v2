@@ -2,9 +2,12 @@
   "/_not-found/page": "app/_not-found/page.js",
   "/api/leads/route": "app/api/leads/route.js",
   "/api/prop-firms/route": "app/api/prop-firms/route.js",
+  "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js",
+  "/robots.txt/route": "app/robots.txt/route.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
   "/checkout/complete/page": "app/checkout/complete/page.js",
   "/page": "app/page.js",
   "/tools/position-sizer/page": "app/tools/position-sizer/page.js",
-  "/tools/prop-match/page": "app/tools/prop-match/page.js",
-  "/tools/ai-trade-planner/page": "app/tools/ai-trade-planner/page.js"
+  "/tools/ai-trade-planner/page": "app/tools/ai-trade-planner/page.js",
+  "/tools/prop-match/page": "app/tools/prop-match/page.js"
 }

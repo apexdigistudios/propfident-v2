@@ -5,7 +5,7 @@ import { FounderModal } from "@/components/founder-modal";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Position Size Calculator | Propfident",
+  title: "Position Size Calculator",
   description: "Instantly calculate prop firm lot sizing and maximum risk per trade for funded account challenges.",
   openGraph: {
     title: "Position Size Calculator | Propfident",

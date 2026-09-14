@@ -5,7 +5,7 @@ import { FounderModal } from "@/components/founder-modal";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Prop Match Evaluator | Propfident",
+  title: "Prop Match Evaluator",
   description: "Compare your trading journal against FTMO, FundedNext, Funding Pips and other prop firms to find your best-fit challenge.",
   openGraph: {
     title: "Prop Match Evaluator | Propfident",

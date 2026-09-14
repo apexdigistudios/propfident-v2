@@ -5,7 +5,7 @@ import { FounderModal } from "@/components/founder-modal";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "AI Trade Planner | Propfident",
+  title: "AI Trade Planner",
   description: "Plan safer prop firm entries with AI-led trade structure reviews, R:R checks, and setup analysis.",
   openGraph: {
     title: "AI Trade Planner | Propfident",

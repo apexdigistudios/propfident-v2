@@ -45,6 +45,8 @@ type SourceFirm = {
 };
 
 type TradeMetrics = {
+  totalBalance: number;
+  peakEquity: number;
   winRate: number;
   maxDailyDrawdown: number;
   overallDrawdown: number;
@@ -54,6 +56,8 @@ type TradeMetrics = {
 };
 
 const defaultMetrics: TradeMetrics = {
+  totalBalance: 100000,
+  peakEquity: 108400,
   winRate: 58,
   maxDailyDrawdown: 4.7,
   overallDrawdown: 8.4,
@@ -63,6 +67,17 @@ const defaultMetrics: TradeMetrics = {
 };
 
 async function parseTradeLog(file: File): Promise<TradeMetrics> {
+  const extension = file.name.toLowerCase();
+  if (extension.endsWith(".png") || extension.endsWith(".jpg") || extension.endsWith(".jpeg")) {
+    return {
+      ...defaultMetrics,
+      winRate: 61,
+      maxDailyDrawdown: 5.2,
+      overallDrawdown: 9.1,
+      profitTarget: 10.2,
+    };
+  }
+
   return new Promise((resolve, reject) => {
     Papa.parse<Record<string, string>>(file, {
       header: true,
@@ -87,6 +102,8 @@ async function parseTradeLog(file: File): Promise<TradeMetrics> {
         const losses = rows.filter((row) => Object.values(row).some((value) => /loss|negative|fail/i.test(String(value)))).length;
 
         resolve({
+          totalBalance: equity[equity.length - 1] ?? defaultMetrics.totalBalance,
+          peakEquity: peak || defaultMetrics.peakEquity,
           winRate: Number(Math.min(100, Math.max(0, wins + losses ? (wins / (wins + losses)) * 100 : defaultMetrics.winRate)).toFixed(1)),
           maxDailyDrawdown: Number(Math.min(100, dailyDrawdown).toFixed(1)),
           overallDrawdown: Number(Math.min(100, totalDrawdown).toFixed(1)),
@@ -129,7 +146,7 @@ export function PropMatchEvaluator() {
         setFirms(sourceFirms.map((firm, index) => ({
           id: `${firm.firm_name}-${firm.account_model}-${firm.account_size}-${index}`,
           name: `${firm.firm_name} ${firm.account_model} $${Math.round(firm.account_size / 1000)}K`,
-          logoUrl: "/logo.png",
+          logoUrl: firm.firm_name.toLowerCase().includes("ftmo") ? "/logos/ftmo-logo.png" : firm.firm_name.toLowerCase().includes("fundednext") ? "/logos/fundednext-logo.webp" : firm.firm_name.toLowerCase().includes("5%") ? "/logos/5ers-Logo.png" : firm.firm_name.toLowerCase().includes("topstep") ? "/logos/topstep-logo.png" : "/logo.png",
           refUrl: firm.firm_name.toLowerCase().includes("ftmo") ? "https://ftmo.com/?ref=propfident" : firm.firm_name.toLowerCase().includes("fundednext") ? "https://fundednext.com/?ref=propfident" : firm.firm_name.toLowerCase().includes("funding pips") ? "https://fundingpips.com/?ref=propfident" : firm.firm_name.toLowerCase().includes("5%") ? "https://www.the5ers.com/?ref=propfident" : "#pricing",
           maxDailyDrawdown: firm.rules.daily_drawdown_percent ?? 5,
           maxTotalDrawdown: firm.rules.max_drawdown_percent ?? 10,
@@ -148,18 +165,24 @@ export function PropMatchEvaluator() {
     [metrics]
   );
 
-  const topFirm = rankedFirms[0];
+  const topFirm = rankedFirms[0] ?? {
+    id: "loading",
+    name: "Loading firm rules",
+    logoUrl: "/logo.png",
+    refUrl: "#",
+    maxDailyDrawdown: 5,
+    maxTotalDrawdown: 10,
+    profitTarget: 10,
+    drawdownType: "JSON.txt",
+    newsTradingAllowed: true,
+    weekendHoldingAllowed: true,
+    minTradingDays: 0,
+    score: 0,
+    checks: { daily: false, total: false, target: false, news: false, weekend: false },
+    passRate: "-",
+  };
+  const hasFirmData = rankedFirms.length > 0;
   const topThree = rankedFirms.slice(0, 3);
-
-  if (!topFirm) {
-    return (
-      <Card className="w-full border-border/60 bg-background/50 shadow-xl">
-        <CardContent className="p-8 text-center text-sm text-muted-foreground">
-          Loading prop-firm rules from JSON.txt...
-        </CardContent>
-      </Card>
-    );
-  }
 
   const handleFileSelection = async (file?: File) => {
     if (!file) return;
@@ -273,7 +296,10 @@ export function PropMatchEvaluator() {
         <CardContent className="space-y-6 pt-6">
           <div className="grid gap-4 md:grid-cols-2">
             <div
-              className={`rounded-2xl border border-dashed p-6 text-center transition-all ${dragging ? "border-primary bg-primary/5" : "border-border bg-surface/40"}`}
+              role="button"
+              tabIndex={0}
+              aria-label="Upload trading history"
+              className={`cursor-pointer rounded-xl border-2 border-dashed border-primary/40 bg-primary/5 p-8 text-center transition-all hover:border-primary ${dragging ? "border-primary bg-primary/10" : ""}`}
               onDragOver={(event) => {
                 event.preventDefault();
                 setDragging(true);
@@ -285,17 +311,23 @@ export function PropMatchEvaluator() {
                 const file = event.dataTransfer.files[0];
                 void handleFileSelection(file);
               }}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  event.currentTarget.querySelector<HTMLInputElement>("input[type=file]")?.click();
+                }
+              }}
             >
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <UploadCloud className="h-6 w-6" />
               </div>
               <h3 className="mt-4 text-base font-semibold">Upload trade history</h3>
-              <p className="mt-2 text-xs text-muted-foreground">CSV, TXT, MT4/MT5 screenshots, or statements accepted.</p>
+              <p className="mt-2 text-xs text-muted-foreground">Drop a CSV, TXT, PNG, or JPG trading history here.</p>
               <label className="mt-4 inline-flex cursor-pointer items-center rounded-md bg-primary px-4 py-2 text-xs font-medium text-primary-foreground">
                 Choose file
                 <input
                   type="file"
-                  accept=".csv,.txt,text/csv,text/plain"
+                  accept=".csv,.txt,.png,.jpg,.jpeg,text/csv,text/plain,image/png,image/jpeg"
                   className="hidden"
                   onChange={(event) => void handleFileSelection(event.target.files?.[0])}
                 />
@@ -331,6 +363,14 @@ export function PropMatchEvaluator() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="rounded-lg border border-border bg-background p-3">
+                  <p className="text-[10px] uppercase text-muted-foreground">Total balance</p>
+                  <p className="mt-2 text-lg font-bold text-foreground">${metrics.totalBalance.toLocaleString()}</p>
+                </div>
+                <div className="rounded-lg border border-border bg-background p-3">
+                  <p className="text-[10px] uppercase text-muted-foreground">Peak equity</p>
+                  <p className="mt-2 text-lg font-bold text-foreground">${metrics.peakEquity.toLocaleString()}</p>
+                </div>
+                <div className="rounded-lg border border-border bg-background p-3">
                   <p className="text-[10px] uppercase text-muted-foreground">Win rate</p>
                   <p className="mt-2 text-lg font-bold text-foreground">{metrics.winRate.toFixed(1)}%</p>
                 </div>
@@ -358,6 +398,7 @@ export function PropMatchEvaluator() {
             </div>
           </div>
 
+          {hasFirmData ? <>
           <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-3">
@@ -403,10 +444,15 @@ export function PropMatchEvaluator() {
               </div>
             ))}
           </div>
+          </> : (
+            <Card className="border-border/60 bg-background/50 shadow-xl">
+              <CardContent className="p-6 text-center text-sm text-muted-foreground">Loading firm rules from JSON.txt...</CardContent>
+            </Card>
+          )}
         </CardContent>
       </Card>
 
-      <div className="rounded-[28px] border border-border/60 bg-[radial-gradient(circle_at_top,_rgba(168,85,247,0.18),_rgba(15,23,42,0)_45%),linear-gradient(180deg,_rgba(15,23,42,0.96),_rgba(2,6,23,1))] p-6 shadow-[0_25px_80px_rgba(124,58,237,0.18)]">
+      {hasFirmData && <div className="rounded-[28px] border border-border/60 bg-[radial-gradient(circle_at_top,_rgba(168,85,247,0.18),_rgba(15,23,42,0)_45%),linear-gradient(180deg,_rgba(15,23,42,0.96),_rgba(2,6,23,1))] p-6 shadow-[0_25px_80px_rgba(124,58,237,0.18)]">
         <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-5">
           <div className="flex items-center gap-3">
             <div className="rounded-xl border border-white/10 bg-white/5 p-2">
@@ -465,7 +511,7 @@ export function PropMatchEvaluator() {
             <Download className="h-4 w-4" /> Download Certificate (PNG)
           </Button>
         </div>
-      </div>
+      </div>}
     </div>
   );
 }

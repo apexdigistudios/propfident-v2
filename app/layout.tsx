@@ -15,31 +15,47 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Propfident — Safe & Scalable Funded Account Management",
+  metadataBase: new URL("https://propfident.online"),
+  title: {
+    default: "Propfident | Risk Management for Funded Traders",
+    template: "%s | Propfident",
+  },
   description:
-    "The ultimate SaaS for prop firm traders. Protect your funded accounts with real-time drawdown monitoring, risk calculations, and AI trade analytics.",
+    "Protect your prop firm account with real-time drawdown monitoring, dynamic position sizing, trade journaling, and MT4/MT5 analytics. Start free.",
+  alternates: { canonical: "./" },
   keywords: [
     "prop firm",
+    "prop firm trading risk",
+    "prop firm challenge",
     "FTMO",
     "FundedNext",
+    "Funding Pips",
+    "The 5%ers",
     "drawdown calculator",
     "position sizer",
     "funded trading",
     "risk management",
+    "AI trade planner",
   ],
   authors: [{ name: "Propfident Team" }],
+  creator: "Propfident",
+  publisher: "Propfident",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
   openGraph: {
-    title: "Propfident — Never Breach Your Funded Account Again",
-    description:
-      "Protect your funded accounts with real-time drawdown alerts, position sizing, and AI trade analytics.",
-    url: "https://propfident.online",
+    title: "Propfident | Risk Management for Funded Traders",
+    description: "Protect your prop firm account with real-time drawdown monitoring, dynamic position sizing, trade journaling, and MT4/MT5 analytics. Start free.",
+    url: "https://propfident.online/",
     siteName: "Propfident",
     images: [
       {
-        url: "/og-image.png",
+        url: "/hero-bg.png",
         width: 1200,
         height: 630,
-        alt: "Propfident Platform Preview",
+        alt: "Propfident prop firm trading risk suite",
       },
     ],
     locale: "en_US",
@@ -47,10 +63,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Propfident — Funded Account Guard",
-    description:
-      "Real-time drawdown protection and AI risk management for prop traders.",
-    images: ["/og-image.png"],
+    title: "Propfident | Risk Management for Funded Traders",
+    description: "Protect your prop firm account with real-time drawdown monitoring, dynamic position sizing, trade journaling, and MT4/MT5 analytics. Start free.",
+    images: ["/hero-bg.png"],
   },
 };
 
@@ -71,6 +86,35 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@graph": [
+                  {
+                    "@type": "Organization",
+                    name: "Propfident",
+                    url: "https://propfident.online",
+                    logo: "https://propfident.online/logo.png",
+                  },
+                  {
+                    "@type": "SoftwareApplication",
+                    name: "Propfident",
+                    applicationCategory: "FinanceApplication",
+                    operatingSystem: "Web",
+                    url: "https://propfident.online",
+                    description: metadata.description,
+                    offers: {
+                      "@type": "Offer",
+                      price: "0",
+                      priceCurrency: "USD",
+                    },
+                  },
+                ],
+              }),
+            }}
+          />
           {children}
         </ThemeProvider>
       </body>
