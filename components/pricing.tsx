@@ -34,7 +34,6 @@ export function Pricing() {
         </div>
 
         <Card className="max-w-xl mx-auto border-primary/50 p-8 sm:p-10 shadow-md relative overflow-hidden backdrop-blur-md">
-          {/* Top highlight badge */}
           <div className="absolute top-0 right-0 bg-primary text-primary-foreground font-mono text-[10px] uppercase font-bold px-4 py-1 rounded-bl-lg tracking-wider border-l border-b border-purple-950/80 dark:border-black/90">
             14 / 100 Spots Left
           </div>
@@ -45,8 +44,8 @@ export function Pricing() {
           </div>
 
           <div className="flex items-baseline gap-2 mb-2">
-            <span className="text-5xl font-extrabold text-foreground font-mono">$199</span>
-            <span className="text-sm text-muted-foreground line-through font-mono">$499</span>
+            <span className="text-5xl font-extrabold text-foreground font-mono">$299</span>
+            <span className="text-sm text-muted-foreground line-through font-mono">$599</span>
             <span className="text-xs text-muted-foreground ml-1 font-sans">/ lifetime</span>
           </div>
 

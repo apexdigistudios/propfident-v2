@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { FounderModal } from "@/components/founder-modal";
 
 export function Navbar() {
   return (
@@ -29,9 +30,11 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <Button size="sm" variant="default" className="font-mono text-xs">
-            Claim Access
-          </Button>
+          <FounderModal>
+            <Button size="sm" variant="default" className="font-mono text-xs">
+              Claim Access
+            </Button>
+          </FounderModal>
         </div>
       </div>
     </header>

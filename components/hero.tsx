@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, ShieldCheck, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { FounderModal } from "@/components/founder-modal";
 
 export function Hero() {
   const [timeLeft, setTimeLeft] = useState({ hours: 14, minutes: 32, seconds: 45 });
@@ -37,9 +38,11 @@ export function Hero() {
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button size="lg" className="w-full sm:w-auto font-mono text-sm gap-2">
-            Claim Lifetime Access <ArrowRight className="h-4 w-4" />
-          </Button>
+          <FounderModal>
+            <Button size="lg" className="w-full sm:w-auto font-mono text-sm gap-2">
+              Claim Lifetime Access <ArrowRight className="h-4 w-4" />
+            </Button>
+          </FounderModal>
           <Button size="lg" variant="outline" className="w-full sm:w-auto font-mono text-sm">
             Explore Free Tools
           </Button>
