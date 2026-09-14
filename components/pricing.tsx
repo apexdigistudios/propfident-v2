@@ -4,13 +4,13 @@ import { useState } from "react";
 import { Check, ShieldCheck, Zap, ArrowRight } from "lucide-react";
 
 const features = [
-  "Lifetime access to Propfident v2 core engine",
+  "Lifetime access to Propfident core engine",
   "Real-time daily & trailing drawdown alerts",
   "Dynamic position size & lot size calculator",
   "Rule violation monitoring (FTMO, FundedNext, etc.)",
   "AI Trade Playbook analytics & leak detector",
   "Unlimited trading accounts connected",
-  "Priority Discord channel & direct developer support",
+  "Priority X community & direct developer support",
   "All future platform updates & integrations included",
 ];
 
@@ -35,7 +35,7 @@ export function Pricing() {
         <div className="max-w-xl mx-auto rounded-2xl bg-surface/60 border border-primary/40 p-8 sm:p-10 shadow-sm relative overflow-hidden backdrop-blur-md">
           {/* Top highlight badge */}
           <div className="absolute top-0 right-0 bg-primary text-primary-foreground font-mono text-[10px] uppercase font-bold px-4 py-1 rounded-bl-lg tracking-wider">
-            14 / 100 Spots Left
+            3 / 100 Spots Left
           </div>
 
           <div className="flex items-center gap-2 mb-4 font-mono text-xs text-primary font-semibold">
@@ -44,7 +44,7 @@ export function Pricing() {
           </div>
 
           <div className="flex items-baseline gap-2 mb-2">
-            <span className="text-5xl font-extrabold text-foreground font-mono">$199</span>
+            <span className="text-5xl font-extrabold text-foreground font-mono">$299</span>
             <span className="text-sm text-muted-foreground line-through font-mono">$499</span>
             <span className="text-xs text-muted-foreground ml-1 font-sans">/ lifetime</span>
           </div>

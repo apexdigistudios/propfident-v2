@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Propfident v2 — Keep Your Funded Accounts Safe & Scalable",
+  title: "Propfident — Never Breach Your Prop Firm Account Again",
   description:
     "AI-driven risk management, drawdown tracking, and lot sizing engineered for prop firm traders.",
 };

@@ -13,7 +13,6 @@ export default function Home() {
           <Shield className="w-5 h-5 text-primary" />
           <span className="font-bold text-sm tracking-tight font-sans">Propfident</span>
           <span className="rounded bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium text-primary border border-primary/20 font-mono">
-            v2
           </span>
         </div>
         
@@ -42,9 +41,9 @@ export default function Home() {
         </div>
         
         <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight max-w-4xl mb-6 leading-[1.1]">
-          Keep your funded accounts <br className="hidden md:block" />
+          Never breach Your Prop Firm Account <br className="hidden md:block" />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-400 to-purple-300">
-            safe and scalable.
+            Again.
           </span>
         </h1>
         
