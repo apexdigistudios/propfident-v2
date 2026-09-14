@@ -3,78 +3,47 @@
 @tailwind utilities;
 
 @layer base {
-  /* Default Dark Theme */
-  :root,
-  .dark {
-    --background: 240 10% 8%;       /* #121215 */
-    --foreground: 0 0% 95%;          /* #f2f2f2 */
-    
-    --surface: 240 6% 12%;          /* #1e1e24 */
-    --surface-hover: 240 6% 16%;    /* #282830 */
-    
-    --border: 240 5% 18%;           /* #2c2c34 */
-    --input: 240 5% 18%;
-    --ring: 263 84% 58%;
-    
-    --primary: 263 84% 58%;         /* Deep Purple (#7c3aed) */
-    --primary-hover: 263 84% 48%;   /* Darker Purple (#6d28d9) */
-    --primary-foreground: 0 0% 100%;
-    
-    --muted: 240 4% 16%;
-    --muted-foreground: 240 5% 65%;
-  }
-
-  /* Optional Deep Dark (OLED) Theme */
-  .deep-dark {
-    --background: 0 0% 0%;           /* Pure Black #000000 */
-    --foreground: 0 0% 95%;
-    
-    --surface: 0 0% 7%;             /* #121212 */
-    --surface-hover: 0 0% 12%;      /* #1f1f1f */
-    
-    --border: 0 0% 14%;             /* #242424 */
-    --input: 0 0% 14%;
-    --ring: 263 84% 58%;
-    
-    --primary: 263 84% 58%;
-    --primary-hover: 263 84% 48%;
-    --primary-foreground: 0 0% 100%;
-    
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 60%;
-  }
-
-  /* Optional Light Theme */
-  .light {
-    --background: 0 0% 98%;
-    --foreground: 240 10% 8%;
-    
+  :root {
+    --background: 240 10% 98%;
+    --foreground: 240 10% 4%;
     --surface: 0 0% 100%;
     --surface-hover: 240 5% 96%;
-    
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
-    --ring: 263 84% 58%;
-    
-    --primary: 263 84% 58%;
-    --primary-hover: 263 84% 48%;
+    --primary: 263 70% 58%;
     --primary-foreground: 0 0% 100%;
-    
-    --muted: 240 5% 92%;
-    --muted-foreground: 240 4% 40%;
+    --primary-hover: 263 70% 50%;
+    --muted: 240 5% 90%;
+    --muted-foreground: 240 4% 46%;
+    --border: 240 6% 90%;
+  }
+
+  .dark {
+    --background: 240 10% 4%;
+    --foreground: 0 0% 98%;
+    --surface: 240 10% 7%;
+    --surface-hover: 240 10% 11%;
+    --primary: 263 70% 58%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 263 70% 65%;
+    --muted: 240 10% 15%;
+    --muted-foreground: 240 5% 65%;
+    --border: 240 10% 15%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
-/* Supabase-style subtle grid background */
 .bg-grid-pattern {
-  background-image: linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px),
-    linear-gradient(to bottom, hsl(var(--border)) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: radial-gradient(circle at center, black, transparent 80%);
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(124, 58, 237, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(124, 58, 237, 0.08) 1px, transparent 1px);
 }

@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Propfident | Protect Your Prop Firm Accounts",
-  description: "Advanced analytics and protection for prop firm traders. 25+ accounts protected in beta.",
+  title: "Propfident v2 — Keep Your Funded Accounts Safe & Scalable",
+  description:
+    "AI-driven risk management, drawdown tracking, and lot sizing engineered for prop firm traders.",
 };
 
 export default function RootLayout({
@@ -15,9 +14,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
-      <body className="font-sans bg-background text-foreground antialiased selection:bg-primary selection:text-white">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+    <html lang="en" suppressHydrationWarning>
+      <body className="font-sans antialiased selection:bg-primary/20 selection:text-primary">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
           {children}
         </ThemeProvider>
       </body>

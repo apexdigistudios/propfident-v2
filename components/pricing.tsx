@@ -13,13 +13,13 @@ const features = [
 
 export function Pricing() {
   return (
-    <section id="pricing" className="py-20 sm:py-28 border-t border-border/40 relative z-10">
+    <section id="pricing" className="py-20 sm:py-28 border-t border-border/40 relative z-10 font-sans">
       <div className="container mx-auto max-w-6xl px-4">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-xs font-mono font-semibold tracking-wider text-primary uppercase mb-3">
             Founder's Launch Offer
           </h2>
-          <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+          <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground font-rounded">
             One-time payment. Zero subscription fees.
           </p>
           <p className="mt-4 text-sm text-muted-foreground">
@@ -41,14 +41,14 @@ export function Pricing() {
           <div className="flex items-baseline gap-2 mb-6">
             <span className="text-5xl font-extrabold text-foreground font-mono">$199</span>
             <span className="text-sm text-muted-foreground line-through font-mono">$499</span>
-            <span className="text-xs text-muted-foreground ml-2">/ lifetime</span>
+            <span className="text-xs text-muted-foreground ml-2 font-sans">/ lifetime</span>
           </div>
 
           <p className="text-sm text-muted-foreground mb-8 leading-relaxed">
             Full unrestricted platform access for active prop firm traders seeking account longevity.
           </p>
 
-          <button className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-primary-foreground py-4 rounded-lg font-mono text-sm font-semibold transition-all shadow-[0_0_25px_rgba(124,58,237,0.4)] mb-8">
+          <button className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-primary-foreground py-4 rounded-lg font-rounded text-sm font-semibold transition-all shadow-[0_0_25px_rgba(124,58,237,0.4)] mb-8">
             Claim Your Lifetime Spot <ArrowRight className="h-4 w-4" />
           </button>
 

@@ -29,13 +29,13 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="py-20 sm:py-28 border-t border-border/40 relative z-10">
+    <section id="features" className="py-20 sm:py-28 border-t border-border/40 relative z-10 font-sans">
       <div className="container mx-auto max-w-6xl px-4">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-xs font-mono font-semibold tracking-wider text-primary uppercase mb-3">
             Built For Prop Traders
           </h2>
-          <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+          <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground font-rounded">
             Engineered to defend capital and pass evaluations.
           </p>
         </div>
@@ -51,7 +51,7 @@ export function Features() {
                 <div className="h-10 w-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary mb-4 group-hover:scale-105 transition-transform">
                   <Icon className="h-5 w-5" />
                 </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2 font-mono">
+                <h3 className="text-lg font-semibold text-foreground mb-2 font-rounded">
                   {feature.title}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">

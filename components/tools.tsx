@@ -26,14 +26,14 @@ const tools = [
 
 export function Tools() {
   return (
-    <section id="tools" className="py-20 sm:py-28 border-t border-border/40 relative z-10">
+    <section id="tools" className="py-20 sm:py-28 border-t border-border/40 relative z-10 font-sans">
       <div className="container mx-auto max-w-6xl px-4">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
           <div>
             <h2 className="text-xs font-mono font-semibold tracking-wider text-primary uppercase mb-3">
               Utility Hub
             </h2>
-            <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+            <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground font-rounded">
               Free tools for every funded trader.
             </p>
           </div>
@@ -59,7 +59,7 @@ export function Tools() {
                       {tool.badge}
                     </span>
                   </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2 font-mono flex items-center gap-1.5 group-hover:text-primary transition-colors">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 font-rounded flex items-center gap-1.5 group-hover:text-primary transition-colors">
                     {tool.title}
                     <ArrowUpRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </h3>
