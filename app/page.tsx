@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { Timer, ChevronRight } from "lucide-react";
+import Link from "next/link";
+import { Timer, ChevronDown, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +11,16 @@ import { Features } from "@/components/features";
 import { Tools } from "@/components/tools";
 import { Pricing } from "@/components/pricing";
 import { FounderModal } from "@/components/founder-modal";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
@@ -46,16 +57,113 @@ export default function Home() {
           </div>
           
           <div className="hidden md:flex items-center gap-6 text-xs text-muted-foreground font-medium font-sans">
-            <a href="#features" className="hover:text-foreground transition-colors">Features</a>
-            <a href="#tools" className="hover:text-foreground transition-colors">Free Tools</a>
-            <a href="#pricing" className="hover:text-foreground transition-colors">Pricing</a>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-xs font-medium transition-colors hover:text-foreground focus:outline-none">
+                Features <ChevronDown className="h-3.5 w-3.5" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-72 rounded-xl border border-border/40 bg-background/70 p-2 shadow-[0_20px_60px_rgba(15,23,42,0.2)] backdrop-blur-xl">
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger className="text-sm font-medium">Risk & Planning</DropdownMenuSubTrigger>
+                  <DropdownMenuSubContent className="w-64 rounded-xl border border-border/40 bg-background/80 p-2">
+                    <DropdownMenuItem asChild>
+                      <Link href="/tools/position-sizer">Position Sizer</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/tools/ai-trade-planner">AI Planner</Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuSubContent>
+                </DropdownMenuSub>
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger className="text-sm font-medium">Firm Matching</DropdownMenuSubTrigger>
+                  <DropdownMenuSubContent className="w-64 rounded-xl border border-border/40 bg-background/80 p-2">
+                    <DropdownMenuItem asChild>
+                      <Link href="/tools/prop-match">Prop Match</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="#features">Challenge Readiness</Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuSubContent>
+                </DropdownMenuSub>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger className="inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-xs font-medium transition-colors hover:text-foreground focus:outline-none">
+                Free Tools <ChevronDown className="h-3.5 w-3.5" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-72 rounded-xl border border-border/40 bg-background/70 p-2 shadow-[0_20px_60px_rgba(15,23,42,0.2)] backdrop-blur-xl">
+                <DropdownMenuItem asChild>
+                  <Link href="/tools/position-sizer" className="flex w-full items-center justify-between">
+                    <span>Position Sizer</span>
+                    <span className="text-primary">→</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/tools/prop-match" className="flex w-full items-center justify-between">
+                    <span>Prop Match Evaluator</span>
+                    <span className="text-primary">→</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/tools/ai-trade-planner" className="flex w-full items-center justify-between">
+                    <span>AI Trade Planner</span>
+                    <span className="text-primary">→</span>
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger className="inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-xs font-medium transition-colors hover:text-foreground focus:outline-none">
+                Pricing <ChevronDown className="h-3.5 w-3.5" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-72 rounded-xl border border-border/40 bg-background/70 p-2 shadow-[0_20px_60px_rgba(15,23,42,0.2)] backdrop-blur-xl">
+                <DropdownMenuItem asChild>
+                  <Link href="#pricing">Lifetime Access</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="#pricing">Founder Pricing</Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <FounderModal>
+                  <button type="button" className="flex w-full items-center justify-between rounded-md px-2 py-1.5 text-left text-sm hover:bg-surface-hover">
+                    <span>Founder's Lifetime ($299)</span>
+                    <span className="text-primary">→</span>
+                  </button>
+                </FounderModal>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           <div className="flex items-center gap-3">
             <ThemeToggle />
-            <FounderModal>
-              <Button size="sm">Get Lifetime Access</Button>
-            </FounderModal>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button size="sm" className="gap-1.5 font-mono text-[10px] uppercase tracking-[0.18em]">
+                  Get Access <ChevronDown className="h-3.5 w-3.5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-72">
+                <DropdownMenuItem asChild>
+                  <FounderModal>
+                    <button type="button" className="flex w-full items-center justify-between rounded-md px-2 py-1.5 text-left text-sm hover:bg-surface-hover">
+                      <span>Founder's Lifetime ($299)</span>
+                      <span className="text-primary">→</span>
+                    </button>
+                  </FounderModal>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link href="/tools/position-sizer">Position Sizer Utility</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/tools/prop-match">Prop Match Evaluator</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/tools/ai-trade-planner">AI Trade Planner</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </nav>
