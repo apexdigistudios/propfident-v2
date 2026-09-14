@@ -1,8 +1,9 @@
 import { Shield, Timer, ChevronRight } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col relative overflow-hidden bg-background text-foreground">
+    <main className="min-h-screen flex flex-col relative overflow-hidden bg-background text-foreground transition-colors duration-200">
       {/* Background Grid */}
       <div className="absolute inset-0 z-0 opacity-40 bg-grid-pattern pointer-events-none" />
 
@@ -15,14 +16,20 @@ export default function Home() {
             v2
           </span>
         </div>
+        
         <div className="hidden md:flex items-center gap-6 text-sm text-muted-foreground font-mono">
+          <a href="#features" className="hover:text-foreground transition-colors">Features</a>
           <a href="#tools" className="hover:text-foreground transition-colors">Free Tools</a>
           <a href="#playbook" className="hover:text-foreground transition-colors">Playbook</a>
           <a href="#pricing" className="hover:text-foreground transition-colors">Pricing</a>
         </div>
-        <button className="bg-primary hover:bg-primary-hover text-primary-foreground px-4 py-2 rounded-md text-sm font-medium transition-all shadow-[0_0_15px_rgba(124,58,237,0.3)] hover:shadow-[0_0_25px_rgba(124,58,237,0.5)] font-mono">
-          Get Lifetime Access
-        </button>
+
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          <button className="bg-primary hover:bg-primary-hover text-primary-foreground px-4 py-2 rounded-md text-sm font-medium transition-all shadow-[0_0_15px_rgba(124,58,237,0.3)] hover:shadow-[0_0_25px_rgba(124,58,237,0.5)] font-mono">
+            Get Lifetime Access
+          </button>
+        </div>
       </nav>
 
       {/* Hero Section */}
