@@ -62,10 +62,23 @@
 }
 
 /* Magic UI View Transition Animations for AnimatedThemeToggler */
+[data-magicui-theme-vt="active"]::view-transition-group(root),
+[data-magicui-theme-vt="active"]::view-transition-image-pair(root),
 [data-magicui-theme-vt="active"]::view-transition-old(root),
 [data-magicui-theme-vt="active"]::view-transition-new(root) {
-  animation: none;
+  animation-duration: var(--magicui-theme-toggle-vt-duration, 420ms);
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
   mix-blend-mode: normal;
+}
+
+[data-magicui-theme-vt="active"]::view-transition-old(root),
+[data-magicui-theme-vt="active"]::view-transition-new(root) {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  animation: none;
   pointer-events: none;
 }
 
@@ -76,6 +89,6 @@
 
 [data-magicui-theme-vt="active"]::view-transition-new(root) {
   z-index: 9999;
-  clip-path: var(--magicui-theme-vt-clip-from, circle(0% at center));
+  clip-path: var(--magicui-theme-vt-clip-from, circle(0% at 50% 50%));
   transform-origin: var(--magicui-theme-vt-origin, center center);
 }

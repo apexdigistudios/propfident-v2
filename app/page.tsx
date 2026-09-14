@@ -52,10 +52,10 @@ export default function Home() {
             alt="Propfident hero background"
             fill
             priority
-            className="h-full w-full object-cover object-center opacity-40 transition-opacity duration-300 dark:opacity-60"
+            className="h-full w-full object-cover object-center opacity-80 brightness-95 contrast-110 transition-opacity duration-300 dark:opacity-90 dark:brightness-90"
+            style={{ filter: "saturate(1.15) contrast(1.08)" }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/55 to-background" />
-          <div className="absolute inset-0 bg-grid-pattern opacity-40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/55 to-background" />
         </div>
 
         <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center justify-center">
