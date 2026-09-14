@@ -1,5 +1,4 @@
 {
-
   "style": "default",
   "rsc": true,
   "tsx": true,
@@ -16,5 +15,8 @@
     "ui": "@/components/ui",
     "lib": "@/lib",
     "hooks": "@/hooks"
+  },
+  "registries": {
+    "@magicui": "https://magicui.design/r/{name}"
   }
 }

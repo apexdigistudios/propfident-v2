@@ -48,3 +48,7 @@
 .bg-primary {
   @apply border border-purple-950/80 dark:border-black/90 shadow-sm;
 }
+  ::view-transition-old(root), ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}

@@ -22,7 +22,18 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden pt-20 pb-16 md:pt-28 md:pb-24 border-b border-border/40">
-      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none" />
+      {/* Background Image Layer */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 dark:opacity-35 transition-opacity duration-300 pointer-events-none"
+        style={{ backgroundImage: "url('/hero-bg.png')" }}
+      />
+
+      {/* Adaptive Theme Gradient Mask */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/60 to-background pointer-events-none" />
+
+      {/* Subtle Grid Pattern Overlay */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-20 dark:opacity-40 pointer-events-none" />
+
       <div className="container relative mx-auto max-w-5xl px-4 text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-mono text-primary mb-8">
           <Zap className="h-3.5 w-3.5 fill-primary" />
