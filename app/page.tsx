@@ -82,7 +82,7 @@ export default function Home() {
           
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight max-w-4xl mb-6 leading-[1.1]">
             Keep your funded accounts <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-purple-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-400">
               safe and scalable.
             </span>
           </h1>

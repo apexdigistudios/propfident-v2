@@ -9,9 +9,10 @@
     --foreground: 240 10% 3.9%;
     --surface: 0 0% 98%;
     --surface-hover: 240 5% 96%;
-    --primary: 267 83% 43%;
+    /* Blue-Purple Aurora Primary */
+    --primary: 245 82% 52%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 267 83% 36%;
+    --primary-hover: 245 82% 44%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
     --border: 240 5.9% 90%;
@@ -22,9 +23,10 @@
     --foreground: 0 0% 98%;
     --surface: 240 10% 6%;
     --surface-hover: 240 10% 9%;
-    --primary: 267 80% 50%;
+    /* Vibrant Dark Aurora Blue-Purple */
+    --primary: 245 88% 64%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 267 80% 58%;
+    --primary-hover: 245 88% 72%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
     --border: 240 3.7% 15.9%;
@@ -58,7 +60,7 @@
 
 /* Dark outline for solid primary containers and buttons */
 .bg-primary {
-  @apply border border-purple-950/80 dark:border-black/90 shadow-sm;
+  @apply border border-indigo-950/80 dark:border-black/90 shadow-sm;
 }
 
 /* Magic UI View Transition Animations for AnimatedThemeToggler */
