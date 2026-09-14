@@ -6,6 +6,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Features } from "@/components/features";
 import { Tools } from "@/components/tools";
 import { Pricing } from "@/components/pricing";
+import { FounderModal } from "@/components/founder-modal";
 
 export default function Home() {
   return (
@@ -36,9 +37,9 @@ export default function Home() {
 
           <div className="flex items-center gap-3">
             <ThemeToggle />
-            <Button size="sm" asChild>
-              <a href="#pricing">Get Lifetime Access</a>
-            </Button>
+            <FounderModal>
+              <Button size="sm">Get Lifetime Access</Button>
+            </FounderModal>
           </div>
         </div>
       </nav>
@@ -62,12 +63,12 @@ export default function Home() {
         </p>
         
         <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
-          <Button size="lg" className="w-full sm:w-auto gap-2" asChild>
-            <a href="#pricing">
+          <FounderModal>
+            <Button size="lg" className="w-full sm:w-auto gap-2">
               Claim 1 of 100 Lifetime Spots
               <ChevronRight className="w-4 h-4" />
-            </a>
-          </Button>
+            </Button>
+          </FounderModal>
           <Button size="lg" variant="secondary" className="w-full sm:w-auto gap-2" asChild>
             <a href="#tools">Explore Free Tools</a>
           </Button>

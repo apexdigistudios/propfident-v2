@@ -4,6 +4,7 @@ import { Check, ShieldCheck, Zap, ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { FounderModal } from "@/components/founder-modal";
 
 const features = [
   "Lifetime access to Propfident v2 core engine",
@@ -53,9 +54,11 @@ export function Pricing() {
             Includes all current and future updates with zero recurring costs.
           </p>
 
-          <Button className="w-full py-6 text-sm font-medium mb-8 font-sans gap-2">
-            Claim Your Lifetime Spot <ArrowRight className="h-4 w-4" />
-          </Button>
+          <FounderModal>
+            <Button className="w-full py-6 text-sm font-medium mb-8 font-sans gap-2">
+              Claim Your Lifetime Spot <ArrowRight className="h-4 w-4" />
+            </Button>
+          </FounderModal>
 
           <div className="space-y-3 pt-6 border-t border-border/60">
             <span className="text-xs font-mono font-semibold text-foreground uppercase tracking-wider block mb-4">
