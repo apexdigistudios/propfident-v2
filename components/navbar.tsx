@@ -34,7 +34,6 @@ export function Navbar() {
         <Link href="/" className="flex items-center gap-2 font-mono text-sm font-semibold tracking-tight">
           <Image src="/logo.png" alt="Propfident" width={28} height={28} className="h-7 w-auto object-contain" priority />
           <span className="text-foreground">Propfident</span>
-          <span className="rounded bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium text-primary">v2</span>
         </Link>
 
         <nav className="hidden items-center gap-4 text-xs font-medium text-muted-foreground md:flex">
