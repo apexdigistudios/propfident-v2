@@ -1,14 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { Calculator, ArrowUpRight, Percent, Scale, RefreshCw } from "lucide-react";
+import { Calculator, ArrowUpRight, Percent, Scale } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 
 export function Tools() {
   const [balance, setBalance] = useState("50000");
   const [riskPercent, setRiskPercent] = useState("1");
   const [stopLossPips, setStopLossPips] = useState("20");
 
-  // Simple lot size calculation formula (e.g., standard forex lot sizing estimation)
   const riskAmount = (parseFloat(balance) || 0) * ((parseFloat(riskPercent) || 0) / 100);
   const calculatedLotSize = stopLossPips ? (riskAmount / (parseFloat(stopLossPips) * 10)).toFixed(2) : "0.00";
 
@@ -31,15 +33,13 @@ export function Tools() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Tool 1: Interactive Position Sizer */}
-          <div className="flex flex-col justify-between p-6 rounded-xl bg-surface/50 border border-border/80 hover:border-primary/50 transition-all duration-200 group">
+          <Card className="p-6 flex flex-col justify-between hover:border-primary/50 transition-all duration-200">
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="h-9 w-9 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                <div className="h-9 w-9 rounded-md bg-primary/10 border border-primary/30 flex items-center justify-center text-primary">
                   <Calculator className="h-4 w-4" />
                 </div>
-                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/20">
-                  Interactive
-                </span>
+                <Badge variant="default">Interactive</Badge>
               </div>
               <h3 className="text-base font-semibold text-foreground mb-1 font-sans">
                 Prop Firm Position Sizer
@@ -53,50 +53,45 @@ export function Tools() {
                 <div className="grid grid-cols-2 gap-2">
                   <div>
                     <label className="text-[10px] font-mono text-muted-foreground block mb-1">Balance ($)</label>
-                    <input
+                    <Input
                       type="number"
                       value={balance}
                       onChange={(e) => setBalance(e.target.value)}
-                      className="w-full bg-background border border-border rounded px-2 py-1 text-xs font-mono text-foreground focus:outline-none focus:border-primary"
                     />
                   </div>
                   <div>
                     <label className="text-[10px] font-mono text-muted-foreground block mb-1">Risk (%)</label>
-                    <input
+                    <Input
                       type="number"
                       value={riskPercent}
                       onChange={(e) => setRiskPercent(e.target.value)}
-                      className="w-full bg-background border border-border rounded px-2 py-1 text-xs font-mono text-foreground focus:outline-none focus:border-primary"
                     />
                   </div>
                 </div>
                 <div>
                   <label className="text-[10px] font-mono text-muted-foreground block mb-1">Stop Loss (Pips)</label>
-                  <input
+                  <Input
                     type="number"
                     value={stopLossPips}
                     onChange={(e) => setStopLossPips(e.target.value)}
-                    className="w-full bg-background border border-border rounded px-2 py-1 text-xs font-mono text-foreground focus:outline-none focus:border-primary"
                   />
                 </div>
-                <div className="mt-3 p-2.5 rounded bg-primary/5 border border-primary/20 flex items-center justify-between">
+                <div className="mt-3 p-2.5 rounded bg-primary/5 border border-primary/30 flex items-center justify-between">
                   <span className="text-xs font-mono text-muted-foreground">Suggested Lot Size:</span>
                   <span className="text-sm font-bold font-mono text-primary">{calculatedLotSize} Lots</span>
                 </div>
               </div>
             </div>
-          </div>
+          </Card>
 
           {/* Tool 2 */}
-          <div className="flex flex-col justify-between p-6 rounded-xl bg-surface/50 border border-border/80 hover:border-primary/50 transition-all duration-200 group cursor-pointer">
+          <Card className="p-6 flex flex-col justify-between hover:border-primary/50 transition-all duration-200 group cursor-pointer">
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="h-9 w-9 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                <div className="h-9 w-9 rounded-md bg-primary/10 border border-primary/30 flex items-center justify-center text-primary">
                   <Percent className="h-4 w-4" />
                 </div>
-                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-surface border border-border text-muted-foreground">
-                  Calculator
-                </span>
+                <Badge variant="secondary">Calculator</Badge>
               </div>
               <h3 className="text-base font-semibold text-foreground mb-1 font-sans flex items-center gap-1.5 group-hover:text-primary transition-colors">
                 Daily Max Drawdown Simulator
@@ -109,18 +104,16 @@ export function Tools() {
             <div className="mt-6 pt-4 border-t border-border/60 text-[11px] font-mono text-primary flex items-center gap-1 font-medium">
               Launch simulator tool <ArrowUpRight className="h-3 w-3" />
             </div>
-          </div>
+          </Card>
 
           {/* Tool 3 */}
-          <div className="flex flex-col justify-between p-6 rounded-xl bg-surface/50 border border-border/80 hover:border-primary/50 transition-all duration-200 group cursor-pointer">
+          <Card className="p-6 flex flex-col justify-between hover:border-primary/50 transition-all duration-200 group cursor-pointer">
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="h-9 w-9 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                <div className="h-9 w-9 rounded-md bg-primary/10 border border-primary/30 flex items-center justify-center text-primary">
                   <Scale className="h-4 w-4" />
                 </div>
-                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-surface border border-border text-muted-foreground">
-                  Database
-                </span>
+                <Badge variant="secondary">Database</Badge>
               </div>
               <h3 className="text-base font-semibold text-foreground mb-1 font-sans flex items-center gap-1.5 group-hover:text-primary transition-colors">
                 Rule & Limit Comparator
@@ -133,7 +126,7 @@ export function Tools() {
             <div className="mt-6 pt-4 border-t border-border/60 text-[11px] font-mono text-primary flex items-center gap-1 font-medium">
               Compare firm rules <ArrowUpRight className="h-3 w-3" />
             </div>
-          </div>
+          </Card>
         </div>
       </div>
     </section>

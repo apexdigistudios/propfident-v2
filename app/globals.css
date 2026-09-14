@@ -9,9 +9,10 @@
     --foreground: 240 10% 3.9%;
     --surface: 0 0% 98%;
     --surface-hover: 240 5% 96%;
-    --primary: 263 70% 58%;
+    /* Deepened primary purple */
+    --primary: 267 83% 43%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 263 70% 50%;
+    --primary-hover: 267 83% 36%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
     --border: 240 5.9% 90%;
@@ -22,9 +23,10 @@
     --foreground: 0 0% 98%;
     --surface: 240 10% 6%;
     --surface-hover: 240 10% 9%;
-    --primary: 263 70% 58%;
+    /* Deepened primary purple */
+    --primary: 267 80% 50%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 263 70% 65%;
+    --primary-hover: 267 80% 58%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
     --border: 240 3.7% 15.9%;
@@ -40,4 +42,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+}
+
+/* Dark outline for solid primary containers and buttons */
+.bg-primary {
+  @apply border border-purple-950/80 dark:border-black/90 shadow-sm;
 }

@@ -1,4 +1,7 @@
-import { Shield, Timer, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { Timer, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Features } from "@/components/features";
 import { Tools } from "@/components/tools";
@@ -8,42 +11,49 @@ export default function Home() {
   return (
     <main className="min-h-screen flex flex-col relative overflow-hidden bg-background text-foreground transition-colors duration-200 font-sans">
       {/* Navigation */}
-      <nav className="z-10 flex items-center justify-between px-6 py-4 border-b border-border/40 bg-background/80 backdrop-blur-md">
-        <div className="flex items-center gap-2">
-          <Shield className="w-5 h-5 text-primary" />
-          <span className="font-bold text-sm tracking-tight font-sans">Propfident</span>
-          <span className="rounded bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium text-primary border border-primary/20 font-mono">
-          </span>
-        </div>
-        
-        <div className="hidden md:flex items-center gap-6 text-xs text-muted-foreground font-medium font-sans">
-          <a href="#features" className="hover:text-foreground transition-colors">Features</a>
-          <a href="#tools" className="hover:text-foreground transition-colors">Free Tools</a>
-          <a href="#pricing" className="hover:text-foreground transition-colors">Pricing</a>
-        </div>
+      <nav className="z-10 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
+        <div className="max-w-7xl mx-auto px-8 sm:px-12 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Image
+              src="/logo.png"
+              alt="Propfident Logo"
+              width={28}
+              height={28}
+              className="h-7 w-auto object-contain"
+              priority
+            />
+            <span className="font-bold text-sm tracking-tight font-sans">Propfident</span>
+            <Badge variant="default" className="text-[10px]">
+              v2
+            </Badge>
+          </div>
+          
+          <div className="hidden md:flex items-center gap-6 text-xs text-muted-foreground font-medium font-sans">
+            <a href="#features" className="hover:text-foreground transition-colors">Features</a>
+            <a href="#tools" className="hover:text-foreground transition-colors">Free Tools</a>
+            <a href="#pricing" className="hover:text-foreground transition-colors">Pricing</a>
+          </div>
 
-        <div className="flex items-center gap-3">
-          <ThemeToggle />
-          <a
-            href="#pricing"
-            className="bg-primary hover:bg-primary-hover text-primary-foreground px-3.5 py-1.5 rounded-md text-xs font-medium transition-all shadow-sm font-sans"
-          >
-            Get Lifetime Access
-          </a>
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            <Button size="sm" asChild>
+              <a href="#pricing">Get Lifetime Access</a>
+            </Button>
+          </div>
         </div>
       </nav>
 
       {/* Hero Section */}
       <section className="z-10 flex-1 flex flex-col items-center justify-center px-4 py-20 text-center max-w-5xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border/80 text-xs text-muted-foreground mb-8 font-mono">
+        <Badge variant="secondary" className="mb-8 gap-2 px-3 py-1 text-xs">
           <span className="flex h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
           Trusted in dev: 25+ funded accounts protected
-        </div>
+        </Badge>
         
         <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight max-w-4xl mb-6 leading-[1.1]">
-          Never breach Your Prop Firm Account <br className="hidden md:block" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-400 to-purple-300">
-            Again.
+          Keep your funded accounts <br className="hidden md:block" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-purple-400">
+            safe and scalable.
           </span>
         </h1>
         
@@ -52,24 +62,20 @@ export default function Home() {
         </p>
         
         <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
-          <a
-            href="#pricing"
-            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-primary-foreground px-6 py-3 rounded-md text-sm font-medium transition-all shadow-sm font-sans"
-          >
-            Claim 1 of 100 Lifetime Spots
-            <ChevronRight className="w-4 h-4" />
-          </a>
-          <a
-            href="#tools"
-            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-surface hover:bg-surface-hover border border-border px-6 py-3 rounded-md text-sm font-medium transition-all text-foreground font-sans"
-          >
-            Explore Free Tools
-          </a>
+          <Button size="lg" className="w-full sm:w-auto gap-2" asChild>
+            <a href="#pricing">
+              Claim 1 of 100 Lifetime Spots
+              <ChevronRight className="w-4 h-4" />
+            </a>
+          </Button>
+          <Button size="lg" variant="secondary" className="w-full sm:w-auto gap-2" asChild>
+            <a href="#tools">Explore Free Tools</a>
+          </Button>
         </div>
 
         {/* Launch Timer Banner */}
-        <div className="mt-16 flex flex-col sm:flex-row items-center gap-6 p-5 rounded-lg border border-border bg-surface/40 backdrop-blur-sm w-full max-w-xl text-left">
-          <div className="p-2.5 bg-primary/10 rounded-md text-primary shrink-0 border border-primary/20">
+        <div className="mt-16 flex flex-col sm:flex-row items-center gap-6 p-5 rounded-lg border border-primary/30 bg-primary/5 backdrop-blur-sm w-full max-w-xl text-left">
+          <div className="p-2.5 bg-primary/10 rounded-md text-primary shrink-0 border border-primary/30">
             <Timer className="w-6 h-6" />
           </div>
           <div className="flex-1 text-center sm:text-left">
