@@ -44,6 +44,7 @@ type SourceFirm = {
 };
 
 type TradeMetrics = {
+  winRate: number;
   maxDailyDrawdown: number;
   overallDrawdown: number;
   weekendPositions: number;
@@ -52,6 +53,7 @@ type TradeMetrics = {
 };
 
 const defaultMetrics: TradeMetrics = {
+  winRate: 58,
   maxDailyDrawdown: 4.7,
   overallDrawdown: 8.4,
   weekendPositions: 1,
@@ -71,6 +73,7 @@ async function parseTradeLog(file: File): Promise<TradeMetrics> {
   const lower = file.name.toLowerCase();
   if (lower.endsWith(".png") || lower.endsWith(".jpg") || lower.endsWith(".jpeg")) {
     return {
+      winRate: 61,
       maxDailyDrawdown: 5.2,
       overallDrawdown: 9.1,
       weekendPositions: 2,
@@ -83,10 +86,12 @@ async function parseTradeLog(file: File): Promise<TradeMetrics> {
   const daily = extractNumber(text, ["max daily drawdown", "largest daily drawdown", "daily dd"]) ?? 4.8;
   const total = extractNumber(text, ["max total drawdown", "overall drawdown", "total drawdown", "max drawdown"]) ?? 8.6;
   const profitTarget = extractNumber(text, ["profit target", "target profit"]) ?? 10.5;
+  const winRate = extractNumber(text, ["win rate", "winning percentage", "wins percentage"]) ?? 58;
   const weekendPositions = (text.match(/weekend|overnight|hold over weekend/gi) ?? []).length || 1;
   const newsTrades = (text.match(/news|nfp|fed|cpi|high impact|nonfarm/gi) ?? []).length || 2;
 
   return {
+    winRate: Number(Math.min(100, Math.max(0, winRate)).toFixed(1)),
     maxDailyDrawdown: Number(Math.min(12, Math.max(1, daily)).toFixed(1)),
     overallDrawdown: Number(Math.min(20, Math.max(2, total)).toFixed(1)),
     weekendPositions: Math.max(0, weekendPositions),
@@ -96,17 +101,17 @@ async function parseTradeLog(file: File): Promise<TradeMetrics> {
 }
 
 function evaluateFirm(firm: FirmRule, metrics: TradeMetrics) {
-  let score = 100;
-  const dailyPenalty = Math.max(0, (metrics.maxDailyDrawdown - firm.maxDailyDrawdown) / firm.maxDailyDrawdown) * 45;
-  const totalPenalty = Math.max(0, (metrics.overallDrawdown - firm.maxTotalDrawdown) / firm.maxTotalDrawdown) * 40;
-  const targetPenalty = Math.max(0, (firm.profitTarget - metrics.profitTarget) / firm.profitTarget) * 15;
+  const checks = {
+    daily: metrics.maxDailyDrawdown <= firm.maxDailyDrawdown,
+    total: metrics.overallDrawdown <= firm.maxTotalDrawdown,
+    target: firm.profitTarget === 0 || metrics.profitTarget >= firm.profitTarget,
+    news: firm.newsTradingAllowed || metrics.newsTrades === 0,
+    weekend: firm.weekendHoldingAllowed || metrics.weekendPositions === 0,
+  };
+  const passed = Object.values(checks).filter(Boolean).length;
+  const score = Math.round((passed / Object.values(checks).length) * 100);
 
-  score -= dailyPenalty + totalPenalty + targetPenalty;
-
-  if (!firm.newsTradingAllowed && metrics.newsTrades > 0) score -= 12;
-  if (!firm.weekendHoldingAllowed && metrics.weekendPositions > 0) score -= 16;
-
-  return Math.max(0, Math.min(100, Math.round(score)));
+  return { score, checks, passRate: `${passed}/${Object.values(checks).length}` };
 }
 
 export function PropMatchEvaluator() {
@@ -114,6 +119,7 @@ export function PropMatchEvaluator() {
   const [dragging, setDragging] = useState(false);
   const [fileName, setFileName] = useState("sample-trade-log.csv");
   const [metrics, setMetrics] = useState<TradeMetrics>(defaultMetrics);
+  const [manualMetrics, setManualMetrics] = useState({ winRate: "58", maxDrawdown: "8.4", profitTarget: "11" });
   const [firms, setFirms] = useState<FirmRule[]>([]);
 
   useEffect(() => {
@@ -138,7 +144,7 @@ export function PropMatchEvaluator() {
   }, []);
 
   const rankedFirms = useMemo(
-    () => [...firms].map((firm) => ({ ...firm, score: evaluateFirm(firm, metrics) })).sort((a, b) => b.score - a.score),
+    () => [...firms].map((firm) => ({ ...firm, ...evaluateFirm(firm, metrics) })).sort((a, b) => b.score - a.score),
     [metrics]
   );
 
@@ -161,9 +167,22 @@ export function PropMatchEvaluator() {
     try {
       const parsed = await parseTradeLog(file);
       setMetrics(parsed);
+      setManualMetrics({ winRate: String(parsed.winRate), maxDrawdown: String(parsed.overallDrawdown), profitTarget: String(parsed.profitTarget) });
     } catch {
       setMetrics(defaultMetrics);
     }
+  };
+
+  const updateManualMetrics = (field: keyof typeof manualMetrics, value: string) => {
+    const next = { ...manualMetrics, [field]: value };
+    setManualMetrics(next);
+    setMetrics((current) => ({
+      ...current,
+      winRate: Number(next.winRate) || 0,
+      overallDrawdown: Number(next.maxDrawdown) || 0,
+      maxDailyDrawdown: Number(next.maxDrawdown) || 0,
+      profitTarget: Number(next.profitTarget) || 0,
+    }));
   };
 
   const generateCertificate = () => {
@@ -282,6 +301,7 @@ export function PropMatchEvaluator() {
                 />
               </label>
               <p className="mt-3 text-[10px] font-mono text-muted-foreground">Current file: {fileName}</p>
+              <p className="mt-2 text-[10px] text-muted-foreground">No file? Use the manual metrics beside this upload card.</p>
             </div>
 
             <div className="space-y-4 rounded-2xl border border-border/40 bg-surface/40 p-4">
@@ -294,7 +314,26 @@ export function PropMatchEvaluator() {
                 />
               </div>
 
+              <div className="grid grid-cols-3 gap-2">
+                <label className="space-y-1 text-[10px] font-mono text-muted-foreground">
+                  Win rate %
+                  <input type="number" min="0" max="100" value={manualMetrics.winRate} onChange={(event) => updateManualMetrics("winRate", event.target.value)} className="h-9 w-full rounded-md border border-border bg-background px-2 text-sm text-foreground" />
+                </label>
+                <label className="space-y-1 text-[10px] font-mono text-muted-foreground">
+                  Max DD %
+                  <input type="number" min="0" value={manualMetrics.maxDrawdown} onChange={(event) => updateManualMetrics("maxDrawdown", event.target.value)} className="h-9 w-full rounded-md border border-border bg-background px-2 text-sm text-foreground" />
+                </label>
+                <label className="space-y-1 text-[10px] font-mono text-muted-foreground">
+                  Profit %
+                  <input type="number" min="0" value={manualMetrics.profitTarget} onChange={(event) => updateManualMetrics("profitTarget", event.target.value)} className="h-9 w-full rounded-md border border-border bg-background px-2 text-sm text-foreground" />
+                </label>
+              </div>
+
               <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-lg border border-border bg-background p-3">
+                  <p className="text-[10px] uppercase text-muted-foreground">Win rate</p>
+                  <p className="mt-2 text-lg font-bold text-foreground">{metrics.winRate.toFixed(1)}%</p>
+                </div>
                 <div className="rounded-lg border border-border bg-background p-3">
                   <p className="text-[10px] uppercase text-muted-foreground">Max daily DD</p>
                   <p className="mt-2 text-lg font-bold text-foreground">{metrics.maxDailyDrawdown.toFixed(1)}%</p>
@@ -310,6 +349,10 @@ export function PropMatchEvaluator() {
                 <div className="rounded-lg border border-border bg-background p-3">
                   <p className="text-[10px] uppercase text-muted-foreground">News trades</p>
                   <p className="mt-2 text-lg font-bold text-foreground">{metrics.newsTrades}</p>
+                </div>
+                <div className="rounded-lg border border-border bg-background p-3">
+                  <p className="text-[10px] uppercase text-muted-foreground">Profit target</p>
+                  <p className="mt-2 text-lg font-bold text-foreground">{metrics.profitTarget.toFixed(1)}%</p>
                 </div>
               </div>
             </div>
@@ -348,7 +391,7 @@ export function PropMatchEvaluator() {
                   </div>
                   <div>
                     <p className="font-semibold">{firm.name}</p>
-                    <p className="text-[10px] uppercase text-muted-foreground font-mono">{firm.drawdownType}</p>
+                    <p className="text-[10px] uppercase text-muted-foreground font-mono">{firm.drawdownType} · {firm.passRate} rules passed</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">

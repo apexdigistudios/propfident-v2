@@ -1,173 +1,22 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { Timer, ChevronDown, ChevronRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Timer, ChevronRight } from "lucide-react";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { Features } from "@/components/features";
 import { Tools } from "@/components/tools";
 import { Pricing } from "@/components/pricing";
 import { FounderModal } from "@/components/founder-modal";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 export default function Home() {
-  const [scrolled, setScrolled] = useState(false);
-
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 6);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.scrollTo(0, 0);
   }, []);
 
   return (
     <main className="min-h-screen flex flex-col relative overflow-hidden bg-background text-foreground transition-colors duration-200 font-sans">
-      {/* Fixed Navigation Header */}
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 w-full border-b border-border/40 transition-all duration-300 ${
-          scrolled ? "bg-background/70 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,0.08)]" : "bg-background/80 backdrop-blur-md"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-8 sm:px-12 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Image
-              src="/logo.png"
-              alt="Propfident Logo"
-              width={28}
-              height={28}
-              className="h-7 w-auto object-contain"
-              priority
-            />
-            <span className="font-bold text-sm tracking-tight font-sans">Propfident</span>
-            <Badge variant="default" className="text-[10px]">
-              v2
-            </Badge>
-          </div>
-          
-          <div className="hidden md:flex items-center gap-6 text-xs text-muted-foreground font-medium font-sans">
-            <DropdownMenu>
-              <DropdownMenuTrigger className="inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-xs font-medium transition-colors hover:text-foreground focus:outline-none">
-                Features <ChevronDown className="h-3.5 w-3.5" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-72 rounded-xl border border-border/40 bg-background/70 p-2 shadow-[0_20px_60px_rgba(15,23,42,0.2)] backdrop-blur-xl">
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger className="text-sm font-medium">Risk & Planning</DropdownMenuSubTrigger>
-                  <DropdownMenuSubContent className="w-64 rounded-xl border border-border/40 bg-background/80 p-2">
-                    <DropdownMenuItem asChild>
-                      <Link href="/tools/position-sizer">Position Sizer</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/tools/ai-trade-planner">AI Planner</Link>
-                    </DropdownMenuItem>
-                  </DropdownMenuSubContent>
-                </DropdownMenuSub>
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger className="text-sm font-medium">Firm Matching</DropdownMenuSubTrigger>
-                  <DropdownMenuSubContent className="w-64 rounded-xl border border-border/40 bg-background/80 p-2">
-                    <DropdownMenuItem asChild>
-                      <Link href="/tools/prop-match">Prop Match</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="#features">Challenge Readiness</Link>
-                    </DropdownMenuItem>
-                  </DropdownMenuSubContent>
-                </DropdownMenuSub>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger className="inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-xs font-medium transition-colors hover:text-foreground focus:outline-none">
-                Free Tools <ChevronDown className="h-3.5 w-3.5" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-72 rounded-xl border border-border/40 bg-background/70 p-2 shadow-[0_20px_60px_rgba(15,23,42,0.2)] backdrop-blur-xl">
-                <DropdownMenuItem asChild>
-                  <Link href="/tools/position-sizer" className="flex w-full items-center justify-between">
-                    <span>Position Sizer</span>
-                    <span className="text-primary">→</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/tools/prop-match" className="flex w-full items-center justify-between">
-                    <span>Prop Match Evaluator</span>
-                    <span className="text-primary">→</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/tools/ai-trade-planner" className="flex w-full items-center justify-between">
-                    <span>AI Trade Planner</span>
-                    <span className="text-primary">→</span>
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger className="inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-xs font-medium transition-colors hover:text-foreground focus:outline-none">
-                Pricing <ChevronDown className="h-3.5 w-3.5" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-72 rounded-xl border border-border/40 bg-background/70 p-2 shadow-[0_20px_60px_rgba(15,23,42,0.2)] backdrop-blur-xl">
-                <DropdownMenuItem asChild>
-                  <Link href="#pricing">Lifetime Access</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="#pricing">Founder Pricing</Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <FounderModal>
-                  <button type="button" className="flex w-full items-center justify-between rounded-md px-2 py-1.5 text-left text-sm hover:bg-surface-hover">
-                    <span>Founder's Lifetime ($299)</span>
-                    <span className="text-primary">→</span>
-                  </button>
-                </FounderModal>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button size="sm" className="gap-1.5 font-mono text-[10px] uppercase tracking-[0.18em]">
-                  Get Access <ChevronDown className="h-3.5 w-3.5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-72">
-                <DropdownMenuItem asChild>
-                  <FounderModal>
-                    <button type="button" className="flex w-full items-center justify-between rounded-md px-2 py-1.5 text-left text-sm hover:bg-surface-hover">
-                      <span>Founder's Lifetime ($299)</span>
-                      <span className="text-primary">→</span>
-                    </button>
-                  </FounderModal>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link href="/tools/position-sizer">Position Sizer Utility</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/tools/prop-match">Prop Match Evaluator</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/tools/ai-trade-planner">AI Trade Planner</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </div>
-      </nav>
-
       {/* Hero Section */}
       <section className="relative isolate flex-1 overflow-hidden px-4 pt-28 pb-20 text-center">
         <div className="absolute inset-0 -z-10">
