@@ -23,9 +23,9 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col relative overflow-hidden bg-background text-foreground transition-colors duration-200 font-sans">
-      {/* Navigation */}
+      {/* Fixed Navigation Header */}
       <nav
-        className={`sticky top-0 z-50 w-full border-b border-border/40 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 w-full border-b border-border/40 transition-all duration-300 ${
           scrolled ? "bg-background/70 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,0.08)]" : "bg-background/80 backdrop-blur-md"
         }`}
       >
@@ -61,7 +61,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative isolate flex-1 overflow-hidden px-4 py-20 text-center">
+      <section className="relative isolate flex-1 overflow-hidden px-4 pt-28 pb-20 text-center">
         <div className="absolute inset-0 -z-10">
           <Image
             src="/hero-bg.png"
@@ -75,55 +75,55 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center justify-center">
-        <Badge variant="secondary" className="mb-8 gap-2 px-3 py-1 text-xs">
-          <span className="flex h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
-          Trusted in dev: 25+ funded accounts protected
-        </Badge>
-        
-        <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight max-w-4xl mb-6 leading-[1.1]">
-          Keep your funded accounts <br className="hidden md:block" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-purple-400">
-            safe and scalable.
-          </span>
-        </h1>
-        
-        <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mb-10 text-balance font-normal">
-          The ultimate SaaS for prop firm traders. AI-driven planning, risk management, and lot sizing. Secure your spot before the public launch.
-        </p>
-        
-        <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
-          <FounderModal>
-            <Button size="lg" className="w-full sm:w-auto gap-2">
-              Claim 1 of 100 Lifetime Spots
-              <ChevronRight className="w-4 h-4" />
+          <Badge variant="secondary" className="mb-8 gap-2 px-3 py-1 text-xs">
+            <span className="flex h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
+            Trusted in dev: 25+ funded accounts protected
+          </Badge>
+          
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight max-w-4xl mb-6 leading-[1.1]">
+            Keep your funded accounts <br className="hidden md:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-purple-400">
+              safe and scalable.
+            </span>
+          </h1>
+          
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mb-10 text-balance font-normal">
+            The ultimate SaaS for prop firm traders. AI-driven planning, risk management, and lot sizing. Secure your spot before the public launch.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+            <FounderModal>
+              <Button size="lg" className="w-full sm:w-auto gap-2">
+                Claim 1 of 100 Lifetime Spots
+                <ChevronRight className="w-4 h-4" />
+              </Button>
+            </FounderModal>
+            <Button size="lg" variant="secondary" className="w-full sm:w-auto gap-2" asChild>
+              <a href="#tools">Explore Free Tools</a>
             </Button>
-          </FounderModal>
-          <Button size="lg" variant="secondary" className="w-full sm:w-auto gap-2" asChild>
-            <a href="#tools">Explore Free Tools</a>
-          </Button>
-        </div>
+          </div>
 
-        {/* Launch Timer Banner */}
-        <div className="mt-16 flex flex-col sm:flex-row items-center gap-6 p-5 rounded-lg border border-primary/30 bg-primary/5 backdrop-blur-sm w-full max-w-xl text-left">
-          <div className="p-2.5 bg-primary/10 rounded-md text-primary shrink-0 border border-primary/30">
-            <Timer className="w-6 h-6" />
-          </div>
-          <div className="flex-1 text-center sm:text-left">
-            <h3 className="font-medium text-sm text-foreground mb-0.5 font-sans">Founder's Lifetime Launch</h3>
-            <p className="text-xs text-muted-foreground">Only 100 spots available for lifetime access without recurring fees.</p>
-          </div>
-          <div className="flex gap-2 text-center items-center justify-center font-mono">
-            <div className="flex flex-col bg-background px-2.5 py-1 rounded border border-border">
-              <span className="text-base font-bold text-foreground">14</span>
-              <span className="text-[9px] text-muted-foreground uppercase">Days</span>
+          {/* Launch Timer Banner */}
+          <div className="mt-16 flex flex-col sm:flex-row items-center gap-6 p-5 rounded-lg border border-primary/30 bg-primary/5 backdrop-blur-sm w-full max-w-xl text-left">
+            <div className="p-2.5 bg-primary/10 rounded-md text-primary shrink-0 border border-primary/30">
+              <Timer className="w-6 h-6" />
             </div>
-            <span className="text-lg font-bold text-muted-foreground">:</span>
-            <div className="flex flex-col bg-background px-2.5 py-1 rounded border border-border">
-              <span className="text-base font-bold text-foreground">08</span>
-              <span className="text-[9px] text-muted-foreground uppercase">Hrs</span>
+            <div className="flex-1 text-center sm:text-left">
+              <h3 className="font-medium text-sm text-foreground mb-0.5 font-sans">Founder's Lifetime Launch</h3>
+              <p className="text-xs text-muted-foreground">Only 100 spots available for lifetime access without recurring fees.</p>
+            </div>
+            <div className="flex gap-2 text-center items-center justify-center font-mono">
+              <div className="flex flex-col bg-background px-2.5 py-1 rounded border border-border">
+                <span className="text-base font-bold text-foreground">14</span>
+                <span className="text-[9px] text-muted-foreground uppercase">Days</span>
+              </div>
+              <span className="text-lg font-bold text-muted-foreground">:</span>
+              <div className="flex flex-col bg-background px-2.5 py-1 rounded border border-border">
+                <span className="text-base font-bold text-foreground">08</span>
+                <span className="text-[9px] text-muted-foreground uppercase">Hrs</span>
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </section>
 
