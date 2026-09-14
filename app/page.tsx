@@ -1,5 +1,8 @@
 import { Shield, Timer, ChevronRight } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Features } from "@/components/features";
+import { Tools } from "@/components/tools";
+import { Pricing } from "@/components/pricing";
 
 export default function Home() {
   return (
@@ -20,15 +23,17 @@ export default function Home() {
         <div className="hidden md:flex items-center gap-6 text-sm text-muted-foreground font-mono">
           <a href="#features" className="hover:text-foreground transition-colors">Features</a>
           <a href="#tools" className="hover:text-foreground transition-colors">Free Tools</a>
-          <a href="#playbook" className="hover:text-foreground transition-colors">Playbook</a>
           <a href="#pricing" className="hover:text-foreground transition-colors">Pricing</a>
         </div>
 
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <button className="bg-primary hover:bg-primary-hover text-primary-foreground px-4 py-2 rounded-md text-sm font-medium transition-all shadow-[0_0_15px_rgba(124,58,237,0.3)] hover:shadow-[0_0_25px_rgba(124,58,237,0.5)] font-mono">
+          <a
+            href="#pricing"
+            className="bg-primary hover:bg-primary-hover text-primary-foreground px-4 py-2 rounded-md text-sm font-medium transition-all shadow-[0_0_15px_rgba(124,58,237,0.3)] hover:shadow-[0_0_25px_rgba(124,58,237,0.5)] font-mono"
+          >
             Get Lifetime Access
-          </button>
+          </a>
         </div>
       </nav>
 
@@ -51,13 +56,19 @@ export default function Home() {
         </p>
         
         <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-          <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-primary-foreground px-8 py-4 rounded-md text-base font-medium transition-all shadow-[0_0_20px_rgba(124,58,237,0.4)] font-mono">
+          <a
+            href="#pricing"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-primary-foreground px-8 py-4 rounded-md text-base font-medium transition-all shadow-[0_0_20px_rgba(124,58,237,0.4)] font-mono"
+          >
             Claim 1 of 100 Lifetime Spots
             <ChevronRight className="w-5 h-5" />
-          </button>
-          <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-surface hover:bg-surface-hover border border-border px-8 py-4 rounded-md text-base font-medium transition-all text-foreground font-mono">
+          </a>
+          <a
+            href="#tools"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-surface hover:bg-surface-hover border border-border px-8 py-4 rounded-md text-base font-medium transition-all text-foreground font-mono"
+          >
             Explore Free Tools
-          </button>
+          </a>
         </div>
 
         {/* Launch Timer Banner */}
@@ -82,6 +93,16 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Sections */}
+      <Features />
+      <Tools />
+      <Pricing />
+
+      {/* Footer */}
+      <footer className="py-8 border-t border-border/40 relative z-10 text-center text-xs font-mono text-muted-foreground">
+        <p>© Propfident. Built for prop firm traders.</p>
+      </footer>
     </main>
   );
 }
