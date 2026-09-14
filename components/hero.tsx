@@ -22,19 +22,17 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden pt-20 pb-16 md:pt-28 md:pb-24 border-b border-border/40">
+    <section className="relative isolate overflow-hidden border-b border-border/40 pt-20 pb-16 md:pt-28 md:pb-24">
       {/* Background Image Layer */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 -z-10">
         <Image
           src="/hero-bg.png"
           alt="Propfident Hero Background"
           fill
           priority
-          className="object-cover object-center opacity-40 dark:opacity-60 transition-opacity duration-300 pointer-events-none"
+          className="h-full w-full object-cover object-center opacity-40 transition-opacity duration-300 dark:opacity-60 pointer-events-none"
         />
-        {/* Theme Adaptive Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/40 to-background pointer-events-none" />
-        {/* Subgrid Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/50 to-background pointer-events-none" />
         <div className="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none" />
       </div>
 

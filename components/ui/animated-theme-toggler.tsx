@@ -180,6 +180,7 @@ export const AnimatedThemeToggler = ({
       delete root.dataset.magicuiThemeVt
       root.style.removeProperty("--magicui-theme-toggle-vt-duration")
       root.style.removeProperty("--magicui-theme-vt-clip-from")
+      root.style.removeProperty("--magicui-theme-vt-origin")
     }
   }, [cancelAnim])
 
@@ -264,6 +265,7 @@ export const AnimatedThemeToggler = ({
       "--magicui-theme-toggle-vt-duration",
       `${duration}ms`
     )
+    root.style.setProperty("--magicui-theme-vt-origin", `${x}px ${y}px`)
     // Pin the collapsed clip-path via CSS so Firefox does not paint the new
     // theme unclipped between snapshot and the ready.then() JS animation.
     root.style.setProperty("--magicui-theme-vt-clip-from", clipPath[0])
@@ -272,6 +274,7 @@ export const AnimatedThemeToggler = ({
       delete root.dataset.magicuiThemeVt
       root.style.removeProperty("--magicui-theme-toggle-vt-duration")
       root.style.removeProperty("--magicui-theme-vt-clip-from")
+      root.style.removeProperty("--magicui-theme-vt-origin")
       cancelAnim()
     }
 

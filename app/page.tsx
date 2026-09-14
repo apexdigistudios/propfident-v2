@@ -45,7 +45,20 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="z-10 flex-1 flex flex-col items-center justify-center px-4 py-20 text-center max-w-5xl mx-auto">
+      <section className="relative isolate flex-1 overflow-hidden px-4 py-20 text-center">
+        <div className="absolute inset-0 -z-10">
+          <Image
+            src="/hero-bg.png"
+            alt="Propfident hero background"
+            fill
+            priority
+            className="h-full w-full object-cover object-center opacity-40 transition-opacity duration-300 dark:opacity-60"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/55 to-background" />
+          <div className="absolute inset-0 bg-grid-pattern opacity-40" />
+        </div>
+
+        <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center justify-center">
         <Badge variant="secondary" className="mb-8 gap-2 px-3 py-1 text-xs">
           <span className="flex h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
           Trusted in dev: 25+ funded accounts protected
@@ -94,6 +107,7 @@ export default function Home() {
               <span className="text-[9px] text-muted-foreground uppercase">Hrs</span>
             </div>
           </div>
+        </div>
         </div>
       </section>
 

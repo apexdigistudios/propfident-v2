@@ -66,13 +66,16 @@
 [data-magicui-theme-vt="active"]::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
+  pointer-events: none;
 }
 
 [data-magicui-theme-vt="active"]::view-transition-old(root) {
   z-index: 1;
+  opacity: 1;
 }
 
 [data-magicui-theme-vt="active"]::view-transition-new(root) {
   z-index: 9999;
-  clip-path: var(--magicui-theme-vt-clip-from);
+  clip-path: var(--magicui-theme-vt-clip-from, circle(0% at center));
+  transform-origin: var(--magicui-theme-vt-origin, center center);
 }
