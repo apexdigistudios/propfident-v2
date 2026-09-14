@@ -46,7 +46,7 @@ export function FounderModal({ children }: { children: React.ReactNode }) {
   return (
     <Dialog onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[500px] border-purple-500/20 bg-slate-950 text-white p-6">
+      <DialogContent className="w-[92vw] sm:max-w-[540px] max-h-[85vh] overflow-y-auto border-purple-500/20 bg-slate-950 text-white p-5 sm:p-6 rounded-2xl">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">
             {submitted ? "Complete Your Order" : "Claim Founder's Lifetime Spot"}
@@ -65,15 +65,15 @@ export function FounderModal({ children }: { children: React.ReactNode }) {
                 placeholder="trader@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="bg-slate-900 border-slate-800 text-white placeholder:text-slate-500 focus:border-purple-500"
+                className="bg-slate-900 border-slate-800 text-white placeholder:text-slate-500 focus:border-purple-500 h-11"
               />
             </div>
-            <Button type="submit" disabled={loading} className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold">
+            <Button type="submit" disabled={loading} className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold h-11">
               {loading ? "Processing..." : "Continue to Checkout"}
             </Button>
           </form>
         ) : (
-          <div className="mt-2 min-h-[400px]">
+          <div className="mt-2 min-h-[480px] w-full overflow-hidden">
             <WhopCheckoutEmbed
               planId="plan_HyuVVMrLogZ2Y"
               returnUrl="https://propfident.online/checkout/complete"

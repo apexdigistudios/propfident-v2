@@ -61,25 +61,18 @@
   @apply border border-purple-950/80 dark:border-black/90 shadow-sm;
 }
 
-/* Magic UI View Transition Animations */
-::view-transition-old(root),
-::view-transition-new(root) {
+/* Magic UI View Transition Animations for AnimatedThemeToggler */
+[data-magicui-theme-vt="active"]::view-transition-old(root),
+[data-magicui-theme-vt="active"]::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
 
-::view-transition-old(root) {
+[data-magicui-theme-vt="active"]::view-transition-old(root) {
   z-index: 1;
 }
 
-::view-transition-new(root) {
+[data-magicui-theme-vt="active"]::view-transition-new(root) {
   z-index: 9999;
-}
-
-.dark::view-transition-old(root) {
-  z-index: 9999;
-}
-
-.dark::view-transition-new(root) {
-  z-index: 1;
+  clip-path: var(--magicui-theme-vt-clip-from);
 }
