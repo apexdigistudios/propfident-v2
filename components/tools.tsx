@@ -1,30 +1,17 @@
-import { Calculator, ArrowUpRight, Percent, Scale } from "lucide-react";
+"use client";
 
-const tools = [
-  {
-    icon: Calculator,
-    title: "Prop Firm Position Sizer",
-    description:
-      "Calculate precise lot sizes based on exact equity, risk percentage, and account drawdown rules.",
-    badge: "Interactive",
-  },
-  {
-    icon: Percent,
-    title: "Daily Max Drawdown Simulator",
-    description:
-      "Simulate equity swings to ensure your daily loss limits remain untouched under volatile conditions.",
-    badge: "Calculator",
-  },
-  {
-    icon: Scale,
-    title: "Rule & Limit Comparator",
-    description:
-      "Side-by-side comparison of drawdown rules across top prop firms like FTMO, FundedNext, and 5%ers.",
-    badge: "Database",
-  },
-];
+import { useState } from "react";
+import { Calculator, ArrowUpRight, Percent, Scale, RefreshCw } from "lucide-react";
 
 export function Tools() {
+  const [balance, setBalance] = useState("50000");
+  const [riskPercent, setRiskPercent] = useState("1");
+  const [stopLossPips, setStopLossPips] = useState("20");
+
+  // Simple lot size calculation formula (e.g., standard forex lot sizing estimation)
+  const riskAmount = (parseFloat(balance) || 0) * ((parseFloat(riskPercent) || 0) / 100);
+  const calculatedLotSize = stopLossPips ? (riskAmount / (parseFloat(stopLossPips) * 10)).toFixed(2) : "0.00";
+
   return (
     <section id="tools" className="py-20 sm:py-28 border-t border-border/40 relative z-10 font-sans">
       <div className="container mx-auto max-w-6xl px-4">
@@ -33,7 +20,7 @@ export function Tools() {
             <h2 className="text-xs font-mono font-semibold tracking-wider text-primary uppercase mb-3">
               Utility Hub
             </h2>
-            <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground font-rounded">
+            <p className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground font-sans">
               Free tools for every funded trader.
             </p>
           </div>
@@ -43,33 +30,110 @@ export function Tools() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {tools.map((tool, idx) => {
-            const Icon = tool.icon;
-            return (
-              <div
-                key={idx}
-                className="flex flex-col justify-between p-6 rounded-xl bg-surface/50 border border-border/60 hover:border-primary/50 transition-all duration-200 group cursor-pointer"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="h-10 w-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-surface border border-border text-muted-foreground">
-                      {tool.badge}
-                    </span>
+          {/* Tool 1: Interactive Position Sizer */}
+          <div className="flex flex-col justify-between p-6 rounded-xl bg-surface/50 border border-border/80 hover:border-primary/50 transition-all duration-200 group">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="h-9 w-9 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                  <Calculator className="h-4 w-4" />
+                </div>
+                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/20">
+                  Interactive
+                </span>
+              </div>
+              <h3 className="text-base font-semibold text-foreground mb-1 font-sans">
+                Prop Firm Position Sizer
+              </h3>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-4">
+                Calculate precise lot sizes based on exact equity, risk percentage, and stop loss.
+              </p>
+
+              {/* Mini Interactive Calculator UI */}
+              <div className="space-y-3 pt-3 border-t border-border/60">
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="text-[10px] font-mono text-muted-foreground block mb-1">Balance ($)</label>
+                    <input
+                      type="number"
+                      value={balance}
+                      onChange={(e) => setBalance(e.target.value)}
+                      className="w-full bg-background border border-border rounded px-2 py-1 text-xs font-mono text-foreground focus:outline-none focus:border-primary"
+                    />
                   </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2 font-rounded flex items-center gap-1.5 group-hover:text-primary transition-colors">
-                    {tool.title}
-                    <ArrowUpRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {tool.description}
-                  </p>
+                  <div>
+                    <label className="text-[10px] font-mono text-muted-foreground block mb-1">Risk (%)</label>
+                    <input
+                      type="number"
+                      value={riskPercent}
+                      onChange={(e) => setRiskPercent(e.target.value)}
+                      className="w-full bg-background border border-border rounded px-2 py-1 text-xs font-mono text-foreground focus:outline-none focus:border-primary"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="text-[10px] font-mono text-muted-foreground block mb-1">Stop Loss (Pips)</label>
+                  <input
+                    type="number"
+                    value={stopLossPips}
+                    onChange={(e) => setStopLossPips(e.target.value)}
+                    className="w-full bg-background border border-border rounded px-2 py-1 text-xs font-mono text-foreground focus:outline-none focus:border-primary"
+                  />
+                </div>
+                <div className="mt-3 p-2.5 rounded bg-primary/5 border border-primary/20 flex items-center justify-between">
+                  <span className="text-xs font-mono text-muted-foreground">Suggested Lot Size:</span>
+                  <span className="text-sm font-bold font-mono text-primary">{calculatedLotSize} Lots</span>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          </div>
+
+          {/* Tool 2 */}
+          <div className="flex flex-col justify-between p-6 rounded-xl bg-surface/50 border border-border/80 hover:border-primary/50 transition-all duration-200 group cursor-pointer">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="h-9 w-9 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                  <Percent className="h-4 w-4" />
+                </div>
+                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-surface border border-border text-muted-foreground">
+                  Calculator
+                </span>
+              </div>
+              <h3 className="text-base font-semibold text-foreground mb-1 font-sans flex items-center gap-1.5 group-hover:text-primary transition-colors">
+                Daily Max Drawdown Simulator
+                <ArrowUpRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Simulate equity swings to ensure your daily loss limits remain untouched under volatile conditions.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t border-border/60 text-[11px] font-mono text-primary flex items-center gap-1 font-medium">
+              Launch simulator tool <ArrowUpRight className="h-3 w-3" />
+            </div>
+          </div>
+
+          {/* Tool 3 */}
+          <div className="flex flex-col justify-between p-6 rounded-xl bg-surface/50 border border-border/80 hover:border-primary/50 transition-all duration-200 group cursor-pointer">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="h-9 w-9 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                  <Scale className="h-4 w-4" />
+                </div>
+                <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-surface border border-border text-muted-foreground">
+                  Database
+                </span>
+              </div>
+              <h3 className="text-base font-semibold text-foreground mb-1 font-sans flex items-center gap-1.5 group-hover:text-primary transition-colors">
+                Rule & Limit Comparator
+                <ArrowUpRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Side-by-side comparison of drawdown rules across top prop firms like FTMO, FundedNext, and 5%ers.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t border-border/60 text-[11px] font-mono text-primary flex items-center gap-1 font-medium">
+              Compare firm rules <ArrowUpRight className="h-3 w-3" />
+            </div>
+          </div>
         </div>
       </div>
     </section>
