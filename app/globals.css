@@ -4,29 +4,30 @@
 
 @layer base {
   :root {
-    --background: 240 10% 98%;
-    --foreground: 240 10% 4%;
-    --surface: 0 0% 100%;
+    --radius: 0.5rem;
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --surface: 0 0% 98%;
     --surface-hover: 240 5% 96%;
     --primary: 263 70% 58%;
     --primary-foreground: 0 0% 100%;
     --primary-hover: 263 70% 50%;
-    --muted: 240 5% 90%;
-    --muted-foreground: 240 4% 46%;
-    --border: 240 6% 90%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --border: 240 5.9% 90%;
   }
 
   .dark {
-    --background: 240 10% 4%;
+    --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
-    --surface: 240 10% 7%;
-    --surface-hover: 240 10% 11%;
+    --surface: 240 10% 6%;
+    --surface-hover: 240 10% 9%;
     --primary: 263 70% 58%;
     --primary-foreground: 0 0% 100%;
     --primary-hover: 263 70% 65%;
-    --muted: 240 10% 15%;
-    --muted-foreground: 240 5% 65%;
-    --border: 240 10% 15%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --border: 240 3.7% 15.9%;
   }
 
   * {
@@ -35,15 +36,8 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-}
-
-.bg-grid-pattern {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(124, 58, 237, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(124, 58, 237, 0.08) 1px, transparent 1px);
 }

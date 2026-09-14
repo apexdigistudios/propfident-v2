@@ -10,31 +10,13 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: [
-          "SF Pro Display",
-          "SF Pro Text",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "Segoe UI",
-          "Roboto",
-          "sans-serif",
-        ],
-        rounded: [
-          "SF Pro Rounded",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "sans-serif",
-        ],
-        mono: [
-          "SF Mono",
-          "ui-monospace",
-          "SFMono-Regular",
-          "Menlo",
-          "Monaco",
-          "Consolas",
-          "liberation mono",
-          "monospace",
-        ],
+        sans: ["var(--font-geist-sans)", "Geist", "-apple-system", "sans-serif"],
+        mono: ["var(--font-geist-mono)", "Geist Mono", "monospace"],
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       colors: {
         background: "hsl(var(--background))",
