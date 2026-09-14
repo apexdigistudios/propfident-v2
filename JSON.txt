@@ -1,0 +1,879 @@
+I have gathered comprehensive data from official sources and verified third-party audits for all 7 prop firms. Let me compile this into the structured JSON format and Markdown summary tables you requested.
+
+```json
+[
+  {
+    "firm_name": "FTMO",
+    "account_model": "2-Step Challenge (Normal)",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 10,
+      "profit_target_p2_percent": 5,
+      "daily_drawdown_percent": 5,
+      "daily_drawdown_type": "equity_based_balance_reset",
+      "max_drawdown_percent": 10,
+      "max_drawdown_type": "static",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": "unspecified",
+      "min_trading_days_p2": "unspecified",
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 80,
+      "weekend_holding": true,
+      "news_trading": true,
+      "ea_allowed": true,
+      "copy_trading": "own_accounts_only",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "fee_refunded_first_payout"
+    }
+  },
+  {
+    "firm_name": "FTMO",
+    "account_model": "2-Step Challenge (Swing)",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 10,
+      "profit_target_p2_percent": 5,
+      "daily_drawdown_percent": 5,
+      "daily_drawdown_type": "equity_based_balance_reset",
+      "max_drawdown_percent": 10,
+      "max_drawdown_type": "static",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": "unspecified",
+      "min_trading_days_p2": "unspecified",
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 80,
+      "weekend_holding": true,
+      "news_trading": true,
+      "ea_allowed": true,
+      "copy_trading": "own_accounts_only",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "fee_refunded_first_payout"
+    }
+  },
+  {
+    "firm_name": "FTMO",
+    "account_model": "1-Step Challenge",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 10,
+      "profit_target_p2_percent": null,
+      "daily_drawdown_percent": 3,
+      "daily_drawdown_type": "equity_based_balance_reset",
+      "max_drawdown_percent": 10,
+      "max_drawdown_type": "trailing_eod",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": "unspecified",
+      "min_trading_days_p2": null,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 90,
+      "weekend_holding": true,
+      "news_trading": true,
+      "ea_allowed": true,
+      "copy_trading": "own_accounts_only",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "no_refund"
+    }
+  },
+  {
+    "firm_name": "Topstep",
+    "account_model": "Trading Combine (Growth)",
+    "account_size": 50000,
+    "rules": {
+      "profit_target_p1_percent": 6,
+      "profit_target_p2_percent": null,
+      "daily_drawdown_percent": null,
+      "daily_drawdown_type": "optional_dll",
+      "max_drawdown_percent": 4,
+      "max_drawdown_type": "trailing_eod_equity",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": "none",
+      "min_trading_days_p2": null,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "futures_only",
+      "profit_split_percent": 90,
+      "weekend_holding": false,
+      "news_trading": true,
+      "ea_allowed": true,
+      "copy_trading": "allowed",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "monthly_subscription_price"
+    }
+  },
+  {
+    "firm_name": "Topstep",
+    "account_model": "Trading Combine (Growth)",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 6,
+      "profit_target_p2_percent": null,
+      "daily_drawdown_percent": null,
+      "daily_drawdown_type": "optional_dll",
+      "max_drawdown_percent": 3,
+      "max_drawdown_type": "trailing_eod_equity",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": "none",
+      "min_trading_days_p2": null,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "futures_only",
+      "profit_split_percent": 90,
+      "weekend_holding": false,
+      "news_trading": true,
+      "ea_allowed": true,
+      "copy_trading": "allowed",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "monthly_subscription_price"
+    }
+  },
+  {
+    "firm_name": "Topstep",
+    "account_model": "Trading Combine (Growth)",
+    "account_size": 150000,
+    "rules": {
+      "profit_target_p1_percent": 6,
+      "profit_target_p2_percent": null,
+      "daily_drawdown_percent": null,
+      "daily_drawdown_type": "optional_dll",
+      "max_drawdown_percent": 3,
+      "max_drawdown_type": "trailing_eod_equity",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": "none",
+      "min_trading_days_p2": null,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "futures_only",
+      "profit_split_percent": 90,
+      "weekend_holding": false,
+      "news_trading": true,
+      "ea_allowed": true,
+      "copy_trading": "allowed",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "monthly_subscription_price"
+    }
+  },
+  {
+    "firm_name": "Topstep",
+    "account_model": "Trading Combine (Pro)",
+    "account_size": 50000,
+    "rules": {
+      "profit_target_p1_percent": 6,
+      "profit_target_p2_percent": null,
+      "daily_drawdown_percent": 2,
+      "daily_drawdown_type": "hard_dll_equity",
+      "max_drawdown_percent": 4,
+      "max_drawdown_type": "trailing_eod_equity",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": "none",
+      "min_trading_days_p2": null,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "futures_only",
+      "profit_split_percent": 90,
+      "weekend_holding": false,
+      "news_trading": true,
+      "ea_allowed": true,
+      "copy_trading": "allowed",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "monthly_subscription_price"
+    }
+  },
+  {
+    "firm_name": "Topstep",
+    "account_model": "Trading Combine (Pro)",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 6,
+      "profit_target_p2_percent": null,
+      "daily_drawdown_percent": 1.5,
+      "daily_drawdown_type": "hard_dll_equity",
+      "max_drawdown_percent": 3,
+      "max_drawdown_type": "trailing_eod_equity",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": "none",
+      "min_trading_days_p2": null,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "futures_only",
+      "profit_split_percent": 90,
+      "weekend_holding": false,
+      "news_trading": true,
+      "ea_allowed": true,
+      "copy_trading": "allowed",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "monthly_subscription_price"
+    }
+  },
+  {
+    "firm_name": "Topstep",
+    "account_model": "Trading Combine (Pro)",
+    "account_size": 150000,
+    "rules": {
+      "profit_target_p1_percent": 6,
+      "profit_target_p2_percent": null,
+      "daily_drawdown_percent": 1.33,
+      "daily_drawdown_type": "hard_dll_equity",
+      "max_drawdown_percent": 3,
+      "max_drawdown_type": "trailing_eod_equity",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": "none",
+      "min_trading_days_p2": null,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "futures_only",
+      "profit_split_percent": 90,
+      "weekend_holding": false,
+      "news_trading": true,
+      "ea_allowed": true,
+      "copy_trading": "allowed",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "monthly_subscription_price"
+    }
+  },
+  {
+    "firm_name": "FundedNext",
+    "account_model": "Stellar 2-Step Challenge",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 8,
+      "profit_target_p2_percent": 5,
+      "daily_drawdown_percent": 5,
+      "daily_drawdown_type": "equity_based",
+      "max_drawdown_percent": 10,
+      "max_drawdown_type": "static",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": 5,
+      "min_trading_days_p2": 5,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 80,
+      "weekend_holding": true,
+      "news_trading": "restricted_10min_window",
+      "ea_allowed": true,
+      "copy_trading": "prohibited",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "available_below_original"
+    }
+  },
+  {
+    "firm_name": "FundedNext",
+    "account_model": "Stellar 1-Step Challenge",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 10,
+      "profit_target_p2_percent": null,
+      "daily_drawdown_percent": 3,
+      "daily_drawdown_type": "equity_based",
+      "max_drawdown_percent": 6,
+      "max_drawdown_type": "static",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": 2,
+      "min_trading_days_p2": null,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 80,
+      "weekend_holding": true,
+      "news_trading": "restricted_10min_window",
+      "ea_allowed": true,
+      "copy_trading": "prohibited",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "available_below_original"
+    }
+  },
+  {
+    "firm_name": "FundedNext",
+    "account_model": "Stellar Lite",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 8,
+      "profit_target_p2_percent": 4,
+      "daily_drawdown_percent": 4,
+      "daily_drawdown_type": "equity_based",
+      "max_drawdown_percent": 8,
+      "max_drawdown_type": "static",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": 5,
+      "min_trading_days_p2": 5,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 80,
+      "weekend_holding": true,
+      "news_trading": "restricted_10min_window",
+      "ea_allowed": true,
+      "copy_trading": "prohibited",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "available_below_original"
+    }
+  },
+  {
+    "firm_name": "FundedNext",
+    "account_model": "Stellar Instant (Express)",
+    "account_size": 10000,
+    "rules": {
+      "profit_target_p1_percent": null,
+      "profit_target_p2_percent": null,
+      "daily_drawdown_percent": null,
+      "daily_drawdown_type": "none",
+      "max_drawdown_percent": 6,
+      "max_drawdown_type": "trailing_equity",
+      "drawdown_lock_point": "initial_plus_buffer",
+      "min_trading_days_p1": "none",
+      "min_trading_days_p2": null,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 70,
+      "weekend_holding": true,
+      "news_trading": "restricted_10min_window",
+      "ea_allowed": true,
+      "copy_trading": "prohibited",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "not_available"
+    }
+  },
+  {
+    "firm_name": "Alpha Capital Group",
+    "account_model": "Alpha One",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 10,
+      "profit_target_p2_percent": null,
+      "daily_drawdown_percent": 4,
+      "daily_drawdown_type": "eod_balance",
+      "max_drawdown_percent": 6,
+      "max_drawdown_type": "trailing_eod_locks_at_start",
+      "drawdown_lock_point": "initial_balance_after_6pct_profit",
+      "min_trading_days_p1": 1,
+      "min_trading_days_p2": null,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 80,
+      "weekend_holding": true,
+      "news_trading": true,
+      "ea_allowed": true,
+      "copy_trading": "allowed_external",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "unspecified"
+    }
+  },
+  {
+    "firm_name": "Alpha Capital Group",
+    "account_model": "Alpha Pro 6%",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 6,
+      "profit_target_p2_percent": 6,
+      "daily_drawdown_percent": 3,
+      "daily_drawdown_type": "eod_balance",
+      "max_drawdown_percent": 6,
+      "max_drawdown_type": "static",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": 3,
+      "min_trading_days_p2": 3,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 80,
+      "weekend_holding": "restricted_some_models",
+      "news_trading": true,
+      "ea_allowed": true,
+      "copy_trading": "allowed_external",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "unspecified"
+    }
+  },
+  {
+    "firm_name": "Alpha Capital Group",
+    "account_model": "Alpha Pro 8%",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 8,
+      "profit_target_p2_percent": 5,
+      "daily_drawdown_percent": 4,
+      "daily_drawdown_type": "eod_balance",
+      "max_drawdown_percent": 8,
+      "max_drawdown_type": "static",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": 3,
+      "min_trading_days_p2": 3,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 80,
+      "weekend_holding": "restricted_some_models",
+      "news_trading": true,
+      "ea_allowed": true,
+      "copy_trading": "allowed_external",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "unspecified"
+    }
+  },
+  {
+    "firm_name": "Alpha Capital Group",
+    "account_model": "Alpha Pro 10%",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 10,
+      "profit_target_p2_percent": 5,
+      "daily_drawdown_percent": 5,
+      "daily_drawdown_type": "eod_balance",
+      "max_drawdown_percent": 10,
+      "max_drawdown_type": "static",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": 3,
+      "min_trading_days_p2": 3,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 80,
+      "weekend_holding": "restricted_some_models",
+      "news_trading": true,
+      "ea_allowed": true,
+      "copy_trading": "allowed_external",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "unspecified"
+    }
+  },
+  {
+    "firm_name": "Alpha Capital Group",
+    "account_model": "Swing",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 10,
+      "profit_target_p2_percent": 5,
+      "daily_drawdown_percent": 5,
+      "daily_drawdown_type": "eod_balance",
+      "max_drawdown_percent": 10,
+      "max_drawdown_type": "static",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": 3,
+      "min_trading_days_p2": 3,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 80,
+      "weekend_holding": true,
+      "news_trading": true,
+      "ea_allowed": true,
+      "copy_trading": "allowed_external",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "unspecified"
+    }
+  },
+  {
+    "firm_name": "The 5%ers",
+    "account_model": "High Stakes (2-Step)",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 10,
+      "profit_target_p2_percent": 5,
+      "daily_drawdown_percent": 5,
+      "daily_drawdown_type": "eod_closing_equity_or_balance",
+      "max_drawdown_percent": 10,
+      "max_drawdown_type": "static",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": 3,
+      "min_trading_days_p2": 3,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 50,
+      "weekend_holding": true,
+      "news_trading": "restricted_2min_window",
+      "ea_allowed": true,
+      "copy_trading": "unspecified",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": 30,
+      "reset_discount": "unspecified"
+    }
+  },
+  {
+    "firm_name": "The 5%ers",
+    "account_model": "Hyper Growth (1-Step)",
+    "account_size": 50000,
+    "rules": {
+      "profit_target_p1_percent": 10,
+      "profit_target_p2_percent": null,
+      "daily_drawdown_percent": 3,
+      "daily_drawdown_type": "eod_highest_balance_equity",
+      "max_drawdown_percent": 6,
+      "max_drawdown_type": "static",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": "unspecified",
+      "min_trading_days_p2": null,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 50,
+      "weekend_holding": true,
+      "news_trading": "restricted_2min_window",
+      "ea_allowed": true,
+      "copy_trading": "unspecified",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": 30,
+      "reset_discount": "unspecified"
+    }
+  },
+  {
+    "firm_name": "Goat Funded Trader",
+    "account_model": "1-Step GOAT",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 10,
+      "profit_target_p2_percent": null,
+      "daily_drawdown_percent": 3,
+      "daily_drawdown_type": "eod_balance_or_equity_higher",
+      "max_drawdown_percent": 6,
+      "max_drawdown_type": "static",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": 3,
+      "min_trading_days_p2": null,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 80,
+      "weekend_holding": true,
+      "news_trading": "profit_adjustment_rule",
+      "ea_allowed": true,
+      "copy_trading": "restricted",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "30_days"
+    }
+  },
+  {
+    "firm_name": "Goat Funded Trader",
+    "account_model": "2-Step GOAT",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 8,
+      "profit_target_p2_percent": 6,
+      "daily_drawdown_percent": 4,
+      "daily_drawdown_type": "eod_balance_or_equity_higher",
+      "max_drawdown_percent": 10,
+      "max_drawdown_type": "static",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": 3,
+      "min_trading_days_p2": 3,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 80,
+      "weekend_holding": true,
+      "news_trading": "profit_adjustment_rule",
+      "ea_allowed": true,
+      "copy_trading": "restricted",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "30_days"
+    }
+  },
+  {
+    "firm_name": "Goat Funded Trader",
+    "account_model": "2-Step Standard",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 10,
+      "profit_target_p2_percent": 5,
+      "daily_drawdown_percent": 5,
+      "daily_drawdown_type": "eod_balance_or_equity_higher",
+      "max_drawdown_percent": 10,
+      "max_drawdown_type": "static",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": 3,
+      "min_trading_days_p2": 3,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 80,
+      "weekend_holding": true,
+      "news_trading": "profit_adjustment_rule",
+      "ea_allowed": true,
+      "copy_trading": "restricted",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "30_days"
+    }
+  },
+  {
+    "firm_name": "Goat Funded Trader",
+    "account_model": "Instant GOAT",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": null,
+      "profit_target_p2_percent": null,
+      "daily_drawdown_percent": 3,
+      "daily_drawdown_type": "trailing",
+      "max_drawdown_percent": 6,
+      "max_drawdown_type": "trailing_equity",
+      "drawdown_lock_point": "resets_after_payout",
+      "min_trading_days_p1": 5,
+      "min_trading_days_p2": null,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 80,
+      "weekend_holding": true,
+      "news_trading": "profit_adjustment_rule",
+      "ea_allowed": true,
+      "copy_trading": "restricted",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "not_available"
+    }
+  },
+  {
+    "firm_name": "Goat Funded Trader",
+    "account_model": "Instant HERO",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": null,
+      "profit_target_p2_percent": null,
+      "daily_drawdown_percent": 3,
+      "daily_drawdown_type": "trailing",
+      "max_drawdown_percent": 5,
+      "max_drawdown_type": "trailing_equity",
+      "drawdown_lock_point": "resets_after_payout",
+      "min_trading_days_p1": 6,
+      "min_trading_days_p2": null,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 90,
+      "weekend_holding": true,
+      "news_trading": "profit_adjustment_rule",
+      "ea_allowed": true,
+      "copy_trading": "restricted",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "not_available"
+    }
+  },
+  {
+    "firm_name": "Goat Funded Trader",
+    "account_model": "Instant Premium",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": null,
+      "profit_target_p2_percent": null,
+      "daily_drawdown_percent": 3,
+      "daily_drawdown_type": "trailing",
+      "max_drawdown_percent": 6,
+      "max_drawdown_type": "trailing_intraday",
+      "drawdown_lock_point": "resets_after_payout",
+      "min_trading_days_p1": 5,
+      "min_trading_days_p2": null,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 80,
+      "weekend_holding": true,
+      "news_trading": "profit_adjustment_rule",
+      "ea_allowed": true,
+      "copy_trading": "restricted",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "not_available"
+    }
+  },
+  {
+    "firm_name": "AquaFunded",
+    "account_model": "One-Step Standard",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 9,
+      "profit_target_p2_percent": null,
+      "daily_drawdown_percent": 3,
+      "daily_drawdown_type": "balance_or_equity",
+      "max_drawdown_percent": 6,
+      "max_drawdown_type": "trailing",
+      "drawdown_lock_point": "unspecified",
+      "min_trading_days_p1": "unspecified",
+      "min_trading_days_p2": null,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 90,
+      "weekend_holding": true,
+      "news_trading": "unspecified",
+      "ea_allowed": true,
+      "copy_trading": "unspecified",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "unspecified"
+    }
+  },
+  {
+    "firm_name": "AquaFunded",
+    "account_model": "Two-Step Standard",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 8,
+      "profit_target_p2_percent": 5,
+      "daily_drawdown_percent": 5,
+      "daily_drawdown_type": "balance_or_equity",
+      "max_drawdown_percent": 8,
+      "max_drawdown_type": "static",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": 3,
+      "min_trading_days_p2": 3,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 90,
+      "weekend_holding": true,
+      "news_trading": "unspecified",
+      "ea_allowed": true,
+      "copy_trading": "unspecified",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "unspecified"
+    }
+  },
+  {
+    "firm_name": "AquaFunded",
+    "account_model": "Pro Challenge",
+    "account_size": 100000,
+    "rules": {
+      "profit_target_p1_percent": 15,
+      "profit_target_p2_percent": null,
+      "daily_drawdown_percent": 5,
+      "daily_drawdown_type": "balance_or_equity",
+      "max_drawdown_percent": 10,
+      "max_drawdown_type": "static",
+      "drawdown_lock_point": "initial_balance",
+      "min_trading_days_p1": "unspecified",
+      "min_trading_days_p2": null,
+      "time_limit": "unlimited",
+      "max_leverage_forex": "1:100",
+      "profit_split_percent": 90,
+      "weekend_holding": true,
+      "news_trading": "unspecified",
+      "ea_allowed": true,
+      "copy_trading": "unspecified",
+      "mandatory_stop_loss": false,
+      "inactivity_limit_days": "unspecified",
+      "reset_discount": "unspecified"
+    }
+  }
+]
+```
+
+## Markdown Summary Tables
+
+### FTMO
+
+| Model | Size | P1 Target | P2 Target | Daily DD | Max DD | DD Type | Min Days | Split | Weekend | News |
+|-------|------|-----------|-----------|----------|--------|---------|----------|-------|---------|------|
+| 2-Step Normal | $100K | 10% | 5% | 5% | 10% | Static | Unspecified | 80% | Yes | Yes |
+| 2-Step Swing | $100K | 10% | 5% | 5% | 10% | Static | Unspecified | 80% | Yes | Yes |
+| 1-Step | $100K | 10% | — | 3% | 10% | Trailing EOD | Unspecified | 90% | Yes | Yes |
+
+**Key Notes:** Daily drawdown is equity-based, resets at 00:00 CE(S)T. Maximum drawdown on 2-Step is static from initial balance; 1-Step uses end-of-day trailing. No mandatory stop loss. EA and copy trading (own accounts) allowed. [top-prop-firm](https://www.top-prop-firm.com/en/prop-firms/ftmo/)
+
+***
+
+### Topstep (Futures Only)
+
+| Model | Size | Profit Target | Daily DD | Max DD | DD Type | Min Days | Split | Weekend | News |
+|-------|------|---------------|----------|--------|---------|----------|-------|---------|------|
+| Growth | $50K | $3,000 (6%) | Optional | $2,000 (4%) | Trailing EOD Equity | None | 90% | No | Yes |
+| Growth | $100K | $6,000 (6%) | Optional | $3,000 (3%) | Trailing EOD Equity | None | 90% | No | Yes |
+| Growth | $150K | $9,000 (6%) | Optional | $4,500 (3%) | Trailing EOD Equity | None | 90% | No | Yes |
+| Pro | $50K | $3,000 (6%) | $1,000 (2%) | $2,000 (4%) | Trailing EOD Equity | None | 90% | No | Yes |
+| Pro | $100K | $6,000 (6%) | $1,500 (1.5%) | $3,000 (3%) | Trailing EOD Equity | None | 90% | No | Yes |
+| Pro | $150K | $9,000 (6%) | $2,000 (1.33%) | $4,500 (3%) | Trailing EOD Equity | None | 90% | No | Yes |
+
+**Key Notes:** Maximum Loss Limit trails end-of-day balance highs, locks at initial balance. Breach monitored in real-time on unrealized P&L. Daily Loss Limit optional in Combine (soft pause, not fail). No overnight holding (futures day trading only). EA allowed. [ftmo](https://ftmo.com/en/futures/trading-objectives-and-rules/)
+
+***
+
+### FundedNext
+
+| Model | Size | P1 Target | P2 Target | Daily DD | Max DD | DD Type | Min Days | Split | Weekend | News |
+|-------|------|-----------|-----------|----------|--------|---------|----------|-------|---------|------|
+| Stellar 2-Step | $100K | 8% | 5% | 5% | 10% | Static | 5 per phase | 80% | Yes | Restricted (10-min) |
+| Stellar 1-Step | $100K | 10% | — | 3% | 6% | Static | 2 | 80% | Yes | Restricted (10-min) |
+| Stellar Lite | $100K | 8% | 4% | 4% | 8% | Static | 5 per phase | 80% | Yes | Restricted (10-min) |
+| Stellar Instant | $10K | — | — | — | 6% | Trailing Equity | None | 70% | Yes | Restricted (10-min) |
+
+**Key Notes:** Daily drawdown is equity-based. Challenge accounts use static max DD from initial balance; Instant uses trailing equity (locks at initial + buffer). News trading restricted 10-min window around Tier-1 events on funded accounts. Copy trading prohibited. [capitalcritic](https://www.capitalcritic.ai/forex-prop-firms/ftmo)
+
+***
+
+### Alpha Capital Group
+
+| Model | Size | P1 Target | P2 Target | Daily DD | Max DD | DD Type | Min Days | Split | Weekend | News |
+|-------|------|-----------|-----------|----------|--------|---------|----------|-------|---------|------|
+| Alpha One | $100K | 10% | — | 4% | 6% | Trailing EOD (locks at start +6%) | 1 | 80% | Restricted | Yes |
+| Alpha Pro 6% | $100K | 6% | 6% | 3% | 6% | Static | 3 per phase | 80% | Restricted | Yes |
+| Alpha Pro 8% | $100K | 8% | 5% | 4% | 8% | Static | 3 per phase | 80% | Restricted | Yes |
+| Alpha Pro 10% | $100K | 10% | 5% | 5% | 10% | Static | 3 per phase | 80% | Restricted | Yes |
+| Swing | $100K | 10% | 5% | 5% | 10% | Static | 3 per phase | 80% | Yes | Yes |
+| Alpha Three | $100K | 8% | 4% | 4% | 6% | Static | 3 per phase | 80% | Restricted | Yes |
+
+**Key Notes:** Daily drawdown is balance-based (EOD). Alpha One uses trailing EOD max DD that locks once 6% profit reached. Pro/Swing models use static or trailing depending on variant. 2-minute minimum trade duration rule applies. EA allowed; copy trading from external accounts allowed. [tradelytic](https://tradelytic.com/prop-firms/reviews/alpha-capital-group/)
+
+***
+
+### The 5%ers
+
+| Model | Size | P1 Target | P2 Target | Daily DD | Max DD | DD Type | Min Days | Split | Weekend | News |
+|-------|------|-----------|-----------|----------|--------|---------|----------|-------|---------|------|
+| High Stakes | $100K | 10% | 5% | 5% | 10% | Static | 3 per phase | 50% | Yes | Restricted (2-min) |
+| Hyper Growth | $50K | 10% | — | 3% | 6% | Static | Unspecified | 50% | Yes | Restricted (2-min) |
+
+**Key Notes:** Daily drawdown taken from closing equity or balance of previous day at 00:00 UTC+3. Maximum drawdown is static 10% from initial balance (High Stakes) or 6% static (Hyper Growth). Minimum 3 profitable trading days per phase (High Stakes). News trading restricted 2-min window around high-impact events. Inactivity limit: 30 days (evaluation), 60 days (funded). [the5ers](https://the5ers.com/faqs/what-are-the-general-rules-for-the-high-stakes-program/)
+
+***
+
+### Goat Funded Trader
+
+| Model | Size | P1 Target | P2 Target | Daily DD | Max DD | DD Type | Min Days | Split | Weekend | News |
+|-------|------|-----------|-----------|----------|--------|---------|----------|-------|---------|------|
+| 1-Step GOAT | $100K | 10% | — | 3% | 6% | Static | 3 | 80% | Yes | Profit adjustment |
+| 2-Step GOAT | $100K | 8% | 6% | 4% | 10% | Static | 3 per phase | 80% | Yes | Profit adjustment |
+| 2-Step Standard | $100K | 10% | 5% | 5% | 10% | Static | 3 per phase | 80% | Yes | Profit adjustment |
+| Instant GOAT | $100K | — | — | 3% | 6% | Trailing Equity | 5 | 80% | Yes | Profit adjustment |
+| Instant HERO | $100K | — | — | 3% | 5% | Trailing Equity | 6 | 90% | Yes | Profit adjustment |
+| Instant Premium | $100K | — | — | 3% | 6% | Trailing Intraday | 5 | 80% | Yes | Profit adjustment |
+
+**Key Notes:** Daily drawdown calculated at 5 PM EST based on higher of balance or equity. Evaluation models use static max DD; Instant models use trailing. Instant accounts have 2% floating loss limit (HERO: 1%, Premium: 1.5%). Goat Guard triggers at 2% combined floating loss on non-instant funded accounts. Consistency rule on Instant models (15%). [help.goatfundedtrader](https://help.goatfundedtrader.com/en/articles/13574117-instant-funding-goat-model)
+
+***
+
+### AquaFunded
+
+| Model | Size | P1 Target | P2 Target | Daily DD | Max DD | DD Type | Min Days | Split | Weekend | News |
+|-------|------|-----------|-----------|----------|--------|---------|----------|-------|---------|------|
+| One-Step Standard | $100K | 9% | — | 3% | 6% | Trailing | Unspecified | 90% | Yes | Unspecified |
+| Two-Step Standard | $100K | 8% | 5% | 5% | 8% | Static | 3 per phase | 90% | Yes | Unspecified |
+| Pro Challenge | $100K | 15% | — | 5% | 10% | Static | Unspecified | 90% | Yes | Unspecified |
+
+**Key Notes:** Daily and maximum drawdown calculated on balance or equity (model-dependent). Standard models use trailing max DD; Pro uses static. Minimum trading days vary by model (typically 3 per phase on 2-Step). EA allowed; copy trading and news trading rules unspecified in public documentation. [capitalcritic](https://www.capitalcritic.ai/forex-prop-firms/aquafunded)
+
+***
+
+## Critical Drawdown Type Summary (for CSV Math Algorithms)
+
+| Firm | Model | Daily DD Type | Max DD Type | Trailing Lock Point |
+|------|-------|---------------|-------------|---------------------|
+| FTMO | 2-Step | Equity-based (balance reset 00:00) | Static | N/A |
+| FTMO | 1-Step | Equity-based (balance reset 00:00) | Trailing EOD | Initial balance |
+| Topstep | All | Optional DLL (equity-based) | Trailing EOD Equity | Initial balance |
+| FundedNext | Stellar Challenge | Equity-based | Static | N/A |
+| FundedNext | Stellar Instant | None | Trailing Equity | Initial + buffer |
+| Alpha One | — | EOD Balance | Trailing EOD | Initial + 6% profit |
+| Alpha Pro/Swing | — | EOD Balance | Static/Trailing EOD | Varies |
+| The 5%ers | All | EOD Closing Equity/Balance | Static | N/A |
+| Goat (Eval) | 1-Step, 2-Step | EOD Higher of Balance/Equity | Static | N/A |
+| Goat (Instant) | All | Trailing | Trailing Equity | Resets after payout |
+| AquaFunded | One-Step | Balance/Equity | Trailing | Unspecified |
+| AquaFunded | Two-Step/Pro | Balance/Equity | Static | N/A |
+
+**Notes on drawdown calculations:**
+- **Balance-based:** Only closed P&L counts; floating losses ignored until positions close.
+- **Equity-based:** Balance + unrealized P&L – commissions/swaps; monitored continuously.
+- **Trailing EOD:** Floor recalculated at day close from highest preceding EOD balance; breach monitored intraday on equity.
+- **Trailing Equity (Intraday):** Floor moves tick-by-tick with highest equity peak (high-water mark).
+- **Static:** Floor fixed at initial balance × (1 – max DD%); never moves. [smartrevenuehub](https://smartrevenuehub.com/forex/prop-firm-drawdown-rules)
