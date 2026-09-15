@@ -66,7 +66,7 @@ const playbookModules = [
 
 export default function PlaybookPage() {
   return (
-    <div className="container max-w-6xl py-24 sm:py-28 space-y-12">
+    <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-24 sm:py-28 space-y-12">
       {/* Page Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
         <Badge variant="default" className="gap-1.5 px-3 py-1 font-mono text-xs">
@@ -81,7 +81,7 @@ export default function PlaybookPage() {
       </div>
 
       {/* Modules Grid (Image Card Layout) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
         {playbookModules.map((module, idx) => {
           const Icon = module.icon;
           return (
@@ -139,7 +139,7 @@ export default function PlaybookPage() {
         </div>
 
         <div className="p-6 sm:p-10 space-y-6">
-          <div className="space-y-2">
+          <div className="space-y-2 text-center sm:text-left">
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
               Unlock Full Access to The Seven Figure Funded Trader Playbook
             </h2>
