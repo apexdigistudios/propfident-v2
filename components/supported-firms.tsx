@@ -14,68 +14,31 @@ const propFirms = [
 
 export function SupportedFirms() {
   return (
-    <section className="py-14 border-t border-border/40 relative z-10 overflow-hidden bg-background/50">
-      <div className="container mx-auto max-w-6xl px-4 text-center mb-8">
-        <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-          Engineered for All Major Prop Trading Firms &amp; Rulesets
+    <section className="py-14 border-t border-border/40 relative z-10 bg-background/50">
+      <div className="container mx-auto max-w-6xl px-4 text-center">
+        <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-10">
+          Engineered for All Major Prop Trading Firms & Rulesets
         </p>
-      </div>
 
-      {/* Marquee Wrapper with Edge Gradient Mask */}
-      <div className="relative flex w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
-        <div className="flex min-w-full shrink-0 items-center justify-around gap-6 animate-[marquee_35s_linear_infinite] hover:[animation-play-state:paused] py-3 px-3">
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 max-w-5xl mx-auto">
           {propFirms.map((firm, idx) => (
             <div
               key={idx}
-              className="flex h-20 w-48 shrink-0 items-center justify-center rounded-xl border border-border/60 bg-card/80 p-4 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-card"
+              className="flex h-16 w-36 sm:w-44 items-center justify-center rounded-xl border border-border/40 bg-card/40 p-3 shadow-xs backdrop-blur-sm grayscale opacity-60 transition-all duration-300 hover:grayscale-0 hover:opacity-100 hover:border-border/80 hover:bg-card/80"
             >
-              <div className="relative h-10 w-full flex items-center justify-center">
+              <div className="relative h-8 w-full flex items-center justify-center">
                 <Image
                   src={firm.logo}
                   alt={firm.name}
-                  width={160}
-                  height={50}
-                  className="max-h-10 w-auto object-contain transition-transform duration-200 hover:scale-105"
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Duplicate Track for Continuous Loop */}
-        <div
-          aria-hidden="true"
-          className="flex min-w-full shrink-0 items-center justify-around gap-6 animate-[marquee_35s_linear_infinite] hover:[animation-play-state:paused] py-3 px-3"
-        >
-          {propFirms.map((firm, idx) => (
-            <div
-              key={`dup-${idx}`}
-              className="flex h-20 w-48 shrink-0 items-center justify-center rounded-xl border border-border/60 bg-card/80 p-4 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-card"
-            >
-              <div className="relative h-10 w-full flex items-center justify-center">
-                <Image
-                  src={firm.logo}
-                  alt={firm.name}
-                  width={160}
-                  height={50}
-                  className="max-h-10 w-auto object-contain transition-transform duration-200 hover:scale-105"
+                  width={140}
+                  height={40}
+                  className="max-h-8 w-auto object-contain"
                 />
               </div>
             </div>
           ))}
         </div>
       </div>
-
-      <style jsx global>{`
-        @keyframes marquee {
-          from {
-            transform: translateX(0%);
-          }
-          to {
-            transform: translateX(-100%);
-          }
-        }
-      `}</style>
     </section>
   );
 }
