@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { Shield, ArrowLeft } from "lucide-react";
+import { Shield, ArrowLeft, Lock, Database, Eye, RefreshCw, Mail } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export const metadata = {
   title: "Privacy Policy | Propfident",
-  description: "Privacy policy and data protection guidelines for Propfident users.",
+  description: "Comprehensive privacy policy and data protection guidelines for Propfident users.",
 };
 
 export default function PrivacyPage() {
@@ -21,64 +21,95 @@ export default function PrivacyPage() {
         <Badge variant="outline" className="font-mono text-xs text-primary border-primary/40">
           LEGAL & COMPLIANCE
         </Badge>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Privacy Policy</h1>
+        <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">Privacy Policy</h1>
         <p className="text-xs font-mono text-muted-foreground">
           Last updated: September 15, 2026
         </p>
       </div>
 
-      <div className="space-y-8 text-sm text-muted-foreground leading-relaxed">
+      <div className="space-y-10 text-sm text-muted-foreground leading-relaxed">
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
-            <Shield className="h-4 w-4 text-primary" /> 1. Overview & Data Philosophy
+          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+            <Shield className="h-5 w-5 text-primary" /> 1. Overview & Data Philosophy
           </h2>
           <p>
-            Propfident (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) operates <strong className="text-foreground">propfident.online</strong>. We treat your trading data with strict confidentiality. Propfident is engineered as a risk monitoring utility, meaning we collect only the minimal necessary telemetry required to deliver drawdown calculations, position sizing metrics, and trade analytics.
+            Propfident (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) operates <strong className="text-foreground">propfident.online</strong>. We are committed to maintaining the absolute confidentiality, privacy, and security of your personal and trading data. Designed specifically for proprietary firm traders, Propfident operates on a minimal-data collection principle: we gather only the necessary telemetry required to process drawdown alerts, position sizing metrics, trade leak analysis, and account verification.
+          </p>
+          <p>
+            By accessing our site, using our evaluation tools, or purchasing a Founder&apos;s Lifetime Pass, you acknowledge and agree to the practices outlined in this Privacy Policy.
           </p>
         </section>
 
+        <section className="space-y-4">
+          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+            <Database className="h-5 w-5 text-primary" /> 2. Information We Collect
+          </h2>
+          <div className="space-y-3">
+            <h3 className="text-base font-semibold text-foreground">A. Authentication & Billing Information</h3>
+            <p>
+              When you purchase access to Propfident, processing is handled by our merchant partner, Whop. We receive basic transaction metadata including your email address, purchase timestamp, and subscription entitlement status. We do not process, store, or have access to raw payment card numbers or banking credentials.
+            </p>
+          </div>
+          <div className="space-y-3">
+            <h3 className="text-base font-semibold text-foreground">B. Trading Telemetry & File Data</h3>
+            <p>
+              When you utilize tools such as our Prop Match Evaluator, Lot Calculator, or Trade Playbook CSV uploaders, your trade logs, symbol selections, account sizes, and historical execution records are parsed to generate compliance metrics. Where possible, file processing occurs locally in-memory within your browser or securely over transient server connections.
+            </p>
+          </div>
+          <div className="space-y-3">
+            <h3 className="text-base font-semibold text-foreground">C. Technical & Diagnostic Logs</h3>
+            <p>
+              We automatically collect diagnostic technical information when you navigate our platform, including browser type, operating system, IP address, referral URLs, and performance error logs to maintain system stability and optimize execution speed.
+            </p>
+          </div>
+        </section>
+
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold text-foreground">2. Information We Collect</h2>
+          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+            <Eye className="h-5 w-5 text-primary" /> 3. How We Use Your Data
+          </h2>
+          <p>We use collected data strictly for operational, support, and security purposes, including:</p>
           <ul className="list-disc pl-5 space-y-2">
-            <li>
-              <strong className="text-foreground">Account & Billing Data:</strong> Managed securely through our payment provider, Whop. We receive your email address and payment status to grant software access. We never store credit card numbers on our servers.
-            </li>
-            <li>
-              <strong className="text-foreground">Trading Telemetry & Logs:</strong> File metadata and trade logs (CSV uploads) processed within tools like the Playbook or Prop Match Evaluator are parsed in memory or encrypted cloud storage to generate performance reports.
-            </li>
-            <li>
-              <strong className="text-foreground">Usage Telemetry:</strong> Anonymized browser information, device type, and error logs to optimize engine execution speeds.
-            </li>
+            <li>Calculating daily drawdown buffers, maximum loss thresholds, and trailing equity limits.</li>
+            <li>Routing automated risk alerts and trade leak notifications across connected push channels and supported social platforms.</li>
+            <li>Verifying entitlement rights and granting lifetime software access via Whop integration.</li>
+            <li>Improving risk model accuracy and diagnosing platform performance bugs.</li>
+            <li>Communicating crucial technical updates, platform maintenance, and security notices.</li>
           </ul>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold text-foreground">3. How We Use Your Data</h2>
-          <p>Your data is exclusively used to:</p>
-          <ul className="list-disc pl-5 space-y-1">
-            <li>Calculate real-time daily and trailing drawdown limits.</li>
-            <li>Provide automated rule violation warnings (Discord, Telegram, SMS alerts).</li>
-            <li>Authenticate your Founder&apos;s Pass access via Whop integration.</li>
-            <li>Continuously refine our AI Trade Leak analytics algorithms.</li>
-          </ul>
-        </section>
-
-        <section className="space-y-3">
-          <h2 className="text-lg font-semibold text-foreground">4. Third-Party Integrations</h2>
+          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+            <Lock className="h-5 w-5 text-primary" /> 4. Data Sharing & Third-Party Vendors
+          </h2>
           <p>
-            We rely on trusted third-party providers for platform operations:
+            Propfident does not sell, rent, or trade your personal or trading information to advertisers or data brokers. We share data only with essential infrastructure providers:
           </p>
-          <ul className="list-disc pl-5 space-y-1">
-            <li><strong className="text-foreground">Whop:</strong> Subscription &amp; checkout infrastructure.</li>
-            <li><strong className="text-foreground">Vercel:</strong> Web hosting and edge server infrastructure.</li>
-            <li><strong className="text-foreground">Discord:</strong> Community authentication and push alert routing.</li>
+          <ul className="list-disc pl-5 space-y-2">
+            <li><strong className="text-foreground">Whop:</strong> Manages authentication, checkout, and entitlement authorization.</li>
+            <li><strong className="text-foreground">Vercel:</strong> Delivers secure cloud hosting, edge functions, and global network routing.</li>
+            <li><strong className="text-foreground">Supported Social Platforms:</strong> Enables account verification, community updates, and push notifications when opted into by the user.</li>
           </ul>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold text-foreground">5. Data Retention & Deletion</h2>
+          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+            <RefreshCw className="h-5 w-5 text-primary" /> 5. Data Retention & Your Rights
+          </h2>
           <p>
-            You retain 100% ownership of your trading records. You may request complete erasure of your account details and imported trading history at any time by contacting support at <span className="font-mono text-foreground">support@propfident.online</span>.
+            You retain complete ownership over your trading strategy and historical trade data. You have the right to request deletion of any personal identifiers or stored telemetry associated with your account at any time. To request data erasure or export, contact our executive team at <span className="font-mono text-foreground font-semibold">propfidentceos@gmail.com</span>.
+          </p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+            <Mail className="h-5 w-5 text-primary" /> 6. Updates & Contact Information
+          </h2>
+          <p>
+            We may update this Privacy Policy periodically to reflect changes in legal standards, software capabilities, or third-party integrations. Continued use of Propfident constitutes acceptance of any modified terms.
+          </p>
+          <p>
+            For privacy inquiries, data deletion requests, or security reports, email us directly at: <span className="font-mono text-foreground font-semibold">propfidentceos@gmail.com</span>.
           </p>
         </section>
       </div>

@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { FileText, ArrowLeft } from "lucide-react";
+import { FileText, ArrowLeft, ShieldAlert, CreditCard, Scale, Lock, HelpCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export const metadata = {
   title: "Terms of Service | Propfident",
-  description: "Terms and conditions governing the use of Propfident platform and services.",
+  description: "Terms and conditions governing access, payment, and software usage for Propfident.",
 };
 
 export default function TermsPage() {
@@ -19,46 +19,96 @@ export default function TermsPage() {
 
       <div className="space-y-3 border-b border-border/60 pb-8">
         <Badge variant="outline" className="font-mono text-xs text-primary border-primary/40">
-          LEGAL & COMPLIANCE
+          LEGAL AGREEMENT
         </Badge>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Terms of Service</h1>
+        <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">Terms of Service</h1>
         <p className="text-xs font-mono text-muted-foreground">
           Last updated: September 15, 2026
         </p>
       </div>
 
-      <div className="space-y-8 text-sm text-muted-foreground leading-relaxed">
+      <div className="space-y-10 text-sm text-muted-foreground leading-relaxed">
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
-            <FileText className="h-4 w-4 text-primary" /> 1. Acceptance of Terms
+          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+            <FileText className="h-5 w-5 text-primary" /> 1. Acceptance of Terms & Eligibility
           </h2>
           <p>
-            By accessing or using <strong className="text-foreground">propfident.online</strong>, purchasing the $299 Founder&apos;s Lifetime Pass, or utilizing our free evaluation tools, you agree to be bound by these Terms of Service. If you do not agree, do not use the platform.
+            These Terms of Service (&quot;Agreement&quot;) constitute a legally binding agreement between you and Propfident governing your access to and use of <strong className="text-foreground">propfident.online</strong>, including our web application, free trading utilities, Playbook modules, and risk management systems.
+          </p>
+          <p>
+            By accessing the platform or purchasing a pass, you represent that you are at least 18 years of age, have full legal capacity to enter into binding contracts, and agree to abide by all terms contained herein.
           </p>
         </section>
 
+        <section className="space-y-4">
+          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+            <CreditCard className="h-5 w-5 text-primary" /> 2. Founder&apos;s Access, Pricing & Final Sales
+          </h2>
+          <div className="space-y-2">
+            <h3 className="text-base font-semibold text-foreground">A. Lifetime Access & Scope</h3>
+            <p>
+              Purchasing the Founder&apos;s Pass provides lifetime license access to Propfident core software, trade leak analytics, risk models, and all future core updates without recurring subscription fees.
+            </p>
+          </div>
+          <div className="space-y-2">
+            <h3 className="text-base font-semibold text-foreground">B. Pricing & Payment Processing</h3>
+            <p>
+              The current price for Founder&apos;s Access is a fixed one-time payment of <strong className="text-foreground">$299 USD</strong>. All transactions are securely processed through Whop. You agree to provide valid billing information during checkout.
+            </p>
+          </div>
+          <div className="space-y-2">
+            <h3 className="text-base font-semibold text-foreground">C. Final Sale & No-Refund Policy</h3>
+            <p>
+              Due to the immediate digital delivery of proprietary intellectual property, downloadable trade models, automated calculators, and instant access to proprietary risk metrics upon purchase, <strong className="text-foreground">all sales are final and non-refundable</strong>. Please evaluate our free tools and documentation before completing your purchase.
+            </p>
+          </div>
+        </section>
+
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold text-foreground">2. Lifetime Pass & Payments</h2>
+          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+            <Lock className="h-5 w-5 text-primary" /> 3. License Grant & Authorized Use
+          </h2>
           <p>
-            The Founder&apos;s Tier access grants perpetual lifetime rights to current and future features of Propfident v2 core engine. All transactions are securely processed through Whop.
+            Upon successful payment, Propfident grants you a limited, non-exclusive, non-transferable, revocable license to access and use the platform for individual trading risk management. You explicitly agree not to:
           </p>
-          <ul className="list-disc pl-5 space-y-1">
-            <li><strong className="text-foreground">Price:</strong> $299 USD one-time fee (zero recurring subscriptions).</li>
-            <li><strong className="text-foreground">30-Day Money-Back Guarantee:</strong> If Propfident does not improve your account risk clarity within 30 days of purchase, contact <span className="font-mono text-foreground">support@propfident.online</span> for a full refund.</li>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>Sublicense, resell, rent, lease, or redistribute software access, CSV templates, or Playbook contents.</li>
+            <li>Reverse-engineer, decompile, or extract the source code or risk algorithms of Propfident.</li>
+            <li>Automate unauthorized web scraping or data harvesting against our APIs or tools.</li>
+            <li>Share account credentials, license keys, or access links on public forums or supported social platforms.</li>
           </ul>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold text-foreground">3. User Conduct & Abuse</h2>
+          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+            <ShieldAlert className="h-5 w-5 text-primary" /> 4. Financial & Prop Firm Disclaimer
+          </h2>
           <p>
-            Propfident accounts are for individual use only. Reverse-engineering the platform analytics, sharing VIP Discord credentials, or attempting automated scraping of proprietary prop firm evaluations will result in immediate termination without refund.
+            <strong className="text-foreground">Propfident is a risk calculation software tool and does not provide investment or financial advice.</strong> We are not a broker-dealer, financial advisor, or proprietary trading firm. 
+          </p>
+          <p>
+            Users are solely responsible for verifying their trades, lot sizes, and daily drawdown parameters against their individual proprietary firm rulesets. Propfident is not responsible for trading losses, account evaluation failures, or firm rule breaches resulting from market slippage, broker lag, or user miscalculation.
           </p>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold text-foreground">4. Software Disclaimer & Service Availability</h2>
+          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+            <Scale className="h-5 w-5 text-primary" /> 5. Limitation of Liability & Warranties
+          </h2>
           <p>
-            While we strive for 99.9% engine uptime, Propfident is provided &quot;as is.&quot; We are not liable for system delays, internet disconnects, or third-party prop firm broker feed errors.
+            Propfident is provided on an &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; basis without warranties of any kind, whether express or implied. In no event shall Propfident, its founders, or affiliates be liable for any indirect, incidental, consequential, or loss-of-profit damages arising out of your use or inability to use the platform.
+          </p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+            <HelpCircle className="h-5 w-5 text-primary" /> 6. Termination & Inquiries
+          </h2>
+          <p>
+            We reserve the right to suspend or terminate software access immediately without prior notice if a user violates these Terms of Service or engages in fraudulent activity.
+          </p>
+          <p>
+            For questions regarding these terms, contact our executive team directly at: <span className="font-mono text-foreground font-semibold">propfidentceos@gmail.com</span>.
           </p>
         </section>
       </div>
