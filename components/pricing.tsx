@@ -43,7 +43,7 @@ export function Pricing() {
             />
             <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/35 to-transparent dark:from-black/55" />
             <div className="absolute top-3 right-3 z-10">
-              <Badge className="bg-amber-500/20 dark:bg-amber-500/30 text-black dark:text-white border border-amber-500/50 font-mono text-xs font-semibold uppercase px-3 py-1 backdrop-blur-md shadow-sm">
+              <Badge className="bg-amber-400 text-black dark:text-black font-mono text-xs font-bold uppercase px-3 py-1 shadow-md border-none">
                 Limited to 100 Spots
               </Badge>
             </div>

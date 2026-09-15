@@ -29,14 +29,14 @@ export function Hero() {
   const particleColor = mounted && resolvedTheme === "dark" ? "#ffffff" : "#000000";
 
   return (
-    <section className="relative isolate overflow-hidden border-b border-border/40 pt-20 pb-16 md:pt-28 md:pb-24">
-      {/* 1. Mobile Layer: Particles rendering at z-0 layer above section base */}
-      <div className="block md:hidden absolute inset-0 z-0 overflow-hidden pointer-events-none min-h-[350px]">
-        {mounted && <Floating3DParticles color={particleColor} quantity={50} />}
+    <section className="relative overflow-hidden border-b border-border/40 pt-20 pb-16 md:pt-28 md:pb-24 min-h-[500px]">
+      {/* 1. Mobile Particle Canvas Container */}
+      <div className="block md:hidden absolute inset-0 z-0 h-full w-full pointer-events-none overflow-hidden">
+        {mounted && <Floating3DParticles color={particleColor} quantity={60} />}
       </div>
 
-      {/* 2. Desktop Layer: Background Image */}
-      <div className="hidden md:block absolute inset-0 -z-10 pointer-events-none">
+      {/* 2. Desktop Background Image Container */}
+      <div className="hidden md:block absolute inset-0 z-0 pointer-events-none">
         <Image
           src="/hero-bg.png"
           alt="Propfident Hero Background"
@@ -47,6 +47,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-background/5 via-transparent to-background/75 dark:from-background/35 dark:via-background/35 dark:to-background/95" />
       </div>
 
+      {/* Content Overlay */}
       <div className="container relative z-10 mx-auto max-w-5xl px-4 text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-mono text-primary mb-8">
           <Zap className="h-3.5 w-3.5 fill-primary" />
