@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { Shield, Bell, AlertTriangle, Layers } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 const featureList = [
@@ -9,25 +10,33 @@ const featureList = [
     icon: Shield,
     badge: "Core Guard",
     title: "Drawdown Breach Shield",
-    description: "Monitors daily equity swings and equity curves in real-time to alert you before hitting firm loss limits.",
+    description:
+      "Monitors daily equity swings and equity curves in real-time to alert you before hitting firm loss limits. Tracks trailing max limits automatically.",
+    image: "/features/drawdown-shield.png",
   },
   {
     icon: Bell,
     badge: "Instant Alert",
     title: "Multi-Channel Notifications",
-    description: "Receive instant push alerts on Discord, Telegram, or SMS when account parameters approach warning thresholds.",
+    description:
+      "Receive instant push alerts on Discord, Telegram, or SMS when account parameters approach custom warning thresholds.",
+    image: "/features/notifications.png",
   },
   {
     icon: AlertTriangle,
     badge: "AI Powered",
     title: "Trade Leak Detector",
-    description: "Analyzes execution habits to flag emotional over-leveraging, revenge trading, and rule conflicts.",
+    description:
+      "Analyzes execution habits to flag emotional over-leveraging, revenge trading, and rule conflicts before capital is lost.",
+    image: "/features/leak-detector.png",
   },
   {
     icon: Layers,
     badge: "Multi-Firm",
     title: "Unified Account Dashboard",
-    description: "Connect unlimited accounts across FTMO, FundedNext, 5%ers, and track total metrics from a single pane.",
+    description:
+      "Connect unlimited accounts across FTMO, FundedNext, 5%ers, and track total combined metrics from a single pane.",
+    image: "/features/dashboard.png",
   },
 ];
 
@@ -53,22 +62,37 @@ export function Features() {
             return (
               <Card
                 key={idx}
-                className="p-6 transition-all duration-200 hover:border-primary/50 group"
+                className="overflow-hidden border-border/80 bg-surface/50 transition-all duration-200 hover:border-primary/50"
               >
-                <div className="flex items-center justify-between mb-4">
-                  <div className="h-10 w-10 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center text-primary">
-                    <Icon className="h-5 w-5" />
+                {/* Visual Preview Header */}
+                <div className="relative h-48 w-full border-b border-border/60 bg-muted/30 overflow-hidden flex items-center justify-center">
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent z-10" />
+                  <Image
+                    src={feature.image}
+                    alt={feature.title}
+                    fill
+                    className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute top-3 left-3 z-20 flex items-center gap-2">
+                    <div className="h-8 w-8 rounded-md bg-background/80 backdrop-blur-md border border-border/60 flex items-center justify-center text-primary">
+                      <Icon className="h-4 w-4" />
+                    </div>
                   </div>
-                  <Badge variant="secondary">{feature.badge}</Badge>
+                  <div className="absolute top-3 right-3 z-20">
+                    <Badge variant="secondary" className="backdrop-blur-md bg-background/80">
+                      {feature.badge}
+                    </Badge>
+                  </div>
                 </div>
-                <CardHeader className="p-0 mb-2">
-                  <CardTitle className="group-hover:text-primary transition-colors">
-                    {feature.title}
-                  </CardTitle>
+
+                <CardHeader className="p-6 pb-2">
+                  <CardTitle className="text-lg font-semibold">{feature.title}</CardTitle>
                 </CardHeader>
-                <CardDescription className="text-xs text-muted-foreground leading-relaxed">
-                  {feature.description}
-                </CardDescription>
+                <CardContent className="px-6 pb-6 pt-0">
+                  <CardDescription className="text-xs text-muted-foreground leading-relaxed">
+                    {feature.description}
+                  </CardDescription>
+                </CardContent>
               </Card>
             );
           })}

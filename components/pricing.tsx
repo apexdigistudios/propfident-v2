@@ -1,10 +1,9 @@
 "use client";
 
-import { Check, ShieldCheck, Zap, ArrowRight } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import { Check, ShieldCheck, Zap } from "lucide-react";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { FounderModal } from "@/components/founder-modal";
 
 const features = [
   "Lifetime access to Propfident v2 core engine",
@@ -33,50 +32,59 @@ export function Pricing() {
           </p>
         </div>
 
-        <Card className="max-w-xl mx-auto border-primary/50 p-8 sm:p-10 shadow-md relative overflow-hidden backdrop-blur-md">
-          <div className="absolute top-0 right-0 bg-primary text-primary-foreground font-mono text-[10px] uppercase font-bold px-4 py-1 rounded-bl-lg tracking-wider border-l border-b border-purple-950/80 dark:border-black/90">
-            14 / 100 Spots Left
+        <Card className="max-w-xl mx-auto overflow-hidden border-primary/50 shadow-md relative backdrop-blur-md">
+          {/* Card Image Display */}
+          <div className="relative h-52 w-full border-b border-border/60 bg-muted/30 overflow-hidden flex items-center justify-center">
+            <Image
+              src="/pricing-banner.png"
+              alt="Propfident Lifetime Access"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+            <div className="absolute top-3 right-3 bg-primary text-primary-foreground font-mono text-[10px] uppercase font-bold px-3 py-1 rounded-md tracking-wider shadow-md">
+              14 / 100 Spots Left
+            </div>
           </div>
 
-          <div className="flex items-center gap-2 mb-4 font-mono text-xs text-primary font-semibold">
-            <Zap className="h-4 w-4 fill-primary" />
-            <span>FOUNDER'S TIER</span>
-          </div>
+          <CardHeader className="p-6 sm:p-8 pb-4">
+            <div className="flex items-center gap-2 mb-2 font-mono text-xs text-primary font-semibold">
+              <Zap className="h-4 w-4 fill-primary" />
+              <span>FOUNDER'S TIER</span>
+            </div>
 
-          <div className="flex items-baseline gap-2 mb-2">
-            <span className="text-5xl font-extrabold text-foreground font-mono">$299</span>
-            <span className="text-sm text-muted-foreground line-through font-mono">$599</span>
-            <span className="text-xs text-muted-foreground ml-1 font-sans">/ lifetime</span>
-          </div>
+            <div className="flex items-baseline gap-2 mb-2">
+              <span className="text-5xl font-extrabold text-foreground font-mono">$299</span>
+              <span className="text-sm text-muted-foreground line-through font-mono">$599</span>
+              <span className="text-xs text-muted-foreground ml-1 font-sans">/ lifetime</span>
+            </div>
 
-          <p className="text-xs text-muted-foreground mb-6">
-            Includes all current and future updates with zero recurring costs.
-          </p>
+            <CardTitle className="text-base font-semibold pt-2">Full Platform Access Pass</CardTitle>
+            <CardDescription className="text-xs text-muted-foreground leading-relaxed pt-1">
+              Provides permanent access to the complete suite of risk management tools, real-time drawdown calculators, and institutional evaluation playbooks with zero ongoing software maintenance costs.
+            </CardDescription>
+          </CardHeader>
 
-          <FounderModal>
-            <Button className="w-full py-6 text-sm font-medium mb-8 font-sans gap-2">
-              Claim Your Lifetime Spot <ArrowRight className="h-4 w-4" />
-            </Button>
-          </FounderModal>
-
-          <div className="space-y-3 pt-6 border-t border-border/60">
-            <span className="text-xs font-mono font-semibold text-foreground uppercase tracking-wider block mb-4">
-              Everything included:
-            </span>
-            {features.map((feature, idx) => (
-              <div key={idx} className="flex items-start gap-3 text-sm text-muted-foreground">
-                <div className="h-4 w-4 rounded-full bg-primary/10 text-primary border border-primary/30 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="h-2.5 w-2.5" />
+          <CardContent className="p-6 sm:p-8 pt-0">
+            <div className="space-y-3 pt-4 border-t border-border/60">
+              <span className="text-xs font-mono font-semibold text-foreground uppercase tracking-wider block mb-4">
+                Everything included in access:
+              </span>
+              {features.map((feature, idx) => (
+                <div key={idx} className="flex items-start gap-3 text-sm text-muted-foreground">
+                  <div className="h-4 w-4 rounded-full bg-primary/10 text-primary border border-primary/30 flex items-center justify-center shrink-0 mt-0.5">
+                    <Check className="h-2.5 w-2.5" />
+                  </div>
+                  <span>{feature}</span>
                 </div>
-                <span>{feature}</span>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          <div className="mt-8 pt-6 border-t border-border/60 flex items-center justify-center gap-2 text-xs font-mono text-muted-foreground">
-            <ShieldCheck className="h-4 w-4 text-primary" />
-            <span>30-day money-back guarantee. No questions asked.</span>
-          </div>
+            <div className="mt-8 pt-6 border-t border-border/60 flex items-center justify-center gap-2 text-xs font-mono text-muted-foreground">
+              <ShieldCheck className="h-4 w-4 text-primary" />
+              <span>30-day money-back guarantee. No questions asked.</span>
+            </div>
+          </CardContent>
         </Card>
       </div>
     </section>
