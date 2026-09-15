@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 const propFirms = [
   { name: "Topstep", logo: "/logos/topstep-logo.png" },
   { name: "Goat Funded Trader", logo: "/logos/Goat-Funded-Trader-logo.png" },
@@ -24,17 +22,19 @@ export function SupportedFirms() {
           {propFirms.map((firm, idx) => (
             <div
               key={idx}
-              className="group relative flex aspect-[16/9] w-full overflow-hidden rounded-xl border border-border/60 bg-card p-3 shadow-xs grayscale opacity-70 transition-all duration-300 hover:grayscale-0 hover:opacity-100 hover:border-primary/50 hover:shadow-md"
+              className="group flex h-24 w-full items-center justify-center rounded-xl border border-border/60 bg-card p-3 shadow-xs grayscale opacity-70 transition-all duration-300 hover:grayscale-0 hover:opacity-100 hover:border-primary/50 hover:shadow-md"
             >
-              <div className="relative h-full w-full">
-                <Image
-                  src={firm.logo}
-                  alt={firm.name}
-                  fill
-                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 15vw"
-                  className="object-contain p-1 transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
+              <img
+                src={firm.logo}
+                alt={firm.name}
+                className="max-h-12 w-auto max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (target.src.endsWith(".png")) {
+                    target.src = target.src.replace(".png", ".svg");
+                  }
+                }}
+              />
             </div>
           ))}
         </div>
