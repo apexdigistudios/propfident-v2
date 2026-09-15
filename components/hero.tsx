@@ -6,7 +6,7 @@ import { ArrowRight, ShieldCheck, Zap } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { FounderModal } from "@/components/founder-modal";
-import { Floating3DParticles } from "@/components/magicui/floating-3d-particles";
+import { Floating3DParticles } from "@/components/ui/floating-3d-particles";
 
 export function Hero() {
   const [timeLeft, setTimeLeft] = useState({ hours: 14, minutes: 32, seconds: 45 });
