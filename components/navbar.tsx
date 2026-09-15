@@ -1,80 +1,77 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
-import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { FounderModal } from "@/components/founder-modal";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { BookOpen, ShieldCheck, ChevronDown, Calculator, Search } from "lucide-react";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
 
-export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
+export function Header() {
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 border-b border-border/40 transition-all duration-300 ${scrolled ? "bg-background/70 shadow-[0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl" : "bg-background/85 backdrop-blur-md"}`}>
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-8">
-        <Link href="/" className="flex items-center gap-2 font-mono text-sm font-semibold tracking-tight">
-          <Image src="/logo.png" alt="Propfident" width={28} height={28} className="h-7 w-auto object-contain" priority />
-          <span className="text-foreground">Propfident</span>
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur">
+      <div className="container flex h-16 max-w-6xl items-center justify-between">
+        <Link href="/" className="font-bold text-lg tracking-tight">
+          PROPFIDENT
         </Link>
 
-        <nav className="hidden items-center gap-4 text-xs font-medium text-muted-foreground md:flex">
-          <DropdownMenu>
-            <DropdownMenuTrigger className="inline-flex items-center gap-1 rounded-md px-2 py-1.5 hover:text-foreground focus:outline-none">Features <ChevronDown className="h-3.5 w-3.5" /></DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-64">
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>Risk & Planning</DropdownMenuSubTrigger>
-                <DropdownMenuSubContent>
-                  <DropdownMenuItem asChild><Link href="/tools/position-sizer">Position Sizer</Link></DropdownMenuItem>
-                  <DropdownMenuItem asChild><Link href="/tools/ai-trade-planner">AI Trade Planner</Link></DropdownMenuItem>
-                </DropdownMenuSubContent>
-              </DropdownMenuSub>
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>Firm Matching</DropdownMenuSubTrigger>
-                <DropdownMenuSubContent>
-                  <DropdownMenuItem asChild><Link href="/tools/prop-match">Prop Match Auditor</Link></DropdownMenuItem>
-                  <DropdownMenuItem asChild><Link href="#features">Challenge Readiness</Link></DropdownMenuItem>
-                </DropdownMenuSubContent>
-              </DropdownMenuSub>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <DropdownMenu>
-            <DropdownMenuTrigger className="inline-flex items-center gap-1 rounded-md px-2 py-1.5 hover:text-foreground focus:outline-none">Free Tools <ChevronDown className="h-3.5 w-3.5" /></DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-64">
-              <DropdownMenuItem asChild><Link href="/tools/position-sizer">Position Sizer</Link></DropdownMenuItem>
-              <DropdownMenuItem asChild><Link href="/tools/prop-match">Prop Match Auditor</Link></DropdownMenuItem>
-              <DropdownMenuItem asChild><Link href="/tools/ai-trade-planner">AI Trade Planner</Link></DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <Link href="/#pricing" className="rounded-md px-2 py-1.5 hover:text-foreground">Pricing</Link>
-        </nav>
+        <NavigationMenu>
+          <NavigationMenuList>
+            {/* Direct Link */}
+            <NavigationMenuItem>
+              <Link href="/" passHref legacyBehavior>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Home
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
 
-        <div className="flex items-center gap-3">
-          <ThemeToggle />
-          <FounderModal>
-            <Button size="sm" className="font-mono text-[10px] uppercase tracking-[0.16em]">
-              Founder&apos;s Access
-            </Button>
-          </FounderModal>
-        </div>
+            {/* Nested Menu Dropdown */}
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/playbook"
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      >
+                        <div className="flex items-center gap-2 text-sm font-medium text-primary">
+                          <BookOpen className="h-4 w-4" /> VIP Playbook
+                        </div>
+                        <p className="line-clamp-2 text-xs leading-snug text-muted-foreground mt-1">
+                          Institutional rulesets, execution guides, & Whop checkout.
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/evaluator"
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      >
+                        <div className="flex items-center gap-2 text-sm font-medium">
+                          <Calculator className="h-4 w-4" /> Prop Matcher
+                        </div>
+                        <p className="line-clamp-2 text-xs leading-snug text-muted-foreground mt-1">
+                          Compare drawdown models & rules for evaluation firms.
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
       </div>
     </header>
   );
