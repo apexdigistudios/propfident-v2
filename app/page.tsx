@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Features } from "@/components/features";
+import { SupportedFirms } from "@/components/supported-firms";
 import { Tools } from "@/components/tools";
 import { Pricing } from "@/components/pricing";
 import { FounderModal } from "@/components/founder-modal";
@@ -82,6 +83,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Marquee Supported Prop Firms */}
+      <SupportedFirms />
 
       {/* Sections */}
       <Features />
