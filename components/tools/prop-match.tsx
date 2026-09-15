@@ -288,6 +288,7 @@ export function PropMatchEvaluator() {
   const [step, setStep] = useState(0);
   const [processing, setProcessing] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [analysisComplete, setAnalysisComplete] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -311,6 +312,7 @@ export function PropMatchEvaluator() {
     }
     setError("");
     setShowSuccessAlert(false);
+    setAnalysisComplete(false);
     setFileName(file.name);
     setProcessing(true);
 
@@ -329,6 +331,7 @@ export function PropMatchEvaluator() {
       await new Promise((resolve) => setTimeout(resolve, 1700));
 
       setShowSuccessAlert(true);
+      setAnalysisComplete(true);
     } catch {
       setError("Could not parse the statement. Include PnL, profit, or result columns.");
     } finally {
@@ -586,7 +589,7 @@ export function PropMatchEvaluator() {
       </Card>
 
       {/* Top Recommendation Banner */}
-      {top && (
+      {analysisComplete && !processing && top && (
         <>
           <Card className="border-primary/30 bg-primary/5">
             <CardContent className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
@@ -675,7 +678,7 @@ export function PropMatchEvaluator() {
       )}
 
       {/* WYSIWYG Downloadable Scorecard Certificate (Identical design to downloaded PNG) */}
-      <div className="relative overflow-hidden rounded-[28px] border-2 border-blue-500/50 bg-[linear-gradient(135deg,#09090b_0%,#0f172a_50%,#09090b_100%)] p-6 sm:p-8 shadow-[0_25px_80px_rgba(59,130,246,0.2)]">
+      {analysisComplete && !processing && <div className="relative overflow-hidden rounded-[28px] border-2 border-blue-500/50 bg-[linear-gradient(135deg,#09090b_0%,#0f172a_50%,#09090b_100%)] p-6 sm:p-8 shadow-[0_25px_80px_rgba(59,130,246,0.2)]">
         {/* Forex Splash Icons scattered across background */}
         <Globe className="absolute top-4 left-6 h-20 w-20 text-blue-500/10 -rotate-12 pointer-events-none" />
         <TrendingUp className="absolute top-6 right-16 h-24 w-24 text-indigo-500/10 rotate-12 pointer-events-none" />
@@ -694,24 +697,24 @@ export function PropMatchEvaluator() {
               <p className="font-mono text-xs tracking-[0.2em] text-blue-400 font-semibold uppercase">
                 PROPFIDENT VERIFIED EVALUATION
               </p>
-              <p className="text-sm font-semibold text-slate-300">Certificate of Compliance</p>
+              <p className="text-sm font-semibold text-card-foreground">Certificate of Compliance</p>
             </div>
           </div>
           <Badge className="bg-violet-500/20 text-violet-200 border border-violet-500/40 font-mono text-xs px-3 py-1">
-            WYSIWYG Scorecard
+            Scorecard
           </Badge>
         </div>
 
         {/* Certificate Body */}
         <div className="relative z-10 mt-6 grid gap-6 md:grid-cols-[1fr_auto]">
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] font-mono text-slate-400">TRADER NAME (EDITABLE)</p>
+            <p className="text-xs uppercase tracking-[0.2em] font-mono text-muted-foreground">TRADER NAME (EDITABLE)</p>
             <input
               value={traderName}
               onChange={(e) => setTraderName(e.target.value)}
-              className="mt-1 w-full max-w-md border-b border-white/20 bg-transparent py-1.5 text-2xl sm:text-3xl font-bold text-white outline-none focus:border-blue-400 transition-all font-sans"
+              className="mt-1 w-full max-w-md border-b border-border/60 bg-transparent py-1.5 text-2xl sm:text-3xl font-bold text-card-foreground outline-none focus:border-blue-400 transition-all font-sans"
             />
-            <p className="mt-4 text-xs uppercase tracking-[0.2em] font-mono text-slate-400">HIGHEST MATCHED FIRM</p>
+            <p className="mt-4 text-xs uppercase tracking-[0.2em] font-mono text-muted-foreground">HIGHEST MATCHED FIRM</p>
             <div className="mt-2 flex items-center gap-3">
               <Image
                 src={top?.logoUrl ?? "/logo.png"}
@@ -721,7 +724,7 @@ export function PropMatchEvaluator() {
                 className="h-10 w-10 rounded-lg object-contain bg-background/40 p-1 border border-white/10"
               />
               <div>
-                <span className="text-xl font-semibold text-white">{top?.name ?? "Loading firm rules..."}</span>
+                <span className="text-xl font-semibold text-card-foreground">{top?.name ?? "Loading firm rules..."}</span>
                 <p className="text-xs text-emerald-400 font-mono flex items-center gap-1 mt-0.5">
                   <CheckCircle2 className="h-3.5 w-3.5" /> Top recommended challenge match
                 </p>
@@ -729,29 +732,29 @@ export function PropMatchEvaluator() {
             </div>
 
             {/* Performance Snapshot */}
-            <div className="mt-6 rounded-xl border border-white/10 bg-white/5 p-4 grid grid-cols-2 gap-3 max-w-md font-mono text-xs text-slate-300">
+            <div className="mt-6 rounded-xl border border-border/60 bg-card/40 p-4 grid grid-cols-2 gap-3 max-w-md font-mono text-xs text-card-foreground">
               <div>
-                <span className="text-slate-500 block text-[10px]">WIN RATE</span>
-                <span className="font-bold text-white text-sm">{metrics.winRate.toFixed(1)}%</span>
+                <span className="text-muted-foreground block text-[10px]">WIN RATE</span>
+                <span className="font-bold text-card-foreground text-sm">{metrics.winRate.toFixed(1)}%</span>
               </div>
               <div>
-                <span className="text-slate-500 block text-[10px]">MAX DAILY DD</span>
-                <span className="font-bold text-white text-sm">{metrics.maxDailyDrawdown.toFixed(1)}%</span>
+                <span className="text-muted-foreground block text-[10px]">MAX DAILY DD</span>
+                <span className="font-bold text-card-foreground text-sm">{metrics.maxDailyDrawdown.toFixed(1)}%</span>
               </div>
               <div>
-                <span className="text-slate-500 block text-[10px]">OVERALL DD</span>
-                <span className="font-bold text-white text-sm">{metrics.overallDrawdown.toFixed(1)}%</span>
+                <span className="text-muted-foreground block text-[10px]">OVERALL DD</span>
+                <span className="font-bold text-card-foreground text-sm">{metrics.overallDrawdown.toFixed(1)}%</span>
               </div>
               <div>
-                <span className="text-slate-500 block text-[10px]">EXECUTED TRADES</span>
-                <span className="font-bold text-white text-sm">{metrics.totalTrades}</span>
+                <span className="text-muted-foreground block text-[10px]">EXECUTED TRADES</span>
+                <span className="font-bold text-card-foreground text-sm">{metrics.totalTrades}</span>
               </div>
             </div>
           </div>
 
           <div className="flex flex-col items-start md:items-end justify-between">
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] font-mono text-slate-400 text-left md:text-right">
+              <p className="text-xs uppercase tracking-[0.2em] font-mono text-muted-foreground text-left md:text-right">
                 PASS PROBABILITY
               </p>
               <p className="mt-1 text-6xl font-extrabold text-blue-400 font-mono">{top?.score ?? 0}%</p>
@@ -759,13 +762,13 @@ export function PropMatchEvaluator() {
 
             {/* Top 3 Matches Mini Matrix */}
             <div className="mt-4 w-full md:w-64 space-y-2">
-              <p className="text-[10px] uppercase font-mono tracking-wider text-slate-400">Top 3 Firm Rankings</p>
+              <p className="text-[10px] uppercase font-mono tracking-wider text-muted-foreground">Top 3 Firm Rankings</p>
               {ranked.slice(0, 3).map((firm, idx) => (
                 <div
                   key={firm.id}
                   className="flex items-center justify-between p-2 rounded-lg bg-white/5 border border-white/10 text-xs font-mono"
                 >
-                  <span className="text-slate-300 truncate">
+                  <span className="text-card-foreground truncate">
                     {idx + 1}. {firm.name}
                   </span>
                   <span className="font-bold text-blue-400">{firm.score}%</span>
@@ -777,16 +780,16 @@ export function PropMatchEvaluator() {
 
         {/* Action / Export Footer */}
         <div className="relative z-10 mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-t border-white/10 pt-5">
-          <p className="text-xs font-mono text-slate-400">High-DPI PNG certificate output (1200×630)</p>
+          <p className="text-xs font-mono text-muted-foreground">High-DPI PNG certificate output (1200×630)</p>
           <Button
             onClick={downloadCertificate}
             disabled={!top}
-            className="gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg"
+            className="gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-primary-foreground shadow-lg"
           >
             <Download className="h-4 w-4" /> Download Certificate (PNG)
           </Button>
         </div>
-      </div>
+      </div>}
     </div>
   );
 }

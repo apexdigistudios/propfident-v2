@@ -4,10 +4,10 @@ import Image from "next/image";
 
 const propFirms = [
   { name: "Topstep", logo: "/logos/topstep-logo.png" },
-  { name: "Goat Funded Trader", logo: "/logos/Goat-Funded-Trader-logo.png" },
-  { name: "Aqua Funded", logo: "/logos/aqua-funded-logo.png" },
-  { name: "FundedNext", logo: "/logos/fundednext-logo.png" },
-  { name: "Alpha Capital", logo: "/logos/Alpha-Capital-prop-firm-logo.png" },
+  { name: "Goat Funded Trader", logo: "/logos/Goat-Funded-Trader-logo.jpg" },
+  { name: "Aqua Funded", logo: "/logos/aqua-funded-logo.webp" },
+  { name: "FundedNext", logo: "/logos/fundednext-logo.webp" },
+  { name: "Alpha Capital", logo: "/logos/Alpha-Capital-prop-firm-logo.webp" },
   { name: "The 5%ers", logo: "/logos/5ers-Logo.png" },
   { name: "FTMO", logo: "/logos/ftmo-logo.png" },
 ];
@@ -27,14 +27,14 @@ export function SupportedFirms() {
           {propFirms.map((firm, idx) => (
             <div
               key={idx}
-              className="flex items-center justify-center shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+              className="flex h-14 w-40 items-center justify-center shrink-0 rounded-lg border border-border/40 bg-background/60 px-4 grayscale opacity-75 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
             >
               <Image
                 src={firm.logo}
                 alt={firm.name}
                 width={140}
                 height={40}
-                className="h-8 w-auto object-contain"
+                className="h-11 w-auto max-w-32 object-contain"
               />
             </div>
           ))}
@@ -48,14 +48,14 @@ export function SupportedFirms() {
           {propFirms.map((firm, idx) => (
             <div
               key={`dup-${idx}`}
-              className="flex items-center justify-center shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+              className="flex h-14 w-40 items-center justify-center shrink-0 rounded-lg border border-border/40 bg-background/60 px-4 grayscale opacity-75 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
             >
               <Image
                 src={firm.logo}
                 alt={firm.name}
                 width={140}
                 height={40}
-                className="h-8 w-auto object-contain"
+                className="h-11 w-auto max-w-32 object-contain"
               />
             </div>
           ))}

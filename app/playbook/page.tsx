@@ -97,7 +97,7 @@ export default function PlaybookPage() {
                   fill
                   className="object-cover object-top transition-transform duration-300 hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/35 to-transparent dark:from-black/55" />
                 <div className="absolute top-3 left-3 z-10">
                   <div className="h-8 w-8 rounded-md bg-background/80 backdrop-blur-md border border-border/60 flex items-center justify-center text-primary">
                     <Icon className="h-4 w-4" />
@@ -132,7 +132,7 @@ export default function PlaybookPage() {
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/35 to-transparent dark:from-black/55" />
           <div className="absolute top-3 right-3 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-mono text-[10px] uppercase font-bold px-3 py-1 rounded-md tracking-wider backdrop-blur-md">
             Instant Digital Access
           </div>
@@ -155,7 +155,7 @@ export default function PlaybookPage() {
               "Exclusive VIP Discord Community Channel",
               "Lifetime Updates & Rule Change Alerts",
             ].map((feature) => (
-              <div key={feature} className="flex items-center gap-2.5 text-slate-200">
+              <div key={feature} className="flex items-center gap-2.5 text-foreground">
                 <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
                 <span>{feature}</span>
               </div>

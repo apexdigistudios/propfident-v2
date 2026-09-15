@@ -5,6 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     { url: "https://propfident.online/", lastModified, priority: 1.0 },
+    { url: "https://propfident.online/playbook", lastModified, priority: 0.8 },
     { url: "https://propfident.online/tools/position-sizer", lastModified, priority: 0.8 },
     { url: "https://propfident.online/tools/prop-match", lastModified, priority: 0.8 },
     { url: "https://propfident.online/tools/ai-trade-planner", lastModified, priority: 0.8 },

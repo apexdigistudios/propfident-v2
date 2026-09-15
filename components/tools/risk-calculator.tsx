@@ -29,7 +29,7 @@ export function RiskLotCalculator() {
       <CardHeader className="border-b border-border/40 pb-4">
         <div className="flex items-center gap-2 text-primary font-mono text-sm font-semibold">
           <Calculator className="h-4 w-4" />
-          <span>TOOL 01 // POSITION SIZER</span>
+          <span>LOT SIZE CALCULATOR</span>
         </div>
         <CardTitle className="text-xl font-bold font-sans">Risk & Lot Size Calculator</CardTitle>
       </CardHeader>

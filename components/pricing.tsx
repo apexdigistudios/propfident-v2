@@ -43,7 +43,7 @@ export function Pricing() {
               fill
               className="object-cover transition-transform duration-300 hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/35 to-transparent dark:from-black/55" />
             <div className="absolute top-3 right-3 z-10">
               <Badge className="bg-amber-500/20 text-amber-300 border border-amber-500/30 font-mono text-xs uppercase px-3 py-1 backdrop-blur-md">
                 Limited to 100 Spots
@@ -66,7 +66,7 @@ export function Pricing() {
 
           <CardContent className="px-6 sm:px-8 py-4 space-y-6">
             <div className="flex items-baseline gap-2">
-              <span className="text-4xl font-extrabold text-foreground">$149</span>
+              <span className="text-4xl font-extrabold text-foreground">$299</span>
               <span className="text-sm text-muted-foreground line-through">$499</span>
               <span className="text-xs text-emerald-400 font-mono font-semibold ml-2">
                 SAVE 70%

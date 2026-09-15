@@ -39,7 +39,7 @@ export function AITradePlanner() {
       <CardHeader className="border-b border-border/40 pb-4">
         <div className="flex items-center gap-2 text-primary font-mono text-sm font-semibold">
           <Brain className="h-4 w-4" />
-          <span>TOOL 03 // AI RISK CHECK</span>
+          <span>AI TRADE PLANNER</span>
         </div>
         <CardTitle className="text-xl font-bold font-sans">AI Pre-Trade Risk Planner</CardTitle>
       </CardHeader>
@@ -143,7 +143,7 @@ export function AITradePlanner() {
         <Button
           onClick={handleAnalyze}
           disabled={isAnalyzing}
-          className="w-full font-mono text-xs gap-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:opacity-90 text-white"
+          className="w-full font-mono text-xs gap-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:opacity-90 text-primary-foreground"
         >
           {isAnalyzing ? (
             <>
@@ -151,7 +151,7 @@ export function AITradePlanner() {
             </>
           ) : (
             <>
-              <Sparkles className="h-4 w-4" /> Run AI Pre-Flight Audit
+              <Sparkles className="h-4 w-4" /> Build PLan
             </>
           )}
         </Button>

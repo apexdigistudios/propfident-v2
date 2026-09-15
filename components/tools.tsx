@@ -31,7 +31,7 @@ export function Tools() {
           <div className="inline-flex p-1 rounded-xl bg-surface border border-border/60 gap-1 sm:gap-2">
             <button
               onClick={() => setActiveTab("calculator")}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-mono font-medium transition-all ${
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-medium transition-all ${
                 activeTab === "calculator"
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground hover:bg-surface-hover"
@@ -43,7 +43,7 @@ export function Tools() {
 
             <button
               onClick={() => setActiveTab("prop-match")}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-mono font-medium transition-all ${
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-medium transition-all ${
                 activeTab === "prop-match"
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground hover:bg-surface-hover"
@@ -55,7 +55,7 @@ export function Tools() {
 
             <button
               onClick={() => setActiveTab("ai-planner")}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-mono font-medium transition-all ${
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-medium transition-all ${
                 activeTab === "ai-planner"
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground hover:bg-surface-hover"

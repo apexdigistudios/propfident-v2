@@ -10,6 +10,7 @@ import { SupportedFirms } from "@/components/supported-firms";
 import { Tools } from "@/components/tools";
 import { Pricing } from "@/components/pricing";
 import { FounderModal } from "@/components/founder-modal";
+import { Footer } from "@/components/footer";
 
 export default function Home() {
   useEffect(() => {
@@ -92,10 +93,7 @@ export default function Home() {
       <Tools />
       <Pricing />
 
-      {/* Footer */}
-      <footer className="py-6 border-t border-border/40 relative z-10 text-center text-xs font-mono text-muted-foreground">
-        <p>© Propfident. Built for prop firm traders.</p>
-      </footer>
+      <Footer />
     </main>
   );
 }
