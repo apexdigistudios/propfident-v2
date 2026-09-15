@@ -45,7 +45,7 @@ export function Pricing() {
             />
             <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/35 to-transparent dark:from-black/55" />
             <div className="absolute top-3 right-3 z-10">
-              <Badge className="bg-amber-500/20 text-amber-300 border border-amber-500/30 font-mono text-xs uppercase px-3 py-1 backdrop-blur-md">
+              <Badge className="bg-amber-500/15 dark:bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-500/40 font-mono text-xs uppercase px-3 py-1 backdrop-blur-md">
                 Limited to 100 Spots
               </Badge>
             </div>
@@ -55,7 +55,7 @@ export function Pricing() {
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle className="text-2xl font-bold flex items-center gap-2">
-                  <Crown className="h-5 w-5 text-amber-400" /> Founder&apos;s Pass
+                  <Crown className="h-5 w-5 text-amber-600 dark:text-amber-400" /> Founder&apos;s Pass
                 </CardTitle>
                 <CardDescription className="text-xs text-muted-foreground mt-1">
                   One-time payment for lifetime access &amp; all future updates.
@@ -68,7 +68,7 @@ export function Pricing() {
             <div className="flex items-baseline gap-2">
               <span className="text-4xl font-extrabold text-foreground">$299</span>
               <span className="text-sm text-muted-foreground line-through">$499</span>
-              <span className="text-xs text-emerald-400 font-mono font-semibold ml-2">
+              <span className="text-xs text-emerald-600 dark:text-emerald-400 font-mono font-semibold ml-2">
                 SAVE 70%
               </span>
             </div>
@@ -77,13 +77,13 @@ export function Pricing() {
               {[
                 "Unlimited Prop Firm Accounts & MT4/MT5 Integration",
                 "Real-Time Drawdown & Max Daily Shield",
-                "Multi-Channel Telegram & Discord Notifications",
+                "Multi-Channel Telegram & Social Platform Notifications",
                 "Trade Leak & Over-Leverage Analytics",
                 "Full Access to The 7-Figure Funded Trader Playbook",
-                "All Future Platform Features & Rule Updates Included",
+                "All Future Platform Core Updates Included",
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-2.5 text-foreground">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                   <span>{item}</span>
                 </div>
               ))}
@@ -93,7 +93,7 @@ export function Pricing() {
           <CardFooter className="p-6 sm:p-8 pt-2">
             <FounderModal>
               <Button size="lg" className="w-full gap-2 text-sm font-semibold shadow-xl">
-                <Zap className="h-4 w-4 fill-current text-amber-400" /> Claim Lifetime Access Now
+                <Zap className="h-4 w-4 fill-current text-amber-500 dark:text-amber-400" /> Claim Lifetime Access Now
               </Button>
             </FounderModal>
           </CardFooter>

@@ -18,7 +18,10 @@ export default function DisclaimerPage() {
       </Link>
 
       <div className="space-y-3 border-b border-border/60 pb-8">
-        <Badge variant="outline" className="font-mono text-xs text-amber-500 border-amber-500/40">
+        <Badge
+          variant="outline"
+          className="font-mono text-xs text-amber-700 dark:text-amber-400 border-amber-500/40 bg-amber-500/10 dark:bg-amber-500/10"
+        >
           RISK DISCLOSURE
         </Badge>
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Financial Disclaimer</h1>
@@ -28,9 +31,9 @@ export default function DisclaimerPage() {
       </div>
 
       <div className="space-y-8 text-sm text-muted-foreground leading-relaxed">
-        <div className="p-4 rounded-xl border border-amber-500/30 bg-amber-500/5 text-amber-200/90 flex items-start gap-3">
-          <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
-          <p className="text-xs leading-relaxed">
+        <div className="p-4 rounded-xl border border-amber-500/30 bg-amber-500/10 dark:bg-amber-500/5 text-amber-950 dark:text-amber-200/90 flex items-start gap-3">
+          <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+          <p className="text-xs leading-relaxed font-medium dark:font-normal">
             Trading futures, forex, commodities, and equities involves substantial risk of loss and is not suitable for every investor. Please read this disclosure carefully before using Propfident tools.
           </p>
         </div>

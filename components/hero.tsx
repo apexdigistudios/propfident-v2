@@ -3,11 +3,15 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ArrowRight, ShieldCheck, Zap } from "lucide-react";
+import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { FounderModal } from "@/components/founder-modal";
+import { Floating3DParticles } from "@/components/magicui/floating-3d-particles";
 
 export function Hero() {
   const [timeLeft, setTimeLeft] = useState({ hours: 14, minutes: 32, seconds: 45 });
+  const { resolvedTheme } = useTheme();
+  const particleColor = resolvedTheme === "dark" ? "#ffffff" : "#000000";
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -23,16 +27,21 @@ export function Hero() {
 
   return (
     <section className="relative isolate overflow-hidden border-b border-border/40 pt-20 pb-16 md:pt-28 md:pb-24">
-      {/* Background Image Layer */}
-      <div className="absolute inset-0 -z-10">
+      {/* 1. Mobile Layer: Magic UI Floating 3D Particles (Hidden on desktop) */}
+      <div className="block md:hidden absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+        <Floating3DParticles color={particleColor} />
+      </div>
+
+      {/* 2. Desktop Layer: Background Image (Hidden on mobile) */}
+      <div className="hidden md:block absolute inset-0 -z-10 pointer-events-none">
         <Image
           src="/hero-bg.png"
           alt="Propfident Hero Background"
           fill
           priority
-          className="h-full w-full object-cover object-center opacity-100 pointer-events-none"
+          className="h-full w-full object-cover object-center opacity-100"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/5 via-transparent to-background/75 dark:from-background/35 dark:via-background/35 dark:to-background/95 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/5 via-transparent to-background/75 dark:from-background/35 dark:via-background/35 dark:to-background/95" />
       </div>
 
       <div className="container relative z-10 mx-auto max-w-5xl px-4 text-center">
@@ -42,7 +51,10 @@ export function Hero() {
         </div>
 
         <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground max-w-4xl mx-auto leading-[1.15]">
-          Risk Management for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-400">Funded Traders</span>
+          Risk Management for{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-400">
+            Funded Traders
+          </span>
         </h1>
 
         <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
@@ -60,7 +72,7 @@ export function Hero() {
           </Button>
         </div>
 
-          <div className="mt-14 pt-8 border-t border-border/40 flex flex-col sm:flex-row items-center justify-between gap-6 max-w-3xl mx-auto text-xs font-mono text-muted-foreground">
+        <div className="mt-14 pt-8 border-t border-border/40 flex flex-col sm:flex-row items-center justify-between gap-6 max-w-3xl mx-auto text-xs font-mono text-muted-foreground">
           <div className="flex items-center gap-2">
             <ShieldCheck className="h-4 w-4 text-primary" />
             <span>25+ Funded Accounts Protected in Beta</span>
@@ -68,7 +80,9 @@ export function Hero() {
           <div className="flex items-center gap-3 bg-surface px-4 py-2 rounded-md border border-border/50">
             <span>Offer Closes In:</span>
             <span className="text-foreground font-semibold">
-              {String(timeLeft.hours).padStart(2, "0")}h : {String(timeLeft.minutes).padStart(2, "0")}m : {String(timeLeft.seconds).padStart(2, "0")}s
+              {String(timeLeft.hours).padStart(2, "0")}h :{" "}
+              {String(timeLeft.minutes).padStart(2, "0")}m :{" "}
+              {String(timeLeft.seconds).padStart(2, "0")}s
             </span>
           </div>
         </div>

@@ -69,9 +69,9 @@ export function Footer() {
         ))}
       </div>
       <div className="mx-auto mt-10 max-w-7xl border-t border-border/40 pt-5 text-xs text-muted-foreground flex flex-col sm:flex-row items-center justify-between gap-4 font-mono">
-        <p>© {new Date().getFullYear()} Propfident. Built for funded traders.</p>
+        <p>© {new Date().getFullYear()} Propfident Inc. Built for funded traders.</p>
         <p className="text-[11px] text-muted-foreground/80">
-          Not affiliated with FTMO, Topstep, FundedNext, or 5%ers.
+          Made with ❤️ by the Propfident team, Adjacent.
         </p>
       </div>
     </footer>
