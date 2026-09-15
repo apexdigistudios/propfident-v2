@@ -49,7 +49,6 @@ export function Navbar() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-8">
-        {/* Logo */}
         <Link
           href="/"
           onClick={() => setMobileMenuOpen(false)}
@@ -68,7 +67,6 @@ export function Navbar() {
 
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-4 text-xs font-medium text-muted-foreground md:flex">
-          {/* Features Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger className="inline-flex items-center gap-1.5 rounded-md px-2 py-1.5 hover:text-foreground focus:outline-none transition-colors">
               <Layers className="h-3.5 w-3.5" />
@@ -103,7 +101,6 @@ export function Navbar() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Free Tools Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger className="inline-flex items-center gap-1.5 rounded-md px-2 py-1.5 hover:text-foreground focus:outline-none transition-colors">
               <Wrench className="h-3.5 w-3.5" />
@@ -132,7 +129,6 @@ export function Navbar() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Standalone Nav Links */}
           <Link
             href="/playbook"
             className="flex items-center gap-1.5 rounded-md px-2 py-1.5 hover:text-foreground transition-colors"
@@ -150,7 +146,7 @@ export function Navbar() {
           </Link>
         </nav>
 
-        {/* Header Action Controls */}
+        {/* Header Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
           <ThemeToggle />
           
@@ -166,7 +162,6 @@ export function Navbar() {
             </FounderModal>
           </div>
 
-          {/* Hamburger Toggle Button (Mobile Only) */}
           <Button
             variant="ghost"
             size="icon"
@@ -179,11 +174,10 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Navigation Drawer */}
+      {/* Mobile Drawer (Clean menu only, no CTA) */}
       {mobileMenuOpen && (
         <div className="md:hidden border-b border-border/60 bg-background/98 px-4 py-6 shadow-2xl backdrop-blur-2xl">
           <div className="flex flex-col gap-5 text-sm font-medium">
-            {/* Features Section */}
             <div className="space-y-2">
               <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
                 <Layers className="h-3.5 w-3.5 text-primary" /> Platform Features
@@ -220,7 +214,6 @@ export function Navbar() {
               </div>
             </div>
 
-            {/* Free Tools Section */}
             <div className="space-y-2 border-t border-border/40 pt-4">
               <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
                 <Wrench className="h-3.5 w-3.5 text-primary" /> Free Trading Tools
@@ -253,7 +246,6 @@ export function Navbar() {
               </div>
             </div>
 
-            {/* Navigation & Pricing Links */}
             <div className="space-y-2 border-t border-border/40 pt-4 flex flex-col gap-2 font-sans text-xs">
               <Link
                 href="/playbook"
@@ -271,16 +263,6 @@ export function Navbar() {
                 <Tag className="h-4 w-4 text-primary" />
                 <span className="font-semibold">Pricing & Founder Pass</span>
               </Link>
-            </div>
-
-            {/* Mobile Founder CTA Button */}
-            <div className="pt-2 border-t border-border/40">
-              <FounderModal>
-                <Button className="w-full font-mono text-xs uppercase tracking-wider gap-2 py-5">
-                  <Crown className="h-4 w-4 text-amber-400" />
-                  <span>Claim Founder&apos;s Access ($299)</span>
-                </Button>
-              </FounderModal>
             </div>
           </div>
         </div>

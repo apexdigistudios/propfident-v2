@@ -10,10 +10,11 @@ import { Floating3DParticles } from "@/components/ui/floating-3d-particles";
 
 export function Hero() {
   const [timeLeft, setTimeLeft] = useState({ hours: 14, minutes: 32, seconds: 45 });
+  const [mounted, setMounted] = useState(false);
   const { resolvedTheme } = useTheme();
-  const particleColor = resolvedTheme === "dark" ? "#ffffff" : "#000000";
 
   useEffect(() => {
+    setMounted(true);
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
@@ -25,14 +26,16 @@ export function Hero() {
     return () => clearInterval(timer);
   }, []);
 
+  const particleColor = mounted && resolvedTheme === "dark" ? "#ffffff" : "#000000";
+
   return (
     <section className="relative isolate overflow-hidden border-b border-border/40 pt-20 pb-16 md:pt-28 md:pb-24">
-      {/* 1. Mobile Layer: Magic UI Floating 3D Particles (Hidden on desktop) */}
-      <div className="block md:hidden absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-        <Floating3DParticles color={particleColor} />
+      {/* 1. Mobile Layer: Particles rendering at z-0 layer above section base */}
+      <div className="block md:hidden absolute inset-0 z-0 overflow-hidden pointer-events-none min-h-[350px]">
+        {mounted && <Floating3DParticles color={particleColor} quantity={50} />}
       </div>
 
-      {/* 2. Desktop Layer: Background Image (Hidden on mobile) */}
+      {/* 2. Desktop Layer: Background Image */}
       <div className="hidden md:block absolute inset-0 -z-10 pointer-events-none">
         <Image
           src="/hero-bg.png"

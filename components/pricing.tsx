@@ -33,9 +33,7 @@ export function Pricing() {
           </p>
         </div>
 
-        {/* Pricing Card with Lifetime Access Banner */}
         <Card className="max-w-xl mx-auto overflow-hidden border-primary/50 shadow-2xl bg-surface/60 backdrop-blur-md">
-          {/* Lifetime Access Image Preview */}
           <div className="relative h-56 w-full border-b border-border/60 bg-muted/30 overflow-hidden flex items-center justify-center">
             <Image
               src="/card-images/lifetime-access.png"
@@ -45,7 +43,7 @@ export function Pricing() {
             />
             <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/35 to-transparent dark:from-black/55" />
             <div className="absolute top-3 right-3 z-10">
-              <Badge className="bg-amber-500/15 dark:bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-500/40 font-mono text-xs uppercase px-3 py-1 backdrop-blur-md">
+              <Badge className="bg-amber-500/20 dark:bg-amber-500/30 text-black dark:text-white border border-amber-500/50 font-mono text-xs font-semibold uppercase px-3 py-1 backdrop-blur-md shadow-sm">
                 Limited to 100 Spots
               </Badge>
             </div>
