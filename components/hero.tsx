@@ -31,7 +31,7 @@ export function Hero() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center opacity-85 sm:opacity-100"
+          className="object-cover object-[60%_center] opacity-85 sm:object-center sm:opacity-100"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/60 to-background dark:from-background/40 dark:via-background/80 dark:to-background" />
       </div>
