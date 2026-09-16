@@ -3,18 +3,13 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ArrowRight, ShieldCheck, Zap } from "lucide-react";
-import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { FounderModal } from "@/components/founder-modal";
-import { Floating3DParticles } from "@/components/ui/floating-3d-particles";
 
 export function Hero() {
   const [timeLeft, setTimeLeft] = useState({ hours: 14, minutes: 32, seconds: 45 });
-  const [mounted, setMounted] = useState(false);
-  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
-    setMounted(true);
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
@@ -26,28 +21,21 @@ export function Hero() {
     return () => clearInterval(timer);
   }, []);
 
-  const particleColor = mounted && resolvedTheme === "dark" ? "#ffffff" : "#000000";
-
   return (
-    <section className="relative overflow-hidden border-b border-border/40 pt-20 pb-16 md:pt-28 md:pb-24 min-h-[520px]">
-      {/* 1. Background Image - Mobile & Desktop optimized */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+    <section className="relative isolate overflow-hidden border-b border-border/40 pt-20 pb-16 md:pt-28 md:pb-24">
+      {/* Background Image - Visible across all devices */}
+      <div className="absolute inset-0 -z-10 pointer-events-none">
         <Image
           src="/hero-bg.png"
           alt="Propfident Hero Background"
           fill
           priority
-          className="h-full w-full object-cover object-center opacity-70 sm:opacity-90"
+          sizes="100vw"
+          className="object-cover object-center opacity-85 sm:opacity-100"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/65 to-background dark:from-background/40 dark:via-background/75 dark:to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/60 to-background dark:from-background/40 dark:via-background/80 dark:to-background" />
       </div>
 
-      {/* 2. Floating Particles Overlay */}
-      <div className="absolute inset-0 z-0 h-full w-full pointer-events-none overflow-hidden opacity-60 sm:opacity-100">
-        {mounted && <Floating3DParticles color={particleColor} quantity={45} />}
-      </div>
-
-      {/* Content Layer */}
       <div className="container relative z-10 mx-auto max-w-5xl px-4 text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-mono text-primary mb-8">
           <Zap className="h-3.5 w-3.5 fill-primary" />
