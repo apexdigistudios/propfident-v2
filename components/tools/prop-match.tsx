@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import Papa from "papaparse";
 import {
@@ -21,6 +20,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { ScorecardModal } from "@/components/scorecard-modal";
 
 type SourceFirm = {
   firm_name: string;
@@ -286,6 +286,10 @@ export function PropMatchEvaluator() {
   const [analysisComplete, setAnalysisComplete] = useState(false);
   const [error, setError] = useState("");
 
+  // Scorecard Modal State
+  const [isScorecardOpen, setIsScorecardOpen] = useState(false);
+  const [traderName, setTraderName] = useState("John Doe");
+
   useEffect(() => {
     void fetch("/api/prop-firms")
       .then((response) => response.json() as Promise<SourceFirm[]>)
@@ -444,7 +448,7 @@ export function PropMatchEvaluator() {
 
           {error && <p className="rounded-md border border-rose-500/30 bg-rose-500/10 p-3 text-sm text-rose-600 dark:text-rose-400">{error}</p>}
 
-          {/* Statement Metrics Grid (Displays 0 until user uploads CSV) */}
+          {/* Statement Metrics Grid */}
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
             {[
               ["Total trades", analysisComplete ? metrics.totalTrades : 0],
@@ -465,7 +469,7 @@ export function PropMatchEvaluator() {
         </CardContent>
       </Card>
 
-      {/* Top Recommendation & Evaluation Results */}
+      {/* Top Recommendation Banner */}
       {analysisComplete && !processing && top && (
         <>
           <Card className="border-primary/30 bg-primary/5">
@@ -481,11 +485,13 @@ export function PropMatchEvaluator() {
                 <Badge className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 font-mono text-xs px-3 py-1">
                   {top.score}% Pass Probability
                 </Badge>
-                <Link href="/scorecard">
-                  <Button variant="outline" className="gap-2 font-mono text-xs border-primary/30 hover:bg-primary/10">
-                    <BarChart3 className="h-4 w-4 text-primary" /> Detailed Scorecard
-                  </Button>
-                </Link>
+                <Button
+                  onClick={() => setIsScorecardOpen(true)}
+                  variant="outline"
+                  className="gap-2 font-mono text-xs border-primary/30 hover:bg-primary/10"
+                >
+                  <BarChart3 className="h-4 w-4 text-primary" /> View Scorecard
+                </Button>
                 <a href={top.refUrl} target="_blank" rel="noreferrer">
                   <Button className="gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 text-white">
                     Apply Challenge <ArrowRight className="h-4 w-4" />
@@ -566,6 +572,17 @@ export function PropMatchEvaluator() {
           </div>
         </>
       )}
+
+      {/* Full-Screen Scaled Scorecard Modal */}
+      <ScorecardModal
+        isOpen={isScorecardOpen}
+        onClose={() => setIsScorecardOpen(false)}
+        traderName={traderName}
+        setTraderName={setTraderName}
+        topFirm={top}
+        metrics={metrics}
+        rankedFirms={ranked}
+      />
     </div>
   );
 }
