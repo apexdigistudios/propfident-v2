@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
 import { Safari } from "@/components/ui/safari";
 import { Button } from "@/components/ui/button";
 import { Calculator, Brain, Building2 } from "lucide-react";
@@ -9,19 +10,28 @@ type TabType = "calculator" | "planner" | "matcher";
 
 export function ToolPreviewSection() {
   const [activeTab, setActiveTab] = useState<TabType>("calculator");
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Default to dark theme on server/initial render to prevent hydration mismatch
+  const currentTheme = mounted && resolvedTheme === "light" ? "light" : "dark";
 
   const tabConfig = {
     calculator: {
       url: "app.tradeai.com/calculator",
-      videoSrc: "/calculator-demo.mp4",
+      videoSrc: `/calculator-demo-${currentTheme}.mp4`,
     },
     planner: {
       url: "app.tradeai.com/planner",
-      videoSrc: "/planner-demo.mp4",
+      videoSrc: `/planner-demo-${currentTheme}.mp4`,
     },
     matcher: {
       url: "app.tradeai.com/prop-match",
-      videoSrc: "/prop-match-demo.mp4",
+      videoSrc: `/prop-match-demo-${currentTheme}.mp4`,
     },
   };
 
@@ -58,6 +68,7 @@ export function ToolPreviewSection() {
       {/* Safari Container rendering Video Demos */}
       <div className="relative shadow-2xl rounded-2xl overflow-hidden border border-border/40 bg-background/50">
         <Safari
+          key={`${activeTab}-${currentTheme}`}
           url={tabConfig[activeTab].url}
           videoSrc={tabConfig[activeTab].videoSrc}
           className="w-full"
