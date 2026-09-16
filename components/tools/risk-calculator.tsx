@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowLeft, User, Send, RefreshCw, Calculator, ShieldAlert, CheckCircle2, Copy, Check } from "lucide-react";
+import { User, Send, RefreshCw, Calculator, ShieldAlert, CheckCircle2, Copy, Check } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -32,41 +31,33 @@ export function RiskLotCalculator() {
   const [step, setStep] = useState<number>(0);
   const [isTyping, setIsTyping] = useState<boolean>(true);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [copied, setCopied] = useState<boolean>(false);
-  
+  const [copied, setCopied] = useState(false);
+
   // Form State
   const [balance, setBalance] = useState<string>("");
   const [riskPercent, setRiskPercent] = useState<number>(1);
   const [stopLossPips, setStopLossPips] = useState<string>("");
   const [pair, setPair] = useState<string>("EURUSD");
 
-  const chatContainerRef = useRef<HTMLDivElement>(null);
-
-  // Prevents the main browser page from scrolling by targeting internal container only
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    }
-  }, [messages, isTyping]);
-
+  // Initial bot greeting & first question delay
   useEffect(() => {
     const initChat = async () => {
       setIsTyping(true);
-      await new Promise((r) => setTimeout(r, 1000));
+      await new Promise((r) => setTimeout(r, 1200));
       setMessages([
         {
           sender: "bot",
-          text: "👋 Hey trader! I'll calculate your position size for your prop firm account.",
+          text: "👋 Hey trader! I'll help you calculate the exact lot size for your prop firm account in seconds.",
         },
       ]);
 
       setIsTyping(true);
-      await new Promise((r) => setTimeout(r, 1500));
+      await new Promise((r) => setTimeout(r, 1800));
       setMessages((prev) => [
         ...prev,
         {
           sender: "bot",
-          text: "First, what is your account balance in USD? (e.g. 50000, 100000)",
+          text: "First, what is your current account balance in USD? (e.g. 50000, 100000)",
         },
       ]);
       setIsTyping(false);
@@ -76,12 +67,6 @@ export function RiskLotCalculator() {
     initChat();
   }, []);
 
-  const handleCopyLot = (lotSize: string) => {
-    navigator.clipboard.writeText(lotSize);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   const handleStep1Balance = async () => {
     const numBalance = parseFloat(balance);
     if (!numBalance || numBalance <= 0) return;
@@ -90,7 +75,7 @@ export function RiskLotCalculator() {
     setStep(0);
     setIsTyping(true);
 
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise((r) => setTimeout(r, 1200));
     setMessages((prev) => [
       ...prev,
       {
@@ -108,7 +93,7 @@ export function RiskLotCalculator() {
     setStep(0);
     setIsTyping(true);
 
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise((r) => setTimeout(r, 1200));
     setMessages((prev) => [
       ...prev,
       {
@@ -128,12 +113,12 @@ export function RiskLotCalculator() {
     setStep(0);
     setIsTyping(true);
 
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise((r) => setTimeout(r, 1200));
     setMessages((prev) => [
       ...prev,
       {
         sender: "bot",
-        text: "Which asset or instrument are you trading?",
+        text: "Almost done! Which asset or instrument are you trading?",
       },
     ]);
     setIsTyping(false);
@@ -146,7 +131,7 @@ export function RiskLotCalculator() {
     setStep(0);
     setIsTyping(true);
 
-    await new Promise((r) => setTimeout(r, 1500));
+    await new Promise((r) => setTimeout(r, 1800));
 
     const balNum = parseFloat(balance) || 100000;
     const slNum = parseFloat(stopLossPips) || 15;
@@ -158,7 +143,7 @@ export function RiskLotCalculator() {
       ...prev,
       {
         sender: "bot",
-        text: "🎯 Sizing calculated. Click the lot size below to copy it:",
+        text: "🎯 Here is your calculated position sizing parameter:",
       },
       {
         sender: "bot",
@@ -175,6 +160,12 @@ export function RiskLotCalculator() {
     setStep(5);
   };
 
+  const handleCopyLot = (lotSize: number) => {
+    navigator.clipboard.writeText(lotSize.toFixed(2));
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   const handleReset = () => {
     setBalance("");
     setStopLossPips("");
@@ -185,29 +176,20 @@ export function RiskLotCalculator() {
       setMessages([
         {
           sender: "bot",
-          text: "👋 What is your account balance in USD?",
+          text: "👋 Let's compute a new trade setup. What is your account balance in USD?",
         },
       ]);
       setIsTyping(false);
       setStep(1);
-    }, 800);
+    }, 1000);
   };
 
   return (
-    <Card className="w-full border-border/60 bg-background/50 backdrop-blur-md shadow-2xl max-w-2xl mx-auto flex flex-col h-[600px]">
+    <Card className="w-full border-border/60 bg-background/50 backdrop-blur-md shadow-2xl max-w-2xl mx-auto flex flex-col h-[580px]">
       <CardHeader className="border-b border-border/40 pb-3 shrink-0 flex flex-row items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Link
-            href="/"
-            aria-label="Back to Homepage"
-            className="p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors border border-border/50"
-          >
-            <ArrowLeft className="h-4 w-4" />
-          </Link>
-          <div className="flex items-center gap-2 text-primary font-mono text-sm font-semibold">
-            <Calculator className="h-4 w-4" />
-            <span>AI RISK & LOT ASSISTANT</span>
-          </div>
+        <div className="flex items-center gap-2 text-primary font-mono text-sm font-semibold">
+          <Calculator className="h-4 w-4" />
+          <span>AI RISK & LOT ASSISTANT</span>
         </div>
         {step === 5 && (
           <Button variant="ghost" size="sm" onClick={handleReset} className="font-mono text-xs gap-1">
@@ -216,7 +198,7 @@ export function RiskLotCalculator() {
         )}
       </CardHeader>
 
-      <CardContent ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4 font-mono text-xs">
+      <CardContent className="flex-1 overflow-y-auto p-4 space-y-4 font-mono text-xs">
         {messages.map((msg, idx) => (
           <div
             key={idx}
@@ -225,54 +207,61 @@ export function RiskLotCalculator() {
             }`}
           >
             {msg.sender === "user" ? (
-              <div className="h-7 w-7 rounded-full flex items-center justify-center shrink-0 text-xs bg-primary text-primary-foreground">
+              <div className="h-7 w-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center shrink-0 text-xs">
                 <User className="h-3.5 w-3.5" />
               </div>
             ) : (
-              <div className="h-7 w-7 rounded-full overflow-hidden shrink-0 border border-border bg-surface flex items-center justify-center">
-                <Image src="/logo.png" alt="Site Logo" width={28} height={28} className="object-cover" />
+              <div className="shrink-0 pt-0.5">
+                <Image
+                  src="/logo.png"
+                  alt="Logo"
+                  width={28}
+                  height={28}
+                  className="object-contain"
+                />
               </div>
             )}
 
             {msg.type === "result" && msg.data ? (
-              <div className="w-full max-w-sm rounded-xl border border-primary/30 bg-surface/90 p-4 space-y-4 shadow-lg">
+              <div className="w-full max-w-sm rounded-xl border border-primary/30 bg-surface/80 p-4 space-y-4 shadow-lg">
                 <div className="grid grid-cols-2 gap-3 border-b border-border/50 pb-3">
                   <div>
                     <span className="text-[10px] text-muted-foreground uppercase block">Max Cash Risk</span>
                     <span className="text-xl font-bold text-foreground">${msg.data.riskAmount.toFixed(2)}</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-muted-foreground uppercase block">Recommended Position</span>
-                    <button
-                      type="button"
-                      onClick={() => handleCopyLot(msg.data!.calculatedLotSize.toFixed(2))}
-                      className="inline-flex items-center gap-1.5 text-xl font-bold text-primary hover:opacity-80 transition-opacity group"
-                      title="Click to copy lot size"
-                    >
-                      <span>{msg.data.calculatedLotSize.toFixed(2)} Lots</span>
-                      {copied ? (
-                        <Check className="h-4 w-4 text-emerald-500 shrink-0" />
-                      ) : (
-                        <Copy className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
-                      )}
-                    </button>
+                    <span className="text-[10px] text-muted-foreground uppercase block">Recommended Lot</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl font-bold text-primary">
+                        {msg.data.calculatedLotSize.toFixed(2)} <span className="text-xs text-muted-foreground">Lots</span>
+                      </span>
+                      <Button
+                        size="icon"
+                        variant="outline"
+                        className="h-7 w-7 shrink-0"
+                        onClick={() => handleCopyLot(msg.data!.calculatedLotSize)}
+                        title="Copy Lot Size"
+                      >
+                        {copied ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
+                      </Button>
+                    </div>
                   </div>
                 </div>
 
                 {msg.data.riskPercent > 2 ? (
                   <div className="flex items-center gap-2 p-2.5 rounded bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[11px]">
                     <ShieldAlert className="h-4 w-4 shrink-0" />
-                    <span>High Risk Warning: Risking over 2% may violate prop firm drawdown rules.</span>
+                    <span>High Risk Warning: Risking over 2% may violate prop firm rules.</span>
                   </div>
                 ) : (
                   <div className="flex items-center gap-2 p-2.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[11px]">
                     <CheckCircle2 className="h-4 w-4 shrink-0" />
-                    <span>Risk level is within standard prop firm safety limits.</span>
+                    <span>Risk level is within standard prop firm safe zones.</span>
                   </div>
                 )}
 
-                <p className="text-[10px] text-muted-foreground/80 font-mono text-center pt-2 border-t border-border/40">
-                  ⚠️ <strong>Disclaimer:</strong> Always make sure these sizing parameters are suitable for your specific account leverage and prop firm rules before executing.
+                <p className="text-[10px] text-muted-foreground border-t border-border/40 pt-2 italic">
+                  Disclaimer: Always ensure these calculations are suitable for your specific account size, prop firm rules, and risk tolerance.
                 </p>
               </div>
             ) : (
@@ -291,9 +280,7 @@ export function RiskLotCalculator() {
 
         {isTyping && (
           <div className="flex items-center gap-2 text-muted-foreground text-xs font-mono py-1">
-            <div className="h-6 w-6 rounded-full overflow-hidden border border-border shrink-0">
-              <Image src="/logo.png" alt="Site Logo" width={24} height={24} className="object-cover" />
-            </div>
+            <Image src="/logo.png" alt="Logo" width={20} height={20} className="object-contain animate-pulse" />
             <span className="animate-pulse">Assistant is typing...</span>
           </div>
         )}
@@ -314,7 +301,6 @@ export function RiskLotCalculator() {
               value={balance}
               onChange={(e) => setBalance(e.target.value)}
               className="font-mono bg-surface text-xs"
-              autoFocus
             />
             <Button type="submit" size="sm" className="gap-1 font-mono text-xs" disabled={!balance}>
               Send <Send className="h-3 w-3" />
@@ -353,7 +339,6 @@ export function RiskLotCalculator() {
               value={stopLossPips}
               onChange={(e) => setStopLossPips(e.target.value)}
               className="font-mono bg-surface text-xs"
-              autoFocus
             />
             <Button type="submit" size="sm" className="gap-1 font-mono text-xs" disabled={!stopLossPips}>
               Send <Send className="h-3 w-3" />
@@ -380,7 +365,7 @@ export function RiskLotCalculator() {
 
         {(step === 0 || step === 5) && !isTyping && (
           <div className="text-center text-[11px] font-mono text-muted-foreground py-1">
-            {step === 5 ? "Calculation complete. Click 'New Calculation' to restart." : "Waiting for response..."}
+            {step === 5 ? "Calculation complete. Click 'New Calculation' to start over." : "Waiting for assistant response..."}
           </div>
         )}
       </div>
