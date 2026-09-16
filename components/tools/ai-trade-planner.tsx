@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Brain, User, Send, RefreshCw, Sparkles, CheckCircle2, TrendingUp, TrendingDown, ShieldAlert, FileText } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -35,6 +35,16 @@ export function AITradePlanner() {
   const [stopLoss, setStopLoss] = useState<string>("");
   const [takeProfit, setTakeProfit] = useState<string>("");
   const [notes, setNotes] = useState<string>("");
+
+  // Inner Chat Box Container Ref
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  // Scroll ONLY the inner chat box container
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages, isTyping]);
 
   useEffect(() => {
     const initChat = async () => {
@@ -210,7 +220,10 @@ export function AITradePlanner() {
         )}
       </CardHeader>
 
-      <CardContent className="flex-1 overflow-y-auto p-4 space-y-4 font-mono text-xs">
+      <CardContent
+        ref={chatContainerRef}
+        className="flex-1 overflow-y-auto p-4 space-y-4 font-mono text-xs scroll-smooth"
+      >
         {messages.map((msg, idx) => (
           <div
             key={idx}

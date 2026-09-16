@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { User, Send, RefreshCw, Calculator, ShieldAlert, CheckCircle2, Copy, Check } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -39,7 +39,16 @@ export function RiskLotCalculator() {
   const [stopLossPips, setStopLossPips] = useState<string>("");
   const [pair, setPair] = useState<string>("EURUSD");
 
-  // Initial bot greeting & first question delay
+  // Inner Chat Box Container Ref
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  // Scroll ONLY the inner chat box container
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages, isTyping]);
+
   useEffect(() => {
     const initChat = async () => {
       setIsTyping(true);
@@ -198,7 +207,10 @@ export function RiskLotCalculator() {
         )}
       </CardHeader>
 
-      <CardContent className="flex-1 overflow-y-auto p-4 space-y-4 font-mono text-xs">
+      <CardContent
+        ref={chatContainerRef}
+        className="flex-1 overflow-y-auto p-4 space-y-4 font-mono text-xs scroll-smooth"
+      >
         {messages.map((msg, idx) => (
           <div
             key={idx}

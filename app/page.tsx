@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Features } from "@/components/features";
 import { SupportedFirms } from "@/components/supported-firms";
-import { Tools } from "@/components/tools";
+import { ToolPreviewSection } from "@/components/tool-preview-section";
 import { Pricing } from "@/components/pricing";
 import { FounderModal } from "@/components/founder-modal";
 import { Footer } from "@/components/footer";
@@ -90,7 +90,12 @@ export default function Home() {
 
       {/* Sections */}
       <Features />
-      <Tools />
+
+      {/* Interactive Safari Tools Preview */}
+      <section id="tools">
+        <ToolPreviewSection />
+      </section>
+
       <Pricing />
 
       <Footer />
