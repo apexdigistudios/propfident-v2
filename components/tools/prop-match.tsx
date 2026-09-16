@@ -104,13 +104,13 @@ const ruleNumber = (rules: Record<string, unknown>, keys: string[], fallback: nu
 
 const logoFor = (name: string) => {
   const value = name.toLowerCase();
-  if (value.includes("ftmo")) return "/logos/ftmo-logo.png";
-  if (value.includes("fundednext")) return "/logos/fundednext-logo.webp";
-  if (value.includes("5%")) return "/logos/5ers-Logo.png";
+  if (value.includes("alpha")) return "/logos/Alpha-Capital-prop-firm-logo.png";
+  if (value.includes("fundednext")) return "/logos/fundednext-logo.png";
+  if (value.includes("aqua")) return "/logos/aqua-funded-logo.png";
   if (value.includes("topstep")) return "/logos/topstep-logo.png";
-  if (value.includes("funding pips")) return "/logos/funding-pips-logo.png";
-  if (value.includes("blue guardian")) return "/logos/blue-guardian-logo.png";
-  if (value.includes("e8")) return "/logos/e8-logo.png";
+  if (value.includes("goat")) return "/logos/Goat-Funded-Trader-logo.png";
+  if (value.includes("5%")) return "/logos/5ers-Logo.png";
+  if (value.includes("ftmo")) return "/logos/ftmo-logo.png";
   return "/logo.png";
 };
 
@@ -517,15 +517,13 @@ export function PropMatchEvaluator() {
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-background font-mono text-xs font-bold text-foreground border border-border/60">
                       #{index + 1}
                     </div>
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-muted/40 p-1 border border-border/40">
-                      <Image
-                        src={firm.logoUrl}
-                        alt={firm.name}
-                        width={28}
-                        height={28}
-                        className="h-6 w-6 object-contain"
-                      />
-                    </div>
+                    <Image
+                      src={firm.logoUrl}
+                      alt={firm.name}
+                      width={36}
+                      height={36}
+                      className="h-9 w-9 shrink-0 object-contain"
+                    />
                     <div className="min-w-0 flex-1">
                       <p className="font-semibold text-xs sm:text-sm text-foreground truncate">{firm.name}</p>
                       <p className="text-[10px] text-muted-foreground font-mono">
