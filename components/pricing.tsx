@@ -53,7 +53,7 @@ export function Pricing() {
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle className="text-2xl font-bold flex items-center gap-2">
-                  <Crown className="h-5 w-5 text-amber-600 dark:text-amber-400" /> Founder&apos;s Pass
+                  <Crown className="h-5 w-5 text-amber-600 dark:text-amber-400" /> Lifetime Access
                 </CardTitle>
                 <CardDescription className="text-xs text-muted-foreground mt-1">
                   One-time payment for lifetime access &amp; all future updates.

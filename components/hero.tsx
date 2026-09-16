@@ -43,9 +43,9 @@ export function Hero() {
         </div>
 
         <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground max-w-4xl mx-auto leading-[1.15]">
-          Risk Management for{" "}
+          Never Breach Your Prop Firm Account{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-400">
-            Funded Traders
+            Again
           </span>
         </h1>
 

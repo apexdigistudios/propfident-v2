@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://propfident.online"),
   title: {
-    default: "Propfident | Risk Management for Funded Traders",
+    default: "Propfident | Never Breach Your Prop Firm Account Again",
     template: "%s | Propfident",
   },
   description:
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     apple: "/logo.png",
   },
   openGraph: {
-    title: "Propfident | Risk Management for Funded Traders",
+    title: "Propfident | Never Breach Your Prop Firm Account Again",
     description: "Protect your prop firm account with real-time drawdown monitoring, dynamic position sizing, trade journaling, and MT4/MT5 analytics. Start free.",
     url: "https://propfident.online/",
     siteName: "Propfident",
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Propfident | Risk Management for Funded Traders",
+    title: "Propfident | Never Breach Your Prop Firm Account Again",
     description: "Protect your prop firm account with real-time drawdown monitoring, dynamic position sizing, trade journaling, and MT4/MT5 analytics. Start free.",
     images: ["/hero-bg.png"],
   },

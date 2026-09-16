@@ -144,7 +144,7 @@ export function Navbar() {
                 className="font-mono text-[10px] uppercase tracking-[0.16em] gap-1.5"
               >
                 <Crown className="h-3.5 w-3.5 text-amber-400" />
-                <span>Founder&apos;s Access</span>
+                <span>Lifetime Access</span>
               </Button>
             </FounderModal>
           </div>
@@ -205,7 +205,7 @@ export function Navbar() {
               <FounderModal>
                 <Button className="w-full font-mono text-xs uppercase tracking-wider gap-2 py-5 shadow-lg">
                   <Crown className="h-4 w-4 text-amber-400" />
-                  <span>Claim Founder&apos;s Access ($299)</span>
+                  <span>Claim Lifetime Access ($299)</span>
                 </Button>
               </FounderModal>
             </div>
