@@ -1,190 +1,428 @@
 "use client";
 
-import { useState } from "react";
-import { Brain, Sparkles, TrendingUp, TrendingDown, AlertTriangle, CheckCircle2, RefreshCw } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState, useEffect, useRef } from "react";
+import { Brain, Bot, User, Send, RefreshCw, Sparkles, CheckCircle2, TrendingUp, TrendingDown } from "lucide-react";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
+interface Message {
+  sender: "bot" | "user";
+  text?: string;
+  type?: "text" | "result";
+  data?: {
+    pair: string;
+    direction: "BUY" | "SELL";
+    entry: string;
+    stopLoss: string;
+    takeProfit: string;
+    rrRatio: string;
+    notes: string;
+  };
+}
+
 export function AITradePlanner() {
-  const [pair, setPair] = useState("EURUSD");
+  const [step, setStep] = useState<number>(0);
+  const [isTyping, setIsTyping] = useState<boolean>(true);
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  // Trade Setup State
+  const [pair, setPair] = useState<string>("EURUSD");
   const [direction, setDirection] = useState<"BUY" | "SELL">("BUY");
-  const [entry, setEntry] = useState<string>("1.0850");
-  const [stopLoss, setStopLoss] = useState<string>("1.0820");
-  const [takeProfit, setTakeProfit] = useState<string>("1.0910");
-  const [notes, setNotes] = useState<string>("London session break out above key resistance with heavy volume.");
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [analyzed, setAnalyzed] = useState(false);
+  const [entry, setEntry] = useState<string>("");
+  const [stopLoss, setStopLoss] = useState<string>("");
+  const [takeProfit, setTakeProfit] = useState<string>("");
+  const [notes, setNotes] = useState<string>("");
 
-  // Calculate Risk-to-Reward Ratio
-  const entryNum = parseFloat(entry) || 0;
-  const slNum = parseFloat(stopLoss) || 0;
-  const tpNum = parseFloat(takeProfit) || 0;
+  const chatEndRef = useRef<HTMLDivElement>(null);
 
-  const risk = Math.abs(entryNum - slNum);
-  const reward = Math.abs(tpNum - entryNum);
-  const rrRatio = risk > 0 ? (reward / risk).toFixed(2) : "0.00";
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isTyping]);
 
-  const handleAnalyze = () => {
-    setIsAnalyzing(true);
+  useEffect(() => {
+    const initChat = async () => {
+      setIsTyping(true);
+      await new Promise((r) => setTimeout(r, 1000));
+      setMessages([
+        {
+          sender: "bot",
+          text: "🧠 Welcome to the AI Pre-Trade Audit. Let's vet your trade setup against prop firm rules.",
+        },
+      ]);
+
+      setIsTyping(true);
+      await new Promise((r) => setTimeout(r, 1500));
+      setMessages((prev) => [
+        ...prev,
+        {
+          sender: "bot",
+          text: "Which instrument or pair are you planning to trade?",
+        },
+      ]);
+      setIsTyping(false);
+      setStep(1);
+    };
+
+    initChat();
+  }, []);
+
+  const handleStep1Pair = async (selectedPair: string) => {
+    setPair(selectedPair);
+    setMessages((prev) => [...prev, { sender: "user", text: selectedPair }]);
+    setStep(0);
+    setIsTyping(true);
+
+    await new Promise((r) => setTimeout(r, 1000));
+    setMessages((prev) => [
+      ...prev,
+      { sender: "bot", text: `Got it, ${selectedPair}. What is your position direction?` },
+    ]);
+    setIsTyping(false);
+    setStep(2);
+  };
+
+  const handleStep2Direction = async (dir: "BUY" | "SELL") => {
+    setDirection(dir);
+    setMessages((prev) => [...prev, { sender: "user", text: dir }]);
+    setStep(0);
+    setIsTyping(true);
+
+    await new Promise((r) => setTimeout(r, 1000));
+    setMessages((prev) => [
+      ...prev,
+      { sender: "bot", text: "What is your planned Entry Price?" },
+    ]);
+    setIsTyping(false);
+    setStep(3);
+  };
+
+  const handleStep3Entry = async () => {
+    if (!entry) return;
+    setMessages((prev) => [...prev, { sender: "user", text: `Entry: ${entry}` }]);
+    setStep(0);
+    setIsTyping(true);
+
+    await new Promise((r) => setTimeout(r, 1000));
+    setMessages((prev) => [
+      ...prev,
+      { sender: "bot", text: "What is your Stop Loss price?" },
+    ]);
+    setIsTyping(false);
+    setStep(4);
+  };
+
+  const handleStep4StopLoss = async () => {
+    if (!stopLoss) return;
+    setMessages((prev) => [...prev, { sender: "user", text: `SL: ${stopLoss}` }]);
+    setStep(0);
+    setIsTyping(true);
+
+    await new Promise((r) => setTimeout(r, 1000));
+    setMessages((prev) => [
+      ...prev,
+      { sender: "bot", text: "What is your Take Profit target price?" },
+    ]);
+    setIsTyping(false);
+    setStep(5);
+  };
+
+  const handleStep5TakeProfit = async () => {
+    if (!takeProfit) return;
+    setMessages((prev) => [...prev, { sender: "user", text: `TP: ${takeProfit}` }]);
+    setStep(0);
+    setIsTyping(true);
+
+    await new Promise((r) => setTimeout(r, 1000));
+    setMessages((prev) => [
+      ...prev,
+      {
+        sender: "bot",
+        text: "Briefly mention your trade confluence or rationale (e.g., London session breakout, key support level).",
+      },
+    ]);
+    setIsTyping(false);
+    setStep(6);
+  };
+
+  const handleStep6Notes = async () => {
+    const finalNotes = notes.trim() || "Technical breakout setup";
+    setMessages((prev) => [...prev, { sender: "user", text: finalNotes }]);
+    setStep(0);
+    setIsTyping(true);
+
+    await new Promise((r) => setTimeout(r, 1800));
+
+    // Calculate R:R Ratio
+    const entryNum = parseFloat(entry) || 0;
+    const slNum = parseFloat(stopLoss) || 0;
+    const tpNum = parseFloat(takeProfit) || 0;
+
+    const risk = Math.abs(entryNum - slNum);
+    const reward = Math.abs(tpNum - entryNum);
+    const rrRatio = risk > 0 ? (reward / risk).toFixed(2) : "0.00";
+
+    setMessages((prev) => [
+      ...prev,
+      { sender: "bot", text: "✨ Audit complete! Here is your pre-flight evaluation:" },
+      {
+        sender: "bot",
+        type: "result",
+        data: {
+          pair,
+          direction,
+          entry,
+          stopLoss,
+          takeProfit,
+          rrRatio,
+          notes: finalNotes,
+        },
+      },
+    ]);
+    setIsTyping(false);
+    setStep(7);
+  };
+
+  const handleReset = () => {
+    setEntry("");
+    setStopLoss("");
+    setTakeProfit("");
+    setNotes("");
+    setMessages([]);
+    setStep(0);
+    setIsTyping(true);
     setTimeout(() => {
-      setIsAnalyzing(false);
-      setAnalyzed(true);
-    }, 800);
+      setMessages([
+        { sender: "bot", text: "🧠 Ready for another audit. Which asset are you trading?" },
+      ]);
+      setIsTyping(false);
+      setStep(1);
+    }, 1000);
   };
 
   return (
-    <Card className="w-full border-border/60 bg-background/50 backdrop-blur-md shadow-xl">
-      <CardHeader className="border-b border-border/40 pb-4">
+    <Card className="w-full border-border/60 bg-background/50 backdrop-blur-md shadow-2xl max-w-2xl mx-auto flex flex-col h-[580px]">
+      <CardHeader className="border-b border-border/40 pb-3 shrink-0 flex flex-row items-center justify-between">
         <div className="flex items-center gap-2 text-primary font-mono text-sm font-semibold">
           <Brain className="h-4 w-4" />
           <span>AI TRADE PLANNER</span>
         </div>
-        <CardTitle className="text-xl font-bold font-sans">AI Pre-Trade Risk Planner</CardTitle>
+        {step === 7 && (
+          <Button variant="ghost" size="sm" onClick={handleReset} className="font-mono text-xs gap-1">
+            <RefreshCw className="h-3.5 w-3.5" /> Reset Audit
+          </Button>
+        )}
       </CardHeader>
 
-      <CardContent className="pt-6 space-y-6">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="space-y-2">
-            <label className="text-xs font-mono text-muted-foreground">INSTRUMENT</label>
-            <select
-              value={pair}
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPair(e.target.value)}
-              className="flex h-9 w-full rounded-md border border-border bg-surface px-3 py-1 text-xs shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary font-mono text-foreground"
+      <CardContent className="flex-1 overflow-y-auto p-4 space-y-4 font-mono text-xs">
+        {messages.map((msg, idx) => (
+          <div
+            key={idx}
+            className={`flex items-start gap-2.5 ${
+              msg.sender === "user" ? "flex-row-reverse" : "flex-row"
+            }`}
+          >
+            <div
+              className={`h-7 w-7 rounded-full flex items-center justify-center shrink-0 text-xs ${
+                msg.sender === "user"
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-surface border border-border text-primary"
+              }`}
             >
-              <option value="EURUSD">EUR/USD</option>
-              <option value="GBPUSD">GBP/USD</option>
-              <option value="XAUUSD">XAU/USD (Gold)</option>
-              <option value="NAS100">NAS100</option>
-            </select>
-          </div>
+              {msg.sender === "user" ? <User className="h-3.5 w-3.5" /> : <Bot className="h-3.5 w-3.5" />}
+            </div>
 
-          <div className="space-y-2">
-            <label className="text-xs font-mono text-muted-foreground">DIRECTION</label>
-            <div className="grid grid-cols-2 gap-2">
-              <Button
-                type="button"
-                variant={direction === "BUY" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setDirection("BUY")}
-                className="font-mono text-xs gap-1"
+            {msg.type === "result" && msg.data ? (
+              <div className="w-full max-w-md rounded-xl border border-primary/30 bg-surface/80 p-4 space-y-3 shadow-lg">
+                <div className="flex items-center justify-between border-b border-border/50 pb-2">
+                  <span className="text-xs font-bold text-primary flex items-center gap-1.5">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-500" /> AUDIT PASSED
+                  </span>
+                  <Badge variant="outline" className="font-mono text-[10px] border-emerald-500/30 text-emerald-500">
+                    {msg.data.pair} ({msg.data.direction})
+                  </Badge>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 text-[11px]">
+                  <div><span className="text-muted-foreground">Entry:</span> {msg.data.entry}</div>
+                  <div><span className="text-muted-foreground">Stop Loss:</span> {msg.data.stopLoss}</div>
+                  <div><span className="text-muted-foreground">Take Profit:</span> {msg.data.takeProfit}</div>
+                  <div>
+                    <span className="text-muted-foreground">R:R Ratio:</span>{" "}
+                    <strong className={Number(msg.data.rrRatio) >= 1.5 ? "text-emerald-500" : "text-amber-500"}>
+                      1 : {msg.data.rrRatio}
+                    </strong>
+                  </div>
+                </div>
+
+                <div className="p-2.5 rounded bg-muted/40 border border-border/40 text-[11px] space-y-1">
+                  <span className="font-semibold text-foreground">Confluence:</span>
+                  <p className="text-muted-foreground">{msg.data.notes}</p>
+                </div>
+              </div>
+            ) : (
+              <div
+                className={`max-w-[80%] rounded-2xl px-4 py-2.5 leading-relaxed ${
+                  msg.sender === "user"
+                    ? "bg-primary text-primary-foreground rounded-tr-none"
+                    : "bg-surface border border-border/60 text-foreground rounded-tl-none"
+                }`}
               >
-                <TrendingUp className="h-3.5 w-3.5" /> BUY
-              </Button>
-              <Button
-                type="button"
-                variant={direction === "SELL" ? "secondary" : "outline"}
-                size="sm"
-                onClick={() => setDirection("SELL")}
-                className="font-mono text-xs gap-1"
-              >
-                <TrendingDown className="h-3.5 w-3.5" /> SELL
-              </Button>
-            </div>
+                {msg.text}
+              </div>
+            )}
           </div>
+        ))}
 
-          <div className="space-y-2">
-            <label className="text-xs font-mono text-muted-foreground">CALCULATED R:R</label>
-            <div className="h-9 px-3 rounded-md bg-surface border border-border flex items-center justify-between font-mono font-bold text-sm">
-              <span className="text-muted-foreground text-xs">RATIO</span>
-              <span className={Number(rrRatio) >= 2 ? "text-emerald-500" : "text-amber-500"}>
-                1 : {rrRatio}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Price Inputs */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="space-y-2">
-            <label className="text-xs font-mono text-muted-foreground">ENTRY PRICE</label>
-            <Input
-              type="number"
-              step="0.0001"
-              value={entry}
-              onChange={(e) => setEntry(e.target.value)}
-              className="font-mono bg-surface"
-            />
-          </div>
-          <div className="space-y-2">
-            <label className="text-xs font-mono text-muted-foreground">STOP LOSS</label>
-            <Input
-              type="number"
-              step="0.0001"
-              value={stopLoss}
-              onChange={(e) => setStopLoss(e.target.value)}
-              className="font-mono bg-surface"
-            />
-          </div>
-          <div className="space-y-2">
-            <label className="text-xs font-mono text-muted-foreground">TAKE PROFIT</label>
-            <Input
-              type="number"
-              step="0.0001"
-              value={takeProfit}
-              onChange={(e) => setTakeProfit(e.target.value)}
-              className="font-mono bg-surface"
-            />
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <label className="text-xs font-mono text-muted-foreground">TRADE CONFLUENCE & SETUP NOTES</label>
-          <textarea
-            rows={2}
-            value={notes}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setNotes(e.target.value)}
-            placeholder="Describe setup confluence, news events, or session drivers..."
-            className="flex min-h-[60px] w-full rounded-md border border-border bg-surface px-3 py-2 text-xs shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50 font-mono text-foreground"
-          />
-        </div>
-
-        <Button
-          onClick={handleAnalyze}
-          disabled={isAnalyzing}
-          className="w-full font-mono text-xs gap-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:opacity-90 text-primary-foreground"
-        >
-          {isAnalyzing ? (
-            <>
-              <RefreshCw className="h-4 w-4 animate-spin" /> Evaluating Prop Rules...
-            </>
-          ) : (
-            <>
-              <Sparkles className="h-4 w-4" /> Build PLan
-            </>
-          )}
-        </Button>
-
-        {/* AI Audit Output */}
-        {analyzed && (
-          <div className="p-4 rounded-xl border border-primary/30 bg-primary/5 space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-mono font-bold text-primary flex items-center gap-1.5">
-                <CheckCircle2 className="h-4 w-4 text-emerald-500" /> AI PRE-FLIGHT VERDICT
-              </span>
-              <Badge variant="outline" className="font-mono text-[10px] border-emerald-500/30 text-emerald-500">
-                PASSED AUDIT
-              </Badge>
-            </div>
-
-            <ul className="space-y-2 text-xs font-mono text-muted-foreground">
-              <li className="flex items-start gap-2">
-                <span className="text-primary">•</span>
-                <span>
-                  <strong className="text-foreground">Risk-Reward Check:</strong> 1:{rrRatio} satisfies recommended minimum threshold of 1:1.5.
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-primary">•</span>
-                <span>
-                  <strong className="text-foreground">Prop Rule Guard:</strong> Ensure stop loss is hard-set prior to entry to avoid slipping trailing drawdown limits.
-                </span>
-              </li>
-            </ul>
+        {isTyping && (
+          <div className="flex items-center gap-2 text-muted-foreground text-xs font-mono py-1">
+            <Bot className="h-3.5 w-3.5 text-primary animate-pulse" />
+            <span className="animate-pulse">Evaluating setup...</span>
           </div>
         )}
+
+        <div ref={chatEndRef} />
       </CardContent>
+
+      <div className="border-t border-border/40 p-3 bg-surface/30 shrink-0">
+        {step === 1 && (
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {["EURUSD", "GBPUSD", "XAUUSD", "NAS100"].map((p) => (
+              <Button
+                key={p}
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => handleStep1Pair(p)}
+                className="font-mono text-xs hover:border-primary"
+              >
+                {p}
+              </Button>
+            ))}
+          </div>
+        )}
+
+        {step === 2 && (
+          <div className="grid grid-cols-2 gap-2">
+            <Button
+              type="button"
+              variant="default"
+              size="sm"
+              onClick={() => handleStep2Direction("BUY")}
+              className="font-mono text-xs gap-1"
+            >
+              <TrendingUp className="h-3.5 w-3.5" /> BUY
+            </Button>
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              onClick={() => handleStep2Direction("SELL")}
+              className="font-mono text-xs gap-1"
+            >
+              <TrendingDown className="h-3.5 w-3.5" /> SELL
+            </Button>
+          </div>
+        )}
+
+        {step === 3 && (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleStep3Entry();
+            }}
+            className="flex gap-2"
+          >
+            <Input
+              type="number"
+              step="any"
+              placeholder="e.g. 1.0850 or 2350.50"
+              value={entry}
+              onChange={(e) => setEntry(e.target.value)}
+              className="font-mono bg-surface text-xs"
+              autoFocus
+            />
+            <Button type="submit" size="sm" className="gap-1 font-mono text-xs" disabled={!entry}>
+              Next <Send className="h-3 w-3" />
+            </Button>
+          </form>
+        )}
+
+        {step === 4 && (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleStep4StopLoss();
+            }}
+            className="flex gap-2"
+          >
+            <Input
+              type="number"
+              step="any"
+              placeholder="e.g. 1.0820 or 2340.00"
+              value={stopLoss}
+              onChange={(e) => setStopLoss(e.target.value)}
+              className="font-mono bg-surface text-xs"
+              autoFocus
+            />
+            <Button type="submit" size="sm" className="gap-1 font-mono text-xs" disabled={!stopLoss}>
+              Next <Send className="h-3 w-3" />
+            </Button>
+          </form>
+        )}
+
+        {step === 5 && (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleStep5TakeProfit();
+            }}
+            className="flex gap-2"
+          >
+            <Input
+              type="number"
+              step="any"
+              placeholder="e.g. 1.0910 or 2380.00"
+              value={takeProfit}
+              onChange={(e) => setTakeProfit(e.target.value)}
+              className="font-mono bg-surface text-xs"
+              autoFocus
+            />
+            <Button type="submit" size="sm" className="gap-1 font-mono text-xs" disabled={!takeProfit}>
+              Next <Send className="h-3 w-3" />
+            </Button>
+          </form>
+        )}
+
+        {step === 6 && (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleStep6Notes();
+            }}
+            className="flex gap-2"
+          >
+            <Input
+              type="text"
+              placeholder="Describe your setup or news confluence..."
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              className="font-mono bg-surface text-xs"
+              autoFocus
+            />
+            <Button type="submit" size="sm" className="gap-1 font-mono text-xs">
+              Audit <Sparkles className="h-3 w-3" />
+            </Button>
+          </form>
+        )}
+
+        {(step === 0 || step === 7) && !isTyping && (
+          <div className="text-center text-[11px] font-mono text-muted-foreground py-1">
+            {step === 7 ? "Audit complete. Click 'Reset Audit' for another trade." : "Waiting..."}
+          </div>
+        )}
+      </div>
     </Card>
   );
 }
