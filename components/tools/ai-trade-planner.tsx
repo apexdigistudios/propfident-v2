@@ -1,7 +1,22 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Brain, Bot, User, Send, RefreshCw, Sparkles, CheckCircle2, TrendingUp, TrendingDown } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  ArrowLeft,
+  User,
+  Send,
+  RefreshCw,
+  Brain,
+  Sparkles,
+  CheckCircle2,
+  TrendingUp,
+  TrendingDown,
+  Copy,
+  Check,
+  ShieldAlert,
+} from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -18,6 +33,8 @@ interface Message {
     stopLoss: string;
     takeProfit: string;
     rrRatio: string;
+    riskPips: number;
+    rewardPips: number;
     notes: string;
   };
 }
@@ -26,6 +43,7 @@ export function AITradePlanner() {
   const [step, setStep] = useState<number>(0);
   const [isTyping, setIsTyping] = useState<boolean>(true);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [copied, setCopied] = useState<boolean>(false);
 
   // Trade Setup State
   const [pair, setPair] = useState<string>("EURUSD");
@@ -35,10 +53,13 @@ export function AITradePlanner() {
   const [takeProfit, setTakeProfit] = useState<string>("");
   const [notes, setNotes] = useState<string>("");
 
-  const chatEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
+  // Scroll internal container only, preventing whole page jump
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   }, [messages, isTyping]);
 
   useEffect(() => {
@@ -48,7 +69,7 @@ export function AITradePlanner() {
       setMessages([
         {
           sender: "bot",
-          text: "🧠 Welcome to the AI Pre-Trade Audit. Let's vet your trade setup against prop firm rules.",
+          text: "🧠 Welcome to the AI Pre-Trade Audit. Let's build a structured trade plan for your account.",
         },
       ]);
 
@@ -68,6 +89,12 @@ export function AITradePlanner() {
     initChat();
   }, []);
 
+  const handleCopyPlan = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   const handleStep1Pair = async (selectedPair: string) => {
     setPair(selectedPair);
     setMessages((prev) => [...prev, { sender: "user", text: selectedPair }]);
@@ -77,7 +104,7 @@ export function AITradePlanner() {
     await new Promise((r) => setTimeout(r, 1000));
     setMessages((prev) => [
       ...prev,
-      { sender: "bot", text: `Got it, ${selectedPair}. What is your position direction?` },
+      { sender: "bot", text: `Got it, ${selectedPair}. What is your trade direction?` },
     ]);
     setIsTyping(false);
     setStep(2);
@@ -139,7 +166,7 @@ export function AITradePlanner() {
       ...prev,
       {
         sender: "bot",
-        text: "Briefly mention your trade confluence or rationale (e.g., London session breakout, key support level).",
+        text: "Briefly mention your trade setup rationale (e.g., London session breakout, retest of key resistance).",
       },
     ]);
     setIsTyping(false);
@@ -147,14 +174,13 @@ export function AITradePlanner() {
   };
 
   const handleStep6Notes = async () => {
-    const finalNotes = notes.trim() || "Technical breakout setup";
+    const finalNotes = notes.trim() || "Technical price action setup";
     setMessages((prev) => [...prev, { sender: "user", text: finalNotes }]);
     setStep(0);
     setIsTyping(true);
 
     await new Promise((r) => setTimeout(r, 1800));
 
-    // Calculate R:R Ratio
     const entryNum = parseFloat(entry) || 0;
     const slNum = parseFloat(stopLoss) || 0;
     const tpNum = parseFloat(takeProfit) || 0;
@@ -165,7 +191,7 @@ export function AITradePlanner() {
 
     setMessages((prev) => [
       ...prev,
-      { sender: "bot", text: "✨ Audit complete! Here is your pre-flight evaluation:" },
+      { sender: "bot", text: "✨ Detailed trade execution plan generated:" },
       {
         sender: "bot",
         type: "result",
@@ -176,6 +202,8 @@ export function AITradePlanner() {
           stopLoss,
           takeProfit,
           rrRatio,
+          riskPips: parseFloat(risk.toFixed(4)),
+          rewardPips: parseFloat(reward.toFixed(4)),
           notes: finalNotes,
         },
       },
@@ -194,19 +222,28 @@ export function AITradePlanner() {
     setIsTyping(true);
     setTimeout(() => {
       setMessages([
-        { sender: "bot", text: "🧠 Ready for another audit. Which asset are you trading?" },
+        { sender: "bot", text: "🧠 Ready for another trade plan. Which asset are you trading?" },
       ]);
       setIsTyping(false);
       setStep(1);
-    }, 1000);
+    }, 800);
   };
 
   return (
-    <Card className="w-full border-border/60 bg-background/50 backdrop-blur-md shadow-2xl max-w-2xl mx-auto flex flex-col h-[580px]">
+    <Card className="w-full border-border/60 bg-background/50 backdrop-blur-md shadow-2xl max-w-2xl mx-auto flex flex-col h-[600px]">
       <CardHeader className="border-b border-border/40 pb-3 shrink-0 flex flex-row items-center justify-between">
-        <div className="flex items-center gap-2 text-primary font-mono text-sm font-semibold">
-          <Brain className="h-4 w-4" />
-          <span>AI TRADE PLANNER</span>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/"
+            aria-label="Back to Homepage"
+            className="p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors border border-border/50"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Link>
+          <div className="flex items-center gap-2 text-primary font-mono text-sm font-semibold">
+            <Brain className="h-4 w-4" />
+            <span>AI TRADE PLANNER</span>
+          </div>
         </div>
         {step === 7 && (
           <Button variant="ghost" size="sm" onClick={handleReset} className="font-mono text-xs gap-1">
@@ -215,7 +252,7 @@ export function AITradePlanner() {
         )}
       </CardHeader>
 
-      <CardContent className="flex-1 overflow-y-auto p-4 space-y-4 font-mono text-xs">
+      <CardContent ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4 font-mono text-xs">
         {messages.map((msg, idx) => (
           <div
             key={idx}
@@ -223,43 +260,89 @@ export function AITradePlanner() {
               msg.sender === "user" ? "flex-row-reverse" : "flex-row"
             }`}
           >
-            <div
-              className={`h-7 w-7 rounded-full flex items-center justify-center shrink-0 text-xs ${
-                msg.sender === "user"
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-surface border border-border text-primary"
-              }`}
-            >
-              {msg.sender === "user" ? <User className="h-3.5 w-3.5" /> : <Bot className="h-3.5 w-3.5" />}
-            </div>
+            {msg.sender === "user" ? (
+              <div className="h-7 w-7 rounded-full flex items-center justify-center shrink-0 text-xs bg-primary text-primary-foreground">
+                <User className="h-3.5 w-3.5" />
+              </div>
+            ) : (
+              <div className="h-7 w-7 rounded-full overflow-hidden shrink-0 border border-border bg-surface flex items-center justify-center">
+                <Image src="/logo.png" alt="Site Logo" width={28} height={28} className="object-cover" />
+              </div>
+            )}
 
             {msg.type === "result" && msg.data ? (
-              <div className="w-full max-w-md rounded-xl border border-primary/30 bg-surface/80 p-4 space-y-3 shadow-lg">
-                <div className="flex items-center justify-between border-b border-border/50 pb-2">
-                  <span className="text-xs font-bold text-primary flex items-center gap-1.5">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-500" /> AUDIT PASSED
-                  </span>
-                  <Badge variant="outline" className="font-mono text-[10px] border-emerald-500/30 text-emerald-500">
-                    {msg.data.pair} ({msg.data.direction})
-                  </Badge>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2 text-[11px]">
-                  <div><span className="text-muted-foreground">Entry:</span> {msg.data.entry}</div>
-                  <div><span className="text-muted-foreground">Stop Loss:</span> {msg.data.stopLoss}</div>
-                  <div><span className="text-muted-foreground">Take Profit:</span> {msg.data.takeProfit}</div>
-                  <div>
-                    <span className="text-muted-foreground">R:R Ratio:</span>{" "}
-                    <strong className={Number(msg.data.rrRatio) >= 1.5 ? "text-emerald-500" : "text-amber-500"}>
-                      1 : {msg.data.rrRatio}
-                    </strong>
+              <div className="w-full max-w-md rounded-xl border border-primary/30 bg-surface/90 p-4 space-y-4 shadow-lg">
+                {/* Detailed Plan Header */}
+                <div className="flex items-center justify-between border-b border-border/50 pb-3">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                    <span className="font-bold text-foreground">EXECUTION PLAN</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline" className="font-mono text-[10px] border-primary/30 text-primary">
+                      {msg.data.pair} | {msg.data.direction}
+                    </Badge>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleCopyPlan(
+                          `TRADE PLAN: ${msg.data!.pair} ${msg.data!.direction}\nEntry: ${msg.data!.entry}\nSL: ${msg.data!.stopLoss}\nTP: ${msg.data!.takeProfit}\nR:R: 1:${msg.data!.rrRatio}`
+                        )
+                      }
+                      className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                      title="Copy Trade Plan"
+                    >
+                      {copied ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
+                    </button>
                   </div>
                 </div>
 
-                <div className="p-2.5 rounded bg-muted/40 border border-border/40 text-[11px] space-y-1">
-                  <span className="font-semibold text-foreground">Confluence:</span>
-                  <p className="text-muted-foreground">{msg.data.notes}</p>
+                {/* Detailed Grid Parameters */}
+                <div className="grid grid-cols-3 gap-2 bg-muted/30 p-2.5 rounded-lg border border-border/40 text-[11px]">
+                  <div>
+                    <span className="text-muted-foreground block text-[10px] uppercase">Entry Price</span>
+                    <strong className="text-foreground">{msg.data.entry}</strong>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground block text-[10px] uppercase">Stop Loss</span>
+                    <strong className="text-rose-500">{msg.data.stopLoss}</strong>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground block text-[10px] uppercase">Take Profit</span>
+                    <strong className="text-emerald-500">{msg.data.takeProfit}</strong>
+                  </div>
                 </div>
+
+                {/* Risk-Reward & Execution Guidance */}
+                <div className="space-y-2 text-[11px]">
+                  <div className="flex items-center justify-between p-2 rounded bg-surface border border-border/50">
+                    <span className="text-muted-foreground">Risk to Reward Ratio</span>
+                    <span
+                      className={`font-bold ${
+                        Number(msg.data.rrRatio) >= 1.5 ? "text-emerald-500" : "text-amber-500"
+                      }`}
+                    >
+                      1 : {msg.data.rrRatio}
+                    </span>
+                  </div>
+
+                  <div className="p-2.5 rounded bg-muted/40 border border-border/40 space-y-1">
+                    <span className="font-semibold text-foreground block">Setup Confluence:</span>
+                    <p className="text-muted-foreground leading-relaxed">{msg.data.notes}</p>
+                  </div>
+
+                  {Number(msg.data.rrRatio) < 1.5 && (
+                    <div className="flex items-center gap-2 p-2 rounded bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px]">
+                      <ShieldAlert className="h-3.5 w-3.5 shrink-0" />
+                      <span>Warning: R:R ratio is below recommended 1:1.5 threshold.</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Account Suitability Disclaimer */}
+                <p className="text-[10px] text-muted-foreground/80 font-mono text-center pt-2 border-t border-border/40">
+                  ⚠️ <strong>Disclaimer:</strong> Always make sure this trade plan and risk parameter align with your account size, leverage, and specific prop firm drawdown rules before executing.
+                </p>
               </div>
             ) : (
               <div
@@ -277,12 +360,12 @@ export function AITradePlanner() {
 
         {isTyping && (
           <div className="flex items-center gap-2 text-muted-foreground text-xs font-mono py-1">
-            <Bot className="h-3.5 w-3.5 text-primary animate-pulse" />
+            <div className="h-6 w-6 rounded-full overflow-hidden border border-border shrink-0">
+              <Image src="/logo.png" alt="Site Logo" width={24} height={24} className="object-cover" />
+            </div>
             <span className="animate-pulse">Evaluating setup...</span>
           </div>
         )}
-
-        <div ref={chatEndRef} />
       </CardContent>
 
       <div className="border-t border-border/40 p-3 bg-surface/30 shrink-0">
@@ -412,14 +495,14 @@ export function AITradePlanner() {
               autoFocus
             />
             <Button type="submit" size="sm" className="gap-1 font-mono text-xs">
-              Audit <Sparkles className="h-3 w-3" />
+              Generate Plan <Sparkles className="h-3 w-3" />
             </Button>
           </form>
         )}
 
         {(step === 0 || step === 7) && !isTyping && (
           <div className="text-center text-[11px] font-mono text-muted-foreground py-1">
-            {step === 7 ? "Audit complete. Click 'Reset Audit' for another trade." : "Waiting..."}
+            {step === 7 ? "Plan complete. Click 'Reset Audit' to restart." : "Waiting..."}
           </div>
         )}
       </div>
