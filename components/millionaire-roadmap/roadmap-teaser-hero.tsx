@@ -40,7 +40,7 @@ export function RoadmapTeaserHero() {
               className="inline-flex items-center gap-1.5 border-primary/40 bg-primary/10 text-primary font-mono text-xs px-3.5 py-1 rounded-full uppercase tracking-wider"
             >
               <Sparkles className="h-3.5 w-3.5 text-primary" />
-              Feature Teaser // Coming Soon
+              Coming Soon
             </Badge>
           </div>
 

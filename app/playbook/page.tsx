@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { WhopCheckoutEmbed } from "@whop/checkout/react";
+// import { WhopCheckoutEmbed } from "@whop/checkout/react"; // Temporarily disabled for testing
 import {
   BookOpen,
   CheckCircle2,
@@ -171,10 +171,10 @@ export default function PlaybookPage() {
               <div className="relative h-72 sm:h-80 w-full bg-gradient-to-b from-primary/40 to-background/80 flex items-center justify-center p-6 border-b border-border/60">
                 <div className="relative h-full w-full rounded-lg overflow-hidden shadow-2xl border border-primary/30">
                   <Image
-                    src="/playbook/playbook-cover.png"
+                    src="/playbook.png"
                     alt="The Seven-Figure Funded Trader Playbook"
                     fill
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    className="object-fill object-center group-hover:scale-105 transition-transform duration-500"
                     priority
                   />
                 </div>
@@ -577,10 +577,24 @@ function CheckoutModalButton({
       <DialogContent className="max-w-2xl w-[92vw] max-h-[90vh] p-0 overflow-hidden sm:rounded-2xl border-border bg-background flex flex-col">
         <DialogHeader className="p-4 border-b border-border/60 bg-surface/80 backdrop-blur-sm shrink-0 flex flex-row items-center justify-between">
           <DialogTitle className="flex items-center gap-2 text-xs font-mono text-primary">
-            <ShieldCheck className="h-4 w-4" /> SECURE WHOP CHECKOUT — THE PLAYBOOK ($27)
+            <ShieldCheck className="h-4 w-4" /> TEST MODE — THE PLAYBOOK ($27)
           </DialogTitle>
         </DialogHeader>
 
+        {/* TEMPORARY TEST BYPASS UI */}
+        <div className="flex-1 p-6 text-center space-y-4 flex flex-col items-center justify-center min-h-[300px]">
+          <p className="text-xs text-muted-foreground font-mono">
+            [TEST MODE ACTIVE] Whop embed is disabled. Click below to test your playbook success page.
+          </p>
+          <Button
+            onClick={() => (window.location.href = "/checkout/complete")}
+            className="w-full sm:w-auto px-8 bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold uppercase h-11"
+          >
+            Simulate Successful Checkout →
+          </Button>
+        </div>
+
+        {/* ORIGINAL WHOP EMBED (Uncomment when ready to restore live Whop payments)
         <div className="flex-1 overflow-y-auto p-3 sm:p-6 min-h-0">
           <WhopCheckoutEmbed
             planId="plan_4VBu6Mxzk15hN"
@@ -591,6 +605,7 @@ function CheckoutModalButton({
             }}
           />
         </div>
+        */}
       </DialogContent>
     </Dialog>
   );

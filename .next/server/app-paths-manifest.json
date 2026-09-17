@@ -1,5 +1,9 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
+  "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js",
   "/page": "app/page.js",
-  "/millionaire-roadmap/page": "app/millionaire-roadmap/page.js"
+  "/millionaire-roadmap/page": "app/millionaire-roadmap/page.js",
+  "/tools/position-sizer/page": "app/tools/position-sizer/page.js",
+  "/playbook/page": "app/playbook/page.js",
+  "/tools/prop-match/page": "app/tools/prop-match/page.js"
 }

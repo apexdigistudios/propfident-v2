@@ -22,12 +22,12 @@ export function SupportedFirms() {
           {propFirms.map((firm, idx) => (
             <div
               key={idx}
-              className="group flex h-24 w-full items-center justify-center rounded-xl border border-border/60 bg-card p-3 shadow-xs grayscale opacity-70 transition-all duration-300 hover:grayscale-0 hover:opacity-100 hover:border-primary/50 hover:shadow-md"
+              className="group flex h-22 w-full items-center justify-center rounded-xl border border-border/60 bg-card p-3 shadow-xs grayscale opacity-70 transition-all duration-300 hover:grayscale-0 hover:opacity-100 hover:border-primary/50 hover:shadow-md"
             >
               <img
                 src={firm.logo}
                 alt={firm.name}
-                className="max-h-12 w-auto max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                className="max-h-20 w-full max-w-full object-fill transition-transform duration-300 group-hover:scale-105"
                 onError={(e) => {
                   const target = e.currentTarget;
                   if (target.src.endsWith(".png")) {
