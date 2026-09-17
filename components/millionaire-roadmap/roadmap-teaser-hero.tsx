@@ -20,21 +20,16 @@ export function RoadmapTeaserHero() {
 
   return (
     <section className="relative w-full border-b border-border/40 bg-background pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
-      {/* Hero Background Image Layer (Optimized for Light & Dark Modes) */}
+      {/* Clear, Unfaded Background Image */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <Image
-          src="/roadmap-hero-bg.png" // Replace .png with .webp or .jpg if needed
+          src="/roadmap-hero-bg.png"
           alt="Roadmap Hero Background"
           fill
           priority
-          className="object-cover object-center opacity-30 dark:opacity-20 mix-blend-luminosity dark:mix-blend-overlay"
+          className="object-cover object-center"
         />
-        {/* Dual-Theme Blend Mask */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/80 to-background" />
       </div>
-
-      {/* Background Ambient Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/15 blur-[120px] rounded-full pointer-events-none z-0" />
 
       <div className="mx-auto max-w-5xl px-4 sm:px-6 relative z-10">
         <div className="text-center space-y-5 max-w-3xl mx-auto">
@@ -97,7 +92,7 @@ export function RoadmapTeaserHero() {
         </div>
 
         {/* Visual Teaser Node Banner */}
-        <div className="mt-14 rounded-2xl border border-border/60 bg-card/40 backdrop-blur-md p-6 relative overflow-hidden">
+        <div className="mt-14 rounded-2xl border border-border/60 bg-card/40 p-6 relative overflow-hidden">
           <div className="absolute top-3 right-3 flex items-center gap-1.5 font-mono text-[10px] text-muted-foreground bg-background/80 px-2.5 py-1 rounded-md border border-border/40">
             <Lock className="h-3 w-3 text-primary" />
             IN DEVELOPMENT

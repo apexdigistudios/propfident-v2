@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-// Adjust import path below if your component is stored in @/components/millionaire-roadmap/teaser/roadmap-teaser-hero
 import { RoadmapTeaserHero } from "@/components/millionaire-roadmap/roadmap-teaser-hero";
 import { RoadmapBenefitsGrid } from "@/components/millionaire-roadmap/teaser/roadmap-benefits-grid";
 import { RoadmapStagePreview } from "@/components/millionaire-roadmap/teaser/roadmap-stage-preview";
@@ -23,7 +22,7 @@ export default function MillionaireRoadmapTeaserPage() {
   };
 
   return (
-    <main className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-primary">
+    <main className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-primary pt-16 sm:pt-0">
       {/* 1. Coming Soon Hero Section */}
       <RoadmapTeaserHero />
 

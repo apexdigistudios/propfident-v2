@@ -63,6 +63,20 @@
   @apply border border-indigo-950/80 dark:border-black/90 shadow-sm;
 }
 
+/* Retro Grid Keyframe Animation */
+@keyframes grid {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(60px);
+  }
+}
+
+.animate-grid {
+  animation: grid 15s linear infinite;
+}
+
 /* Magic UI View Transition Animations for AnimatedThemeToggler */
 [data-magicui-theme-vt="active"]::view-transition-group(root),
 [data-magicui-theme-vt="active"]::view-transition-image-pair(root),
