@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -33,7 +33,7 @@ const slides = [
   },
 ];
 
-export default function SignupPage() {
+function SignupFormContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const tierParam = searchParams.get("tier") || "lifetime";
@@ -46,7 +46,6 @@ export default function SignupPage() {
   const [success, setSuccess] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Auto-rotate slideshow every 5 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -62,7 +61,7 @@ export default function SignupPage() {
     setError("");
 
     try {
-      const { data, error: authError } = await supabase.auth.signUp({
+      const { error: authError } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -205,7 +204,6 @@ export default function SignupPage() {
 
       {/* Right Column: Visual Banner & Slideshow */}
       <div className="hidden lg:col-span-6 lg:flex flex-col justify-between p-12 bg-gradient-to-br from-primary/20 via-card to-background relative overflow-hidden border-l border-border/40">
-        {/* Ambient Background Glows */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-primary/20 blur-[100px] pointer-events-none" />
 
         <div className="relative z-10 flex justify-end">
@@ -214,7 +212,6 @@ export default function SignupPage() {
           </Badge>
         </div>
 
-        {/* Center Banner / Slide Content */}
         <div className="relative z-10 max-w-lg my-auto space-y-6">
           <div className="space-y-3 transition-all duration-500 ease-in-out">
             <span className="text-[10px] font-mono tracking-widest text-primary uppercase">
@@ -228,7 +225,6 @@ export default function SignupPage() {
             </p>
           </div>
 
-          {/* Slide Indicators */}
           <div className="flex items-center gap-2 pt-4">
             {slides.map((_, idx) => (
               <button
@@ -242,7 +238,6 @@ export default function SignupPage() {
           </div>
         </div>
 
-        {/* Bottom Security Badge */}
         <div className="relative z-10 flex items-center gap-3 p-4 rounded-xl border border-border/60 bg-card/60 backdrop-blur-md">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20">
             <CheckCircle2 className="h-5 w-5" />
@@ -256,5 +251,19 @@ export default function SignupPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-background">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      }
+    >
+      <SignupFormContent />
+    </Suspense>
   );
 }
