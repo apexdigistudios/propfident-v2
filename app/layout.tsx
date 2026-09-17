@@ -1,21 +1,87 @@
 import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
-import "@/app/globals.css";
+import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Navbar } from "@/components/navbar";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-  title: "Propfident",
-  description: "Prop Trading Tools & Analytics",
+  metadataBase: new URL("https://propfident.online"),
+  title: {
+    default: "Propfident | Never Breach Your Prop Firm Account Again",
+    template: "%s | Propfident",
+  },
+  description:
+    "Protect your prop firm account with real-time drawdown monitoring, dynamic position sizing, trade journaling, and MT4/MT5 analytics. Start free.",
+  alternates: { canonical: "./" },
+  keywords: [
+    "prop firm",
+    "prop firm trading risk",
+    "prop firm challenge",
+    "FTMO",
+    "FundedNext",
+    "Funding Pips",
+    "The 5%ers",
+    "drawdown calculator",
+    "position sizer",
+    "funded trading",
+    "risk management",
+    "AI trade planner",
+  ],
+  authors: [{ name: "Propfident Team" }],
+  creator: "Propfident",
+  publisher: "Propfident",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
+  openGraph: {
+    title: "Propfident | Never Breach Your Prop Firm Account Again",
+    description:
+      "Protect your prop firm account with real-time drawdown monitoring, dynamic position sizing, trade journaling, and MT4/MT5 analytics. Start free.",
+    url: "https://propfident.online/",
+    siteName: "Propfident",
+    images: [
+      {
+        url: "/hero-bg.png",
+        width: 1200,
+        height: 630,
+        alt: "Propfident prop firm trading risk suite",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Propfident | Never Breach Your Prop Firm Account Again",
+    description:
+      "Protect your prop firm account with real-time drawdown monitoring, dynamic position sizing, trade journaling, and MT4/MT5 analytics. Start free.",
+    images: ["/hero-bg.png"],
+  },
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en">
-      <body>
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+      >
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-HX04Z0TKWB"
           strategy="afterInteractive"
@@ -28,6 +94,44 @@ export default function RootLayout({
             gtag('config', 'G-HX04Z0TKWB');
           `}
         </Script>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@graph": [
+                  {
+                    "@type": "Organization",
+                    name: "Propfident",
+                    url: "https://propfident.online",
+                    logo: "https://propfident.online/logo.png",
+                  },
+                  {
+                    "@type": "SoftwareApplication",
+                    name: "Propfident",
+                    applicationCategory: "FinanceApplication",
+                    operatingSystem: "Web",
+                    url: "https://propfident.online",
+                    description: metadata.description,
+                    offers: {
+                      "@type": "Offer",
+                      price: "0",
+                      priceCurrency: "USD",
+                    },
+                  },
+                ],
+              }),
+            }}
+          />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
