@@ -59,47 +59,6 @@ function SignupFormContent() {
   const [success, setSuccess] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Dynamic header visibility control on scroll
-  useEffect(() => {
-    let lastScrollY = window.scrollY;
-
-    const handleScroll = () => {
-      const header = document.querySelector("header") || document.querySelector("nav");
-      if (!header) return;
-
-      const currentScrollY = window.scrollY;
-      header.style.transition = "transform 0.3s ease-in-out, opacity 0.3s ease-in-out";
-
-      if (currentScrollY <= 10) {
-        header.style.transform = "translateY(0)";
-        header.style.opacity = "1";
-      } else if (currentScrollY < lastScrollY) {
-        // Hide on scroll upward
-        header.style.transform = "translateY(-100%)";
-        header.style.opacity = "0";
-      } else if (currentScrollY > lastScrollY) {
-        // Reveal on scroll downward
-        header.style.transform = "translateY(0)";
-        header.style.opacity = "1";
-      }
-
-      lastScrollY = currentScrollY;
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      const header = document.querySelector("header") || document.querySelector("nav");
-      if (header) {
-        header.style.transform = "";
-        header.style.opacity = "";
-        header.style.transition = "";
-      }
-    };
-  }, []);
-
-  // Carousel timer
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -165,9 +124,9 @@ function SignupFormContent() {
   };
 
   return (
-    <main className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-12 bg-background pt-24 sm:pt-28 lg:pt-0">
+    <main className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-12 bg-background pt-28 sm:pt-32 lg:pt-28">
       {/* Left Column: Signup Form */}
-      <div className="lg:col-span-6 flex flex-col justify-between p-6 sm:p-10 lg:p-16 z-10 min-h-[calc(100vh-6rem)] lg:min-h-screen">
+      <div className="lg:col-span-6 flex flex-col justify-between p-6 sm:p-10 lg:p-16 z-10 min-h-[calc(100vh-7rem)]">
         <div>
           <Link href="/" className="inline-flex items-center gap-2">
             <Image src="/logo.png" alt="Propfident" width={32} height={32} className="h-8 w-8 object-contain" />
@@ -301,19 +260,20 @@ function SignupFormContent() {
         </div>
       </div>
 
-      {/* Right Column: Pure Image Carousel Card */}
-      <div className="hidden lg:col-span-6 lg:flex flex-col justify-between p-12 bg-gradient-to-br from-primary/20 via-card to-background relative overflow-hidden border-l border-border/40 min-h-screen">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-primary/20 blur-[100px] pointer-events-none" />
-
+      {/* Right Column: Dynamic Theme BG & Raw Uncontainerized Image Slideshow */}
+      <div className="hidden lg:col-span-6 lg:flex flex-col justify-between p-12 bg-black dark:bg-white text-white dark:text-zinc-900 relative overflow-hidden border-l border-white/10 dark:border-black/10 min-h-screen">
         <div className="relative z-10 flex justify-end">
-          <Badge variant="outline" className="border-border/60 bg-background/50 font-mono text-xs">
-            <ShieldCheck className="h-3.5 w-3.5 mr-1.5 text-emerald-400" /> VERIFIED MEMBER ACCESS
+          <Badge
+            variant="outline"
+            className="border-white/20 dark:border-black/20 bg-white/10 dark:bg-black/10 text-white dark:text-black font-mono text-xs"
+          >
+            <ShieldCheck className="h-3.5 w-3.5 mr-1.5 text-emerald-400 dark:text-emerald-600" /> VERIFIED MEMBER ACCESS
           </Badge>
         </div>
 
-        {/* Carousel Image Display */}
-        <div className="relative z-10 max-w-lg w-full my-auto space-y-4">
-          <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-border/60 shadow-2xl bg-black/40">
+        {/* Slideshow Display without Container Frame */}
+        <div className="relative z-10 max-w-lg w-full my-auto space-y-6 mx-auto">
+          <div className="relative w-full aspect-[4/3]">
             {slides.map((slide, idx) => (
               <div
                 key={slide.id}
@@ -325,7 +285,7 @@ function SignupFormContent() {
                   src={slide.image}
                   alt={slide.alt}
                   fill
-                  className="object-contain p-2"
+                  className="object-contain"
                   priority={idx === 0}
                 />
               </div>
@@ -339,20 +299,22 @@ function SignupFormContent() {
                 onClick={() => setCurrentSlide(idx)}
                 aria-label={`Go to slide ${idx + 1}`}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
-                  currentSlide === idx ? "w-8 bg-primary" : "w-2 bg-primary/20 hover:bg-primary/40"
+                  currentSlide === idx
+                    ? "w-8 bg-white dark:bg-black"
+                    : "w-2 bg-white/30 dark:bg-black/30 hover:bg-white/50 dark:hover:bg-black/50"
                 }`}
               />
             ))}
           </div>
         </div>
 
-        <div className="relative z-10 flex items-center gap-3 p-4 rounded-xl border border-border/60 bg-card/60 backdrop-blur-md">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20">
-            <CheckCircle2 className="h-5 w-5" />
+        <div className="relative z-10 flex items-center gap-3 p-4 rounded-xl border border-white/10 dark:border-black/10 bg-white/5 dark:bg-black/5 backdrop-blur-md">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/10 dark:bg-black/10 text-white dark:text-black border border-white/10 dark:border-black/10">
+            <CheckCircle2 className="h-5 w-5 text-emerald-400 dark:text-emerald-600" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-foreground">Automated Tier Sync</p>
-            <p className="text-[11px] text-muted-foreground">
+            <p className="text-xs font-semibold text-white dark:text-black">Automated Tier Sync</p>
+            <p className="text-[11px] text-zinc-400 dark:text-zinc-600">
               Your profile tier is synced directly upon creation.
             </p>
           </div>
