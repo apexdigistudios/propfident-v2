@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+// Adjust import path below if your component is stored in @/components/millionaire-roadmap/teaser/roadmap-teaser-hero
+import { RoadmapTeaserHero } from "@/components/roadmap-teaser-hero";
 import { RoadmapBenefitsGrid } from "@/components/millionaire-roadmap/teaser/roadmap-benefits-grid";
 import { RoadmapStagePreview } from "@/components/millionaire-roadmap/teaser/roadmap-stage-preview";
 import { Badge } from "@/components/ui/badge";
@@ -8,26 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, CheckCircle2, HelpCircle, Sparkles, Users } from "lucide-react";
-
-function RoadmapTeaserHero() {
-  return (
-    <section className="mx-auto max-w-5xl px-4 sm:px-6 py-20 text-center space-y-5">
-      <Badge
-        variant="outline"
-        className="border-primary/30 text-primary dark:text-primary font-mono text-xs"
-      >
-        THE MILLIONAIRE ROADMAP
-      </Badge>
-      <h1 className="text-4xl sm:text-6xl font-black uppercase tracking-tight">
-        Your Path to Consistent Prop Trading Growth
-      </h1>
-      <p className="mx-auto max-w-2xl text-sm sm:text-base text-muted-foreground">
-        A structured roadmap designed to help prop traders build the skills,
-        systems, and discipline needed for long-term success.
-      </p>
-    </section>
-  );
-}
 
 export default function MillionaireRoadmapTeaserPage() {
   const [email, setEmail] = useState("");
