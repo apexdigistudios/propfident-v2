@@ -20,23 +20,27 @@ const slides = [
     title: "Real-time Drawdown Protection",
     desc: "Monitor max daily and overall drawdowns dynamically across all your active prop accounts.",
     tag: "RISK MANAGEMENT",
+    image: "/slides/drawdown-protection.png",
   },
   {
     title: "Prop Match Matrix Engine",
     desc: "Benchmark your statement against dozens of prop firm rules to guarantee compliance.",
     tag: "STATEMENT ANALYTICS",
+    image: "/slides/prop-match.png",
   },
   {
     title: "VIP Trader Dashboard",
     desc: "Gain instant access to proprietary tools, journaling, and automated position sizing.",
     tag: "LIFETIME BENEFITS",
+    image: "/slides/vip-dashboard.png",
   },
 ];
 
 function SignupFormContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const tierParam = searchParams.get("tier") || "lifetime";
+  const rawTier = searchParams.get("tier");
+  const tierParam = rawTier ? rawTier.toLowerCase() : "free";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -62,7 +66,7 @@ function SignupFormContent() {
 
     try {
       const { error: authError } = await supabase.auth.signUp({
-        email,
+        email: email.trim().toLowerCase(),
         password,
         options: {
           data: {
@@ -85,9 +89,9 @@ function SignupFormContent() {
   };
 
   return (
-    <main className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-12 bg-background">
-      {/* Left Column: Form */}
-      <div className="lg:col-span-6 flex flex-col justify-between p-6 sm:p-12 lg:p-16 z-10">
+    <main className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-12 bg-background pt-24 sm:pt-28 lg:pt-0">
+      {/* Left Column: Signup Form */}
+      <div className="lg:col-span-6 flex flex-col justify-between p-6 sm:p-10 lg:p-16 z-10 min-h-[calc(100vh-6rem)] lg:min-h-screen">
         <div>
           <Link href="/" className="inline-flex items-center gap-2">
             <Image src="/logo.png" alt="Propfident" width={32} height={32} className="h-8 w-8 object-contain" />
@@ -97,19 +101,25 @@ function SignupFormContent() {
           </Link>
         </div>
 
-        <div className="my-auto py-10 max-w-md w-full mx-auto space-y-6">
+        <div className="my-auto py-8 max-w-md w-full mx-auto space-y-6">
           <div className="space-y-2">
             <Badge
               variant="outline"
-              className="border-emerald-500/30 bg-emerald-500/10 text-emerald-500 font-mono text-xs uppercase px-3 py-1"
+              className={`font-mono text-xs uppercase px-3 py-1 ${
+                tierParam === "lifetime"
+                  ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-500"
+                  : "border-primary/30 bg-primary/10 text-primary"
+              }`}
             >
-              <Sparkles className="h-3.5 w-3.5 mr-1" /> Claim Your {tierParam.toUpperCase()} Access
+              <Sparkles className="h-3.5 w-3.5 mr-1" />
+              {tierParam === "lifetime" ? "Claim Lifetime Access" : `${tierParam.toUpperCase()} ACCOUNT`}
             </Badge>
-            <h1 className="text-3xl font-black font-sans tracking-tight text-foreground">
+
+            <h1 className="text-2xl sm:text-3xl font-black font-sans tracking-tight text-foreground">
               Create your account
             </h1>
             <p className="text-xs sm:text-sm text-muted-foreground">
-              Set up your credentials now so you're ready when the official trader dashboard launches.
+              Set up your credentials to get immediate access to Propfident tools and the trader dashboard.
             </p>
           </div>
 
@@ -120,16 +130,16 @@ function SignupFormContent() {
               </div>
               <h3 className="text-lg font-bold text-foreground">Account Created!</h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Check your inbox to confirm your email. Your {tierParam.toUpperCase()} tier has been registered in our database.
+                Check your email inbox to confirm your account. Your account tier (<strong className="text-foreground uppercase">{tierParam}</strong>) is attached to your profile.
               </p>
-              <Button onClick={() => router.push("/")} className="w-full bg-emerald-500 hover:bg-emerald-600 text-white mt-2">
+              <Button onClick={() => router.push("/")} className="w-full bg-emerald-500 hover:bg-emerald-600 text-white mt-2 font-mono text-xs">
                 Return to Home
               </Button>
             </div>
           ) : (
             <form onSubmit={handleSignup} className="space-y-4">
               {error && (
-                <div className="p-3 text-xs rounded-lg border border-rose-500/30 bg-rose-500/10 text-rose-500">
+                <div className="p-3 text-xs rounded-lg border border-rose-500/30 bg-rose-500/10 text-rose-500 font-mono">
                   {error}
                 </div>
               )}
@@ -178,7 +188,7 @@ function SignupFormContent() {
               <Button
                 type="submit"
                 disabled={loading}
-                className="w-full h-11 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-xs gap-2 shadow-lg shadow-primary/20 transition-all mt-2"
+                className="w-full h-11 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold font-mono text-xs gap-2 shadow-lg shadow-primary/20 transition-all mt-2"
               >
                 {loading ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -197,13 +207,13 @@ function SignupFormContent() {
           </div>
         </div>
 
-        <div className="text-center text-xs text-muted-foreground">
+        <div className="text-center text-xs text-muted-foreground pb-6 lg:pb-0">
           © {new Date().getFullYear()} Propfident. All rights reserved.
         </div>
       </div>
 
-      {/* Right Column: Visual Banner & Slideshow */}
-      <div className="hidden lg:col-span-6 lg:flex flex-col justify-between p-12 bg-gradient-to-br from-primary/20 via-card to-background relative overflow-hidden border-l border-border/40">
+      {/* Right Column: Visual Slideshow Banner */}
+      <div className="hidden lg:col-span-6 lg:flex flex-col justify-between p-12 bg-gradient-to-br from-primary/20 via-card to-background relative overflow-hidden border-l border-border/40 min-h-screen">
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-primary/20 blur-[100px] pointer-events-none" />
 
         <div className="relative z-10 flex justify-end">
@@ -212,20 +222,31 @@ function SignupFormContent() {
           </Badge>
         </div>
 
+        {/* Dynamic Image & Slide Content */}
         <div className="relative z-10 max-w-lg my-auto space-y-6">
-          <div className="space-y-3 transition-all duration-500 ease-in-out">
+          <div className="relative h-56 sm:h-64 w-full rounded-2xl overflow-hidden border border-border/60 shadow-2xl bg-black/40">
+            <Image
+              src={slides[currentSlide].image}
+              alt={slides[currentSlide].title}
+              fill
+              className="object-cover transition-opacity duration-700"
+              priority
+            />
+          </div>
+
+          <div className="space-y-2 transition-all duration-500 ease-in-out">
             <span className="text-[10px] font-mono tracking-widest text-primary uppercase">
               {slides[currentSlide].tag}
             </span>
-            <h2 className="text-3xl font-black font-sans uppercase tracking-tight text-foreground">
+            <h2 className="text-2xl font-black font-sans uppercase tracking-tight text-foreground">
               {slides[currentSlide].title}
             </h2>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
               {slides[currentSlide].desc}
             </p>
           </div>
 
-          <div className="flex items-center gap-2 pt-4">
+          <div className="flex items-center gap-2 pt-2">
             {slides.map((_, idx) => (
               <button
                 key={idx}
@@ -243,9 +264,9 @@ function SignupFormContent() {
             <CheckCircle2 className="h-5 w-5" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-foreground">Auto-Linked Tier Status</p>
+            <p className="text-xs font-semibold text-foreground">Automated Tier Synchronization</p>
             <p className="text-[11px] text-muted-foreground">
-              Your profile is automatically assigned the correct privileges on creation.
+              Your profile tier is synchronized with Supabase directly upon creation.
             </p>
           </div>
         </div>
