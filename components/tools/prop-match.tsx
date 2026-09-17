@@ -347,7 +347,7 @@ export function PropMatchEvaluator() {
     <div className="relative w-full max-w-full overflow-x-hidden space-y-6 px-1">
       {/* Toast Notification */}
       {showSuccessToast && (
-        <div className="fixed top-4 right-4 left-4 sm:left-auto sm:max-w-sm z-50 flex items-center gap-3 rounded-2xl border border-white/40 dark:border-white/10 bg-white/80 dark:bg-zinc-900/80 p-3.5 shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-top-4 duration-300">
+        <div className="fixed top-4 right-4 left-4 sm:left-auto sm:max-w-sm z-50 flex items-center gap-3 rounded-2xl border border-white/40 dark:border-white/10 bg-white/80 dark:bg-zinc-900/80 p-3.5 shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-top-full duration-500 ease-out">
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
             <CheckCircle2 className="h-4 w-4" />
           </div>

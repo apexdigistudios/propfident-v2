@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CheckCircle2, XCircle, ArrowRight, Mail, ShieldCheck } from "lucide-react";
+import { CheckCircle2, XCircle, ArrowRight, Mail, ShieldCheck, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default async function CheckoutCompletePage({
@@ -40,7 +40,7 @@ export default async function CheckoutCompletePage({
               Payment Successful!
             </h1>
             <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-              Thank you for your purchase. Your account activation and access details are on their way.
+              Thank you for your purchase. Your playbook is ready to download below.
             </p>
 
             {/* Email Delivery Notification */}
@@ -50,14 +50,25 @@ export default async function CheckoutCompletePage({
                 <span>CHECK YOUR INBOX</span>
               </div>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Your digital product access and receipt have been emailed to you via Whop. Please check your spam folder if it doesn't arrive within a few minutes.
+                Your digital product access and receipt have also been emailed to you via Whop. Please check your spam folder if it doesn't arrive within a few minutes.
               </p>
             </div>
 
             <div className="mt-6 space-y-3">
+              {/* SECURE DOWNLOAD BUTTON */}
               <Button
                 asChild
                 className="w-full bg-emerald-500 hover:bg-emerald-600 text-primary-foreground font-semibold shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all gap-2"
+              >
+                <a href="/api/download/playbook" download>
+                  <Download className="h-4 w-4" /> Download Playbook PDF
+                </a>
+              </Button>
+
+              <Button
+                variant="outline"
+                asChild
+                className="w-full border-border bg-card text-foreground hover:bg-surface-hover hover:text-foreground gap-2"
               >
                 <Link href="/">
                   Return to Home <ArrowRight className="h-4 w-4" />

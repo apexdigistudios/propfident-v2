@@ -584,7 +584,7 @@ function CheckoutModalButton({
         <div className="flex-1 overflow-y-auto p-3 sm:p-6 min-h-0">
           <WhopCheckoutEmbed
             planId="plan_4VBu6Mxzk15hN"
-            returnUrl="https://yoursite.com/checkout/complete"
+            returnUrl="https://propfident.online/checkout/complete"
             themeOptions={{
               backgroundColor: "#580ec8",
               accentColor: "#4c00ff",

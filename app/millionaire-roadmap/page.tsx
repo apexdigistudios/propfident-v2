@@ -8,16 +8,32 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, CheckCircle2, HelpCircle, Sparkles, Users } from "lucide-react";
+import { ArrowRight, CheckCircle2, HelpCircle, Loader2, Sparkles, Users } from "lucide-react";
 
 export default function MillionaireRoadmapTeaserPage() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleBottomSubmit = (e: React.FormEvent) => {
+  const handleBottomSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      setSubmitted(true);
+    if (!email || loading) return;
+
+    setLoading(true);
+    try {
+      const res = await fetch("/api/roadmap-waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+      }
+    } catch (error) {
+      console.error("Failed to submit waitlist:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -109,13 +125,21 @@ export default function MillionaireRoadmapTeaserPage() {
                     placeholder="Enter your trader email..."
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    disabled={loading}
                     className="h-11 bg-background/80 border-border/80 text-xs font-sans placeholder:text-muted-foreground focus-visible:ring-primary"
                   />
                   <Button
                     type="submit"
+                    disabled={loading}
                     className="h-11 px-6 bg-primary hover:bg-primary text-white font-mono text-xs shrink-0 gap-2 shadow-lg shadow-primary/20"
                   >
-                    Reserve Access <ArrowRight className="h-4 w-4" />
+                    {loading ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <>
+                        Reserve Access <ArrowRight className="h-4 w-4" />
+                      </>
+                    )}
                   </Button>
                 </form>
               )}
