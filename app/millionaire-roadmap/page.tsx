@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 // Adjust import path below if your component is stored in @/components/millionaire-roadmap/teaser/roadmap-teaser-hero
-import { RoadmapTeaserHero } from "@/components/roadmap-teaser-hero";
+import { RoadmapTeaserHero } from "@/components/millionaire-roadmap/roadmap-teaser-hero";
 import { RoadmapBenefitsGrid } from "@/components/millionaire-roadmap/teaser/roadmap-benefits-grid";
 import { RoadmapStagePreview } from "@/components/millionaire-roadmap/teaser/roadmap-stage-preview";
 import { Badge } from "@/components/ui/badge";
