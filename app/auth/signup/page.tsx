@@ -5,15 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
-<<<<<<< Updated upstream
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-=======
 import { Button } from "../../../components/ui/button";
 import { Input } from "../../../components/ui/input";
 import { Badge } from "../../../components/ui/badge";
->>>>>>> Stashed changes
 import { ShieldCheck, CheckCircle2, ArrowRight, Loader2, Lock } from "lucide-react";
 
 const supabase = createClient(
@@ -22,16 +16,10 @@ const supabase = createClient(
 );
 
 const slides = [
-<<<<<<< Updated upstream
-  { id: 1, image: "/slides/slide1.png", alt: "Propfident Feature Slide 1" },
-  { id: 2, image: "/slides/slide2.png", alt: "Propfident Feature Slide 2" },
-  { id: 3, image: "/slides/slide3.png", alt: "Propfident Feature Slide 3" },
-=======
   { id: 1, image: "/slides/slide1.png", alt: "Real-Time Drawdown Protection", title: "Real-Time Drawdown Protection" },
   { id: 2, image: "/slides/slide2.png", alt: "Prop Match Matrix Engine", title: "Prop Match Matrix Engine" },
   { id: 3, image: "/slides/slide3.png", alt: "VIP Trader Dashboard", title: "VIP Trader Dashboard" },
   { id: 4, image: "/slides/slide4.png", alt: "Protection Engine", title: "Protection Engine" },
->>>>>>> Stashed changes
 ];
 
 function GoogleIcon() {
@@ -79,11 +67,7 @@ function SignupFormContent() {
     return () => clearInterval(timer);
   }, []);
 
-<<<<<<< Updated upstream
-  const handleSignup = async (e: React.FormEvent) => {
-=======
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
->>>>>>> Stashed changes
     e.preventDefault();
     if (!email || !password || loading) return;
 
@@ -216,11 +200,7 @@ function SignupFormContent() {
                     type="text"
                     placeholder="John Doe"
                     value={fullName}
-<<<<<<< Updated upstream
-                    onChange={(e) => setFullName(e.target.value)}
-=======
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFullName(e.target.value)}
->>>>>>> Stashed changes
                     className="h-11 bg-card/60 border-border/60 text-xs"
                   />
                 </div>
@@ -234,11 +214,7 @@ function SignupFormContent() {
                     required
                     placeholder="trader@example.com"
                     value={email}
-<<<<<<< Updated upstream
-                    onChange={(e) => setEmail(e.target.value)}
-=======
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
->>>>>>> Stashed changes
                     className="h-11 bg-card/60 border-border/60 text-xs"
                   />
                 </div>
@@ -252,11 +228,7 @@ function SignupFormContent() {
                     required
                     placeholder="••••••••••••"
                     value={password}
-<<<<<<< Updated upstream
-                    onChange={(e) => setPassword(e.target.value)}
-=======
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
->>>>>>> Stashed changes
                     className="h-11 bg-card/60 border-border/60 text-xs"
                   />
                 </div>
@@ -300,30 +272,12 @@ function SignupFormContent() {
           </Badge>
         </div>
 
-<<<<<<< Updated upstream
-        {/* Slideshow Display without Container Frame */}
-        <div className="relative z-10 max-w-lg w-full my-auto space-y-6 mx-auto">
-=======
         {/* Slideshow Display with Text & No Container Frame */}
         <div className="relative z-10 max-w-lg w-full my-auto mx-auto flex flex-col items-center">
->>>>>>> Stashed changes
           <div className="relative w-full aspect-[4/3]">
             {slides.map((slide, idx) => (
               <div
                 key={slide.id}
-<<<<<<< Updated upstream
-                className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                  currentSlide === idx ? "opacity-100 z-10" : "opacity-0 z-0"
-                }`}
-              >
-                <Image
-                  src={slide.image}
-                  alt={slide.alt}
-                  fill
-                  className="object-contain"
-                  priority={idx === 0}
-                />
-=======
                 className={`absolute inset-0 flex flex-col items-center justify-between transition-opacity duration-700 ease-in-out ${
                   currentSlide === idx ? "opacity-100 z-10" : "opacity-0 z-0"
                 }`}
@@ -340,16 +294,11 @@ function SignupFormContent() {
                 <p className="font-mono text-xs sm:text-sm font-semibold tracking-wider uppercase text-white/90 dark:text-zinc-900/90 text-center pt-2">
                   {slide.title}
                 </p>
->>>>>>> Stashed changes
               </div>
             ))}
           </div>
 
-<<<<<<< Updated upstream
-          <div className="flex items-center justify-center gap-2 pt-2">
-=======
           <div className="flex items-center justify-center gap-2 pt-8">
->>>>>>> Stashed changes
             {slides.map((_, idx) => (
               <button
                 key={idx}
