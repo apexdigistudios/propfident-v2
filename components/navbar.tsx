@@ -31,6 +31,7 @@ import {
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileToolsOpen, setMobileToolsOpen] = useState(false);
   const pathname = usePathname();
 
   const isRoadmapPage = pathname === "/millionaire-roadmap";
@@ -179,18 +180,6 @@ export function Navbar() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* New Millionaire Roadmap Navigation Link */}
-          <Link
-            href="/millionaire-roadmap"
-            className="flex items-center gap-1.5 rounded-md px-2 py-1.5 text-purple-600 dark:text-purple-400 font-semibold hover:text-purple-500 transition-colors"
-          >
-            <Compass className="h-3.5 w-3.5" />
-            <span>Roadmap</span>
-            <span className="font-mono text-[9px] bg-purple-500/10 border border-purple-500/30 px-1.5 py-0.2 rounded text-purple-600 dark:text-purple-400 uppercase">
-              SOON
-            </span>
-          </Link>
-
           <Link
             href="/playbook"
             className="flex items-center gap-1.5 rounded-md px-2 py-1.5 hover:text-foreground transition-colors"
@@ -205,6 +194,18 @@ export function Navbar() {
           >
             <Tag className="h-3.5 w-3.5" />
             <span>Pricing</span>
+          </Link>
+
+          {/* Roadmap CTA - Positioned Last */}
+          <Link
+            href="/millionaire-roadmap"
+            className="flex items-center gap-1.5 rounded-md px-2 py-1.5 text-purple-600 dark:text-purple-400 font-semibold hover:text-purple-500 transition-colors"
+          >
+            <Compass className="h-3.5 w-3.5" />
+            <span>Roadmap</span>
+            <span className="font-mono text-[9px] bg-purple-500/10 border border-purple-500/30 px-1.5 py-0.2 rounded text-purple-600 dark:text-purple-400 uppercase">
+              SOON
+            </span>
           </Link>
         </nav>
 
@@ -239,7 +240,7 @@ export function Navbar() {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden border-b border-border/60 bg-background/98 px-6 py-6 shadow-2xl backdrop-blur-2xl">
-          <div className="flex flex-col gap-4 text-sm font-medium">
+          <div className="flex flex-col gap-3 text-sm font-medium">
             <Link
               href="/#features"
               onClick={() => setMobileMenuOpen(false)}
@@ -249,28 +250,50 @@ export function Navbar() {
               <span>Features</span>
             </Link>
 
-            <Link
-              href="/millionaire-roadmap"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2 text-purple-600 dark:text-purple-400 font-semibold hover:text-purple-500 transition-colors flex items-center justify-between"
-            >
-              <div className="flex items-center gap-2">
-                <Compass className="h-4 w-4" />
-                <span>Millionaire Roadmap</span>
-              </div>
-              <span className="font-mono text-[10px] bg-purple-500/10 border border-purple-500/30 px-2 py-0.5 rounded text-purple-600 dark:text-purple-400 uppercase">
-                SOON
-              </span>
-            </Link>
+            {/* Mobile Nested Menu: Free Tools */}
+            <div className="border-y border-border/40 py-1">
+              <button
+                type="button"
+                onClick={() => setMobileToolsOpen(!mobileToolsOpen)}
+                className="py-2 text-foreground hover:text-primary transition-colors flex items-center justify-between w-full font-medium"
+              >
+                <div className="flex items-center gap-2">
+                  <Wrench className="h-4 w-4 text-primary" />
+                  <span>Free Tools</span>
+                </div>
+                <ChevronDown
+                  className={`h-4 w-4 text-muted-foreground transition-transform duration-200 ${
+                    mobileToolsOpen ? "rotate-180 text-primary" : ""
+                  }`}
+                />
+              </button>
 
-            <Link
-              href="/tools/position-sizer"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2 text-foreground hover:text-primary transition-colors flex items-center gap-2"
-            >
-              <Wrench className="h-4 w-4 text-primary" />
-              <span>Free Tools</span>
-            </Link>
+              {mobileToolsOpen && (
+                <div className="pl-6 pb-2 pt-1 flex flex-col gap-2.5 text-xs text-muted-foreground">
+                  <Link
+                    href="/tools/position-sizer"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="py-1 hover:text-foreground transition-colors flex items-center gap-2"
+                  >
+                    <span>Lot Calculator</span>
+                  </Link>
+                  <Link
+                    href="/tools/prop-match"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="py-1 hover:text-foreground transition-colors flex items-center gap-2"
+                  >
+                    <span>Prop Match</span>
+                  </Link>
+                  <Link
+                    href="/tools/ai-trade-planner"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="py-1 hover:text-foreground transition-colors flex items-center gap-2"
+                  >
+                    <span>Trade Assist</span>
+                  </Link>
+                </div>
+              )}
+            </div>
 
             <Link
               href="/playbook"
@@ -288,6 +311,21 @@ export function Navbar() {
             >
               <Tag className="h-4 w-4 text-primary" />
               <span>Pricing</span>
+            </Link>
+
+            {/* Roadmap CTA - Positioned Last */}
+            <Link
+              href="/millionaire-roadmap"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 text-purple-600 dark:text-purple-400 font-semibold hover:text-purple-500 transition-colors flex items-center justify-between"
+            >
+              <div className="flex items-center gap-2">
+                <Compass className="h-4 w-4" />
+                <span>Millionaire Roadmap</span>
+              </div>
+              <span className="font-mono text-[10px] bg-purple-500/10 border border-purple-500/30 px-2 py-0.5 rounded text-purple-600 dark:text-purple-400 uppercase">
+                SOON
+              </span>
             </Link>
 
             <div className="pt-4 border-t border-border/40">
