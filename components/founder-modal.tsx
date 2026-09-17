@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-// import { WhopCheckoutEmbed } from "@whop/checkout/react"; // Temporarily commented out for testing
+import { WhopCheckoutEmbed } from "@whop/checkout/react";
 import {
   Dialog,
   DialogContent,
@@ -49,7 +49,7 @@ export function FounderModal({ children }: { children: React.ReactNode }) {
       <DialogContent className="w-[92vw] sm:max-w-[540px] max-h-[85vh] overflow-y-auto border-primary/20 bg-background text-foreground p-5 sm:p-6 rounded-2xl">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">
-            {submitted ? "Test Mode: Checkout" : "Claim Founder's Lifetime Spot"}
+            {submitted ? "Complete Your Order" : "Claim Founder's Lifetime Spot"}
           </DialogTitle>
         </DialogHeader>
 
@@ -73,27 +73,12 @@ export function FounderModal({ children }: { children: React.ReactNode }) {
             </Button>
           </form>
         ) : (
-          /* TEMPORARY TEST BYPASS UI */
-          <div className="mt-4 space-y-4 text-center py-6">
-            <p className="text-sm text-muted-foreground font-mono">
-              [TEST MODE ACTIVE] Whop embed is disabled. Click below to test your success page.
-            </p>
-            <Button 
-              onClick={() => window.location.href = "/checkout/complete"}
-              className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold h-11"
-            >
-              Simulate Successful Checkout →
-            </Button>
-          </div>
-
-          /* ORIGINAL WHOP EMBED (Uncomment when ready to switch back to live payments)
           <div className="mt-2 min-h-[480px] w-full overflow-hidden">
             <WhopCheckoutEmbed
               planId="plan_HyuVVMrLogZ2Y"
               returnUrl="https://propfident.online/checkout/complete"
             />
-          </div> 
-          */
+          </div>
         )}
       </DialogContent>
     </Dialog>
