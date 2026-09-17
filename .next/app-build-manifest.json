@@ -25,6 +25,11 @@
       "static/chunks/main-app.js",
       "static/css/app/millionaire-roadmap/layout.css",
       "static/chunks/app/millionaire-roadmap/layout.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/layout.js"
     ]
   }
 }
