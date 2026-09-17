@@ -76,7 +76,7 @@ export function FounderModal({ children }: { children: React.ReactNode }) {
           <div className="mt-2 min-h-[480px] w-full overflow-hidden">
             <WhopCheckoutEmbed
               planId="plan_HyuVVMrLogZ2Y"
-              returnUrl="https://propfident.online/signup?tier=lifetime"
+              returnUrl="https://propfident.online/auth/signup?tier=lifetime"
             />
           </div>
         )}
