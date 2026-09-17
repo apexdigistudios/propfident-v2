@@ -8,7 +8,7 @@ import { createClient } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ShieldCheck, Sparkles, CheckCircle2, ArrowRight, Loader2, Lock } from "lucide-react";
+import { ShieldCheck, CheckCircle2, ArrowRight, Loader2, Lock } from "lucide-react";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -59,6 +59,47 @@ function SignupFormContent() {
   const [success, setSuccess] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  // Dynamic header visibility control on scroll
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const header = document.querySelector("header") || document.querySelector("nav");
+      if (!header) return;
+
+      const currentScrollY = window.scrollY;
+      header.style.transition = "transform 0.3s ease-in-out, opacity 0.3s ease-in-out";
+
+      if (currentScrollY <= 10) {
+        header.style.transform = "translateY(0)";
+        header.style.opacity = "1";
+      } else if (currentScrollY < lastScrollY) {
+        // Hide on scroll upward
+        header.style.transform = "translateY(-100%)";
+        header.style.opacity = "0";
+      } else if (currentScrollY > lastScrollY) {
+        // Reveal on scroll downward
+        header.style.transform = "translateY(0)";
+        header.style.opacity = "1";
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      const header = document.querySelector("header") || document.querySelector("nav");
+      if (header) {
+        header.style.transform = "";
+        header.style.opacity = "";
+        header.style.transition = "";
+      }
+    };
+  }, []);
+
+  // Carousel timer
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -138,18 +179,6 @@ function SignupFormContent() {
 
         <div className="my-auto py-8 max-w-md w-full mx-auto space-y-6">
           <div className="space-y-2">
-            <Badge
-              variant="outline"
-              className={`font-mono text-xs uppercase px-3 py-1 ${
-                tierParam === "lifetime"
-                  ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-500"
-                  : "border-primary/30 bg-primary/10 text-primary"
-              }`}
-            >
-              <Sparkles className="h-3.5 w-3.5 mr-1" />
-              {tierParam === "lifetime" ? "Claim Lifetime Access" : `${tierParam.toUpperCase()} ACCOUNT`}
-            </Badge>
-
             <h1 className="text-2xl sm:text-3xl font-black font-sans tracking-tight text-foreground">
               Create your account
             </h1>
@@ -263,7 +292,7 @@ function SignupFormContent() {
 
           <div className="flex items-center justify-center gap-1.5 font-mono text-[11px] text-muted-foreground pt-2">
             <Lock className="h-3.5 w-3.5 text-primary" />
-            <span>256-Bit Encrypted & Secure Auth</span>
+            <span>Encrypted & Secure Auth</span>
           </div>
         </div>
 
@@ -322,9 +351,9 @@ function SignupFormContent() {
             <CheckCircle2 className="h-5 w-5" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-foreground">Automated Tier Synchronization</p>
+            <p className="text-xs font-semibold text-foreground">Automated Tier Sync</p>
             <p className="text-[11px] text-muted-foreground">
-              Your profile tier is synchronized with Supabase directly upon creation.
+              Your profile tier is synced directly upon creation.
             </p>
           </div>
         </div>
