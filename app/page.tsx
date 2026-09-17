@@ -39,9 +39,9 @@ export default function Home() {
           </Badge>
           
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight max-w-4xl mb-6 leading-[1.1]">
-            Risk Management for <br className="hidden md:block" />
+            Never Breach Your Prop Firm Account <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-400">
-              Funded Traders
+              Again
             </span>
           </h1>
           
