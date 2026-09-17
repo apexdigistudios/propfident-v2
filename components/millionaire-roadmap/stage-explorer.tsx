@@ -268,7 +268,7 @@ export function StageExplorer({ selectedStageId, onStageChange }: StageExplorerP
               onClick={() => onStageChange(s.id)}
               className={`flex items-center gap-2 shrink-0 px-4 py-2.5 rounded-xl font-mono text-xs font-semibold transition-all ${
                 isActive
-                  ? "bg-purple-600 text-white shadow-md shadow-purple-600/20"
+                  ? "bg-primary text-white shadow-md shadow-primary/20"
                   : "bg-card/80 text-muted-foreground hover:bg-muted hover:text-foreground border border-border/50"
               }`}
             >
@@ -288,7 +288,7 @@ export function StageExplorer({ selectedStageId, onStageChange }: StageExplorerP
           <Card className="border-border/60 bg-card/80 backdrop-blur-sm">
             <CardHeader className="border-b border-border/40 p-5">
               <div className="flex items-center justify-between">
-                <Badge variant="outline" className="font-mono text-xs border-purple-500/30 text-purple-600 dark:text-purple-400">
+                <Badge variant="outline" className="font-mono text-xs border-primary/30 text-primary">
                   STAGE {stage.number}
                 </Badge>
                 <span className="font-mono text-xs font-bold text-muted-foreground">{stage.range}</span>
@@ -302,7 +302,7 @@ export function StageExplorer({ selectedStageId, onStageChange }: StageExplorerP
           <Card className="border-border/60 bg-card/80">
             <CardHeader className="p-5 border-b border-border/40">
               <CardTitle className="text-base font-bold flex items-center gap-2 font-sans">
-                <Layers className="h-4 w-4 text-purple-500" /> Stage Modules ({stage.modules.length})
+                <Layers className="h-4 w-4 text-primary" /> Stage Modules ({stage.modules.length})
               </CardTitle>
             </CardHeader>
             <CardContent className="p-4 space-y-2">
@@ -319,7 +319,7 @@ export function StageExplorer({ selectedStageId, onStageChange }: StageExplorerP
                       className="w-full flex items-center justify-between p-3 text-left font-semibold text-xs sm:text-sm text-foreground hover:bg-muted/30"
                     >
                       <span className="flex items-center gap-2.5">
-                        <span className="font-mono text-[11px] text-purple-600 dark:text-purple-400 font-bold">
+                        <span className="font-mono text-[11px] text-primary font-bold">
                           {String(idx + 1).padStart(2, "0")}
                         </span>
                         {m.title}
@@ -345,7 +345,7 @@ export function StageExplorer({ selectedStageId, onStageChange }: StageExplorerP
           <Card className="border-border/60 bg-card/80">
             <CardHeader className="p-5 border-b border-border/40">
               <CardTitle className="text-base font-bold flex items-center gap-2 font-sans">
-                <Target className="h-4 w-4 text-purple-500" /> Stage Milestones
+                <Target className="h-4 w-4 text-primary" /> Stage Milestones
               </CardTitle>
             </CardHeader>
             <CardContent className="p-4 space-y-2.5">
@@ -376,16 +376,16 @@ export function StageExplorer({ selectedStageId, onStageChange }: StageExplorerP
         {/* Right Column: Risk Framework, Mistakes, Connected Tools */}
         <div className="space-y-6">
           {/* Risk Framework */}
-          <Card className="border-purple-500/30 bg-purple-500/5">
-            <CardHeader className="p-4 border-b border-purple-500/20">
-              <CardTitle className="text-sm font-bold flex items-center gap-2 text-purple-600 dark:text-purple-400 font-sans">
+          <Card className="border-primary/30 bg-primary/5">
+            <CardHeader className="p-4 border-b border-primary/20">
+              <CardTitle className="text-sm font-bold flex items-center gap-2 text-primary font-sans">
                 <ShieldAlert className="h-4 w-4" /> Risk Framework
               </CardTitle>
             </CardHeader>
             <CardContent className="p-4 space-y-2.5">
               {stage.riskRules.map((rule) => (
                 <div key={rule} className="flex items-start gap-2 text-xs text-foreground">
-                  <span className="text-purple-500 font-bold">•</span>
+                  <span className="text-primary font-bold">•</span>
                   <span>{rule}</span>
                 </div>
               ))}
@@ -413,12 +413,12 @@ export function StageExplorer({ selectedStageId, onStageChange }: StageExplorerP
           <Card className="border-border/60 bg-card/80">
             <CardHeader className="p-4 border-b border-border/40">
               <CardTitle className="text-sm font-bold flex items-center gap-2 text-foreground font-sans">
-                <Wrench className="h-4 w-4 text-purple-500" /> Propfident Ecosystem Tool
+                <Wrench className="h-4 w-4 text-primary" /> Propfident Ecosystem Tool
               </CardTitle>
             </CardHeader>
             <CardContent className="p-4 space-y-3">
               <div>
-                <h4 className="font-bold text-xs text-purple-600 dark:text-purple-400">
+                <h4 className="font-bold text-xs text-primary">
                   {stage.recommendedTool.name}
                 </h4>
                 <p className="text-xs text-muted-foreground mt-1">
@@ -426,7 +426,7 @@ export function StageExplorer({ selectedStageId, onStageChange }: StageExplorerP
                 </p>
               </div>
               <a href={stage.recommendedTool.href} className="block">
-                <Button className="w-full gap-2 bg-purple-600 hover:bg-purple-700 text-white font-mono text-xs">
+                <Button className="w-full gap-2 bg-primary hover:bg-primary text-white font-mono text-xs">
                   {stage.recommendedTool.actionLabel} <ArrowRight className="h-3.5 w-3.5" />
                 </Button>
               </a>

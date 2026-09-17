@@ -78,7 +78,7 @@ export function RoadmapStagePreview() {
       <div className="text-center space-y-3 max-w-2xl mx-auto mb-10">
         <Badge
           variant="outline"
-          className="font-mono text-xs border-purple-500/30 text-purple-600 dark:text-purple-400"
+          className="font-mono text-xs border-primary/30 text-primary"
         >
           <Sparkles className="h-3 w-3 mr-1" /> STAGE SNEAK PEEK
         </Badge>
@@ -102,15 +102,15 @@ export function RoadmapStagePreview() {
                 onClick={() => setSelectedNum(stg.num)}
                 className={`flex items-center justify-between p-4 rounded-xl border text-left transition-all ${
                   isActive
-                    ? "border-purple-500 bg-purple-500/10 shadow-md shadow-purple-500/10"
-                    : "border-border/60 bg-card/60 hover:bg-muted/40 hover:border-purple-500/30"
+                    ? "border-primary bg-primary/10 shadow-md shadow-primary/10"
+                    : "border-border/60 bg-card/60 hover:bg-muted/40 hover:border-primary/30"
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <span
                     className={`flex h-8 w-8 items-center justify-center rounded-lg font-mono text-xs font-bold ${
                       isActive
-                        ? "bg-purple-600 text-white"
+                        ? "bg-primary text-white"
                         : "bg-muted text-muted-foreground"
                     }`}
                   >
@@ -120,7 +120,7 @@ export function RoadmapStagePreview() {
                     <div className="font-bold text-xs text-foreground font-sans">
                       {stg.title}
                     </div>
-                    <div className="font-mono text-[10px] text-purple-600 dark:text-purple-400 font-semibold">
+                    <div className="font-mono text-[10px] text-primary font-semibold">
                       {stg.range}
                     </div>
                   </div>
@@ -132,15 +132,15 @@ export function RoadmapStagePreview() {
         </div>
 
         {/* Selected Stage Detail Preview */}
-        <Card className="lg:col-span-8 border-purple-500/30 bg-card/80 backdrop-blur-sm relative overflow-hidden">
-          <div className="absolute top-4 right-4 flex items-center gap-1.5 font-mono text-[10px] text-purple-600 dark:text-purple-400 bg-purple-500/10 border border-purple-500/20 px-3 py-1 rounded-full">
+        <Card className="lg:col-span-8 border-primary/30 bg-card/80 backdrop-blur-sm relative overflow-hidden">
+          <div className="absolute top-4 right-4 flex items-center gap-1.5 font-mono text-[10px] text-primary bg-primary/10 border border-primary/20 px-3 py-1 rounded-full">
             <Lock className="h-3 w-3" /> UNLOCKS AT LAUNCH
           </div>
 
           <CardHeader className="p-6 border-b border-border/40">
             <Badge
               variant="outline"
-              className="w-max font-mono text-xs border-purple-500/30 text-purple-600 dark:text-purple-400"
+              className="w-max font-mono text-xs border-primary/30 text-primary"
             >
               STAGE {current.num} // {current.range}
             </Badge>
@@ -154,7 +154,7 @@ export function RoadmapStagePreview() {
 
           <CardContent className="p-6 space-y-4">
             <div className="font-mono text-xs font-bold text-foreground uppercase tracking-wider flex items-center gap-2">
-              <Target className="h-4 w-4 text-purple-500" /> Core Curriculum
+              <Target className="h-4 w-4 text-primary" /> Core Curriculum
               Modules
             </div>
 
@@ -164,7 +164,7 @@ export function RoadmapStagePreview() {
                   key={mod}
                   className="flex items-center gap-2.5 p-3 rounded-lg border border-border/40 bg-background/50 text-xs font-medium text-foreground"
                 >
-                  <CheckCircle2 className="h-4 w-4 text-purple-500 shrink-0" />
+                  <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
                   <span>{mod}</span>
                 </div>
               ))}

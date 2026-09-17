@@ -80,7 +80,7 @@ export function CapitalTracker() {
       <div className="text-center space-y-2 max-w-2xl mx-auto">
         <Badge
           variant="outline"
-          className="font-mono text-xs border-purple-500/30 text-purple-600 dark:text-purple-400"
+          className="font-mono text-xs border-primary/30 text-primary"
         >
           INTERACTIVE TOOL // CAPITAL TRACKER
         </Badge>
@@ -110,10 +110,10 @@ export function CapitalTracker() {
               </div>
 
               {/* Trader Level Badge */}
-              <div className="flex items-center gap-3 bg-purple-500/10 border border-purple-500/30 px-4 py-2 rounded-xl">
-                <Award className="h-5 w-5 text-purple-500" />
+              <div className="flex items-center gap-3 bg-primary/10 border border-primary/30 px-4 py-2 rounded-xl">
+                <Award className="h-5 w-5 text-primary" />
                 <div>
-                  <div className="font-mono text-[10px] text-purple-600 dark:text-purple-400 uppercase font-bold">
+                  <div className="font-mono text-[10px] text-primary uppercase font-bold">
                     LEVEL {currentLevel.level} — {currentLevel.badge}
                   </div>
                   <div className="text-xs font-bold font-sans text-foreground">
@@ -129,13 +129,13 @@ export function CapitalTracker() {
             <div className="space-y-2">
               <div className="flex justify-between items-center font-mono text-xs">
                 <span className="text-muted-foreground">Progression to $1M+ Goal</span>
-                <span className="font-bold text-purple-600 dark:text-purple-400">
+                <span className="font-bold text-primary">
                   {progressPercent}%
                 </span>
               </div>
               <div className="h-3 w-full bg-muted rounded-full overflow-hidden p-0.5 border border-border/40">
                 <div
-                  className="h-full bg-gradient-to-r from-purple-600 to-purple-400 rounded-full transition-all duration-500"
+                  className="h-full bg-gradient-to-r from-primary to-primary rounded-full transition-all duration-500"
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
@@ -159,11 +159,11 @@ export function CapitalTracker() {
                     className="flex items-center justify-between p-3 rounded-lg border border-border/40 bg-background/50 text-xs font-mono"
                   >
                     <div className="flex items-center gap-2">
-                      <ShieldCheck className="h-4 w-4 text-purple-500" />
+                      <ShieldCheck className="h-4 w-4 text-primary" />
                       <span className="font-bold text-foreground font-sans">{acc.firmName}</span>
                     </div>
                     <div className="flex items-center gap-4">
-                      <span className="font-semibold text-purple-600 dark:text-purple-400">
+                      <span className="font-semibold text-primary">
                         ${acc.allocation.toLocaleString()}
                       </span>
                       <button
@@ -210,7 +210,7 @@ export function CapitalTracker() {
                     className="h-8 text-xs font-mono"
                   />
                 </div>
-                <Button type="submit" className="w-full gap-1.5 h-8 bg-purple-600 hover:bg-purple-700 text-white font-mono text-xs mt-2">
+                <Button type="submit" className="w-full gap-1.5 h-8 bg-primary hover:bg-primary text-white font-mono text-xs mt-2">
                   <Plus className="h-3.5 w-3.5" /> Add Capital Node
                 </Button>
               </form>
@@ -218,9 +218,9 @@ export function CapitalTracker() {
           </Card>
 
           {/* Action Recommendation */}
-          <Card className="border-purple-500/30 bg-purple-500/5">
+          <Card className="border-primary/30 bg-primary/5">
             <CardContent className="p-5 space-y-3">
-              <div className="flex items-center gap-2 font-mono text-xs font-bold text-purple-600 dark:text-purple-400">
+              <div className="flex items-center gap-2 font-mono text-xs font-bold text-primary">
                 <TrendingUp className="h-4 w-4" /> WHAT TO DO NEXT
               </div>
               <p className="text-xs text-foreground font-medium">
@@ -230,7 +230,7 @@ export function CapitalTracker() {
                   ? "Target your first payout split while strictly managing daily and total drawdown."
                   : "Diversify capital across multiple firms and scale allocation with account copiers."}
               </p>
-              <Button variant="outline" className="w-full gap-2 text-xs font-mono border-purple-500/30 text-purple-600 dark:text-purple-400 hover:bg-purple-500/10">
+              <Button variant="outline" className="w-full gap-2 text-xs font-mono border-primary/30 text-primary hover:bg-primary/10">
                 Continue Roadmap <ArrowRight className="h-3.5 w-3.5" />
               </Button>
             </CardContent>

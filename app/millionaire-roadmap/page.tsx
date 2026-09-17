@@ -14,7 +14,7 @@ function RoadmapTeaserHero() {
     <section className="mx-auto max-w-5xl px-4 sm:px-6 py-20 text-center space-y-5">
       <Badge
         variant="outline"
-        className="border-purple-500/30 text-purple-600 dark:text-purple-400 font-mono text-xs"
+        className="border-primary/30 text-primary dark:text-primary font-mono text-xs"
       >
         THE MILLIONAIRE ROADMAP
       </Badge>
@@ -41,7 +41,7 @@ export default function MillionaireRoadmapTeaserPage() {
   };
 
   return (
-    <main className="min-h-screen bg-background text-foreground selection:bg-purple-500/20 selection:text-purple-400">
+    <main className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-primary">
       {/* 1. Coming Soon Hero Section */}
       <RoadmapTeaserHero />
 
@@ -56,7 +56,7 @@ export default function MillionaireRoadmapTeaserPage() {
         <div className="text-center space-y-2">
           <Badge
             variant="outline"
-            className="font-mono text-xs border-purple-500/30 text-purple-600 dark:text-purple-400"
+            className="font-mono text-xs border-primary/30 text-primary dark:text-primary"
           >
             FAQ
           </Badge>
@@ -69,7 +69,7 @@ export default function MillionaireRoadmapTeaserPage() {
           <Card className="border-border/60 bg-card/60">
             <CardContent className="p-5 space-y-2">
               <h3 className="font-bold text-xs text-foreground font-sans flex items-center gap-2">
-                <HelpCircle className="h-4 w-4 text-purple-500 shrink-0" />
+                <HelpCircle className="h-4 w-4 text-primary shrink-0" />
                 When does the Millionaire Roadmap launch?
               </h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
@@ -81,7 +81,7 @@ export default function MillionaireRoadmapTeaserPage() {
           <Card className="border-border/60 bg-card/60">
             <CardContent className="p-5 space-y-2">
               <h3 className="font-bold text-xs text-foreground font-sans flex items-center gap-2">
-                <HelpCircle className="h-4 w-4 text-purple-500 shrink-0" />
+                <HelpCircle className="h-4 w-4 text-primary shrink-0" />
                 Is this included with standard Propfident tools?
               </h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
@@ -94,11 +94,11 @@ export default function MillionaireRoadmapTeaserPage() {
 
       {/* 5. Final Waitlist Conversion Card */}
       <section className="mx-auto max-w-5xl px-4 sm:px-6 pb-20">
-        <Card className="border-purple-500/40 bg-gradient-to-r from-purple-950/30 via-card to-purple-900/20 overflow-hidden relative">
+        <Card className="border-primary/40 bg-gradient-to-r from-primary/30 via-card to-primary/20 overflow-hidden relative">
           <CardContent className="p-8 sm:p-12 text-center space-y-5 relative z-10">
             <Badge
               variant="outline"
-              className="border-purple-500/40 bg-purple-500/10 text-purple-600 dark:text-purple-400 font-mono text-xs"
+              className="border-primary/40 bg-primary/10 text-primary dark:text-primary font-mono text-xs"
             >
               <Sparkles className="h-3.5 w-3.5 mr-1" /> VIP EARLY ACCESS
             </Badge>
@@ -128,11 +128,11 @@ export default function MillionaireRoadmapTeaserPage() {
                     placeholder="Enter your trader email..."
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="h-11 bg-background/80 border-border/80 text-xs font-sans placeholder:text-muted-foreground focus-visible:ring-purple-500"
+                    className="h-11 bg-background/80 border-border/80 text-xs font-sans placeholder:text-muted-foreground focus-visible:ring-primary"
                   />
                   <Button
                     type="submit"
-                    className="h-11 px-6 bg-purple-600 hover:bg-purple-700 text-white font-mono text-xs shrink-0 gap-2 shadow-lg shadow-purple-600/20"
+                    className="h-11 px-6 bg-primary hover:bg-primary text-white font-mono text-xs shrink-0 gap-2 shadow-lg shadow-primary/20"
                   >
                     Reserve Access <ArrowRight className="h-4 w-4" />
                   </Button>
@@ -140,7 +140,7 @@ export default function MillionaireRoadmapTeaserPage() {
               )}
 
               <div className="flex items-center justify-center gap-2 mt-3 font-mono text-[11px] text-muted-foreground">
-                <Users className="h-3.5 w-3.5 text-purple-500" />
+                <Users className="h-3.5 w-3.5 text-primary" />
                 <span>Zero spam. Unsubscribe anytime.</span>
               </div>
             </div>

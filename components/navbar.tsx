@@ -47,9 +47,9 @@ export function Navbar() {
   if (isRoadmapPage) {
     return (
       <header
-        className={`fixed inset-x-0 top-0 z-50 border-b border-purple-500/20 transition-all duration-300 ${
+        className={`fixed inset-x-0 top-0 z-50 border-b border-primary/20 transition-all duration-300 ${
           scrolled
-            ? "bg-background/95 shadow-lg shadow-purple-950/10 backdrop-blur-xl"
+            ? "bg-background/95 shadow-lg shadow-primary/10 backdrop-blur-xl"
             : "bg-background/80 backdrop-blur-md"
         }`}
       >
@@ -66,13 +66,13 @@ export function Navbar() {
             <div className="h-4 w-px bg-border/60" />
 
             <div className="flex items-center gap-2">
-              <Compass className="h-4 w-4 text-purple-500" />
+              <Compass className="h-4 w-4 text-primary" />
               <span className="font-sans font-extrabold text-sm uppercase tracking-tight text-foreground">
                 Millionaire Roadmap
               </span>
               <Badge
                 variant="outline"
-                className="font-mono text-[10px] border-purple-500/40 bg-purple-500/10 text-purple-600 dark:text-purple-400 px-2 py-0.5"
+                className="font-mono text-[10px] border-primary/40 bg-primary/10 text-primary px-2 py-0.5"
               >
                 TEASER
               </Badge>
@@ -86,7 +86,7 @@ export function Navbar() {
               onClick={() => {
                 window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
               }}
-              className="bg-purple-600 hover:bg-purple-700 text-white font-mono text-xs gap-1.5"
+              className="bg-primary hover:bg-primary text-white font-mono text-xs gap-1.5"
             >
               <Sparkles className="h-3.5 w-3.5" />
               <span>Join Waitlist</span>
@@ -199,11 +199,11 @@ export function Navbar() {
           {/* Roadmap CTA - Positioned Last */}
           <Link
             href="/millionaire-roadmap"
-            className="flex items-center gap-1.5 rounded-md px-2 py-1.5 text-purple-600 dark:text-purple-400 font-semibold hover:text-purple-500 transition-colors"
+            className="flex items-center gap-1.5 rounded-md px-2 py-1.5 text-primary font-semibold hover:text-primary transition-colors"
           >
             <Compass className="h-3.5 w-3.5" />
             <span>Roadmap</span>
-            <span className="font-mono text-[9px] bg-purple-500/10 border border-purple-500/30 px-1.5 py-0.2 rounded text-purple-600 dark:text-purple-400 uppercase">
+            <span className="font-mono text-[9px] bg-primary/10 border border-primary/30 px-1.5 py-0.2 rounded text-primary uppercase">
               SOON
             </span>
           </Link>
@@ -317,13 +317,13 @@ export function Navbar() {
             <Link
               href="/millionaire-roadmap"
               onClick={() => setMobileMenuOpen(false)}
-              className="py-2 text-purple-600 dark:text-purple-400 font-semibold hover:text-purple-500 transition-colors flex items-center justify-between"
+              className="py-2 text-primary font-semibold hover:text-primary transition-colors flex items-center justify-between"
             >
               <div className="flex items-center gap-2">
                 <Compass className="h-4 w-4" />
                 <span>Millionaire Roadmap</span>
               </div>
-              <span className="font-mono text-[10px] bg-purple-500/10 border border-purple-500/30 px-2 py-0.5 rounded text-purple-600 dark:text-purple-400 uppercase">
+              <span className="font-mono text-[10px] bg-primary/10 border border-primary/30 px-2 py-0.5 rounded text-primary uppercase">
                 SOON
               </span>
             </Link>

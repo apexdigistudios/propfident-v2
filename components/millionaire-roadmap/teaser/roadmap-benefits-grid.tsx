@@ -57,7 +57,7 @@ export function RoadmapBenefitsGrid() {
       <div className="text-center space-y-3 max-w-2xl mx-auto mb-12">
         <Badge
           variant="outline"
-          className="font-mono text-xs border-purple-500/30 text-purple-600 dark:text-purple-400"
+          className="font-mono text-xs border-primary/30 text-primary"
         >
           <Sparkles className="h-3 w-3 mr-1" /> WHY WE'RE BUILDING THIS
         </Badge>
@@ -75,10 +75,10 @@ export function RoadmapBenefitsGrid() {
           return (
             <Card
               key={item.title}
-              className="border-border/60 bg-card/60 backdrop-blur-sm hover:border-purple-500/40 transition-all duration-200"
+              className="border-border/60 bg-card/60 backdrop-blur-sm hover:border-primary/40 transition-all duration-200"
             >
               <CardHeader className="p-5 pb-2">
-                <div className="h-10 w-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400 mb-3">
+                <div className="h-10 w-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary mb-3">
                   <Icon className="h-5 w-5" />
                 </div>
                 <CardTitle className="text-base font-bold font-sans">

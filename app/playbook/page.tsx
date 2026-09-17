@@ -107,7 +107,7 @@ const checklistItems = [
 
 export default function PlaybookPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-purple-500/20 selection:text-purple-400">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-primary">
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28 space-y-20">
         
         {/* HERO SECTION: Left Description & Right Book Card */}
@@ -117,7 +117,7 @@ export default function PlaybookPage() {
           <div className="lg:col-span-7 space-y-6 text-left">
             <Badge
               variant="outline"
-              className="font-mono text-xs border-purple-500/40 bg-purple-500/10 text-purple-600 dark:text-purple-400 px-3 py-1 uppercase tracking-wider"
+              className="font-mono text-xs border-primary/40 bg-primary/10 text-primary dark:text-primary px-3 py-1 uppercase tracking-wider"
             >
               <BookOpen className="h-3.5 w-3.5 mr-1.5" />
               Official Digital Blueprint
@@ -127,7 +127,7 @@ export default function PlaybookPage() {
               <h1 className="text-3xl sm:text-5xl font-black font-sans uppercase tracking-tight text-foreground leading-[1.1]">
                 THE SEVEN-FIGURE FUNDED TRADER PLAYBOOK
               </h1>
-              <p className="text-base sm:text-xl font-semibold text-purple-600 dark:text-purple-400 font-sans">
+              <p className="text-base sm:text-xl font-semibold text-primary dark:text-primary font-sans">
                 You Don't Need Another Trading Strategy.
                 <br className="hidden sm:inline" /> You Need A Better Way To Protect Your Funded Account.
               </p>
@@ -143,9 +143,9 @@ export default function PlaybookPage() {
                 They see <span className="font-mono text-foreground font-bold">$200,000</span> and think:{" "}
                 <em className="text-foreground">“I can risk $2,000.”</em>
               </p>
-              <p className="p-4 rounded-xl border border-purple-500/20 bg-purple-500/5 text-foreground font-medium">
+              <p className="p-4 rounded-xl border border-primary/40 bg-primary/5 text-foreground font-medium">
                 But the number that matters most is not the $200K on the screen.{" "}
-                <strong className="text-purple-600 dark:text-purple-400">It's your drawdown.</strong> That's the money you can actually lose before the account is gone. Once you understand that, you start trading funded accounts in a completely different way.
+                <strong className="text-primary dark:text-primary">It's your drawdown.</strong> That's the money you can actually lose before the account is gone. Once you understand that, you start trading funded accounts in a completely different way.
               </p>
             </div>
 
@@ -160,16 +160,16 @@ export default function PlaybookPage() {
 
           {/* RIGHT SIDE: Book Card from public/playbook */}
           <div className="lg:col-span-5 flex justify-center">
-            <Card className="w-full max-w-md overflow-hidden border-purple-500/40 bg-card/80 backdrop-blur-md shadow-2xl relative group">
+            <Card className="w-full max-w-md overflow-hidden border-primary/40 bg-card/80 backdrop-blur-md shadow-2xl relative group">
               <div className="absolute top-3 right-3 z-20">
-                <Badge className="bg-purple-600 text-white font-mono text-[10px] uppercase font-bold tracking-wider">
+                <Badge className="bg-primary text-white font-mono text-[10px] uppercase font-bold tracking-wider">
                   Digital Edition
                 </Badge>
               </div>
 
               {/* Book Image Preview */}
-              <div className="relative h-72 sm:h-80 w-full bg-gradient-to-b from-purple-950/40 to-background/80 flex items-center justify-center p-6 border-b border-border/60">
-                <div className="relative h-full w-full rounded-lg overflow-hidden shadow-2xl border border-purple-500/30">
+              <div className="relative h-72 sm:h-80 w-full bg-gradient-to-b from-primary/40 to-background/80 flex items-center justify-center p-6 border-b border-border/60">
+                <div className="relative h-full w-full rounded-lg overflow-hidden shadow-2xl border border-primary/30">
                   <Image
                     src="/playbook/playbook-cover.png"
                     alt="The Seven-Figure Funded Trader Playbook"
@@ -191,7 +191,7 @@ export default function PlaybookPage() {
                     </p>
                   </div>
                   <div className="text-right">
-                    <span className="font-mono text-xl font-extrabold text-purple-600 dark:text-purple-400">
+                    <span className="font-mono text-xl font-extrabold text-primary dark:text-primary">
                       $27
                     </span>
                     <span className="block font-mono text-[9px] text-muted-foreground line-through">
@@ -202,15 +202,15 @@ export default function PlaybookPage() {
 
                 <div className="space-y-2 font-mono text-xs">
                   <div className="flex items-center gap-2 text-muted-foreground">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-purple-500" />
+                    <CheckCircle2 className="h-3.5 w-3.5 text-primary" />
                     <span>7 Core Execution Modules</span>
                   </div>
                   <div className="flex items-center gap-2 text-muted-foreground">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-purple-500" />
+                    <CheckCircle2 className="h-3.5 w-3.5 text-primary" />
                     <span>Terminal Lockdown Protocol</span>
                   </div>
                   <div className="flex items-center gap-2 text-muted-foreground">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-purple-500" />
+                    <CheckCircle2 className="h-3.5 w-3.5 text-primary" />
                     <span>Multi-Firm Scale Matrix</span>
                   </div>
                 </div>
@@ -275,7 +275,7 @@ export default function PlaybookPage() {
         {/* SECTION 3: WHAT IF YOU STOPPED... */}
         <section className="space-y-8 border-t border-border/40 pt-16">
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <Badge variant="outline" className="font-mono text-xs border-purple-500/30 text-purple-600 dark:text-purple-400">
+            <Badge variant="outline" className="font-mono text-xs border-primary/30 text-primary dark:text-primary">
               A NEW FRAMEWORK
             </Badge>
             <h2 className="text-2xl sm:text-4xl font-extrabold font-sans uppercase">
@@ -297,7 +297,7 @@ export default function PlaybookPage() {
             ].map((point, index) => (
               <Card key={index} className="border-border/60 bg-card/60">
                 <CardContent className="p-5 flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-purple-500 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                   <span className="text-xs sm:text-sm font-medium text-foreground">
                     {point}
                   </span>
@@ -310,7 +310,7 @@ export default function PlaybookPage() {
         {/* SECTION 4: INSIDE THE PLAYBOOK (01 TO 07) */}
         <section className="space-y-10 border-t border-border/40 pt-16">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <Badge variant="outline" className="font-mono text-xs border-purple-500/30 text-purple-600 dark:text-purple-400">
+            <Badge variant="outline" className="font-mono text-xs border-primary/30 text-primary dark:text-primary">
               <Sparkles className="h-3 w-3 mr-1" /> CURRICULUM
             </Badge>
             <h2 className="text-2xl sm:text-4xl font-extrabold font-sans uppercase">
@@ -327,14 +327,14 @@ export default function PlaybookPage() {
               return (
                 <Card
                   key={mod.num}
-                  className="border-border/60 bg-card/60 backdrop-blur-sm hover:border-purple-500/40 transition-all duration-200 flex flex-col justify-between"
+                  className="border-border/60 bg-card/60 backdrop-blur-sm hover:border-primary/40 transition-all duration-200 flex flex-col justify-between"
                 >
                   <CardHeader className="p-6 pb-2">
                     <div className="flex items-center justify-between mb-3">
-                      <div className="h-10 w-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                      <div className="h-10 w-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary dark:text-primary">
                         <Icon className="h-5 w-5" />
                       </div>
-                      <span className="font-mono text-xs font-bold text-purple-600 dark:text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded-full border border-purple-500/20">
+                      <span className="font-mono text-xs font-bold text-primary dark:text-primary bg-primary/10 px-2.5 py-1 rounded-full border border-primary/20">
                         MODULE {mod.num}
                       </span>
                     </div>
@@ -358,8 +358,8 @@ export default function PlaybookPage() {
 
         {/* SECTION 5: CAPITAL OPERATOR MINDSET */}
         <section className="border-t border-border/40 pt-16">
-          <Card className="border-purple-500/40 bg-gradient-to-r from-purple-950/30 via-card to-background p-8 sm:p-12 text-center space-y-6">
-            <Badge variant="outline" className="font-mono text-xs border-purple-500/40 text-purple-600 dark:text-purple-400">
+          <Card className="border-primary/40 bg-gradient-to-r from-primary/30 via-card to-background p-8 sm:p-12 text-center space-y-6">
+            <Badge variant="outline" className="font-mono text-xs border-primary/40 text-primary dark:text-primary">
               PARADIGM SHIFT
             </Badge>
             <h2 className="text-2xl sm:text-4xl font-extrabold font-sans uppercase max-w-3xl mx-auto">
@@ -370,7 +370,7 @@ export default function PlaybookPage() {
                 <span className="text-muted-foreground line-through block">
                   “How do I pass my next challenge?”
                 </span>
-                <span className="text-purple-600 dark:text-purple-400 font-bold block">
+                <span className="text-primary dark:text-primary font-bold block">
                   → “How do I protect the capital I already have?”
                 </span>
               </div>
@@ -378,7 +378,7 @@ export default function PlaybookPage() {
                 <span className="text-muted-foreground line-through block">
                   “How big can I size this trade?”
                 </span>
-                <span className="text-purple-600 dark:text-purple-400 font-bold block">
+                <span className="text-primary dark:text-primary font-bold block">
                   → “How do I build a bigger buffer & scale?”
                 </span>
               </div>
@@ -452,7 +452,7 @@ export default function PlaybookPage() {
         {/* SECTION 7: THE ROAD TO $1M+ */}
         <section className="space-y-8 border-t border-border/40 pt-16 text-center">
           <div className="space-y-2 max-w-2xl mx-auto">
-            <Badge variant="outline" className="font-mono text-xs border-purple-500/30 text-purple-600 dark:text-purple-400">
+            <Badge variant="outline" className="font-mono text-xs border-primary/30 text-primary dark:text-primary">
               SYSTEMATIC PROGRESSION
             </Badge>
             <h2 className="text-2xl sm:text-4xl font-extrabold font-sans uppercase">
@@ -466,7 +466,7 @@ export default function PlaybookPage() {
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 font-mono font-bold text-sm sm:text-base">
             {["$10K", "$50K", "$100K", "$250K", "$500K", "$1M+"].map((tier, idx, arr) => (
               <div key={tier} className="flex items-center gap-3 sm:gap-4">
-                <span className="px-4 py-2 rounded-xl border border-purple-500/30 bg-purple-500/10 text-purple-600 dark:text-purple-400">
+                <span className="px-4 py-2 rounded-xl border border-primary/30 bg-primary/10 text-primary dark:text-primary">
                   {tier}
                 </span>
                 {idx < arr.length - 1 && (
@@ -482,10 +482,10 @@ export default function PlaybookPage() {
 
         {/* SECTION 8: WHAT YOU GET TODAY & FINAL CHECKOUT */}
         <section className="space-y-8 border-t border-border/40 pt-16">
-          <Card className="border-purple-500/50 bg-card/90 shadow-2xl overflow-hidden relative">
+          <Card className="border-primary/50 bg-card/90 shadow-2xl overflow-hidden relative">
             <div className="p-8 sm:p-12 space-y-8">
               <div className="text-center space-y-3 max-w-2xl mx-auto">
-                <Badge variant="outline" className="font-mono text-xs border-purple-500/40 text-purple-600 dark:text-purple-400">
+                <Badge variant="outline" className="font-mono text-xs border-primary/40 text-primary">
                   COMPLETE PACKAGE
                 </Badge>
                 <h2 className="text-2xl sm:text-4xl font-extrabold font-sans uppercase">
@@ -499,7 +499,7 @@ export default function PlaybookPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 font-mono text-xs max-w-4xl mx-auto border-y border-border/60 py-6">
                 {checklistItems.map((item) => (
                   <div key={item} className="flex items-center gap-2.5 text-foreground">
-                    <CheckCircle2 className="h-4 w-4 text-purple-500 shrink-0" />
+                    <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
                     <span>✓ {item}</span>
                   </div>
                 ))}
@@ -510,7 +510,7 @@ export default function PlaybookPage() {
                   <div className="font-mono text-xs uppercase text-muted-foreground tracking-widest">
                     ONE BOOK. ONE SYSTEM.
                   </div>
-                  <div className="text-4xl font-black font-sans text-purple-600 dark:text-purple-400">
+                  <div className="text-4xl font-black font-sans text-primary">
                     $27
                   </div>
                   <div className="font-mono text-[11px] text-muted-foreground">
@@ -534,7 +534,7 @@ export default function PlaybookPage() {
           <h3 className="text-xl sm:text-2xl font-black font-sans uppercase text-foreground">
             YOUR FUNDED ACCOUNT IS NOT YOUR PAYCHECK.
             <br />
-            <span className="text-purple-600 dark:text-purple-400">IT'S CAPITAL YOU HAVE TO PROTECT.</span>
+            <span className="text-primary">IT'S CAPITAL YOU HAVE TO PROTECT.</span>
           </h3>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
             You don't need to trade bigger just because the account is bigger. You need to manage risk better. Build your buffer. Protect your drawdown. Take your payouts. Then scale.
@@ -567,7 +567,7 @@ function CheckoutModalButton({
       <DialogTrigger asChild>
         <Button
           size={size}
-          className={`bg-purple-600 hover:bg-purple-700 text-white font-mono font-bold uppercase tracking-wider shadow-lg shadow-purple-600/20 gap-2 ${className}`}
+          className={` bg-primary hover:bg-primary text-white font-mono font-bold uppercase tracking-wider shadow-lg shadow-primary/20 gap-2 ${className}`}
         >
           <Lock className="h-4 w-4" />
           <span>{text}</span>
@@ -576,7 +576,7 @@ function CheckoutModalButton({
 
       <DialogContent className="max-w-2xl w-[92vw] max-h-[90vh] p-0 overflow-hidden sm:rounded-2xl border-border bg-background flex flex-col">
         <DialogHeader className="p-4 border-b border-border/60 bg-surface/80 backdrop-blur-sm shrink-0 flex flex-row items-center justify-between">
-          <DialogTitle className="flex items-center gap-2 text-xs font-mono text-purple-600 dark:text-purple-400">
+          <DialogTitle className="flex items-center gap-2 text-xs font-mono text-primary">
             <ShieldCheck className="h-4 w-4" /> SECURE WHOP CHECKOUT — THE PLAYBOOK ($27)
           </DialogTitle>
         </DialogHeader>

@@ -46,7 +46,7 @@ export function FounderModal({ children }: { children: React.ReactNode }) {
   return (
     <Dialog onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="w-[92vw] sm:max-w-[540px] max-h-[85vh] overflow-y-auto border-purple-500/20 bg-background text-foreground p-5 sm:p-6 rounded-2xl">
+      <DialogContent className="w-[92vw] sm:max-w-[540px] max-h-[85vh] overflow-y-auto border-primary/20 bg-background text-foreground p-5 sm:p-6 rounded-2xl">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">
             {submitted ? "Complete Your Order" : "Claim Founder's Lifetime Spot"}
@@ -65,10 +65,10 @@ export function FounderModal({ children }: { children: React.ReactNode }) {
                 placeholder="trader@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="bg-surface border-border text-foreground placeholder:text-muted-foreground focus:border-purple-500 h-11"
+                className="bg-surface border-border text-foreground placeholder:text-muted-foreground focus:border-primary h-11"
               />
             </div>
-            <Button type="submit" disabled={loading} className="w-full bg-purple-600 hover:bg-purple-700 text-primary-foreground font-semibold h-11">
+            <Button type="submit" disabled={loading} className="w-full bg-primary hover:bg-primary text-primary-foreground font-semibold h-11">
               {loading ? "Processing..." : "Continue to Checkout"}
             </Button>
           </form>
