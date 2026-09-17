@@ -53,43 +53,48 @@ export function Navbar() {
             : "bg-background/80 backdrop-blur-md"
         }`}
       >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-8">
-          <div className="flex items-center gap-3">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-3 sm:px-8 gap-2">
+          {/* Left Navigation Group */}
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0 shrink">
             <Link
               href="/"
-              className="flex items-center gap-1.5 text-xs font-mono font-medium text-muted-foreground hover:text-foreground transition-colors border border-border/60 rounded-lg px-2.5 py-1.5 bg-card/50"
+              className="flex items-center justify-center text-xs font-mono font-medium text-muted-foreground hover:text-foreground transition-colors border border-border/60 rounded-lg p-2 sm:px-2.5 sm:py-1.5 bg-card/50 shrink-0"
+              aria-label="Back to Propfident"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
-              <span className="hidden sm:inline">Back to Propfident</span>
+              <span className="hidden sm:inline ml-1.5">Back to Propfident</span>
             </Link>
 
-            <div className="h-4 w-px bg-border/60" />
+            <div className="h-4 w-px bg-border/60 shrink-0 hidden sm:block" />
 
-            <div className="flex items-center gap-2">
-              <Compass className="h-4 w-4 text-primary" />
-              <span className="font-sans font-extrabold text-sm uppercase tracking-tight text-foreground">
-                Millionaire Roadmap
+            <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 truncate">
+              <Compass className="h-4 w-4 text-primary shrink-0" />
+              <span className="font-sans font-extrabold text-xs sm:text-sm uppercase tracking-tight text-foreground truncate">
+                <span className="sm:hidden">Roadmap</span>
+                <span className="hidden sm:inline">Millionaire Roadmap</span>
               </span>
               <Badge
                 variant="outline"
-                className="font-mono text-[10px] border-primary/40 bg-primary/10 text-primary px-2 py-0.5"
+                className="hidden md:inline-flex font-mono text-[10px] border-primary/40 bg-primary/10 text-primary px-2 py-0.5 shrink-0"
               >
                 TEASER
               </Badge>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          {/* Right Header Actions */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <ThemeToggle />
             <Button
               size="sm"
               onClick={() => {
                 window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
               }}
-              className="bg-primary hover:bg-primary text-white font-mono text-xs gap-1.5"
+              className="bg-primary hover:bg-primary text-white font-mono text-xs gap-1.5 px-2.5 sm:px-3"
             >
               <Sparkles className="h-3.5 w-3.5" />
-              <span>Join Waitlist</span>
+              <span className="hidden sm:inline">Join Waitlist</span>
+              <span className="sm:hidden">Waitlist</span>
             </Button>
           </div>
         </div>

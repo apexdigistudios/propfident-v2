@@ -1,7 +1,7 @@
-
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,8 +20,21 @@ export function RoadmapTeaserHero() {
 
   return (
     <section className="relative w-full border-b border-border/40 bg-background pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
+      {/* Hero Background Image Layer (Optimized for Light & Dark Modes) */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <Image
+          src="/roadmap-hero-bg.png" // Replace .png with .webp or .jpg if needed
+          alt="Roadmap Hero Background"
+          fill
+          priority
+          className="object-cover object-center opacity-30 dark:opacity-20 mix-blend-luminosity dark:mix-blend-overlay"
+        />
+        {/* Dual-Theme Blend Mask */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/80 to-background" />
+      </div>
+
       {/* Background Ambient Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/15 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/15 blur-[120px] rounded-full pointer-events-none z-0" />
 
       <div className="mx-auto max-w-5xl px-4 sm:px-6 relative z-10">
         <div className="text-center space-y-5 max-w-3xl mx-auto">
