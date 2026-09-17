@@ -11,10 +11,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/disclaimer/page": [
+    "/millionaire-roadmap/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/disclaimer/page.js"
+      "static/chunks/app/millionaire-roadmap/page.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",

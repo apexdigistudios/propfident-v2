@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   ChevronDown,
   BookOpen,
@@ -11,9 +12,13 @@ import {
   Layers,
   Menu,
   X,
+  Compass,
+  ArrowLeft,
+  Sparkles,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { FounderModal } from "@/components/founder-modal";
 import { ThemeToggle } from "@/components/theme-toggle";
 import {
@@ -26,6 +31,9 @@ import {
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isRoadmapPage = pathname === "/millionaire-roadmap";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -34,6 +42,61 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Dedicated Header when on the Millionaire Roadmap Page
+  if (isRoadmapPage) {
+    return (
+      <header
+        className={`fixed inset-x-0 top-0 z-50 border-b border-purple-500/20 transition-all duration-300 ${
+          scrolled
+            ? "bg-background/95 shadow-lg shadow-purple-950/10 backdrop-blur-xl"
+            : "bg-background/80 backdrop-blur-md"
+        }`}
+      >
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-8">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              className="flex items-center gap-1.5 text-xs font-mono font-medium text-muted-foreground hover:text-foreground transition-colors border border-border/60 rounded-lg px-2.5 py-1.5 bg-card/50"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline">Back to Propfident</span>
+            </Link>
+
+            <div className="h-4 w-px bg-border/60" />
+
+            <div className="flex items-center gap-2">
+              <Compass className="h-4 w-4 text-purple-500" />
+              <span className="font-sans font-extrabold text-sm uppercase tracking-tight text-foreground">
+                Millionaire Roadmap
+              </span>
+              <Badge
+                variant="outline"
+                className="font-mono text-[10px] border-purple-500/40 bg-purple-500/10 text-purple-600 dark:text-purple-400 px-2 py-0.5"
+              >
+                TEASER
+              </Badge>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            <Button
+              size="sm"
+              onClick={() => {
+                window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+              }}
+              className="bg-purple-600 hover:bg-purple-700 text-white font-mono text-xs gap-1.5"
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+              <span>Join Waitlist</span>
+            </Button>
+          </div>
+        </div>
+      </header>
+    );
+  }
+
+  // Standard Homepage Header
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 border-b border-border/40 transition-all duration-300 ${
@@ -116,6 +179,18 @@ export function Navbar() {
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* New Millionaire Roadmap Navigation Link */}
+          <Link
+            href="/millionaire-roadmap"
+            className="flex items-center gap-1.5 rounded-md px-2 py-1.5 text-purple-600 dark:text-purple-400 font-semibold hover:text-purple-500 transition-colors"
+          >
+            <Compass className="h-3.5 w-3.5" />
+            <span>Roadmap</span>
+            <span className="font-mono text-[9px] bg-purple-500/10 border border-purple-500/30 px-1.5 py-0.2 rounded text-purple-600 dark:text-purple-400 uppercase">
+              SOON
+            </span>
+          </Link>
+
           <Link
             href="/playbook"
             className="flex items-center gap-1.5 rounded-md px-2 py-1.5 hover:text-foreground transition-colors"
@@ -136,7 +211,7 @@ export function Navbar() {
         {/* Header Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
           <ThemeToggle />
-          
+
           <div className="hidden sm:block">
             <FounderModal>
               <Button
@@ -161,7 +236,7 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Drawer (Main links only + Founder CTA) */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden border-b border-border/60 bg-background/98 px-6 py-6 shadow-2xl backdrop-blur-2xl">
           <div className="flex flex-col gap-4 text-sm font-medium">
@@ -172,6 +247,20 @@ export function Navbar() {
             >
               <Layers className="h-4 w-4 text-primary" />
               <span>Features</span>
+            </Link>
+
+            <Link
+              href="/millionaire-roadmap"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 text-purple-600 dark:text-purple-400 font-semibold hover:text-purple-500 transition-colors flex items-center justify-between"
+            >
+              <div className="flex items-center gap-2">
+                <Compass className="h-4 w-4" />
+                <span>Millionaire Roadmap</span>
+              </div>
+              <span className="font-mono text-[10px] bg-purple-500/10 border border-purple-500/30 px-2 py-0.5 rounded text-purple-600 dark:text-purple-400 uppercase">
+                SOON
+              </span>
             </Link>
 
             <Link
