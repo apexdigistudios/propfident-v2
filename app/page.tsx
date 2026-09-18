@@ -27,7 +27,14 @@ export default function Home() {
             alt="Propfident hero background"
             fill
             priority
-            className="h-full w-full object-cover object-center opacity-100 transition-opacity duration-300 dark:opacity-95"
+            className="hidden sm:block h-full w-full object-cover object-center opacity-100 transition-opacity duration-300 dark:opacity-95"
+          />
+          <Image
+            src="/hero-bg2.png"
+            alt=""
+            fill
+            priority
+            className="block sm:hidden h-full w-full object-cover object-center opacity-100 transition-opacity duration-300 dark:opacity-95"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background/5 via-transparent to-background/75 dark:from-background/35 dark:via-background/35 dark:to-background/95" />
         </div>

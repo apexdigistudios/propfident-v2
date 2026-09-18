@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Shield, ArrowLeft, Lock, Database, Eye, RefreshCw, Mail } from "lucide-react";
+import { Shield, ArrowLeft, Lock, Database, Eye, RefreshCw, Mail, Cookie } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export const metadata = {
@@ -80,7 +80,19 @@ export default function PrivacyPage() {
 
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-            <Lock className="h-5 w-5 text-primary" /> 4. Data Sharing & Third-Party Vendors
+            <Cookie className="h-5 w-5 text-primary" /> 4. Analytics & Cookies
+          </h2>
+          <p>
+            With your consent, Propfident uses Google Analytics to collect anonymized session flow data, such as which pages are visited, how users move through the site, and which features are used. This helps us understand usage patterns and improve the product. Google Analytics may use cookies or similar technologies to provide these aggregated insights; we do not use this data to identify you personally.
+          </p>
+          <p>
+            You can accept or decline analytics cookies using the cookie controls on this site. Your choice is stored locally in your browser and can be changed by opening the cookie settings button.
+          </p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+            <Lock className="h-5 w-5 text-primary" /> 5. Data Sharing & Third-Party Vendors
           </h2>
           <p>
             Propfident does not sell, rent, or trade your personal or trading information to advertisers or data brokers. We share data only with essential infrastructure providers:
@@ -94,7 +106,7 @@ export default function PrivacyPage() {
 
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-            <RefreshCw className="h-5 w-5 text-primary" /> 5. Data Retention & Your Rights
+            <RefreshCw className="h-5 w-5 text-primary" /> 6. Data Retention & Your Rights
           </h2>
           <p>
             You retain complete ownership over your trading strategy and historical trade data. You have the right to request deletion of any personal identifiers or stored telemetry associated with your account at any time. To request data erasure or export, contact our executive team at <span className="font-mono text-foreground font-semibold">propfidentceos@gmail.com</span>.
@@ -103,7 +115,7 @@ export default function PrivacyPage() {
 
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-            <Mail className="h-5 w-5 text-primary" /> 6. Updates & Contact Information
+            <Mail className="h-5 w-5 text-primary" /> 7. Updates & Contact Information
           </h2>
           <p>
             We may update this Privacy Policy periodically to reflect changes in legal standards, software capabilities, or third-party integrations. Continued use of Propfident constitutes acceptance of any modified terms.

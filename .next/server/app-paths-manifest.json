@@ -1,5 +1,23 @@
 {
-  "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js",
+  "/api/download/playbook/route": "app/api/download/playbook/route.js",
+  "/api/leads/route": "app/api/leads/route.js",
+  "/api/prop-firms/route": "app/api/prop-firms/route.js",
   "/api/roadmap-waitlist/route": "app/api/roadmap-waitlist/route.js",
-  "/millionaire-roadmap/page": "app/millionaire-roadmap/page.js"
+  "/auth/callback/route": "app/auth/callback/route.js",
+  "/api/webhooks/whop/route": "app/api/webhooks/whop/route.js",
+  "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js",
+  "/robots.txt/route": "app/robots.txt/route.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/checkout/complete/page": "app/checkout/complete/page.js",
+  "/auth/signup/page": "app/auth/signup/page.js",
+  "/page": "app/page.js",
+  "/millionaire-roadmap/page": "app/millionaire-roadmap/page.js",
+  "/playbook/page": "app/playbook/page.js",
+  "/disclaimer/page": "app/disclaimer/page.js",
+  "/terms/page": "app/terms/page.js",
+  "/privacy/page": "app/privacy/page.js",
+  "/tools/ai-trade-planner/page": "app/tools/ai-trade-planner/page.js",
+  "/tools/prop-match/page": "app/tools/prop-match/page.js",
+  "/tools/position-sizer/page": "app/tools/position-sizer/page.js"
 }

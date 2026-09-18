@@ -4,6 +4,8 @@ import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
+import { CookieConsent } from "@/components/cookie-consent";
+import { PwaInstallBanner } from "@/components/pwa-install-banner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -90,8 +92,13 @@ export default function RootLayout({
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              analytics_storage: 'denied',
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied'
+            });
             gtag('js', new Date());
-            gtag('config', 'G-HX04Z0TKWB');
           `}
         </Script>
         <ThemeProvider
@@ -131,6 +138,8 @@ export default function RootLayout({
             }}
           />
           {children}
+          <CookieConsent />
+          <PwaInstallBanner />
         </ThemeProvider>
       </body>
     </html>
