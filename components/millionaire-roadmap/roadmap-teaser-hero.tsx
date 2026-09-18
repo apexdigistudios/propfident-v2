@@ -1,26 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, CheckCircle2, Lock, Sparkles, Users } from "lucide-react";
+import { ArrowRight, Lock, Loader2, Sparkles, Users } from "lucide-react";
 
-export function RoadmapTeaserHero() {
+interface RoadmapTeaserHeroProps {
+  onSubscribe?: (email: string, buttonEl?: HTMLElement | null) => void;
+  loading?: boolean;
+}
+
+export function RoadmapTeaserHero({ onSubscribe, loading = false }: RoadmapTeaserHeroProps) {
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const heroSubmitRef = useRef<HTMLButtonElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      setSubmitted(true);
+    if (email.trim() && onSubscribe) {
+      onSubscribe(email.trim(), heroSubmitRef.current);
+      setEmail("");
     }
   };
 
   return (
     <section className="relative w-full border-b border-border/40 bg-background pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
-      {/* Background Image - Mobile View (roadmap-hero-bg2.png) */}
+      {/* Background Image - Mobile View */}
       <div className="block sm:hidden absolute inset-0 pointer-events-none z-0">
         <Image
           src="/roadmap-hero-bg2.png"
@@ -32,7 +38,7 @@ export function RoadmapTeaserHero() {
         />
       </div>
 
-      {/* Background Image - Desktop View (roadmap-hero-bg.png) */}
+      {/* Background Image - Desktop View */}
       <div className="hidden sm:block absolute inset-0 pointer-events-none z-0">
         <Image
           src="/roadmap-hero-bg.png"
@@ -73,29 +79,31 @@ export function RoadmapTeaserHero() {
 
           {/* Waitlist Form */}
           <div className="pt-4 max-w-md mx-auto">
-            {submitted ? (
-              <div className="flex items-center justify-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-emerald-600 dark:text-emerald-400 font-mono text-xs font-semibold">
-                <CheckCircle2 className="h-4 w-4 shrink-0" />
-                You're on the early access waitlist! We'll notify you first.
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
-                <Input
-                  type="email"
-                  required
-                  placeholder="Enter your trader email..."
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="h-11 bg-card/80 border-border/80 text-xs font-sans placeholder:text-muted-foreground focus-visible:ring-primary"
-                />
-                <Button
-                  type="submit"
-                  className="h-11 px-6 bg-primary hover:bg-primary text-white font-mono text-xs shrink-0 gap-2 shadow-lg shadow-primary/20"
-                >
-                  Join Waitlist <ArrowRight className="h-4 w-4" />
-                </Button>
-              </form>
-            )}
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
+              <Input
+                type="email"
+                required
+                placeholder="Enter your trader email..."
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={loading}
+                className="h-11 bg-card/80 border-border/80 text-xs font-sans placeholder:text-muted-foreground focus-visible:ring-primary"
+              />
+              <Button
+                ref={heroSubmitRef}
+                type="submit"
+                disabled={loading}
+                className="h-11 px-6 bg-primary hover:bg-primary text-white font-mono text-xs shrink-0 gap-2 shadow-lg shadow-primary/20"
+              >
+                {loading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <>
+                    Join Waitlist <ArrowRight className="h-4 w-4" />
+                  </>
+                )}
+              </Button>
+            </form>
 
             <div className="flex items-center justify-center gap-2 mt-3 font-mono text-[11px] text-muted-foreground">
               <Users className="h-3.5 w-3.5 text-primary" />
