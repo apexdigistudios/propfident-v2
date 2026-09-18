@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Cookie, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 const CONSENT_KEY = "propfident-cookie-consent";
@@ -28,17 +29,20 @@ function updateAnalyticsConsent(granted: boolean) {
 }
 
 export function CookieConsent() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
+    if (pathname !== "/") return;
+
     const choice = window.localStorage.getItem(CONSENT_KEY);
     if (choice === "accepted" || choice === "declined") {
       updateAnalyticsConsent(choice === "accepted");
     } else {
       setIsOpen(true);
     }
-  }, []);
+  }, [pathname]);
 
   function handleClose(choice?: "accepted" | "declined") {
     setIsClosing(true);
@@ -51,6 +55,8 @@ export function CookieConsent() {
       setIsClosing(false);
     }, 300);
   }
+
+  if (pathname !== "/") return null;
 
   return (
     <>

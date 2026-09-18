@@ -5,9 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
-import { Button } from "../../../components/ui/button";
-import { Input } from "../../../components/ui/input";
-import { Badge } from "../../../components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import { ShieldCheck, CheckCircle2, ArrowRight, Loader2, Lock } from "lucide-react";
 
 const supabase = createClient(
@@ -79,6 +79,7 @@ function SignupFormContent() {
         email: email.trim().toLowerCase(),
         password,
         options: {
+          emailRedirectTo: `${window.location.origin}/stay-tuned`,
           data: {
             full_name: fullName,
             tier: tierParam,
@@ -87,12 +88,12 @@ function SignupFormContent() {
       });
 
       if (authError) {
-        setError(authError.message);
+        setError("Could not complete registration. Please check your details and try again.");
       } else {
         setSuccess(true);
       }
-    } catch (err) {
-      setError("An unexpected error occurred during signup.");
+    } catch {
+      setError("Something went wrong while setting up your account. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -115,19 +116,19 @@ function SignupFormContent() {
       });
 
       if (oauthError) {
-        setError(oauthError.message);
+        setError("Unable to connect with Google right now. Please try again.");
         setGoogleLoading(false);
       }
-    } catch (err) {
-      setError("Failed to initiate Google sign-in.");
+    } catch {
+      setError("Unable to connect with Google right now. Please try again.");
       setGoogleLoading(false);
     }
   };
 
   return (
-    <main className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-12 bg-background pt-28 sm:pt-32 lg:pt-28">
+    <main className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-12 bg-background pt-12 sm:pt-16 lg:pt-12">
       {/* Left Column: Signup Form */}
-      <div className="lg:col-span-6 flex flex-col justify-between p-6 sm:p-10 lg:p-16 z-10 min-h-[calc(100vh-7rem)]">
+      <div className="lg:col-span-6 flex flex-col justify-between p-6 sm:p-10 lg:p-16 z-10 min-h-[calc(100vh-3rem)]">
         <div>
           <Link href="/" className="inline-flex items-center gap-2">
             <Image src="/logo.png" alt="Propfident" width={32} height={32} className="h-8 w-8 object-contain" />
@@ -137,7 +138,7 @@ function SignupFormContent() {
           </Link>
         </div>
 
-        <div className="my-auto py-8 max-w-md w-full mx-auto space-y-6">
+        <div className="my-auto py-6 max-w-md w-full mx-auto space-y-6">
           <div className="space-y-2">
             <h1 className="text-2xl sm:text-3xl font-black font-sans tracking-tight text-foreground">
               Create your account
@@ -154,10 +155,10 @@ function SignupFormContent() {
               </div>
               <h3 className="text-lg font-bold text-foreground">Account Created!</h3>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Check your email inbox to confirm your account. Your account tier (<strong className="text-foreground uppercase">{tierParam}</strong>) is attached to your profile.
+                We sent a confirmation link to your inbox. Please check your email to complete setting up your account.
               </p>
-              <Button onClick={() => router.push("/")} className="w-full bg-emerald-500 hover:bg-emerald-600 text-white mt-2 font-mono text-xs">
-                Return to Home
+              <Button onClick={() => router.push("/stay-tuned")} className="w-full bg-emerald-500 hover:bg-emerald-600 text-white mt-2 font-mono text-xs">
+                Continue
               </Button>
             </div>
           ) : (
@@ -247,12 +248,19 @@ function SignupFormContent() {
                   )}
                 </Button>
               </form>
+
+              <p className="text-center text-xs text-muted-foreground pt-2">
+                Already have an account?{" "}
+                <Link href="/auth/login" className="text-primary hover:underline font-semibold">
+                  Sign in
+                </Link>
+              </p>
             </div>
           )}
 
           <div className="flex items-center justify-center gap-1.5 font-mono text-[11px] text-muted-foreground pt-2">
             <Lock className="h-3.5 w-3.5 text-primary" />
-            <span>Encrypted & Secure Auth</span>
+            <span>Protected & Secure Session</span>
           </div>
         </div>
 
@@ -261,18 +269,18 @@ function SignupFormContent() {
         </div>
       </div>
 
-      {/* Right Column: Dynamic Theme BG & Raw Uncontainerized Image Slideshow */}
+      {/* Right Column: Visual Feature Showcase */}
       <div className="hidden lg:col-span-6 lg:flex flex-col justify-between p-12 bg-black dark:bg-white text-white dark:text-zinc-900 relative overflow-hidden border-l border-white/10 dark:border-black/10 min-h-screen">
         <div className="relative z-10 flex justify-end">
           <Badge
             variant="outline"
             className="border-white/20 dark:border-black/20 bg-white/10 dark:bg-black/10 text-white dark:text-black font-mono text-xs"
           >
-            <ShieldCheck className="h-3.5 w-3.5 mr-1.5 text-emerald-400 dark:text-emerald-600" /> VERIFIED MEMBER ACCESS
+            <ShieldCheck className="h-3.5 w-3.5 mr-1.5 text-emerald-400 dark:text-emerald-600" /> EXCLUSIVE TRADER ACCESS
           </Badge>
         </div>
 
-        {/* Slideshow Display with Text & No Container Frame */}
+        {/* Slideshow Display */}
         <div className="relative z-10 max-w-lg w-full my-auto mx-auto flex flex-col items-center">
           <div className="relative w-full aspect-[4/3]">
             {slides.map((slide, idx) => (
@@ -319,9 +327,9 @@ function SignupFormContent() {
             <CheckCircle2 className="h-5 w-5 text-emerald-400 dark:text-emerald-600" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-white dark:text-black">Automated Tier Sync</p>
+            <p className="text-xs font-semibold text-white dark:text-black">Instant Access Guaranteed</p>
             <p className="text-[11px] text-zinc-400 dark:text-zinc-600">
-              Your profile tier is synced directly upon creation.
+              Your membership features are instantly unlocked once registered.
             </p>
           </div>
         </div>

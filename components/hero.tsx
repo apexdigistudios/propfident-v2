@@ -2,7 +2,22 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { ArrowRight, ShieldCheck, Zap } from "lucide-react";
+import { 
+  ArrowRight, 
+  ShieldCheck, 
+  Zap, 
+  TrendingUp, 
+  LineChart, 
+  CandlestickChart, 
+  DollarSign, 
+  Percent, 
+  Activity, 
+  BarChart3, 
+  ArrowUpRight, 
+  Wallet, 
+  PieChart, 
+  Coins 
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FounderModal } from "@/components/founder-modal";
 
@@ -23,16 +38,31 @@ export function Hero() {
 
   return (
     <section className="relative w-full border-b border-border/40 bg-background pt-10 pb-12 sm:pt-24 sm:pb-20 overflow-hidden">
-      {/* Ambient Mobile Background Image */}
-      <div className="block sm:hidden absolute inset-0 pointer-events-none z-0 opacity-20">
-        <Image
-          src="/hero-bg2.png"
-          alt="Propfident Mobile Hero Background"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
+      
+      {/* Dense Mobile Finance & Forex Icon Splash Background */}
+      <div className="block sm:hidden absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-[0.08]">
+        <div className="absolute top-4 left-3 text-primary"><TrendingUp className="size-12 rotate-12" /></div>
+        <div className="absolute top-12 right-6 text-primary"><CandlestickChart className="size-16 -rotate-12" /></div>
+        <div className="absolute top-24 left-1/4 text-primary"><LineChart className="size-14 rotate-45" /></div>
+        <div className="absolute top-36 right-1/4 text-primary"><DollarSign className="size-12 -rotate-45" /></div>
+        <div className="absolute top-1/2 left-2 text-primary"><Percent className="size-14 rotate-12" /></div>
+        <div className="absolute top-1/2 right-3 text-primary"><BarChart3 className="size-16 -rotate-12" /></div>
+        <div className="absolute top-2/3 left-1/3 text-primary"><Activity className="size-20 rotate-6" /></div>
+        <div className="absolute bottom-20 right-8 text-primary"><ArrowUpRight className="size-14 rotate-45" /></div>
+        <div className="absolute bottom-10 left-6 text-primary"><Wallet className="size-16 -rotate-12" /></div>
+        <div className="absolute bottom-4 right-1/3 text-primary"><PieChart className="size-12 rotate-12" /></div>
+        <div className="absolute top-1/3 right-10 text-primary"><Coins className="size-14 rotate-45" /></div>
+        <div className="absolute bottom-1/3 left-10 text-primary"><CandlestickChart className="size-14 rotate-90" /></div>
+        <div className="absolute top-16 left-2/3 text-primary"><DollarSign className="size-10 -rotate-12" /></div>
+        <div className="absolute top-44 left-8 text-primary"><BarChart3 className="size-11 rotate-12" /></div>
+        <div className="absolute top-56 right-1/3 text-primary"><TrendingUp className="size-10 -rotate-6" /></div>
+        <div className="absolute top-3/4 right-16 text-primary"><Percent className="size-11 rotate-45" /></div>
+        <div className="absolute bottom-32 left-1/2 text-primary"><LineChart className="size-12 -rotate-12" /></div>
+        <div className="absolute bottom-16 left-1/4 text-primary"><Coins className="size-10 rotate-12" /></div>
+        <div className="absolute top-2/3 right-1/4 text-primary"><Wallet className="size-12 rotate-6" /></div>
+        <div className="absolute top-28 left-1/2 text-primary"><Activity className="size-11 -rotate-45" /></div>
+        <div className="absolute bottom-1/2 right-1/2 text-primary"><PieChart className="size-10 rotate-12" /></div>
+        <div className="absolute top-1/4 left-12 text-primary"><ArrowUpRight className="size-12 rotate-12" /></div>
       </div>
 
       {/* Ambient Desktop Background Image */}

@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Navbar } from "@/components/navbar";
 import { CookieConsent } from "@/components/cookie-consent";
 import { PwaInstallBanner } from "@/components/pwa-install-banner";
 
@@ -107,7 +106,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
