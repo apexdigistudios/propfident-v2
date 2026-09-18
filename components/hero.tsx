@@ -23,7 +23,7 @@ export function Hero() {
 
   return (
     <section className="relative w-full border-b border-border/40 bg-background pt-20 pb-16 md:pt-28 md:pb-24 overflow-hidden">
-      {/* Background Image - Mobile View (hero-bg2.png) */}
+      {/* Mobile Background Image */}
       <div className="block sm:hidden absolute inset-0 pointer-events-none z-0">
         <Image
           src="/hero-bg2.png"
@@ -35,7 +35,7 @@ export function Hero() {
         />
       </div>
 
-      {/* Background Image - Desktop View (hero-bg.png) */}
+      {/* Desktop Background Image */}
       <div className="hidden sm:block absolute inset-0 pointer-events-none z-0">
         <Image
           src="/hero-bg.png"
