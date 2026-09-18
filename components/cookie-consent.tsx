@@ -29,6 +29,7 @@ function updateAnalyticsConsent(granted: boolean) {
 
 export function CookieConsent() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
     const choice = window.localStorage.getItem(CONSENT_KEY);
@@ -39,10 +40,16 @@ export function CookieConsent() {
     }
   }, []);
 
-  function saveChoice(choice: "accepted" | "declined") {
-    window.localStorage.setItem(CONSENT_KEY, choice);
-    updateAnalyticsConsent(choice === "accepted");
-    setIsOpen(false);
+  function handleClose(choice?: "accepted" | "declined") {
+    setIsClosing(true);
+    if (choice) {
+      window.localStorage.setItem(CONSENT_KEY, choice);
+      updateAnalyticsConsent(choice === "accepted");
+    }
+    setTimeout(() => {
+      setIsOpen(false);
+      setIsClosing(false);
+    }, 300);
   }
 
   return (
@@ -51,7 +58,13 @@ export function CookieConsent() {
         type="button"
         aria-label="Cookie settings"
         aria-expanded={isOpen}
-        onClick={() => setIsOpen((open) => !open)}
+        onClick={() => {
+          if (isOpen) {
+            handleClose();
+          } else {
+            setIsOpen(true);
+          }
+        }}
         className="fixed bottom-4 left-4 z-50 inline-flex h-11 w-11 items-center justify-center rounded-full border border-primary/40 bg-background text-primary shadow-lg transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       >
         <Cookie className="h-5 w-5" />
@@ -61,12 +74,14 @@ export function CookieConsent() {
         <aside
           aria-label="Cookie consent"
           aria-live="polite"
-          className="fixed bottom-20 left-4 z-50 w-[calc(100vw-2rem)] max-w-sm origin-bottom-left rounded-xl border border-border bg-background p-5 text-left shadow-2xl sm:left-20"
+          className={`fixed bottom-20 left-4 z-50 w-[calc(100vw-2rem)] max-w-sm origin-bottom-left rounded-xl border border-border bg-background p-5 text-left shadow-2xl transition-all duration-300 ease-out sm:left-20 ${
+            isClosing ? "opacity-0 scale-95 pointer-events-none" : "opacity-100 scale-100"
+          }`}
         >
           <button
             type="button"
             aria-label="Close cookie settings"
-            onClick={() => setIsOpen(false)}
+            onClick={() => handleClose()}
             className="absolute right-3 top-3 rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
           >
             <X className="h-4 w-4" />
@@ -80,10 +95,10 @@ export function CookieConsent() {
             .
           </p>
           <div className="mt-4 flex gap-2">
-            <Button type="button" size="sm" onClick={() => saveChoice("accepted")}>
+            <Button type="button" size="sm" onClick={() => handleClose("accepted")}>
               Accept All
             </Button>
-            <Button type="button" size="sm" variant="outline" onClick={() => saveChoice("declined")}>
+            <Button type="button" size="sm" variant="outline" onClick={() => handleClose("declined")}>
               Decline
             </Button>
           </div>

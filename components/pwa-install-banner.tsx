@@ -16,13 +16,17 @@ function isIos() {
 }
 
 function isStandalone() {
-  return window.matchMedia("(display-mode: standalone)").matches ||
-    ("standalone" in window.navigator && Boolean((window.navigator as Navigator & { standalone?: boolean }).standalone));
+  return (
+    window.matchMedia("(display-mode: standalone)").matches ||
+    ("standalone" in window.navigator &&
+      Boolean((window.navigator as Navigator & { standalone?: boolean }).standalone))
+  );
 }
 
 export function PwaInstallBanner() {
   const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null);
   const [showBanner, setShowBanner] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [ios, setIos] = useState(false);
 
   useEffect(() => {
@@ -43,16 +47,23 @@ export function PwaInstallBanner() {
   }, []);
 
   function dismiss() {
+    setIsClosing(true);
     window.localStorage.setItem(DISMISSED_KEY, "true");
-    setShowBanner(false);
+    setTimeout(() => {
+      setShowBanner(false);
+      setIsClosing(false);
+    }, 300);
   }
 
   async function installApp() {
     if (!installPrompt) return;
     await installPrompt.prompt();
     const choice = await installPrompt.userChoice;
-    if (choice.outcome === "accepted") dismiss();
-    setInstallPrompt(null);
+    if (choice.outcome === "accepted") {
+      dismiss();
+    } else {
+      setInstallPrompt(null);
+    }
   }
 
   if (!showBanner || (!ios && !installPrompt)) return null;
@@ -60,7 +71,9 @@ export function PwaInstallBanner() {
   return (
     <aside
       aria-label="Install Propfident"
-      className="fixed bottom-4 right-4 z-50 w-[calc(100vw-2rem)] max-w-sm rounded-xl border border-primary/30 bg-background p-4 shadow-2xl"
+      className={`fixed bottom-4 right-4 z-50 w-[calc(100vw-2rem)] max-w-sm rounded-xl border border-primary/30 bg-background p-4 shadow-2xl transition-all duration-300 ease-out ${
+        isClosing ? "opacity-0 translate-y-2 pointer-events-none" : "opacity-100 translate-y-0"
+      }`}
     >
       <button
         type="button"
@@ -71,11 +84,17 @@ export function PwaInstallBanner() {
         <X className="h-4 w-4" />
       </button>
       <div className="flex gap-3 pr-5">
-        {ios ? <Share className="mt-0.5 h-5 w-5 shrink-0 text-primary" /> : <Download className="mt-0.5 h-5 w-5 shrink-0 text-primary" />}
+        {ios ? (
+          <Share className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+        ) : (
+          <Download className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+        )}
         <div>
           <h2 className="text-sm font-semibold text-foreground">Install Propfident</h2>
           <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-            {ios ? "Tap the Share button and select 'Add to Home Screen'." : "Install Propfident for quick access to your trading tools."}
+            {ios
+              ? "Tap the Share button and select 'Add to Home Screen'."
+              : "Install Propfident for quick access to your trading tools."}
           </p>
         </div>
       </div>
