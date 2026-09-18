@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { CheckCircle2, XCircle, ArrowRight, Mail, ShieldCheck, Download, Terminal, Sparkles, FileText } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 export default async function CheckoutCompletePage({
@@ -90,24 +89,20 @@ export default async function CheckoutCompletePage({
 
             {/* Actions */}
             <div className="mt-8 space-y-3">
-              <Button
-                asChild
+              <a
+                href="/api/download/playbook"
+                download
                 className="w-full h-11 bg-emerald-500 hover:bg-emerald-600 text-white font-mono text-xs font-semibold uppercase tracking-wider shadow-[0_0_25px_rgba(16,185,129,0.35)] transition-all gap-2"
               >
-                <a href="/api/download/playbook" download>
-                  <Download className="h-4 w-4" /> Download Playbook PDF
-                </a>
-              </Button>
+                <Download className="h-4 w-4" /> Download Playbook PDF
+              </a>
 
-              <Button
-                variant="outline"
-                asChild
+              <Link
+                href="/"
                 className="w-full h-11 border-border/80 bg-card hover:bg-accent text-foreground font-mono text-xs uppercase tracking-wider gap-2"
               >
-                <Link href="/">
-                  Return to Dashboard <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
+                Return to Dashboard <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           </>
         ) : (
@@ -136,15 +131,12 @@ export default async function CheckoutCompletePage({
             </p>
 
             <div className="mt-8 space-y-3">
-              <Button
-                variant="outline"
-                asChild
+              <Link
+                href="/"
                 className="w-full h-11 border-border bg-card hover:bg-accent text-foreground font-mono text-xs uppercase tracking-wider gap-2"
               >
-                <Link href="/">
-                  Return to Homepage <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
+                Return to Homepage <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           </>
         )}
