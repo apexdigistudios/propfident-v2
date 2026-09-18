@@ -22,9 +22,9 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative isolate overflow-hidden border-b border-border/40 pt-20 pb-16 md:pt-28 md:pb-24 bg-background">
-      {/* Mobile Background Image (hero-bg2.png) */}
-      <div className="md:hidden absolute inset-0 -z-10 pointer-events-none">
+    <section className="relative w-full border-b border-border/40 bg-background pt-20 pb-16 md:pt-28 md:pb-24 overflow-hidden">
+      {/* Background Image - Mobile View (hero-bg2.png) */}
+      <div className="block sm:hidden absolute inset-0 pointer-events-none z-0">
         <Image
           src="/hero-bg2.png"
           alt="Propfident Mobile Hero Background"
@@ -33,20 +33,18 @@ export function Hero() {
           sizes="100vw"
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-background/40" />
       </div>
 
-      {/* Desktop Background Image (hero-bg.png) */}
-      <div className="hidden md:block absolute inset-0 -z-10 pointer-events-none">
+      {/* Background Image - Desktop View (hero-bg.png) */}
+      <div className="hidden sm:block absolute inset-0 pointer-events-none z-0">
         <Image
           src="/hero-bg.png"
           alt="Propfident Desktop Hero Background"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[60%_center] opacity-85 sm:object-center sm:opacity-100"
+          className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/60 to-background dark:from-background/40 dark:via-background/80 dark:to-background" />
       </div>
 
       <div className="container relative z-10 mx-auto max-w-5xl px-4 text-center">
