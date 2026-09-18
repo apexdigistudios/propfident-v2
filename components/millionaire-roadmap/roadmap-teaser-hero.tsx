@@ -20,13 +20,26 @@ export function RoadmapTeaserHero() {
 
   return (
     <section className="relative w-full border-b border-border/40 bg-background pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
-      {/* Clear, Unfaded Background Image */}
-      <div className="absolute inset-0 pointer-events-none z-0">
+      {/* Background Image - Mobile View (roadmap-hero-bg2.png) */}
+      <div className="block sm:hidden absolute inset-0 pointer-events-none z-0">
         <Image
-          src="/roadmap-hero-bg.png"
-          alt="Roadmap Hero Background"
+          src="/roadmap-hero-bg2.png"
+          alt="Roadmap Mobile Hero Background"
           fill
           priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+      </div>
+
+      {/* Background Image - Desktop View (roadmap-hero-bg.png) */}
+      <div className="hidden sm:block absolute inset-0 pointer-events-none z-0">
+        <Image
+          src="/roadmap-hero-bg.png"
+          alt="Roadmap Desktop Hero Background"
+          fill
+          priority
+          sizes="100vw"
           className="object-cover object-center"
         />
       </div>

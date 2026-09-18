@@ -5,7 +5,6 @@ import Image from "next/image";
 import { ArrowRight, ShieldCheck, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FounderModal } from "@/components/founder-modal";
-import { RetroGrid } from "@/components/ui/retro-grid"; // Import the RetroGrid component
 
 export function Hero() {
   const [timeLeft, setTimeLeft] = useState({ hours: 14, minutes: 32, seconds: 45 });
@@ -24,18 +23,24 @@ export function Hero() {
 
   return (
     <section className="relative isolate overflow-hidden border-b border-border/40 pt-20 pb-16 md:pt-28 md:pb-24 bg-background">
-      
-      {/* 1. Magic UI Retro Grid Background - MOBILE ONLY (md:hidden) */}
-      <RetroGrid className="z-0 md:hidden" />
-      
-      {/* Ambient Radial Accent Glow - MOBILE ONLY (md:hidden) */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/15 blur-[120px] rounded-full pointer-events-none z-0 md:hidden" />
+      {/* Background Image - Mobile View (hero-bg2.png) */}
+      <div className="block md:hidden absolute inset-0 -z-10 pointer-events-none">
+        <Image
+          src="/hero-bg2.png"
+          alt="Propfident Mobile Hero Background"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-90"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/60 to-background dark:from-background/40 dark:via-background/80 dark:to-background" />
+      </div>
 
-      {/* 2. Background Image - Maintain existing DESKTOP VIEW ONLY (hidden md:block) */}
+      {/* Background Image - Desktop View (hero-bg.png) */}
       <div className="hidden md:block absolute inset-0 -z-10 pointer-events-none">
         <Image
           src="/hero-bg.png"
-          alt="Propfident Hero Background"
+          alt="Propfident Desktop Hero Background"
           fill
           priority
           sizes="100vw"
