@@ -13,7 +13,7 @@ export default async function CheckoutCompletePage({
   const isSuccess = status === "success";
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-background text-foreground p-4 sm:p-6">
+    <main className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground p-4 sm:p-6 pt-28 sm:pt-32 pb-12">
       <div className="w-full max-w-md rounded-xl border border-border bg-card p-6 sm:p-8 text-center shadow-sm">
         {/* Header / Brand */}
         <div className="flex items-center justify-center gap-2 mb-6">
