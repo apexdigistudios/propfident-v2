@@ -8,7 +8,7 @@ export default function MarketingLayout({
   return (
     <>
       <Navbar />
-      {children}
+      <div className="w-full max-w-full overflow-x-hidden">{children}</div>
     </>
   );
 }

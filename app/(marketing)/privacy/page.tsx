@@ -1,130 +1,45 @@
 import Link from "next/link";
-import { Shield, ArrowLeft, Lock, Database, Eye, RefreshCw, Mail, Cookie } from "lucide-react";
+import { ArrowLeft, Cookie, Database, Eye, FileKey, Lock, Mail, RefreshCw, Shield } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export const metadata = {
   title: "Privacy Policy | Propfident",
-  description: "Comprehensive privacy policy and data protection guidelines for Propfident users.",
+  description: "How Propfident collects, uses, stores, and protects information for its trading tools and analytics platform.",
 };
 
 export default function PrivacyPage() {
   return (
-    <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-24 sm:py-28 space-y-10 text-foreground font-sans">
-      <Link
-        href="/"
-        className="inline-flex items-center gap-2 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors"
-      >
-        <ArrowLeft className="h-3.5 w-3.5" /> Back to Home
-      </Link>
+    <main className="w-full max-w-full overflow-x-hidden">
+      <div className="container mx-auto max-w-4xl px-4 py-24 font-sans text-foreground sm:px-6 sm:py-28 lg:px-8">
+        <div className="space-y-10">
+          <Link href="/" className="inline-flex items-center gap-2 text-xs font-mono text-muted-foreground transition-colors hover:text-foreground">
+            <ArrowLeft className="h-3.5 w-3.5" /> Back to Home
+          </Link>
+          <header className="space-y-3 border-b border-border/60 pb-8">
+            <Badge variant="outline" className="font-mono text-xs text-primary border-primary/40">LEGAL & COMPLIANCE</Badge>
+            <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl">Privacy Policy</h1>
+            <p className="text-xs font-mono text-muted-foreground">Last updated: September 20, 2026</p>
+          </header>
 
-      <div className="space-y-3 border-b border-border/60 pb-8">
-        <Badge variant="outline" className="font-mono text-xs text-primary border-primary/40">
-          LEGAL & COMPLIANCE
-        </Badge>
-        <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">Privacy Policy</h1>
-        <p className="text-xs font-mono text-muted-foreground">
-          Last updated: September 15, 2026
-        </p>
+          <div className="space-y-10 text-sm leading-relaxed text-muted-foreground">
+            <section className="space-y-3"><h2 className="flex items-center gap-2 text-xl font-bold text-foreground"><Shield className="h-5 w-5 text-primary" /> 1. Overview</h2><p>Propfident (&quot;Propfident,&quot; &quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) operates propfident.online and related trading tools, analytics, account features, and educational materials. This Privacy Policy explains what information we collect, why we collect it, how we protect it, and the choices available to you.</p><p>By using Propfident, you acknowledge this policy. Where consent is required, such as for analytics cookies, we request it separately through our consent controls.</p></section>
+
+            <section className="space-y-4"><h2 className="flex items-center gap-2 text-xl font-bold text-foreground"><Database className="h-5 w-5 text-primary" /> 2. Information We Collect</h2><div className="space-y-3"><h3 className="text-base font-semibold text-foreground">A. Google OAuth and Supabase Auth data</h3><p>When you sign in with Google, Google and Supabase may provide identifiers such as your name, email address, profile image, provider user ID, and authentication tokens or session metadata. When you create an account directly, Supabase Auth stores the email address, encrypted credential material, verification state, and account timestamps needed to authenticate you. We do not receive or store your Google password.</p></div><div className="space-y-3"><h3 className="text-base font-semibold text-foreground">B. Trading and tool data</h3><p>Inputs to calculators and tools can include account size, drawdown limits, symbols, risk settings, trade journal records, and uploaded CSV data. We use this information to calculate risk metrics and provide requested features. Where a tool processes information in your browser, the data may remain local unless you submit it to a connected feature.</p></div><div className="space-y-3"><h3 className="text-base font-semibold text-foreground">C. Usage, device, and diagnostic data</h3><p>We may receive browser type, device and operating-system information, approximate location derived from network information, referring pages, timestamps, feature interactions, error reports, and performance data. This information helps us secure, troubleshoot, and improve the service.</p></div></section>
+
+            <section className="space-y-3"><h2 className="flex items-center gap-2 text-xl font-bold text-foreground"><Eye className="h-5 w-5 text-primary" /> 3. How We Use Information</h2><ul className="list-disc space-y-2 pl-5"><li>Create and secure accounts, process Google OAuth or Supabase Auth sessions, and provide customer support.</li><li>Deliver calculators, dashboards, trade analysis, notifications, educational content, and purchased entitlements.</li><li>Monitor service reliability, prevent fraud or abuse, diagnose errors, and protect the security of Propfident and its users.</li><li>With consent, analyze anonymized session flow and feature usage through Google Analytics to improve navigation and product decisions.</li><li>Meet legal obligations, enforce agreements, and communicate material service, security, or policy changes.</li></ul></section>
+
+            <section className="space-y-3"><h2 className="flex items-center gap-2 text-xl font-bold text-foreground"><Lock className="h-5 w-5 text-primary" /> 4. Data Protection & Storage</h2><p>Authentication and application data may be stored and processed using Supabase infrastructure. Supabase provides managed database, authentication, access-control, encryption-in-transit, and operational security features. We apply reasonable technical and organizational safeguards, including least-privilege access and secure transport, but no online service can guarantee absolute security.</p><p>We retain information only for as long as reasonably necessary for the purposes described here, account administration, dispute handling, security, legal compliance, and legitimate business records. Retention periods may vary by data type and whether an account remains active.</p></section>
+
+            <section className="space-y-3"><h2 className="flex items-center gap-2 text-xl font-bold text-foreground"><Cookie className="h-5 w-5 text-primary" /> 5. Cookie Policy</h2><p>Propfident uses essential browser storage and similar technologies to maintain preferences, authentication flows, security, and basic functionality. With your consent, Google Analytics may set analytics cookies or use similar identifiers to measure anonymized sessions, page flow, and product usage. Analytics storage is denied by default until you choose Accept All in the cookie control.</p><p>Your consent choice is stored locally in your browser. You can decline analytics cookies or revisit the cookie control to change your preference. Blocking or deleting cookies may affect some site functionality.</p></section>
+
+            <section className="space-y-3"><h2 className="flex items-center gap-2 text-xl font-bold text-foreground"><FileKey className="h-5 w-5 text-primary" /> 6. Third-Party Services</h2><p>We use service providers that process information on our behalf or provide integrated functionality, including Supabase for authentication and data services, Google for OAuth and consented Analytics, Vercel for hosting and delivery, and Whop for checkout and entitlement processing. These providers may process information under their own terms and privacy policies. We do not sell personal information to data brokers.</p></section>
+
+            <section className="space-y-3"><h2 className="flex items-center gap-2 text-xl font-bold text-foreground"><RefreshCw className="h-5 w-5 text-primary" /> 7. Your Privacy Rights</h2><p>Depending on where you live, you may have rights under laws such as the GDPR or CCPA/CPRA to request access, correction, deletion, portability, restriction, or objection to certain processing. You may also withdraw consent for analytics at any time. We may verify your identity before completing a request and may retain limited information where required by law or needed for security and dispute resolution.</p><p>To exercise a right, contact us using the details below. We do not discriminate against you for exercising applicable privacy rights.</p></section>
+
+            <section className="space-y-3"><h2 className="flex items-center gap-2 text-xl font-bold text-foreground"><Mail className="h-5 w-5 text-primary" /> 8. Contact and Updates</h2><p>For privacy questions, data access or deletion requests, security reports, or complaints, email <span className="font-mono font-semibold text-foreground">propfidentceos@gmail.com</span>. We may update this policy as our services, legal obligations, or vendors change. The Last updated date above identifies the current version.</p></section>
+          </div>
+        </div>
       </div>
-
-      <div className="space-y-10 text-sm text-muted-foreground leading-relaxed">
-        <section className="space-y-3">
-          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-            <Shield className="h-5 w-5 text-primary" /> 1. Overview & Data Philosophy
-          </h2>
-          <p>
-            Propfident (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) operates <strong className="text-foreground">propfident.online</strong>. We are committed to maintaining the absolute confidentiality, privacy, and security of your personal and trading data. Designed specifically for proprietary firm traders, Propfident operates on a minimal-data collection principle: we gather only the necessary telemetry required to process drawdown alerts, position sizing metrics, trade leak analysis, and account verification.
-          </p>
-          <p>
-            By accessing our site, using our evaluation tools, or purchasing a Founder&apos;s Lifetime Pass, you acknowledge and agree to the practices outlined in this Privacy Policy.
-          </p>
-        </section>
-
-        <section className="space-y-4">
-          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-            <Database className="h-5 w-5 text-primary" /> 2. Information We Collect
-          </h2>
-          <div className="space-y-3">
-            <h3 className="text-base font-semibold text-foreground">A. Authentication & Billing Information</h3>
-            <p>
-              When you purchase access to Propfident, processing is handled by our merchant partner, Whop. We receive basic transaction metadata including your email address, purchase timestamp, and subscription entitlement status. We do not process, store, or have access to raw payment card numbers or banking credentials.
-            </p>
-          </div>
-          <div className="space-y-3">
-            <h3 className="text-base font-semibold text-foreground">B. Trading Telemetry & File Data</h3>
-            <p>
-              When you utilize tools such as our Prop Match Evaluator, Lot Calculator, or Trade Playbook CSV uploaders, your trade logs, symbol selections, account sizes, and historical execution records are parsed to generate compliance metrics. Where possible, file processing occurs locally in-memory within your browser or securely over transient server connections.
-            </p>
-          </div>
-          <div className="space-y-3">
-            <h3 className="text-base font-semibold text-foreground">C. Technical & Diagnostic Logs</h3>
-            <p>
-              We automatically collect diagnostic technical information when you navigate our platform, including browser type, operating system, IP address, referral URLs, and performance error logs to maintain system stability and optimize execution speed.
-            </p>
-          </div>
-        </section>
-
-        <section className="space-y-3">
-          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-            <Eye className="h-5 w-5 text-primary" /> 3. How We Use Your Data
-          </h2>
-          <p>We use collected data strictly for operational, support, and security purposes, including:</p>
-          <ul className="list-disc pl-5 space-y-2">
-            <li>Calculating daily drawdown buffers, maximum loss thresholds, and trailing equity limits.</li>
-            <li>Routing automated risk alerts and trade leak notifications across connected push channels and supported social platforms.</li>
-            <li>Verifying entitlement rights and granting lifetime software access via Whop integration.</li>
-            <li>Improving risk model accuracy and diagnosing platform performance bugs.</li>
-            <li>Communicating crucial technical updates, platform maintenance, and security notices.</li>
-          </ul>
-        </section>
-
-        <section className="space-y-3">
-          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-            <Cookie className="h-5 w-5 text-primary" /> 4. Analytics & Cookies
-          </h2>
-          <p>
-            With your consent, Propfident uses Google Analytics to collect anonymized session flow data, such as which pages are visited, how users move through the site, and which features are used. This helps us understand usage patterns and improve the product. Google Analytics may use cookies or similar technologies to provide these aggregated insights; we do not use this data to identify you personally.
-          </p>
-          <p>
-            You can accept or decline analytics cookies using the cookie controls on this site. Your choice is stored locally in your browser and can be changed by opening the cookie settings button.
-          </p>
-        </section>
-
-        <section className="space-y-3">
-          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-            <Lock className="h-5 w-5 text-primary" /> 5. Data Sharing & Third-Party Vendors
-          </h2>
-          <p>
-            Propfident does not sell, rent, or trade your personal or trading information to advertisers or data brokers. We share data only with essential infrastructure providers:
-          </p>
-          <ul className="list-disc pl-5 space-y-2">
-            <li><strong className="text-foreground">Whop:</strong> Manages authentication, checkout, and entitlement authorization.</li>
-            <li><strong className="text-foreground">Vercel:</strong> Delivers secure cloud hosting, edge functions, and global network routing.</li>
-            <li><strong className="text-foreground">Supported Social Platforms:</strong> Enables account verification, community updates, and push notifications when opted into by the user.</li>
-          </ul>
-        </section>
-
-        <section className="space-y-3">
-          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-            <RefreshCw className="h-5 w-5 text-primary" /> 6. Data Retention & Your Rights
-          </h2>
-          <p>
-            You retain complete ownership over your trading strategy and historical trade data. You have the right to request deletion of any personal identifiers or stored telemetry associated with your account at any time. To request data erasure or export, contact our executive team at <span className="font-mono text-foreground font-semibold">propfidentceos@gmail.com</span>.
-          </p>
-        </section>
-
-        <section className="space-y-3">
-          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-            <Mail className="h-5 w-5 text-primary" /> 7. Updates & Contact Information
-          </h2>
-          <p>
-            We may update this Privacy Policy periodically to reflect changes in legal standards, software capabilities, or third-party integrations. Continued use of Propfident constitutes acceptance of any modified terms.
-          </p>
-          <p>
-            For privacy inquiries, data deletion requests, or security reports, email us directly at: <span className="font-mono text-foreground font-semibold">propfidentceos@gmail.com</span>.
-          </p>
-        </section>
-      </div>
-    </div>
+    </main>
   );
 }
