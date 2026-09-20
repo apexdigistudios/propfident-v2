@@ -126,9 +126,9 @@ function SignupFormContent() {
   };
 
   return (
-    <main className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-12 bg-background pt-12 sm:pt-16 lg:pt-12">
+    <main className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-12 bg-background pt-0">
       {/* Left Column: Signup Form */}
-      <div className="lg:col-span-6 flex flex-col justify-between p-6 sm:p-10 lg:p-16 z-10 min-h-[calc(100vh-3rem)]">
+      <div className="lg:col-span-6 flex flex-col justify-between p-6 sm:p-10 lg:p-12 z-10 min-h-screen">
         <div>
           <Link href="/" className="inline-flex items-center gap-2">
             <Image src="/logo.png" alt="Propfident" width={32} height={32} className="h-8 w-8 object-contain" />
@@ -138,7 +138,7 @@ function SignupFormContent() {
           </Link>
         </div>
 
-        <div className="my-auto py-6 max-w-md w-full mx-auto space-y-6">
+        <div className="my-auto py-4 max-w-md w-full mx-auto space-y-6">
           <div className="space-y-2">
             <h1 className="text-2xl sm:text-3xl font-black font-sans tracking-tight text-foreground">
               Create your account
@@ -264,7 +264,7 @@ function SignupFormContent() {
           </div>
         </div>
 
-        <div className="text-center text-xs text-muted-foreground pb-6 lg:pb-0">
+        <div className="text-center text-xs text-muted-foreground pb-4 lg:pb-0">
           © {new Date().getFullYear()} Propfident. All rights reserved.
         </div>
       </div>

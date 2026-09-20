@@ -10,17 +10,7 @@ import {
   Lock, 
   Loader2, 
   Sparkles, 
-  Users, 
-  TrendingUp, 
-  CandlestickChart, 
-  LineChart, 
-  DollarSign, 
-  Activity, 
-  BarChart3, 
-  ArrowUpRight, 
-  Wallet, 
-  PieChart, 
-  Coins 
+  Users 
 } from "lucide-react";
 
 interface RoadmapTeaserHeroProps {
@@ -43,25 +33,11 @@ export function RoadmapTeaserHero({ onSubscribe, loading = false }: RoadmapTease
   return (
     <section className="relative w-full border-b border-border/40 bg-background pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
       
-      {/* Dense Mobile Finance & Forex Icon Splash Background */}
-      <div className="block sm:hidden absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-[0.08]">
-        <div className="absolute top-6 left-4 text-primary"><CandlestickChart className="size-14 rotate-6" /></div>
-        <div className="absolute top-16 right-5 text-primary"><TrendingUp className="size-16 -rotate-12" /></div>
-        <div className="absolute top-32 left-1/3 text-primary"><DollarSign className="size-20 rotate-12" /></div>
-        <div className="absolute top-1/2 left-3 text-primary"><Activity className="size-24 rotate-45" /></div>
-        <div className="absolute top-1/2 right-4 text-primary"><BarChart3 className="size-16 -rotate-6" /></div>
-        <div className="absolute bottom-24 right-1/4 text-primary"><LineChart className="size-14 -rotate-12" /></div>
-        <div className="absolute bottom-12 left-8 text-primary"><Wallet className="size-16 rotate-12" /></div>
-        <div className="absolute bottom-6 right-6 text-primary"><Coins className="size-14 -rotate-45" /></div>
-        <div className="absolute top-1/3 right-12 text-primary"><ArrowUpRight className="size-12 rotate-45" /></div>
-        <div className="absolute bottom-1/3 left-1/4 text-primary"><PieChart className="size-16 rotate-12" /></div>
-      </div>
-
-      {/* Background Image - Desktop View */}
-      <div className="hidden sm:block absolute inset-0 pointer-events-none z-0">
+      {/* Background Image - All Screens */}
+      <div className="absolute inset-0 pointer-events-none z-0">
         <Image
           src="/roadmap-hero-bg.png"
-          alt="Roadmap Desktop Hero Background"
+          alt="Roadmap Hero Background"
           fill
           priority
           sizes="100vw"
