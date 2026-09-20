@@ -10,7 +10,7 @@ import {
   Lock, 
   Loader2, 
   Sparkles, 
-  Users 
+  Users
 } from "lucide-react";
 
 interface RoadmapTeaserHeroProps {
@@ -33,11 +33,23 @@ export function RoadmapTeaserHero({ onSubscribe, loading = false }: RoadmapTease
   return (
     <section className="relative w-full border-b border-border/40 bg-background pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
       
-      {/* Background Image - All Screens */}
-      <div className="absolute inset-0 pointer-events-none z-0">
+      {/* Background Image - Mobile View */}
+      <div className="block sm:hidden absolute inset-0 pointer-events-none z-0">
+        <Image
+          src="/roadmap-hero-bg2.png"
+          alt="Roadmap Mobile Hero Background"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+      </div>
+
+      {/* Background Image - Desktop View */}
+      <div className="hidden sm:block absolute inset-0 pointer-events-none z-0">
         <Image
           src="/roadmap-hero-bg.png"
-          alt="Roadmap Hero Background"
+          alt="Roadmap Desktop Hero Background"
           fill
           priority
           sizes="100vw"
