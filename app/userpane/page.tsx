@@ -25,6 +25,8 @@ import { RiskLotCalculator } from "@/components/tools/risk-calculator";
 import { PropMatchEvaluator } from "@/components/tools/prop-match";
 import { AITradePlanner } from "@/components/tools/ai-trade-planner";
 
+export const dynamic = "force-dynamic";
+
 type ViewType = 
   | "overview"
   | "account-intel"
@@ -66,7 +68,6 @@ function UserpaneContent() {
     }
   };
 
-  // Trigger skeleton when view changes
   useEffect(() => {
     if (activeView !== "overview") {
       setIsTransitioning(true);
@@ -110,7 +111,6 @@ function UserpaneContent() {
     return <OverviewSkeleton />;
   }
 
-  // Render Sub-Views when activeView is not 'overview'
   if (activeView !== "overview") {
     return (
       <ViewWrapper activeView={activeView} onBack={() => changeView("overview")}>
@@ -129,7 +129,6 @@ function UserpaneContent() {
     );
   }
 
-  // Overview Main Board View
   return (
     <div className="p-2 md:p-8 max-w-7xl mx-auto space-y-4 md:space-y-6 pb-24 md:pb-10 overflow-x-hidden">
       {/* 1. TOP HERO BANNER */}
