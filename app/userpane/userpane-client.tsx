@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, Suspense } from "react";
+import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { 
@@ -186,7 +187,12 @@ function UserpaneContent() {
             className="group relative overflow-hidden h-28 md:h-48 rounded-2xl md:rounded-3xl border-0 shadow-sm hover:shadow-lg cursor-pointer"
           >
             <div className="absolute inset-0 z-0 bg-indigo-950">
-              <MonitorCog className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-16 md:size-32 text-white/5" />
+              <Image
+                src="/images/cards/account-intel.jpg"
+                alt="Account Intel Background"
+                fill
+                className="object-cover opacity-30 group-hover:scale-105 transition-transform duration-300"
+              />
             </div>
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
             <div className="relative z-20 h-full p-2.5 md:p-5 flex flex-col justify-between text-white">
@@ -212,7 +218,12 @@ function UserpaneContent() {
             className="group relative overflow-hidden h-28 md:h-48 rounded-2xl md:rounded-3xl border-0 shadow-sm hover:shadow-lg cursor-pointer"
           >
             <div className="absolute inset-0 z-0 bg-emerald-950">
-              <BookOpen className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-16 md:size-32 text-white/5" />
+              <Image
+                src="/images/cards/journal.jpg"
+                alt="Trading Journal Background"
+                fill
+                className="object-cover opacity-30 group-hover:scale-105 transition-transform duration-300"
+              />
             </div>
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
             <div className="relative z-20 h-full p-2.5 md:p-5 flex flex-col justify-between text-white">
@@ -250,7 +261,12 @@ function UserpaneContent() {
             className="group relative overflow-hidden h-24 md:h-32 rounded-2xl md:rounded-3xl border-0 shadow-sm hover:shadow-lg cursor-pointer"
           >
             <div className="absolute inset-0 z-0 bg-blue-950">
-              <Calculator className="absolute top-2 right-2 size-12 md:size-20 text-white/5" />
+              <Image
+                src="/images/cards/lot-calc.jpg"
+                alt="Lot Calc Background"
+                fill
+                className="object-cover opacity-30 group-hover:scale-105 transition-transform duration-300"
+              />
             </div>
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
             <div className="relative z-20 h-full p-2 md:p-4 flex flex-col justify-end text-white">
@@ -264,7 +280,12 @@ function UserpaneContent() {
             className="group relative overflow-hidden h-24 md:h-32 rounded-2xl md:rounded-3xl border-0 shadow-sm hover:shadow-lg cursor-pointer"
           >
             <div className="absolute inset-0 z-0 bg-amber-950">
-              <Building2 className="absolute top-2 right-2 size-12 md:size-20 text-white/5" />
+              <Image
+                src="/images/cards/prop-match.jpg"
+                alt="Prop Match Background"
+                fill
+                className="object-cover opacity-30 group-hover:scale-105 transition-transform duration-300"
+              />
             </div>
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
             <div className="relative z-20 h-full p-2 md:p-4 flex flex-col justify-end text-white">
@@ -278,7 +299,12 @@ function UserpaneContent() {
             className="group relative overflow-hidden h-24 md:h-32 rounded-2xl md:rounded-3xl border-0 shadow-sm hover:shadow-lg cursor-pointer"
           >
             <div className="absolute inset-0 z-0 bg-purple-950">
-              <Zap className="absolute top-2 right-2 size-12 md:size-20 text-white/5" />
+              <Image
+                src="/images/cards/trade-assist.jpg"
+                alt="Trade Assist Background"
+                fill
+                className="object-cover opacity-30 group-hover:scale-105 transition-transform duration-300"
+              />
             </div>
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
             <div className="relative z-20 h-full p-2 md:p-4 flex flex-col justify-end text-white">
@@ -303,7 +329,12 @@ function UserpaneContent() {
             className="group relative overflow-hidden h-32 md:h-48 rounded-2xl md:rounded-3xl border-0 shadow-sm hover:shadow-lg cursor-pointer"
           >
             <div className="absolute inset-0 z-0 bg-yellow-950/80">
-              <Map className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-12 md:size-24 text-white/5" />
+              <Image
+                src="/images/cards/roadmap.jpg"
+                alt="Roadmap Background"
+                fill
+                className="object-cover opacity-30 group-hover:scale-105 transition-transform duration-300"
+              />
             </div>
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/50 to-black/10" />
             <div className="relative z-20 h-full p-2 md:p-4 flex flex-col justify-end text-white">
@@ -317,7 +348,12 @@ function UserpaneContent() {
             className="group relative overflow-hidden h-32 md:h-48 rounded-2xl md:rounded-3xl border-0 shadow-sm hover:shadow-lg cursor-pointer"
           >
             <div className="absolute inset-0 z-0 bg-rose-950/80">
-              <BellRing className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-12 md:size-24 text-white/5" />
+              <Image
+                src="/images/cards/trade-notifier.jpg"
+                alt="Trade Notifier Background"
+                fill
+                className="object-cover opacity-30 group-hover:scale-105 transition-transform duration-300"
+              />
             </div>
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/50 to-black/10" />
             <div className="relative z-20 h-full p-2 md:p-4 flex flex-col justify-end text-white">
@@ -331,7 +367,12 @@ function UserpaneContent() {
             className="group relative overflow-hidden h-32 md:h-48 rounded-2xl md:rounded-3xl border-0 shadow-sm hover:shadow-lg cursor-pointer"
           >
             <div className="absolute inset-0 z-0 bg-cyan-950/80">
-              <Lightbulb className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-12 md:size-24 text-white/5" />
+              <Image
+                src="/images/cards/trade-ideas.jpg"
+                alt="Trade Ideas Background"
+                fill
+                className="object-cover opacity-30 group-hover:scale-105 transition-transform duration-300"
+              />
             </div>
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/50 to-black/10" />
             <div className="relative z-20 h-full p-2 md:p-4 flex flex-col justify-end text-white">
