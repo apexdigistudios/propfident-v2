@@ -27,13 +27,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
 } from "@/components/ui/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { 
@@ -48,14 +42,16 @@ import {
   Plus,
   Check,
   ShieldAlert,
-  ChartBar,
-  ChartBarIcon,
-  MonitorCheck,
-  MonitorIcon,
-  MonitorCog
+  MonitorCog,
+  Wrench,
+  Calculator,
+  Building2,
+  Zap,
+  Settings,
+  ChevronRight
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 interface TradingAccount {
   id: string;
@@ -64,20 +60,22 @@ interface TradingAccount {
 }
 
 export function AppSidebar() {
-  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentView = searchParams.get("view") || "overview";
+  const router = useRouter();
   const supabase = createClient();
   const { theme, setTheme } = useTheme();
 
   const [user, setUser] = useState<{ id: string; name: string; email: string; avatar: string } | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Auth Modal State
+  const [toolsOpen, setToolsOpen] = useState(false);
+
   const [emailModalOpen, setEmailModalOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [authLoading, setAuthLoading] = useState(false);
 
-  // Account Switcher State
   const [accounts, setAccounts] = useState<TradingAccount[]>([]);
   const [activeAccount, setActiveAccount] = useState<TradingAccount | null>(null);
   const [addAccountOpen, setAddAccountOpen] = useState(false);
@@ -144,19 +142,14 @@ export function AppSidebar() {
   const handleGoogleLogin = async () => {
     await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: {
-        redirectTo: `${window.location.origin}/dashboard`,
-      },
+      options: { redirectTo: `${window.location.origin}/userpane` },
     });
   };
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setAuthLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
     setAuthLoading(false);
     if (!error) {
       setEmailModalOpen(false);
@@ -174,13 +167,7 @@ export function AppSidebar() {
 
     const { data, error } = await supabase
       .from("trading_accounts")
-      .insert([
-        {
-          user_id: user.id,
-          account_name: newAccountName,
-          account_type: newAccountType,
-        },
-      ])
+      .insert([{ user_id: user.id, account_name: newAccountName, account_type: newAccountType }])
       .select();
 
     setAccountSubmitting(false);
@@ -196,11 +183,6 @@ export function AppSidebar() {
     }
   };
 
-  const navigation = [
-    { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
-    { name: "Account Intel", href: "/dashboard/playbook", icon: MonitorCog },
-  ];
-
   return (
     <Dialog open={emailModalOpen} onOpenChange={setEmailModalOpen}>
       <Sidebar collapsible="icon">
@@ -213,7 +195,7 @@ export function AppSidebar() {
                     <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-mono font-bold shrink-0">
                       <ShieldAlert className="h-4 w-4" />
                     </div>
-                    <div className="grid flex-1 text-left text-xs leading-tight">
+                    <div className="grid flex-1 text-left text-xs leading-tight group-data-[collapsible=icon]:hidden">
                       <span className="truncate font-bold">
                         {activeAccount ? activeAccount.account_name : "Select Account"}
                       </span>
@@ -221,7 +203,7 @@ export function AppSidebar() {
                         {activeAccount ? activeAccount.account_type : "No Account Linked"}
                       </span>
                     </div>
-                    <ChevronsUpDown className="ml-auto size-4" />
+                    <ChevronsUpDown className="ml-auto size-4 group-data-[collapsible=icon]:hidden" />
                   </SidebarMenuButton>
                 </DropdownMenuTrigger>
 
@@ -255,23 +237,83 @@ export function AppSidebar() {
 
         <SidebarContent>
           <SidebarGroup>
-            <SidebarGroupLabel className="text-[10px] font-mono uppercase tracking-wider">
+            <SidebarGroupLabel className="text-[10px] font-mono uppercase tracking-wider group-data-[collapsible=icon]:hidden">
               Terminal
             </SidebarGroupLabel>
             <SidebarMenu>
-              {navigation.map((item) => {
-                const isActive = pathname === item.href;
-                return (
-                  <SidebarMenuItem key={item.name}>
-                    <SidebarMenuButton asChild isActive={isActive} tooltip={item.name}>
-                      <Link href={item.href} className="flex items-center gap-2">
-                        <item.icon className="h-4 w-4" />
-                        <span>{item.name}</span>
+              {/* Overview / Main Page */}
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={currentView === "overview"} tooltip="Overview">
+                  <Link href="/userpane" className="flex items-center gap-2">
+                    <LayoutDashboard className="h-4 w-4 shrink-0" />
+                    <span className="group-data-[collapsible=icon]:hidden">Overview</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+
+              {/* Account Intel */}
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={currentView === "account-intel"} tooltip="Account Intel">
+                  <Link href="/userpane?view=account-intel" className="flex items-center gap-2">
+                    <MonitorCog className="h-4 w-4 shrink-0" />
+                    <span className="group-data-[collapsible=icon]:hidden">Account Intel</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+
+              {/* Journal */}
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={currentView === "journal"} tooltip="Journal">
+                  <Link href="/userpane?view=journal" className="flex items-center gap-2">
+                    <BookOpen className="h-4 w-4 shrink-0" />
+                    <span className="group-data-[collapsible=icon]:hidden">Journal</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+
+              {/* Free Tools Dropdown */}
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  onClick={() => setToolsOpen((prev) => !prev)}
+                  className="flex items-center justify-between w-full"
+                  tooltip="Free Tools"
+                >
+                  <div className="flex items-center gap-2">
+                    <Wrench className="h-4 w-4 shrink-0" />
+                    <span className="group-data-[collapsible=icon]:hidden">Free Tools</span>
+                  </div>
+                  <ChevronRight
+                    className={`h-3.5 w-3.5 transition-transform duration-200 group-data-[collapsible=icon]:hidden ${
+                      toolsOpen ? "rotate-90" : ""
+                    }`}
+                  />
+                </SidebarMenuButton>
+
+                {toolsOpen && (
+                  <div className="pl-6 pt-1 space-y-1 group-data-[collapsible=icon]:hidden">
+                    <SidebarMenuButton asChild isActive={currentView === "lot-calculator"} size="sm">
+                      <Link href="/userpane?view=lot-calculator" className="flex items-center gap-2 text-xs">
+                        <Calculator className="h-3.5 w-3.5 text-primary shrink-0" />
+                        <span>Lot Calculator</span>
                       </Link>
                     </SidebarMenuButton>
-                  </SidebarMenuItem>
-                );
-              })}
+
+                    <SidebarMenuButton asChild isActive={currentView === "prop-match"} size="sm">
+                      <Link href="/userpane?view=prop-match" className="flex items-center gap-2 text-xs">
+                        <Building2 className="h-3.5 w-3.5 text-primary shrink-0" />
+                        <span>Prop Match</span>
+                      </Link>
+                    </SidebarMenuButton>
+
+                    <SidebarMenuButton asChild isActive={currentView === "trade-assist"} size="sm">
+                      <Link href="/userpane?view=trade-assist" className="flex items-center gap-2 text-xs">
+                        <Zap className="h-3.5 w-3.5 text-primary shrink-0" />
+                        <span>Trade Assist</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </div>
+                )}
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroup>
         </SidebarContent>
@@ -285,13 +327,14 @@ export function AppSidebar() {
                     size="lg"
                     className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                   >
-                    <Avatar className="h-8 w-8 rounded-lg shrink-0">
+                    <Avatar className="h-8 w-8 rounded-lg shrink-0 border border-primary/20">
                       <AvatarImage src={user?.avatar} alt={user?.name} />
-                      <AvatarFallback className="rounded-lg font-mono text-xs">
+                      <AvatarFallback className="rounded-lg font-mono text-xs bg-primary/10 text-primary font-bold">
                         {user ? user.name.slice(0, 2).toUpperCase() : "G"}
                       </AvatarFallback>
                     </Avatar>
-                    <div className="grid flex-1 text-left text-xs leading-tight">
+
+                    <div className="grid flex-1 text-left text-xs leading-tight ml-1 group-data-[collapsible=icon]:hidden">
                       <span className="truncate font-semibold">
                         {loading ? "Loading..." : user ? user.name : "Sign In"}
                       </span>
@@ -299,9 +342,10 @@ export function AppSidebar() {
                         {loading ? "..." : user ? user.email : "Guest Trader"}
                       </span>
                     </div>
-                    <ChevronsUpDown className="ml-auto size-4" />
+                    <ChevronsUpDown className="ml-auto size-4 group-data-[collapsible=icon]:hidden" />
                   </SidebarMenuButton>
                 </DropdownMenuTrigger>
+
                 <DropdownMenuContent
                   className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
                   side="bottom"
@@ -334,13 +378,11 @@ export function AppSidebar() {
                         Account Access
                       </DropdownMenuLabel>
                       <DropdownMenuItem onClick={handleGoogleLogin} className="text-xs cursor-pointer">
-                        <LogIn className="mr-2 h-4 w-4" />
-                        Sign in with Google
+                        <LogIn className="mr-2 h-4 w-4" /> Sign in with Google
                       </DropdownMenuItem>
                       <DialogTrigger asChild>
                         <DropdownMenuItem className="text-xs cursor-pointer">
-                          <Mail className="mr-2 h-4 w-4" />
-                          Sign in with Email
+                          <Mail className="mr-2 h-4 w-4" /> Sign in with Email
                         </DropdownMenuItem>
                       </DialogTrigger>
                       <DropdownMenuSeparator />
@@ -349,12 +391,7 @@ export function AppSidebar() {
 
                   <DropdownMenuSub>
                     <DropdownMenuSubTrigger className="text-xs cursor-pointer">
-                      {theme === "dark" ? (
-                        <Moon className="mr-2 h-4 w-4" />
-                      ) : (
-                        <Sun className="mr-2 h-4 w-4" />
-                      )}
-                      Theme
+                      {theme === "dark" ? <Moon className="mr-2 h-4 w-4" /> : <Sun className="mr-2 h-4 w-4" />} Theme
                     </DropdownMenuSubTrigger>
                     <DropdownMenuSubContent>
                       <DropdownMenuItem onClick={() => setTheme("light")} className="text-xs cursor-pointer">
@@ -375,8 +412,7 @@ export function AppSidebar() {
                         }}
                         className="text-xs text-destructive focus:text-destructive cursor-pointer"
                       >
-                        <LogOut className="mr-2 h-4 w-4" />
-                        Log out
+                        <LogOut className="mr-2 h-4 w-4" /> Log out
                       </DropdownMenuItem>
                     </>
                   )}
@@ -387,7 +423,6 @@ export function AppSidebar() {
         </SidebarFooter>
       </Sidebar>
 
-      {/* Email Login Modal */}
       <DialogContent className="sm:max-w-[400px]">
         <DialogHeader>
           <DialogTitle className="text-lg font-bold">Sign In to Propfident</DialogTitle>
@@ -395,23 +430,11 @@ export function AppSidebar() {
         <form onSubmit={handleEmailLogin} className="space-y-4 pt-2">
           <div className="space-y-2">
             <label className="text-xs font-mono font-medium text-muted-foreground">Email</label>
-            <Input
-              type="email"
-              placeholder="trader@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+            <Input type="email" placeholder="trader@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
           <div className="space-y-2">
             <label className="text-xs font-mono font-medium text-muted-foreground">Password</label>
-            <Input
-              type="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <Input type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
           <Button type="submit" className="w-full text-xs font-mono" disabled={authLoading}>
             {authLoading ? "Signing in..." : "Sign In"}
@@ -419,7 +442,6 @@ export function AppSidebar() {
         </form>
       </DialogContent>
 
-      {/* Add Trading Account Modal */}
       <Dialog open={addAccountOpen} onOpenChange={setAddAccountOpen}>
         <DialogContent className="sm:max-w-[400px]">
           <DialogHeader>
@@ -428,23 +450,11 @@ export function AppSidebar() {
           <form onSubmit={handleAddAccount} className="space-y-4 pt-2">
             <div className="space-y-2">
               <label className="text-xs font-mono font-medium text-muted-foreground">Account Name</label>
-              <Input
-                type="text"
-                placeholder="e.g. FTMO $100k"
-                value={newAccountName}
-                onChange={(e) => setNewAccountName(e.target.value)}
-                required
-              />
+              <Input type="text" placeholder="e.g. FTMO $100k" value={newAccountName} onChange={(e) => setNewAccountName(e.target.value)} required />
             </div>
             <div className="space-y-2">
               <label className="text-xs font-mono font-medium text-muted-foreground">Account Type</label>
-              <Input
-                type="text"
-                placeholder="e.g. Evaluation / Funded"
-                value={newAccountType}
-                onChange={(e) => setNewAccountType(e.target.value)}
-                required
-              />
+              <Input type="text" placeholder="e.g. Evaluation / Funded" value={newAccountType} onChange={(e) => setNewAccountType(e.target.value)} required />
             </div>
             <Button type="submit" className="w-full text-xs font-mono" disabled={accountSubmitting}>
               {accountSubmitting ? "Creating..." : "Save Account"}

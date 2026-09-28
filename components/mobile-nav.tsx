@@ -3,14 +3,13 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { useTheme } from "next-themes";
 import { 
   LayoutDashboard, 
   BookOpen, 
   Layers, 
-  UserCircle2, 
   Menu, 
   Plus, 
   Check, 
@@ -21,7 +20,9 @@ import {
   Mail, 
   Laptop, 
   MonitorCog,
-  MonitorCogIcon
+  Calculator,
+  Building2,
+  Zap
 } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -36,25 +37,21 @@ interface TradingAccount {
 }
 
 export function MobileNav() {
-  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentView = searchParams.get("view") || "overview";
   const supabase = createClient();
   const { theme, setTheme } = useTheme();
 
   const [user, setUser] = useState<{ id: string; name: string; email: string; avatar: string } | null>(null);
-  const [loading, setLoading] = useState(true);
 
-  // Accounts state
   const [accounts, setAccounts] = useState<TradingAccount[]>([]);
   const [activeAccount, setActiveAccount] = useState<TradingAccount | null>(null);
 
-  // Modals & Sheets visibility flags
   const [menuOpen, setMenuOpen] = useState(false);
   const [accountsModalOpen, setAccountsModalOpen] = useState(false);
   const [addAccountModalOpen, setAddAccountModalOpen] = useState(false);
-  const [profileModalOpen, setProfileModalOpen] = useState(false);
   const [emailModalOpen, setEmailModalOpen] = useState(false);
 
-  // Form states
   const [newAccountName, setNewAccountName] = useState("");
   const [newAccountType, setNewAccountType] = useState("");
   const [accountSubmitting, setAccountSubmitting] = useState(false);
@@ -86,7 +83,6 @@ export function MobileNav() {
         });
         fetchAccounts(authUser.id);
       }
-      setLoading(false);
     }
     getUserData();
 
@@ -112,7 +108,7 @@ export function MobileNav() {
   const handleGoogleLogin = async () => {
     await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: `${window.location.origin}/dashboard` },
+      options: { redirectTo: `${window.location.origin}/userpane` },
     });
   };
 
@@ -153,69 +149,129 @@ export function MobileNav() {
 
   return (
     <>
-      {/* Floating iOS Glass Pill Navigation Bar */}
       <div className="md:hidden fixed bottom-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-        <nav className="pointer-events-auto flex items-center gap-1.5 bg-background/80 dark:bg-[#121212]/90 backdrop-blur-2xl border border-border/40 shadow-2xl rounded-full p-1.5">
+        <nav className="pointer-events-auto flex items-center gap-2 bg-background/85 dark:bg-[#121212]/90 backdrop-blur-2xl border border-border/40 shadow-2xl rounded-full p-1.5">
           
           {/* 1. Overview */}
           <Link
-            href="/dashboard"
+            href="/userpane"
             className={`flex items-center justify-center size-9 rounded-full transition-all ${
-              pathname === "/dashboard"
+              currentView === "overview"
                 ? "bg-primary/20 text-primary border border-primary/30"
                 : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
             }`}
+            title="Overview"
           >
             <LayoutDashboard className="size-4" />
           </Link>
 
           {/* 2. Account Intel */}
           <Link
-            href="/dashboard/playbook"
+            href="/userpane?view=account-intel"
             className={`flex items-center justify-center size-9 rounded-full transition-all ${
-              pathname === "/dashboard/playbook"
+              currentView === "account-intel"
                 ? "bg-primary/20 text-primary border border-primary/30"
                 : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
             }`}
+            title="Account Intel"
           >
             <MonitorCog className="size-4" />
           </Link>
 
-          {/* 3. Account Switcher Trigger */}
-          <button
-            onClick={() => setAccountsModalOpen(true)}
-            className="flex items-center justify-center size-9 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted/30 transition-all"
-            title="Switch Trading Account"
+          {/* 3. Journal */}
+          <Link
+            href="/userpane?view=journal"
+            className={`flex items-center justify-center size-9 rounded-full transition-all ${
+              currentView === "journal"
+                ? "bg-primary/20 text-primary border border-primary/30"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
+            }`}
+            title="Journal"
           >
-            <Layers className="size-4" />
-          </button>
+            <BookOpen className="size-4" />
+          </Link>
 
-          {/* 4. Profile / Settings Trigger */}
-          <button
-            onClick={() => setProfileModalOpen(true)}
-            className="flex items-center justify-center size-9 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted/30 transition-all"
-            title="User Profile & Settings"
+          {/* 4. Free Tool (Lot Calc) */}
+          <Link
+            href="/userpane?view=lot-calculator"
+            className={`flex items-center justify-center size-9 rounded-full transition-all ${
+              currentView === "lot-calculator"
+                ? "bg-primary/20 text-primary border border-primary/30"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
+            }`}
+            title="Lot Calculator"
           >
-            <UserCircle2 className="size-4" />
-          </button>
+            <Calculator className="size-4" />
+          </Link>
 
-          {/* 5. Navigation Sheet Trigger */}
+          {/* 5. Menu Button */}
           <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
             <SheetTrigger asChild>
-              <button className="flex items-center justify-center size-9 rounded-full bg-primary/20 text-primary border border-primary/30 transition-all">
+              <button
+                className="flex items-center justify-center size-9 rounded-full bg-primary/20 text-primary border border-primary/30 transition-all"
+                title="Open Terminal Menu"
+              >
                 <Menu className="size-4" />
               </button>
             </SheetTrigger>
-            <SheetContent side="bottom" className="rounded-t-3xl border-t border-border px-6 pb-8 pt-4">
-              <div className="w-10 h-1 bg-muted rounded-full mx-auto mb-6" />
-              <SheetHeader className="text-left mb-4">
+            <SheetContent side="bottom" className="rounded-t-3xl border-t border-border px-6 pb-8 pt-4 max-h-[85vh] overflow-y-auto">
+              <div className="w-10 h-1 bg-muted rounded-full mx-auto mb-4" />
+              
+              {user ? (
+                <div className="flex items-center justify-between p-3 mb-4 bg-muted/40 rounded-2xl border border-border/50">
+                  <div className="flex items-center gap-3 overflow-hidden">
+                    <Avatar className="size-9 rounded-xl border border-primary/20">
+                      <AvatarImage src={user.avatar} />
+                      <AvatarFallback className="text-xs font-mono font-bold bg-primary/10 text-primary">
+                        {user.name.slice(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex flex-col overflow-hidden">
+                      <span className="font-semibold text-xs truncate">{user.name}</span>
+                      <span className="text-[10px] text-muted-foreground font-mono truncate">{user.email}</span>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="mb-4 p-3 bg-muted/30 rounded-2xl border border-border/50 space-y-2">
+                  <p className="text-xs text-muted-foreground font-mono">Sign in to sync your terminal data.</p>
+                  <div className="flex gap-2">
+                    <Button onClick={() => { setMenuOpen(false); handleGoogleLogin(); }} className="flex-1 text-xs font-mono gap-1.5 h-8 rounded-xl" variant="outline">
+                      <LogIn className="size-3.5" /> Google
+                    </Button>
+                    <Button onClick={() => { setMenuOpen(false); setEmailModalOpen(true); }} className="flex-1 text-xs font-mono gap-1.5 h-8 rounded-xl" variant="outline">
+                      <Mail className="size-3.5" /> Email
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              <button
+                onClick={() => {
+                  setMenuOpen(false);
+                  setAccountsModalOpen(true);
+                }}
+                className="w-full flex items-center justify-between p-3 mb-4 rounded-xl border border-border/60 hover:bg-accent transition-all text-left"
+              >
+                <div className="flex items-center gap-2.5">
+                  <Layers className="size-4 text-primary" />
+                  <div className="flex flex-col">
+                    <span className="text-xs font-semibold">{activeAccount ? activeAccount.account_name : "Select Account"}</span>
+                    <span className="text-[10px] text-muted-foreground font-mono">{activeAccount ? activeAccount.account_type : "No Account Linked"}</span>
+                  </div>
+                </div>
+                <span className="text-[10px] font-mono text-primary bg-primary/10 px-2 py-0.5 rounded-full">Switch</span>
+              </button>
+
+              <SheetHeader className="text-left mb-2">
                 <SheetTitle className="text-[10px] font-mono font-bold text-muted-foreground uppercase tracking-wider">
-                  Propfident Terminal
+                  Navigation
                 </SheetTitle>
               </SheetHeader>
+
               <div className="space-y-1">
                 <Link
-                  href="/dashboard"
+                  href="/userpane"
                   onClick={() => setMenuOpen(false)}
                   className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-accent text-xs font-mono"
                 >
@@ -223,21 +279,87 @@ export function MobileNav() {
                   <span>Overview</span>
                 </Link>
                 <Link
-                  href="/dashboard/playbook"
+                  href="/userpane?view=account-intel"
                   onClick={() => setMenuOpen(false)}
                   className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-accent text-xs font-mono"
                 >
                   <MonitorCog className="size-4 text-primary" />
                   <span>Account Intel</span>
                 </Link>
+                <Link
+                  href="/userpane?view=journal"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-accent text-xs font-mono"
+                >
+                  <BookOpen className="size-4 text-primary" />
+                  <span>Journal</span>
+                </Link>
+
+                <div className="pt-3">
+                  <span className="text-[10px] font-mono text-muted-foreground uppercase px-2.5">Free Tools</span>
+                  <div className="mt-1 space-y-1 pl-2">
+                    <Link
+                      href="/userpane?view=lot-calculator"
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center gap-3 p-2 rounded-xl hover:bg-accent text-xs font-mono"
+                    >
+                      <Calculator className="size-3.5 text-primary" />
+                      <span>Lot Calculator</span>
+                    </Link>
+                    <Link
+                      href="/userpane?view=prop-match"
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center gap-3 p-2 rounded-xl hover:bg-accent text-xs font-mono"
+                    >
+                      <Building2 className="size-3.5 text-primary" />
+                      <span>Prop Match</span>
+                    </Link>
+                    <Link
+                      href="/userpane?view=trade-assist"
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center gap-3 p-2 rounded-xl hover:bg-accent text-xs font-mono"
+                    >
+                      <Zap className="size-3.5 text-primary" />
+                      <span>Trade Assist</span>
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-border/50 space-y-2">
+                  <div className="flex items-center justify-between p-2 rounded-xl bg-muted/20">
+                    <span className="text-xs font-mono text-muted-foreground">Appearance</span>
+                    <div className="flex gap-1">
+                      <Button variant={theme === "light" ? "default" : "ghost"} size="sm" onClick={() => setTheme("light")} className="size-7 p-0 rounded-lg">
+                        <Sun className="size-3.5" />
+                      </Button>
+                      <Button variant={theme === "dark" ? "default" : "ghost"} size="sm" onClick={() => setTheme("dark")} className="size-7 p-0 rounded-lg">
+                        <Moon className="size-3.5" />
+                      </Button>
+                      <Button variant={theme === "system" ? "default" : "ghost"} size="sm" onClick={() => setTheme("system")} className="size-7 p-0 rounded-lg">
+                        <Laptop className="size-3.5" />
+                      </Button>
+                    </div>
+                  </div>
+
+                  {user && (
+                    <Button
+                      variant="destructive"
+                      onClick={async () => {
+                        setMenuOpen(false);
+                        await supabase.auth.signOut();
+                      }}
+                      className="w-full text-xs font-mono gap-2 h-9 rounded-xl mt-2"
+                    >
+                      <LogOut className="size-4" /> Log out
+                    </Button>
+                  )}
+                </div>
               </div>
             </SheetContent>
           </Sheet>
-
         </nav>
       </div>
 
-      {/* Accounts Selection Dialog */}
       <Dialog open={accountsModalOpen} onOpenChange={setAccountsModalOpen}>
         <DialogContent className="sm:max-w-[360px] rounded-2xl">
           <DialogHeader>
@@ -282,7 +404,6 @@ export function MobileNav() {
         </DialogContent>
       </Dialog>
 
-      {/* Add Trading Account Dialog */}
       <Dialog open={addAccountModalOpen} onOpenChange={setAddAccountModalOpen}>
         <DialogContent className="sm:max-w-[360px] rounded-2xl">
           <DialogHeader>
@@ -304,71 +425,6 @@ export function MobileNav() {
         </DialogContent>
       </Dialog>
 
-      {/* Profile & Settings Dialog */}
-      <Dialog open={profileModalOpen} onOpenChange={setProfileModalOpen}>
-        <DialogContent className="sm:max-w-[360px] rounded-2xl">
-          <DialogHeader>
-            <DialogTitle className="text-sm font-bold">Trader Settings</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 py-2">
-            {user ? (
-              <div className="flex items-center gap-3 p-3 bg-muted/40 rounded-xl border border-border/50">
-                <Avatar className="size-10 rounded-lg">
-                  <AvatarImage src={user.avatar} />
-                  <AvatarFallback className="text-xs font-mono">{user.name.slice(0, 2).toUpperCase()}</AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col overflow-hidden">
-                  <span className="font-semibold text-xs truncate">{user.name}</span>
-                  <span className="text-[10px] text-muted-foreground font-mono truncate">{user.email}</span>
-                </div>
-              </div>
-            ) : (
-              <div className="space-y-2">
-                <p className="text-xs text-muted-foreground font-mono">Sign in to sync your terminal data.</p>
-                <Button onClick={() => { setProfileModalOpen(false); handleGoogleLogin(); }} className="w-full text-xs font-mono gap-2 h-9 rounded-xl" variant="outline">
-                  <LogIn className="size-4" /> Sign in with Google
-                </Button>
-                <Button onClick={() => { setProfileModalOpen(false); setEmailModalOpen(true); }} className="w-full text-xs font-mono gap-2 h-9 rounded-xl" variant="outline">
-                  <Mail className="size-4" /> Sign in with Email
-                </Button>
-              </div>
-            )}
-
-            {/* Theme Toggle Group */}
-            <div className="space-y-2 pt-2 border-t border-border/50">
-              <label className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">Appearance</label>
-              <div className="grid grid-cols-3 gap-2">
-                <Button variant={theme === "light" ? "default" : "outline"} size="sm" onClick={() => setTheme("light")} className="text-xs font-mono gap-1.5 h-8 rounded-lg">
-                  <Sun className="size-3.5" /> Light
-                </Button>
-                <Button variant={theme === "dark" ? "default" : "outline"} size="sm" onClick={() => setTheme("dark")} className="text-xs font-mono gap-1.5 h-8 rounded-lg">
-                  <Moon className="size-3.5" /> Dark
-                </Button>
-                <Button variant={theme === "system" ? "default" : "outline"} size="sm" onClick={() => setTheme("system")} className="text-xs font-mono gap-1.5 h-8 rounded-lg">
-                  <Laptop className="size-3.5" /> Auto
-                </Button>
-              </div>
-            </div>
-
-            {user && (
-              <div className="pt-2 border-t border-border/50">
-                <Button
-                  variant="destructive"
-                  onClick={async () => {
-                    setProfileModalOpen(false);
-                    await supabase.auth.signOut();
-                  }}
-                  className="w-full text-xs font-mono gap-2 h-9 rounded-xl"
-                >
-                  <LogOut className="size-4" /> Log out
-                </Button>
-              </div>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* Email Login Modal */}
       <Dialog open={emailModalOpen} onOpenChange={setEmailModalOpen}>
         <DialogContent className="sm:max-w-[360px] rounded-2xl">
           <DialogHeader>

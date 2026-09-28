@@ -1,0 +1,42 @@
+# PropFident
+
+> AI Context File: This document provides LLMs and AI agents with a comprehensive understanding of PropFident, its goals, architecture, and feature set.
+
+## Overview
+PropFident (propfident.online) is a SaaS platform designed for proprietary firm traders. It provides real-time drawdown monitoring, account matching, and advanced risk management tools to ensure traders never breach their funded accounts.
+
+## Our Mission & Goals
+The core goal of PropFident is to solve the highest cause of failure in the prop firm space: account breaches due to poor risk management and misunderstood drawdown rules. 
+
+Our primary objectives are to:
+- **Protect Funded Accounts:** Act as a safeguard for traders, preventing emotional or math-based errors from causing an account loss.
+- **Demystify Drawdown Rules:** Provide absolute clarity on complex trailing and static drawdown rules across different prop firms.
+- **Automate Risk Management:** Calculate lot sizing and risk buffers automatically, allowing traders to focus purely on market execution.
+
+## How Everything Works
+PropFident acts as a bridge between the trader's terminal and their prop firm's specific rule set.
+
+1. **Terminal Integration:** The platform uses MetaApi to securely connect and synchronize live account data, equity fluctuations, and automated trade history directly from MetaTrader 4 (MT4) and MetaTrader 5 (MT5).
+2. **Real-Time Drawdown Monitoring:** The system continuously tracks open floating equity against closed balance. It calculates the exact monetary distance to both the daily loss limit and the maximum overall drawdown limit.
+3. **Firm-Specific Rule Enforcement:** Because every prop firm has different rules, PropFident's logic adapts to calculate based on End-of-Day (EOD) static drawdowns, high-water mark trailing drawdowns, or fixed absolute drawdowns.
+4. **Risk Buffer Calculation:** As trades progress, the system dynamically recalculates the trader's "profit buffer" and maximum allowable position sizing for the next trade to mathematically prevent a breach.
+
+## Core Platform Features
+- **Live MT4/MT5 Dashboard:** A centralized hub for live equity tracking and automated trade journaling.
+- **Dynamic Position Sizing:** Automatically outputs the safe lot size based on current available daily drawdown.
+- **Prop Firm Matching:** Advanced matching logic that pairs a trader's specific style (e.g., swing trading, high win-rate, scalping) with the proprietary firm rules that best suit them.
+
+## Free Tools
+We provide a suite of un-gated, interactive tools for the community to utilize without an account:
+- **Drawdown Simulator:** Allows users to input a starting balance and simulate win/loss streaks to visualize how close they would get to breaching specific prop firm limits.
+- **Position Size & Risk Calculator:** A straightforward tool to calculate exact lot sizes across various forex pairs and asset classes based on a percentage of the account.
+- **Rule Comparison Engine:** A database outlining and comparing the specific static and trailing drawdown rules of top firms (e.g., FTMO, FundedNext, Funding Pips, Topstep).
+
+## Technical Stack & Architecture
+- **Frontend & App Framework:** Next.js
+- **Backend, Auth & Database:** Supabase
+- **Hosting & Deployment:** Vercel
+- **Trading API Integration:** MetaApi 
+
+## Current Offers
+PropFident is currently in its Founder's Lifetime Launch phase. We are offering 100 exclusive spots for early adopters to claim lifetime access to the platform without recurring monthly fees.
