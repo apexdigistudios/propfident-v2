@@ -16,10 +16,20 @@
       "static/chunks/main-app.js",
       "static/chunks/app/(marketing)/page.js"
     ],
+    "/(marketing)/playbook/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(marketing)/playbook/page.js"
+    ],
     "/manifest.webmanifest/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/manifest.webmanifest/route.js"
+    ],
+    "/(marketing)/millionaire-roadmap/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(marketing)/millionaire-roadmap/page.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",

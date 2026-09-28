@@ -23,13 +23,13 @@ export function Pricing() {
             variant="outline"
             className="font-mono text-xs px-3 py-1 border-primary/40 text-primary"
           >
-            FOUNDER&apos;S ACCESS
+            LIFETIME ACCESS
           </Badge>
           <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-foreground">
             Simple, Transparent Pricing
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-            Lock in lifetime access during our launch window. Zero monthly subscriptions.
+            Lock in lifetime access during our launch window. Zero monthly subscriptions later when we fully launch this software.
           </p>
         </div>
 
@@ -56,7 +56,7 @@ export function Pricing() {
                   <Crown className="h-5 w-5 text-amber-600 dark:text-amber-400" /> Lifetime Access
                 </CardTitle>
                 <CardDescription className="text-xs text-muted-foreground mt-1">
-                  One-time payment for lifetime access &amp; all future updates.
+                  One-time payment for lifetime access &amp; all future core updates.
                 </CardDescription>
               </div>
             </div>

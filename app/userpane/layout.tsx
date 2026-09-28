@@ -14,7 +14,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <SidebarTrigger className="hidden md:flex" />
             <Separator orientation="vertical" className="h-4 hidden md:block" />
             <span className="text-xs font-mono font-semibold text-muted-foreground uppercase tracking-wider">
-              Propfident Terminal
+              Dashboard
             </span>
           </div>
         </header>

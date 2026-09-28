@@ -19,7 +19,9 @@ import {
   Sun, 
   Moon, 
   Mail, 
-  Laptop 
+  Laptop, 
+  MonitorCog,
+  MonitorCogIcon
 } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -167,7 +169,7 @@ export function MobileNav() {
             <LayoutDashboard className="size-4" />
           </Link>
 
-          {/* 2. Playbook */}
+          {/* 2. Account Intel */}
           <Link
             href="/dashboard/playbook"
             className={`flex items-center justify-center size-9 rounded-full transition-all ${
@@ -176,7 +178,7 @@ export function MobileNav() {
                 : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
             }`}
           >
-            <BookOpen className="size-4" />
+            <MonitorCog className="size-4" />
           </Link>
 
           {/* 3. Account Switcher Trigger */}
@@ -225,8 +227,8 @@ export function MobileNav() {
                   onClick={() => setMenuOpen(false)}
                   className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-accent text-xs font-mono"
                 >
-                  <BookOpen className="size-4 text-primary" />
-                  <span>Playbook</span>
+                  <MonitorCog className="size-4 text-primary" />
+                  <span>Account Intel</span>
                 </Link>
               </div>
             </SheetContent>

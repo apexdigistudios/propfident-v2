@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Shield, Bell, AlertTriangle, Layers } from "lucide-react";
+import { Shield, Bell, AlertTriangle, Layers, LayoutDashboard, LucideLayoutDashboard } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -16,7 +16,7 @@ const features = [
     icon: Shield,
     title: "Drawdown Breach Shield",
     description:
-      "Real-time rule monitoring across max daily drawdown, overall loss limits, and trailing equity buffers before your broker triggers a breach.",
+      "Real-time protection across max daily drawdown, overall loss limits, and trailing equity buffers before your firm triggers a breach.",
     image: "/card-images/breach-shield.png",
     badge: "Core Shield",
   },
@@ -24,7 +24,7 @@ const features = [
     icon: Bell,
     title: "Multi-Channel Alerts",
     description:
-      "Instant push notifications via Telegram, Discord, and SMS when approaching critical risk thresholds or news windows.",
+      "Instant push notifications via Telegram, Email, and SMS when approaching critical risk thresholds or news windows.",
     image: "/card-images/multi-notifications.png",
     badge: "Instant Alerts",
   },
@@ -37,7 +37,7 @@ const features = [
     badge: "Analytics",
   },
   {
-    icon: Layers,
+    icon: LayoutDashboard,
     title: "Unified Dashboard",
     description:
       "Consolidate multiple MT4, MT5, and prop firm evaluation accounts into a single, high-performance monitoring interface.",

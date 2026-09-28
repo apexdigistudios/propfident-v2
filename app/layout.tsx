@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | Propfident",
   },
   description:
-    "Protect your prop firm account with real-time drawdown monitoring, dynamic position sizing, trade journaling, and MT4/MT5 analytics. Start free.",
+    "Protect your prop firm account with real-time breach protection, dynamic position sizing, Automated journaling plus Trade validation, and MT4/MT5 analytics. Start free.",
   alternates: { canonical: "./" },
   keywords: [
     "prop firm",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Propfident | Never Breach Your Prop Firm Account Again",
     description:
-      "Protect your prop firm account with real-time drawdown monitoring, dynamic position sizing, trade journaling, and MT4/MT5 analytics. Start free.",
+      "Protect your prop firm account with real-time breach protection, dynamic position sizing, Automated journaling plus Trade validation, and MT4/MT5 analytics. Start free.",
     url: "https://propfident.online/",
     siteName: "Propfident",
     images: [
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Propfident | Never Breach Your Prop Firm Account Again",
     description:
-      "Protect your prop firm account with real-time drawdown monitoring, dynamic position sizing, trade journaling, and MT4/MT5 analytics. Start free.",
+      "Protect your prop firm account with real-time breach protection, dynamic position sizing, Automated journaling plus Trade validation, and MT4/MT5 analytics. Start free.",
     images: ["/hero-bg.png"],
   },
 };

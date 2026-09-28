@@ -81,10 +81,10 @@ export default function Home() {
             <div className="flex flex-col items-start text-left">
               <div className="mb-6 flex items-center gap-2 pointer-events-none">
                 <div className="scale-75 sm:scale-85 origin-left shrink-0 -mr-2 sm:-mr-1">
-                  <AvatarCircles numPeople={25} avatarUrls={avatarUrls} />
+                  <AvatarCircles numPeople={33} avatarUrls={avatarUrls} />
                 </div>
                 <span className="text-xs font-mono text-muted-foreground leading-tight">
-                  25+ funded accounts <strong className="text-foreground font-semibold">protected while in dev</strong>
+                  37+ funded accounts <strong className="text-foreground font-semibold">protected while in dev</strong>
                 </span>
               </div>
               
@@ -99,7 +99,7 @@ export default function Home() {
             {/* Right Column: Subheading + CTAs + Timer Banner */}
             <div className="flex flex-col items-start text-left">
               <p className="text-base sm:text-lg text-muted-foreground mb-8 leading-relaxed font-normal">
-                Protect your prop firm account with real-time drawdown monitoring, dynamic position sizing, trade journaling, and MT4/MT5 analytics. Start free.
+                "Protect your prop firm account with real-time breach protection, dynamic position sizing, Automated journaling plus Trade validation, and MT4/MT5 analytics. Start free.
               </p>
               
               <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto mb-8">
@@ -120,8 +120,8 @@ export default function Home() {
                   <Timer className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <div className="flex-1 text-center sm:text-left">
-                  <h3 className="font-medium text-sm text-foreground mb-0.5 font-sans">Founder's Lifetime Launch</h3>
-                  <p className="text-xs text-muted-foreground">Only 100 spots available for lifetime access without recurring fees.</p>
+                  <h3 className="font-medium text-sm text-foreground mb-0.5 font-sans">Lifetime Access Launch</h3>
+                  <p className="text-xs text-muted-foreground">Only 100 spots available for lifetime access. Join now to use Propfident core features freely in the future without recurring fees.</p>
                 </div>
                 <div className="flex gap-2 text-center items-center justify-center font-mono">
                   <div className="flex flex-col bg-background px-2.5 py-1 rounded border border-border">

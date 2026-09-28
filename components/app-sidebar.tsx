@@ -47,7 +47,12 @@ import {
   Mail,
   Plus,
   Check,
-  ShieldAlert
+  ShieldAlert,
+  ChartBar,
+  ChartBarIcon,
+  MonitorCheck,
+  MonitorIcon,
+  MonitorCog
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -193,7 +198,7 @@ export function AppSidebar() {
 
   const navigation = [
     { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
-    { name: "Playbook", href: "/dashboard/playbook", icon: BookOpen },
+    { name: "Account Intel", href: "/dashboard/playbook", icon: MonitorCog },
   ];
 
   return (
