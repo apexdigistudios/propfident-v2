@@ -184,7 +184,7 @@ function UserpaneContent() {
         <div className="grid grid-cols-2 gap-2 md:gap-4">
           <Card
             onClick={() => changeView("account-intel")}
-            className="group relative overflow-hidden h-32 md:h-52 rounded-2xl md:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
+            className="group relative overflow-hidden h-32 md:h-52 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
           >
             <div className="absolute inset-0 z-0">
               <Image
@@ -194,18 +194,18 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2 md:p-3 flex flex-col justify-between">
+            <div className="relative z-20 h-full p-3 md:p-5 flex flex-col justify-between text-white">
               <div className="flex justify-end">
-                <Badge className="bg-slate-950/80 backdrop-blur-md text-white border border-white/10 font-mono text-[8px] md:text-[10px] rounded-full px-2 py-0.5 shadow-sm">
+                <Badge className="bg-black/60 text-white border border-white/20 font-mono text-[8px] md:text-[10px] rounded-full px-2 py-0.5 shadow-sm">
                   Live
                 </Badge>
               </div>
-              <div className="bg-slate-950/75 backdrop-blur-md border border-white/15 rounded-xl md:rounded-2xl p-2 md:p-3 text-white shadow-lg">
-                <h3 className="font-bold text-[11px] md:text-base flex items-center justify-between">
+              <div className="[text-shadow:_0_2px_6px_rgba(0,0,0,0.95)]">
+                <h3 className="font-extrabold text-xs md:text-lg flex items-center justify-between tracking-tight">
                   <span className="truncate">Account Intel</span>
-                  <ChevronRight className="hidden md:block size-4 text-white/80 group-hover:translate-x-1 transition-transform" />
+                  <ChevronRight className="hidden md:block size-4 text-white group-hover:translate-x-1 transition-transform" />
                 </h3>
-                <p className="text-[9px] md:text-xs text-slate-200 line-clamp-1 md:line-clamp-2 mt-0.5">
+                <p className="text-[10px] md:text-xs text-white font-medium line-clamp-1 md:line-clamp-2 mt-0.5">
                   Live drawdown limits & safety tracking.
                 </p>
               </div>
@@ -214,7 +214,7 @@ function UserpaneContent() {
 
           <Card
             onClick={() => changeView("journal")}
-            className="group relative overflow-hidden h-32 md:h-52 rounded-2xl md:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
+            className="group relative overflow-hidden h-32 md:h-52 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
           >
             <div className="absolute inset-0 z-0">
               <Image
@@ -224,18 +224,18 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2 md:p-3 flex flex-col justify-between">
+            <div className="relative z-20 h-full p-3 md:p-5 flex flex-col justify-between text-white">
               <div className="flex justify-end">
-                <Badge className="bg-slate-950/80 backdrop-blur-md text-white border border-white/10 font-mono text-[8px] md:text-[10px] rounded-full px-2 py-0.5 shadow-sm">
+                <Badge className="bg-black/60 text-white border border-white/20 font-mono text-[8px] md:text-[10px] rounded-full px-2 py-0.5 shadow-sm">
                   Analytics
                 </Badge>
               </div>
-              <div className="bg-slate-950/75 backdrop-blur-md border border-white/15 rounded-xl md:rounded-2xl p-2 md:p-3 text-white shadow-lg">
-                <h3 className="font-bold text-[11px] md:text-base flex items-center justify-between">
+              <div className="[text-shadow:_0_2px_6px_rgba(0,0,0,0.95)]">
+                <h3 className="font-extrabold text-xs md:text-lg flex items-center justify-between tracking-tight">
                   <span className="truncate">Trading Journal</span>
-                  <ChevronRight className="hidden md:block size-4 text-white/80 group-hover:translate-x-1 transition-transform" />
+                  <ChevronRight className="hidden md:block size-4 text-white group-hover:translate-x-1 transition-transform" />
                 </h3>
-                <p className="text-[9px] md:text-xs text-slate-200 line-clamp-1 md:line-clamp-2 mt-0.5">
+                <p className="text-[10px] md:text-xs text-white font-medium line-clamp-1 md:line-clamp-2 mt-0.5">
                   Log trades, track wins & evaluate RR.
                 </p>
               </div>
@@ -256,7 +256,7 @@ function UserpaneContent() {
         <div className="grid grid-cols-3 gap-2 md:gap-4">
           <Card
             onClick={() => changeView("lot-calculator")}
-            className="group relative overflow-hidden h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
+            className="group relative overflow-hidden h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
           >
             <div className="absolute inset-0 z-0">
               <Image
@@ -266,17 +266,15 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2 flex flex-col justify-end">
-              <div className="bg-slate-950/75 backdrop-blur-md border border-white/15 rounded-lg md:rounded-xl p-1.5 md:p-2 text-white shadow-lg">
-                <h4 className="text-[10px] md:text-xs font-bold truncate">Lot Calc</h4>
-                <p className="hidden md:block text-[10px] text-slate-200 truncate mt-0.5">Position sizing</p>
-              </div>
+            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-white [text-shadow:_0_2px_6px_rgba(0,0,0,0.95)]">
+              <h4 className="text-[11px] md:text-sm font-extrabold truncate">Lot Calc</h4>
+              <p className="hidden md:block text-[11px] text-white font-medium truncate mt-0.5">Position sizing</p>
             </div>
           </Card>
 
           <Card
             onClick={() => changeView("prop-match")}
-            className="group relative overflow-hidden h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
+            className="group relative overflow-hidden h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
           >
             <div className="absolute inset-0 z-0">
               <Image
@@ -286,17 +284,15 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2 flex flex-col justify-end">
-              <div className="bg-slate-950/75 backdrop-blur-md border border-white/15 rounded-lg md:rounded-xl p-1.5 md:p-2 text-white shadow-lg">
-                <h4 className="text-[10px] md:text-xs font-bold truncate">Prop Match</h4>
-                <p className="hidden md:block text-[10px] text-slate-200 truncate mt-0.5">Compare firms</p>
-              </div>
+            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-white [text-shadow:_0_2px_6px_rgba(0,0,0,0.95)]">
+              <h4 className="text-[11px] md:text-sm font-extrabold truncate">Prop Match</h4>
+              <p className="hidden md:block text-[11px] text-white font-medium truncate mt-0.5">Compare firms</p>
             </div>
           </Card>
 
           <Card
             onClick={() => changeView("trade-assist")}
-            className="group relative overflow-hidden h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
+            className="group relative overflow-hidden h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
           >
             <div className="absolute inset-0 z-0">
               <Image
@@ -306,11 +302,9 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2 flex flex-col justify-end">
-              <div className="bg-slate-950/75 backdrop-blur-md border border-white/15 rounded-lg md:rounded-xl p-1.5 md:p-2 text-white shadow-lg">
-                <h4 className="text-[10px] md:text-xs font-bold truncate">Assist</h4>
-                <p className="hidden md:block text-[10px] text-slate-200 truncate mt-0.5">Execution guide</p>
-              </div>
+            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-white [text-shadow:_0_2px_6px_rgba(0,0,0,0.95)]">
+              <h4 className="text-[11px] md:text-sm font-extrabold truncate">Assist</h4>
+              <p className="hidden md:block text-[11px] text-white font-medium truncate mt-0.5">Execution guide</p>
             </div>
           </Card>
         </div>
@@ -327,7 +321,7 @@ function UserpaneContent() {
         <div className="grid grid-cols-3 gap-2 md:gap-4">
           <Card
             onClick={() => changeView("roadmap")}
-            className="group relative overflow-hidden h-32 md:h-48 rounded-2xl md:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
+            className="group relative overflow-hidden h-32 md:h-48 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
           >
             <div className="absolute inset-0 z-0">
               <Image
@@ -337,17 +331,15 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2 flex flex-col justify-end">
-              <div className="bg-slate-950/75 backdrop-blur-md border border-white/15 rounded-lg md:rounded-xl p-1.5 md:p-2 text-white shadow-lg">
-                <h3 className="font-bold text-[10px] md:text-xs truncate leading-tight">Roadmap</h3>
-                <p className="hidden md:block text-[10px] text-slate-200 line-clamp-2 mt-0.5">Capital compounding blueprint.</p>
-              </div>
+            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-white [text-shadow:_0_2px_6px_rgba(0,0,0,0.95)]">
+              <h3 className="font-extrabold text-[11px] md:text-sm truncate leading-tight">Roadmap</h3>
+              <p className="hidden md:block text-[11px] text-white font-medium line-clamp-2 mt-0.5">Capital compounding blueprint.</p>
             </div>
           </Card>
 
           <Card
             onClick={() => changeView("trade-notifier")}
-            className="group relative overflow-hidden h-32 md:h-48 rounded-2xl md:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
+            className="group relative overflow-hidden h-32 md:h-48 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
           >
             <div className="absolute inset-0 z-0">
               <Image
@@ -357,17 +349,15 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2 flex flex-col justify-end">
-              <div className="bg-slate-950/75 backdrop-blur-md border border-white/15 rounded-lg md:rounded-xl p-1.5 md:p-2 text-white shadow-lg">
-                <h3 className="font-bold text-[10px] md:text-xs truncate leading-tight">Alerts</h3>
-                <p className="hidden md:block text-[10px] text-slate-200 line-clamp-2 mt-0.5">Custom limit notifications.</p>
-              </div>
+            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-white [text-shadow:_0_2px_6px_rgba(0,0,0,0.95)]">
+              <h3 className="font-extrabold text-[11px] md:text-sm truncate leading-tight">Alerts</h3>
+              <p className="hidden md:block text-[11px] text-white font-medium line-clamp-2 mt-0.5">Custom limit notifications.</p>
             </div>
           </Card>
 
           <Card
             onClick={() => changeView("trade-ideas")}
-            className="group relative overflow-hidden h-32 md:h-48 rounded-2xl md:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
+            className="group relative overflow-hidden h-32 md:h-48 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
           >
             <div className="absolute inset-0 z-0">
               <Image
@@ -377,11 +367,9 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2 flex flex-col justify-end">
-              <div className="bg-slate-950/75 backdrop-blur-md border border-white/15 rounded-lg md:rounded-xl p-1.5 md:p-2 text-white shadow-lg">
-                <h3 className="font-bold text-[10px] md:text-xs truncate leading-tight">Ideas</h3>
-                <p className="hidden md:block text-[10px] text-slate-200 line-clamp-2 mt-0.5">Daily bias & setup analysis.</p>
-              </div>
+            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-white [text-shadow:_0_2px_6px_rgba(0,0,0,0.95)]">
+              <h3 className="font-extrabold text-[11px] md:text-sm truncate leading-tight">Ideas</h3>
+              <p className="hidden md:block text-[11px] text-white font-medium line-clamp-2 mt-0.5">Daily bias & setup analysis.</p>
             </div>
           </Card>
         </div>
