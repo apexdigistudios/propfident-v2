@@ -133,7 +133,7 @@ function UserpaneContent() {
   return (
     <div className="p-2 md:p-8 max-w-7xl mx-auto space-y-4 md:space-y-6 pb-24 md:pb-10 overflow-x-hidden">
       {/* 1. TOP HERO BANNER */}
-      <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-amber-600 text-primary-foreground p-4 md:p-8 shadow-lg md:shadow-xl">
+      <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-amber-600 text-primary-foreground p-4 md:p-8 shadow-lg md:shadow-xl border border-primary/20">
         <div className="absolute -right-10 -bottom-10 size-40 md:size-60 bg-white/10 rounded-full blur-2xl pointer-events-none" />
         <div className="absolute top-2 right-2 md:top-4 md:right-4 bg-white/15 backdrop-blur-md px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[9px] md:text-[11px] font-mono tracking-wide flex items-center gap-1 border border-white/20">
           <ShieldCheck className="size-3 md:size-3.5 text-emerald-300" />
@@ -184,7 +184,7 @@ function UserpaneContent() {
         <div className="grid grid-cols-2 gap-2 md:gap-4">
           <Card
             onClick={() => changeView("account-intel")}
-            className="group relative overflow-hidden h-28 md:h-48 rounded-2xl md:rounded-3xl border-0 shadow-sm hover:shadow-lg cursor-pointer"
+            className="group relative overflow-hidden h-32 md:h-52 rounded-2xl md:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
           >
             <div className="absolute inset-0 z-0">
               <Image
@@ -194,18 +194,18 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2.5 md:p-5 flex flex-col justify-between text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+            <div className="relative z-20 h-full p-2 md:p-3 flex flex-col justify-between">
               <div className="flex justify-end">
-                <Badge className="bg-black/40 hover:bg-black/60 backdrop-blur-md text-white border-0 font-mono text-[8px] md:text-[10px] rounded-full px-1.5 md:px-2.5 shadow-none">
+                <Badge className="bg-slate-950/80 backdrop-blur-md text-white border border-white/10 font-mono text-[8px] md:text-[10px] rounded-full px-2 py-0.5 shadow-sm">
                   Live
                 </Badge>
               </div>
-              <div>
-                <h3 className="font-bold text-[11px] md:text-lg flex items-center justify-between">
+              <div className="bg-slate-950/75 backdrop-blur-md border border-white/15 rounded-xl md:rounded-2xl p-2 md:p-3 text-white shadow-lg">
+                <h3 className="font-bold text-[11px] md:text-base flex items-center justify-between">
                   <span className="truncate">Account Intel</span>
-                  <ChevronRight className="hidden md:block size-4 text-white group-hover:translate-x-1 transition-transform" />
+                  <ChevronRight className="hidden md:block size-4 text-white/80 group-hover:translate-x-1 transition-transform" />
                 </h3>
-                <p className="text-[9px] md:text-sm text-white/90 line-clamp-1 md:line-clamp-2 mt-0.5 md:mt-1">
+                <p className="text-[9px] md:text-xs text-slate-200 line-clamp-1 md:line-clamp-2 mt-0.5">
                   Live drawdown limits & safety tracking.
                 </p>
               </div>
@@ -214,7 +214,7 @@ function UserpaneContent() {
 
           <Card
             onClick={() => changeView("journal")}
-            className="group relative overflow-hidden h-28 md:h-48 rounded-2xl md:rounded-3xl border-0 shadow-sm hover:shadow-lg cursor-pointer"
+            className="group relative overflow-hidden h-32 md:h-52 rounded-2xl md:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
           >
             <div className="absolute inset-0 z-0">
               <Image
@@ -224,18 +224,18 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2.5 md:p-5 flex flex-col justify-between text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+            <div className="relative z-20 h-full p-2 md:p-3 flex flex-col justify-between">
               <div className="flex justify-end">
-                <Badge className="bg-black/40 hover:bg-black/60 backdrop-blur-md text-white border-0 font-mono text-[8px] md:text-[10px] rounded-full px-1.5 md:px-2.5 shadow-none">
+                <Badge className="bg-slate-950/80 backdrop-blur-md text-white border border-white/10 font-mono text-[8px] md:text-[10px] rounded-full px-2 py-0.5 shadow-sm">
                   Analytics
                 </Badge>
               </div>
-              <div>
-                <h3 className="font-bold text-[11px] md:text-lg flex items-center justify-between">
+              <div className="bg-slate-950/75 backdrop-blur-md border border-white/15 rounded-xl md:rounded-2xl p-2 md:p-3 text-white shadow-lg">
+                <h3 className="font-bold text-[11px] md:text-base flex items-center justify-between">
                   <span className="truncate">Trading Journal</span>
-                  <ChevronRight className="hidden md:block size-4 text-white group-hover:translate-x-1 transition-transform" />
+                  <ChevronRight className="hidden md:block size-4 text-white/80 group-hover:translate-x-1 transition-transform" />
                 </h3>
-                <p className="text-[9px] md:text-sm text-white/90 line-clamp-1 md:line-clamp-2 mt-0.5 md:mt-1">
+                <p className="text-[9px] md:text-xs text-slate-200 line-clamp-1 md:line-clamp-2 mt-0.5">
                   Log trades, track wins & evaluate RR.
                 </p>
               </div>
@@ -256,7 +256,7 @@ function UserpaneContent() {
         <div className="grid grid-cols-3 gap-2 md:gap-4">
           <Card
             onClick={() => changeView("lot-calculator")}
-            className="group relative overflow-hidden h-24 md:h-32 rounded-2xl md:rounded-3xl border-0 shadow-sm hover:shadow-lg cursor-pointer"
+            className="group relative overflow-hidden h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
           >
             <div className="absolute inset-0 z-0">
               <Image
@@ -266,15 +266,17 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2 md:p-4 flex flex-col justify-end text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-              <h4 className="text-[10px] md:text-sm font-bold truncate">Lot Calc</h4>
-              <p className="hidden md:block text-[11px] text-white/90 truncate mt-0.5">Position sizing</p>
+            <div className="relative z-20 h-full p-2 flex flex-col justify-end">
+              <div className="bg-slate-950/75 backdrop-blur-md border border-white/15 rounded-lg md:rounded-xl p-1.5 md:p-2 text-white shadow-lg">
+                <h4 className="text-[10px] md:text-xs font-bold truncate">Lot Calc</h4>
+                <p className="hidden md:block text-[10px] text-slate-200 truncate mt-0.5">Position sizing</p>
+              </div>
             </div>
           </Card>
 
           <Card
             onClick={() => changeView("prop-match")}
-            className="group relative overflow-hidden h-24 md:h-32 rounded-2xl md:rounded-3xl border-0 shadow-sm hover:shadow-lg cursor-pointer"
+            className="group relative overflow-hidden h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
           >
             <div className="absolute inset-0 z-0">
               <Image
@@ -284,15 +286,17 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2 md:p-4 flex flex-col justify-end text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-              <h4 className="text-[10px] md:text-sm font-bold truncate">Prop Match</h4>
-              <p className="hidden md:block text-[11px] text-white/90 truncate mt-0.5">Compare firms</p>
+            <div className="relative z-20 h-full p-2 flex flex-col justify-end">
+              <div className="bg-slate-950/75 backdrop-blur-md border border-white/15 rounded-lg md:rounded-xl p-1.5 md:p-2 text-white shadow-lg">
+                <h4 className="text-[10px] md:text-xs font-bold truncate">Prop Match</h4>
+                <p className="hidden md:block text-[10px] text-slate-200 truncate mt-0.5">Compare firms</p>
+              </div>
             </div>
           </Card>
 
           <Card
             onClick={() => changeView("trade-assist")}
-            className="group relative overflow-hidden h-24 md:h-32 rounded-2xl md:rounded-3xl border-0 shadow-sm hover:shadow-lg cursor-pointer"
+            className="group relative overflow-hidden h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
           >
             <div className="absolute inset-0 z-0">
               <Image
@@ -302,9 +306,11 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2 md:p-4 flex flex-col justify-end text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-              <h4 className="text-[10px] md:text-sm font-bold truncate">Assist</h4>
-              <p className="hidden md:block text-[11px] text-white/90 truncate mt-0.5">Execution guide</p>
+            <div className="relative z-20 h-full p-2 flex flex-col justify-end">
+              <div className="bg-slate-950/75 backdrop-blur-md border border-white/15 rounded-lg md:rounded-xl p-1.5 md:p-2 text-white shadow-lg">
+                <h4 className="text-[10px] md:text-xs font-bold truncate">Assist</h4>
+                <p className="hidden md:block text-[10px] text-slate-200 truncate mt-0.5">Execution guide</p>
+              </div>
             </div>
           </Card>
         </div>
@@ -321,7 +327,7 @@ function UserpaneContent() {
         <div className="grid grid-cols-3 gap-2 md:gap-4">
           <Card
             onClick={() => changeView("roadmap")}
-            className="group relative overflow-hidden h-32 md:h-48 rounded-2xl md:rounded-3xl border-0 shadow-sm hover:shadow-lg cursor-pointer"
+            className="group relative overflow-hidden h-32 md:h-48 rounded-2xl md:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
           >
             <div className="absolute inset-0 z-0">
               <Image
@@ -331,15 +337,17 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2 md:p-4 flex flex-col justify-end text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-              <h3 className="font-bold text-[10px] md:text-sm mb-0.5 md:mb-1 truncate leading-tight">Roadmap</h3>
-              <p className="hidden md:block text-[11px] md:text-xs text-white/90 line-clamp-2">Capital compounding blueprint.</p>
+            <div className="relative z-20 h-full p-2 flex flex-col justify-end">
+              <div className="bg-slate-950/75 backdrop-blur-md border border-white/15 rounded-lg md:rounded-xl p-1.5 md:p-2 text-white shadow-lg">
+                <h3 className="font-bold text-[10px] md:text-xs truncate leading-tight">Roadmap</h3>
+                <p className="hidden md:block text-[10px] text-slate-200 line-clamp-2 mt-0.5">Capital compounding blueprint.</p>
+              </div>
             </div>
           </Card>
 
           <Card
             onClick={() => changeView("trade-notifier")}
-            className="group relative overflow-hidden h-32 md:h-48 rounded-2xl md:rounded-3xl border-0 shadow-sm hover:shadow-lg cursor-pointer"
+            className="group relative overflow-hidden h-32 md:h-48 rounded-2xl md:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
           >
             <div className="absolute inset-0 z-0">
               <Image
@@ -349,15 +357,17 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2 md:p-4 flex flex-col justify-end text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-              <h3 className="font-bold text-[10px] md:text-sm mb-0.5 md:mb-1 truncate leading-tight">Alerts</h3>
-              <p className="hidden md:block text-[11px] md:text-xs text-white/90 line-clamp-2">Custom limit notifications.</p>
+            <div className="relative z-20 h-full p-2 flex flex-col justify-end">
+              <div className="bg-slate-950/75 backdrop-blur-md border border-white/15 rounded-lg md:rounded-xl p-1.5 md:p-2 text-white shadow-lg">
+                <h3 className="font-bold text-[10px] md:text-xs truncate leading-tight">Alerts</h3>
+                <p className="hidden md:block text-[10px] text-slate-200 line-clamp-2 mt-0.5">Custom limit notifications.</p>
+              </div>
             </div>
           </Card>
 
           <Card
             onClick={() => changeView("trade-ideas")}
-            className="group relative overflow-hidden h-32 md:h-48 rounded-2xl md:rounded-3xl border-0 shadow-sm hover:shadow-lg cursor-pointer"
+            className="group relative overflow-hidden h-32 md:h-48 rounded-2xl md:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
           >
             <div className="absolute inset-0 z-0">
               <Image
@@ -367,9 +377,11 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2 md:p-4 flex flex-col justify-end text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-              <h3 className="font-bold text-[10px] md:text-sm mb-0.5 md:mb-1 truncate leading-tight">Ideas</h3>
-              <p className="hidden md:block text-[11px] md:text-xs text-white/90 line-clamp-2">Daily bias & setup analysis.</p>
+            <div className="relative z-20 h-full p-2 flex flex-col justify-end">
+              <div className="bg-slate-950/75 backdrop-blur-md border border-white/15 rounded-lg md:rounded-xl p-1.5 md:p-2 text-white shadow-lg">
+                <h3 className="font-bold text-[10px] md:text-xs truncate leading-tight">Ideas</h3>
+                <p className="hidden md:block text-[10px] text-slate-200 line-clamp-2 mt-0.5">Daily bias & setup analysis.</p>
+              </div>
             </div>
           </Card>
         </div>
