@@ -194,18 +194,18 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-3 md:p-5 flex flex-col justify-between text-white">
+            <div className="relative z-20 h-full p-3 md:p-5 flex flex-col justify-between text-slate-950">
               <div className="flex justify-end">
-                <Badge className="bg-black/60 text-white border border-white/20 font-mono text-[8px] md:text-[10px] rounded-full px-2 py-0.5 shadow-sm">
+                <Badge className="bg-slate-900 text-white border border-slate-700 font-mono text-[8px] md:text-[10px] rounded-full px-2 py-0.5 shadow-sm">
                   Live
                 </Badge>
               </div>
-              <div className="[text-shadow:_0_2px_6px_rgba(0,0,0,0.95)]">
-                <h3 className="font-extrabold text-xs md:text-lg flex items-center justify-between tracking-tight">
+              <div>
+                <h3 className="font-extrabold text-xs md:text-lg flex items-center justify-between tracking-tight text-slate-950">
                   <span className="truncate">Account Intel</span>
-                  <ChevronRight className="hidden md:block size-4 text-white group-hover:translate-x-1 transition-transform" />
+                  <ChevronRight className="hidden md:block size-4 text-slate-800 group-hover:translate-x-1 transition-transform" />
                 </h3>
-                <p className="text-[10px] md:text-xs text-white font-medium line-clamp-1 md:line-clamp-2 mt-0.5">
+                <p className="text-[10px] md:text-xs text-slate-700 font-semibold line-clamp-1 md:line-clamp-2 mt-0.5">
                   Live drawdown limits & safety tracking.
                 </p>
               </div>
@@ -224,18 +224,18 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-3 md:p-5 flex flex-col justify-between text-white">
+            <div className="relative z-20 h-full p-3 md:p-5 flex flex-col justify-between text-slate-950">
               <div className="flex justify-end">
-                <Badge className="bg-black/60 text-white border border-white/20 font-mono text-[8px] md:text-[10px] rounded-full px-2 py-0.5 shadow-sm">
+                <Badge className="bg-slate-900 text-white border border-slate-700 font-mono text-[8px] md:text-[10px] rounded-full px-2 py-0.5 shadow-sm">
                   Analytics
                 </Badge>
               </div>
-              <div className="[text-shadow:_0_2px_6px_rgba(0,0,0,0.95)]">
-                <h3 className="font-extrabold text-xs md:text-lg flex items-center justify-between tracking-tight">
+              <div>
+                <h3 className="font-extrabold text-xs md:text-lg flex items-center justify-between tracking-tight text-slate-950">
                   <span className="truncate">Trading Journal</span>
-                  <ChevronRight className="hidden md:block size-4 text-white group-hover:translate-x-1 transition-transform" />
+                  <ChevronRight className="hidden md:block size-4 text-slate-800 group-hover:translate-x-1 transition-transform" />
                 </h3>
-                <p className="text-[10px] md:text-xs text-white font-medium line-clamp-1 md:line-clamp-2 mt-0.5">
+                <p className="text-[10px] md:text-xs text-slate-700 font-semibold line-clamp-1 md:line-clamp-2 mt-0.5">
                   Log trades, track wins & evaluate RR.
                 </p>
               </div>
@@ -266,9 +266,9 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-white [text-shadow:_0_2px_6px_rgba(0,0,0,0.95)]">
-              <h4 className="text-[11px] md:text-sm font-extrabold truncate">Lot Calc</h4>
-              <p className="hidden md:block text-[11px] text-white font-medium truncate mt-0.5">Position sizing</p>
+            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-slate-950">
+              <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-950">Lot Calc</h4>
+              <p className="hidden md:block text-[11px] text-slate-700 font-semibold truncate mt-0.5">Position sizing</p>
             </div>
           </Card>
 
@@ -284,9 +284,9 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-white [text-shadow:_0_2px_6px_rgba(0,0,0,0.95)]">
-              <h4 className="text-[11px] md:text-sm font-extrabold truncate">Prop Match</h4>
-              <p className="hidden md:block text-[11px] text-white font-medium truncate mt-0.5">Compare firms</p>
+            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-slate-950">
+              <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-950">Prop Match</h4>
+              <p className="hidden md:block text-[11px] text-slate-700 font-semibold truncate mt-0.5">Compare firms</p>
             </div>
           </Card>
 
@@ -302,9 +302,9 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-white [text-shadow:_0_2px_6px_rgba(0,0,0,0.95)]">
-              <h4 className="text-[11px] md:text-sm font-extrabold truncate">Assist</h4>
-              <p className="hidden md:block text-[11px] text-white font-medium truncate mt-0.5">Execution guide</p>
+            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-slate-950">
+              <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-950">Assist</h4>
+              <p className="hidden md:block text-[11px] text-slate-700 font-semibold truncate mt-0.5">Execution guide</p>
             </div>
           </Card>
         </div>
@@ -331,9 +331,9 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-white [text-shadow:_0_2px_6px_rgba(0,0,0,0.95)]">
-              <h3 className="font-extrabold text-[11px] md:text-sm truncate leading-tight">Roadmap</h3>
-              <p className="hidden md:block text-[11px] text-white font-medium line-clamp-2 mt-0.5">Capital compounding blueprint.</p>
+            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-slate-950">
+              <h3 className="font-extrabold text-[11px] md:text-sm truncate leading-tight text-slate-950">Roadmap</h3>
+              <p className="hidden md:block text-[11px] text-slate-700 font-semibold line-clamp-2 mt-0.5">Capital compounding blueprint.</p>
             </div>
           </Card>
 
@@ -349,9 +349,9 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-white [text-shadow:_0_2px_6px_rgba(0,0,0,0.95)]">
-              <h3 className="font-extrabold text-[11px] md:text-sm truncate leading-tight">Alerts</h3>
-              <p className="hidden md:block text-[11px] text-white font-medium line-clamp-2 mt-0.5">Custom limit notifications.</p>
+            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-slate-950">
+              <h3 className="font-extrabold text-[11px] md:text-sm truncate leading-tight text-slate-950">Alerts</h3>
+              <p className="hidden md:block text-[11px] text-slate-700 font-semibold line-clamp-2 mt-0.5">Custom limit notifications.</p>
             </div>
           </Card>
 
@@ -367,9 +367,9 @@ function UserpaneContent() {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-white [text-shadow:_0_2px_6px_rgba(0,0,0,0.95)]">
-              <h3 className="font-extrabold text-[11px] md:text-sm truncate leading-tight">Ideas</h3>
-              <p className="hidden md:block text-[11px] text-white font-medium line-clamp-2 mt-0.5">Daily bias & setup analysis.</p>
+            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-slate-950">
+              <h3 className="font-extrabold text-[11px] md:text-sm truncate leading-tight text-slate-950">Ideas</h3>
+              <p className="hidden md:block text-[11px] text-slate-700 font-semibold line-clamp-2 mt-0.5">Daily bias & setup analysis.</p>
             </div>
           </Card>
         </div>
