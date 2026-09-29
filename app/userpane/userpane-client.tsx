@@ -188,10 +188,10 @@ function UserpaneContent() {
           >
             <div className="absolute inset-0 z-0 bg-indigo-950">
               <Image
-                src="/images/cards/account-intel.jpg"
-                alt="Account Intel Background"
+                src="/images/userpane/account-intel.png"
+                alt="Account Intel"
                 fill
-                className="object-cover opacity-30 group-hover:scale-105 transition-transform duration-300"
+                className="object-cover opacity-35 group-hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
@@ -219,10 +219,10 @@ function UserpaneContent() {
           >
             <div className="absolute inset-0 z-0 bg-emerald-950">
               <Image
-                src="/images/cards/journal.jpg"
-                alt="Trading Journal Background"
+                src="/images/userpane/trading-journal.png"
+                alt="Trading Journal"
                 fill
-                className="object-cover opacity-30 group-hover:scale-105 transition-transform duration-300"
+                className="object-cover opacity-35 group-hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
@@ -262,10 +262,10 @@ function UserpaneContent() {
           >
             <div className="absolute inset-0 z-0 bg-blue-950">
               <Image
-                src="/images/cards/lot-calc.jpg"
-                alt="Lot Calc Background"
+                src="/images/userpane/lot-calculator.png"
+                alt="Lot Calculator"
                 fill
-                className="object-cover opacity-30 group-hover:scale-105 transition-transform duration-300"
+                className="object-cover opacity-35 group-hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
@@ -281,10 +281,10 @@ function UserpaneContent() {
           >
             <div className="absolute inset-0 z-0 bg-amber-950">
               <Image
-                src="/images/cards/prop-match.jpg"
-                alt="Prop Match Background"
+                src="/images/userpane/prop-match.png"
+                alt="Prop Match"
                 fill
-                className="object-cover opacity-30 group-hover:scale-105 transition-transform duration-300"
+                className="object-cover opacity-35 group-hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
@@ -300,10 +300,10 @@ function UserpaneContent() {
           >
             <div className="absolute inset-0 z-0 bg-purple-950">
               <Image
-                src="/images/cards/trade-assist.jpg"
-                alt="Trade Assist Background"
+                src="/images/userpane/trade-assist.png"
+                alt="Trade Assist"
                 fill
-                className="object-cover opacity-30 group-hover:scale-105 transition-transform duration-300"
+                className="object-cover opacity-35 group-hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
@@ -330,10 +330,10 @@ function UserpaneContent() {
           >
             <div className="absolute inset-0 z-0 bg-yellow-950/80">
               <Image
-                src="/images/cards/roadmap.jpg"
-                alt="Roadmap Background"
+                src="/images/userpane/roadmap.png"
+                alt="Roadmap"
                 fill
-                className="object-cover opacity-30 group-hover:scale-105 transition-transform duration-300"
+                className="object-cover opacity-35 group-hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/50 to-black/10" />
@@ -349,16 +349,16 @@ function UserpaneContent() {
           >
             <div className="absolute inset-0 z-0 bg-rose-950/80">
               <Image
-                src="/images/cards/trade-notifier.jpg"
-                alt="Trade Notifier Background"
+                src="/images/userpane/alerts.png"
+                alt="Alerts"
                 fill
-                className="object-cover opacity-30 group-hover:scale-105 transition-transform duration-300"
+                className="object-cover opacity-35 group-hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/50 to-black/10" />
             <div className="relative z-20 h-full p-2 md:p-4 flex flex-col justify-end text-white">
               <h3 className="font-bold text-[10px] md:text-sm mb-0.5 md:mb-1 truncate leading-tight">Alerts</h3>
-              <p className="hidden md:block text-[11px] md:text-xs text-white/70 line-clamp-2">Custom limit notifications.</p>
+              <p className="hidden md:block text-[11px] text-xs text-white/70 line-clamp-2">Custom limit notifications.</p>
             </div>
           </Card>
 
@@ -368,10 +368,10 @@ function UserpaneContent() {
           >
             <div className="absolute inset-0 z-0 bg-cyan-950/80">
               <Image
-                src="/images/cards/trade-ideas.jpg"
-                alt="Trade Ideas Background"
+                src="/images/userpane/trade-ideas.png"
+                alt="Trade Ideas"
                 fill
-                className="object-cover opacity-30 group-hover:scale-105 transition-transform duration-300"
+                className="object-cover opacity-35 group-hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/50 to-black/10" />

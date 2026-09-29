@@ -1,5 +1,4 @@
 {
-  "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js",
-  "/userpane/page": "app/userpane/page.js",
-  "/(marketing)/page": "app/(marketing)/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/userpane/page": "app/userpane/page.js"
 }
