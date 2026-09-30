@@ -256,55 +256,40 @@ function UserpaneContent() {
         <div className="grid grid-cols-3 gap-2 md:gap-4">
           <Card
             onClick={() => changeView("lot-calculator")}
-            className="group relative overflow-hidden h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
+            className="group relative h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-850 bg-slate-50/50 dark:bg-zinc-900/50 hover:bg-slate-100/50 dark:hover:bg-zinc-900/80 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center gap-2"
           >
-            <div className="absolute inset-0 z-0">
-              <Image
-                src="/images/userpane/lot-calculator.png"
-                alt="Lot Calculator"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-300 brightness-90 opacity-90"
-              />
+            <div className="flex items-center justify-center size-9 md:size-14 rounded-full bg-slate-200/50 dark:bg-zinc-800/80 group-hover:bg-slate-200 dark:group-hover:bg-zinc-800 transition-all shadow-inner">
+              <Calculator className="size-4 md:size-6 text-slate-700 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
             </div>
-            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-slate-950">
-              <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-950">Lot Calc</h4>
-              <p className="hidden md:block text-[11px] text-slate-800 font-semibold truncate mt-0.5">Position sizing</p>
+            <div className="space-y-0.5 max-w-full">
+              <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-900 dark:text-zinc-100">Lot Calc</h4>
+              <p className="hidden md:block text-[10px] md:text-xs text-muted-foreground truncate font-semibold">Position sizing</p>
             </div>
           </Card>
 
           <Card
             onClick={() => changeView("prop-match")}
-            className="group relative overflow-hidden h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
+            className="group relative h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-850 bg-slate-50/50 dark:bg-zinc-900/50 hover:bg-slate-100/50 dark:hover:bg-zinc-900/80 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center gap-2"
           >
-            <div className="absolute inset-0 z-0">
-              <Image
-                src="/images/userpane/prop-match.png"
-                alt="Prop Match"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-300 brightness-90 opacity-90"
-              />
+            <div className="flex items-center justify-center size-9 md:size-14 rounded-full bg-slate-200/50 dark:bg-zinc-800/80 group-hover:bg-slate-200 dark:group-hover:bg-zinc-800 transition-all shadow-inner">
+              <Building2 className="size-4 md:size-6 text-slate-700 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
             </div>
-            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-slate-950">
-              <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-950">Prop Match</h4>
-              <p className="hidden md:block text-[11px] text-slate-800 font-semibold truncate mt-0.5">Compare firms</p>
+            <div className="space-y-0.5 max-w-full">
+              <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-900 dark:text-zinc-100">Prop Match</h4>
+              <p className="hidden md:block text-[10px] md:text-xs text-muted-foreground truncate font-semibold">Compare firms</p>
             </div>
           </Card>
 
           <Card
             onClick={() => changeView("trade-assist")}
-            className="group relative overflow-hidden h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
+            className="group relative h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-850 bg-slate-50/50 dark:bg-zinc-900/50 hover:bg-slate-100/50 dark:hover:bg-zinc-900/80 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center gap-2"
           >
-            <div className="absolute inset-0 z-0">
-              <Image
-                src="/images/userpane/trade-assist.png"
-                alt="Trade Assist"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-300 brightness-90 opacity-90"
-              />
+            <div className="flex items-center justify-center size-9 md:size-14 rounded-full bg-slate-200/50 dark:bg-zinc-800/80 group-hover:bg-slate-200 dark:group-hover:bg-zinc-800 transition-all shadow-inner">
+              <MonitorCog className="size-4 md:size-6 text-slate-700 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
             </div>
-            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-slate-950">
-              <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-950">Assist</h4>
-              <p className="hidden md:block text-[11px] text-slate-800 font-semibold truncate mt-0.5">Execution guide</p>
+            <div className="space-y-0.5 max-w-full">
+              <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-900 dark:text-zinc-100">Assist</h4>
+              <p className="hidden md:block text-[10px] md:text-xs text-muted-foreground truncate font-semibold">Execution guide</p>
             </div>
           </Card>
         </div>
