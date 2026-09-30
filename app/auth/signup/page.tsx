@@ -4,13 +4,13 @@ import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { createClient } from "@supabase/supabase-js";
+import { createBrowserClient } from "@supabase/ssr";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { ShieldCheck, CheckCircle2, ArrowRight, Loader2, Lock } from "lucide-react";
 
-const supabase = createClient(
+const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
@@ -79,7 +79,7 @@ function SignupFormContent() {
         email: email.trim().toLowerCase(),
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/stay-tuned`,
+          emailRedirectTo: `${window.location.origin}/userDashboard`,
           data: {
             full_name: fullName,
             tier: tierParam,
@@ -157,8 +157,8 @@ function SignupFormContent() {
               <p className="text-xs text-muted-foreground leading-relaxed">
                 We sent a confirmation link to your inbox. Please check your email to complete setting up your account.
               </p>
-              <Button onClick={() => router.push("/stay-tuned")} className="w-full bg-emerald-500 hover:bg-emerald-600 text-white mt-2 font-mono text-xs">
-                Continue
+              <Button onClick={() => router.push("/userDashboard")} className="w-full bg-emerald-500 hover:bg-emerald-600 text-white mt-2 font-mono text-xs">
+                Continue to Dashboard
               </Button>
             </div>
           ) : (

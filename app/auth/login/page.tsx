@@ -4,13 +4,13 @@ import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { createClient } from "@supabase/supabase-js";
+import { createBrowserClient } from "@supabase/ssr";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { ShieldCheck, CheckCircle2, ArrowRight, Loader2, Lock } from "lucide-react";
 
-const supabase = createClient(
+const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
@@ -78,7 +78,7 @@ function LoginFormContent() {
       if (authError) {
         setError("Invalid email or password. Please try again.");
       } else {
-        router.push("/stay-tuned");
+        router.push("/userDashboard");
       }
     } catch {
       setError("An unexpected error occurred. Please try again.");

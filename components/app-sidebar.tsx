@@ -47,7 +47,6 @@ import {
   Calculator,
   Building2,
   Zap,
-  Settings,
   ChevronRight
 } from "lucide-react";
 import Link from "next/link";
@@ -142,7 +141,7 @@ export function AppSidebar() {
   const handleGoogleLogin = async () => {
     await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: `${window.location.origin}/userpane` },
+      options: { redirectTo: `${window.location.origin}/userDashboard` },
     });
   };
 
@@ -244,7 +243,7 @@ export function AppSidebar() {
               {/* Overview / Main Page */}
               <SidebarMenuItem>
                 <SidebarMenuButton asChild isActive={currentView === "overview"} tooltip="Overview">
-                  <Link href="/userpane" className="flex items-center gap-2">
+                  <Link href="/userDashboard" className="flex items-center gap-2">
                     <LayoutDashboard className="h-4 w-4 shrink-0" />
                     <span className="group-data-[collapsible=icon]:hidden">Overview</span>
                   </Link>
@@ -254,7 +253,7 @@ export function AppSidebar() {
               {/* Account Intel */}
               <SidebarMenuItem>
                 <SidebarMenuButton asChild isActive={currentView === "account-intel"} tooltip="Account Intel">
-                  <Link href="/userpane?view=account-intel" className="flex items-center gap-2">
+                  <Link href="/userDashboard?view=account-intel" className="flex items-center gap-2">
                     <MonitorCog className="h-4 w-4 shrink-0" />
                     <span className="group-data-[collapsible=icon]:hidden">Account Intel</span>
                   </Link>
@@ -264,7 +263,7 @@ export function AppSidebar() {
               {/* Journal */}
               <SidebarMenuItem>
                 <SidebarMenuButton asChild isActive={currentView === "journal"} tooltip="Journal">
-                  <Link href="/userpane?view=journal" className="flex items-center gap-2">
+                  <Link href="/userDashboard?view=journal" className="flex items-center gap-2">
                     <BookOpen className="h-4 w-4 shrink-0" />
                     <span className="group-data-[collapsible=icon]:hidden">Journal</span>
                   </Link>
@@ -292,21 +291,21 @@ export function AppSidebar() {
                 {toolsOpen && (
                   <div className="pl-6 pt-1 space-y-1 group-data-[collapsible=icon]:hidden">
                     <SidebarMenuButton asChild isActive={currentView === "lot-calculator"} size="sm">
-                      <Link href="/userpane?view=lot-calculator" className="flex items-center gap-2 text-xs">
+                      <Link href="/userDashboard?view=lot-calculator" className="flex items-center gap-2 text-xs">
                         <Calculator className="h-3.5 w-3.5 text-primary shrink-0" />
                         <span>Lot Calculator</span>
                       </Link>
                     </SidebarMenuButton>
 
                     <SidebarMenuButton asChild isActive={currentView === "prop-match"} size="sm">
-                      <Link href="/userpane?view=prop-match" className="flex items-center gap-2 text-xs">
+                      <Link href="/userDashboard?view=prop-match" className="flex items-center gap-2 text-xs">
                         <Building2 className="h-3.5 w-3.5 text-primary shrink-0" />
                         <span>Prop Match</span>
                       </Link>
                     </SidebarMenuButton>
 
                     <SidebarMenuButton asChild isActive={currentView === "trade-assist"} size="sm">
-                      <Link href="/userpane?view=trade-assist" className="flex items-center gap-2 text-xs">
+                      <Link href="/userDashboard?view=trade-assist" className="flex items-center gap-2 text-xs">
                         <Zap className="h-3.5 w-3.5 text-primary shrink-0" />
                         <span>Trade Assist</span>
                       </Link>

@@ -108,7 +108,7 @@ export function MobileNav() {
   const handleGoogleLogin = async () => {
     await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: `${window.location.origin}/userpane` },
+      options: { redirectTo: `${window.location.origin}/userDashboard` },
     });
   };
 
@@ -154,7 +154,7 @@ export function MobileNav() {
           
           {/* 1. Overview */}
           <Link
-            href="/userpane"
+            href="/userDashboard"
             className={`flex items-center justify-center size-9 rounded-full transition-all ${
               currentView === "overview"
                 ? "bg-primary/20 text-primary border border-primary/30"
@@ -167,7 +167,7 @@ export function MobileNav() {
 
           {/* 2. Account Intel */}
           <Link
-            href="/userpane?view=account-intel"
+            href="/userDashboard?view=account-intel"
             className={`flex items-center justify-center size-9 rounded-full transition-all ${
               currentView === "account-intel"
                 ? "bg-primary/20 text-primary border border-primary/30"
@@ -180,7 +180,7 @@ export function MobileNav() {
 
           {/* 3. Journal */}
           <Link
-            href="/userpane?view=journal"
+            href="/userDashboard?view=journal"
             className={`flex items-center justify-center size-9 rounded-full transition-all ${
               currentView === "journal"
                 ? "bg-primary/20 text-primary border border-primary/30"
@@ -193,7 +193,7 @@ export function MobileNav() {
 
           {/* 4. Free Tool (Lot Calc) */}
           <Link
-            href="/userpane?view=lot-calculator"
+            href="/userDashboard?view=lot-calculator"
             className={`flex items-center justify-center size-9 rounded-full transition-all ${
               currentView === "lot-calculator"
                 ? "bg-primary/20 text-primary border border-primary/30"
@@ -271,7 +271,7 @@ export function MobileNav() {
 
               <div className="space-y-1">
                 <Link
-                  href="/userpane"
+                  href="/userDashboard"
                   onClick={() => setMenuOpen(false)}
                   className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-accent text-xs font-mono"
                 >
@@ -279,7 +279,7 @@ export function MobileNav() {
                   <span>Overview</span>
                 </Link>
                 <Link
-                  href="/userpane?view=account-intel"
+                  href="/userDashboard?view=account-intel"
                   onClick={() => setMenuOpen(false)}
                   className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-accent text-xs font-mono"
                 >
@@ -287,7 +287,7 @@ export function MobileNav() {
                   <span>Account Intel</span>
                 </Link>
                 <Link
-                  href="/userpane?view=journal"
+                  href="/userDashboard?view=journal"
                   onClick={() => setMenuOpen(false)}
                   className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-accent text-xs font-mono"
                 >
@@ -299,7 +299,7 @@ export function MobileNav() {
                   <span className="text-[10px] font-mono text-muted-foreground uppercase px-2.5">Free Tools</span>
                   <div className="mt-1 space-y-1 pl-2">
                     <Link
-                      href="/userpane?view=lot-calculator"
+                      href="/userDashboard?view=lot-calculator"
                       onClick={() => setMenuOpen(false)}
                       className="flex items-center gap-3 p-2 rounded-xl hover:bg-accent text-xs font-mono"
                     >
@@ -307,7 +307,7 @@ export function MobileNav() {
                       <span>Lot Calculator</span>
                     </Link>
                     <Link
-                      href="/userpane?view=prop-match"
+                      href="/userDashboard?view=prop-match"
                       onClick={() => setMenuOpen(false)}
                       className="flex items-center gap-3 p-2 rounded-xl hover:bg-accent text-xs font-mono"
                     >
@@ -315,7 +315,7 @@ export function MobileNav() {
                       <span>Prop Match</span>
                     </Link>
                     <Link
-                      href="/userpane?view=trade-assist"
+                      href="/userDashboard?view=trade-assist"
                       onClick={() => setMenuOpen(false)}
                       className="flex items-center gap-3 p-2 rounded-xl hover:bg-accent text-xs font-mono"
                     >

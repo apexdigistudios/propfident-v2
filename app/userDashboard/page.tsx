@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import UserpaneContent from "./userpane-client"; // Adjust path to userpane-client if different
+import UserpaneContent from "./userDashboard-client"; // Adjust path to userpane-client if different
 
 export const dynamic = "force-dynamic";
 
