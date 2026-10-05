@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, Suspense } from "react";
-import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { 
@@ -9,7 +8,6 @@ import {
   BookOpen, 
   Calculator, 
   Building2, 
-  Zap, 
   Map, 
   BellRing, 
   Lightbulb, 
@@ -184,61 +182,47 @@ function UserpaneContent() {
         <div className="grid grid-cols-2 gap-2 md:gap-4">
           <Card
             onClick={() => changeView("account-intel")}
-            className="group relative overflow-hidden h-32 md:h-52 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
+            className="group relative h-36 md:h-52 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-850 bg-slate-50/50 dark:bg-zinc-900/50 hover:bg-slate-100/50 dark:hover:bg-zinc-900/80 cursor-pointer transition-all p-4 md:p-6 flex flex-col justify-between"
           >
-            <div className="absolute inset-0 z-0">
-              <Image
-                src="/images/userpane/account-intel.png"
-                alt="Account Intel"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-300 brightness-90 opacity-90"
-              />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center justify-center size-10 md:size-14 rounded-full bg-slate-200/50 dark:bg-zinc-800/80 group-hover:bg-slate-200 dark:group-hover:bg-zinc-800 transition-all shadow-inner">
+                <ShieldCheck className="size-5 md:size-7 text-slate-700 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
+              </div>
+              <Badge className="bg-slate-950 text-white border border-slate-800 font-mono text-[8px] md:text-[10px] rounded-full px-2 py-0.5 shadow-sm">
+                Live
+              </Badge>
             </div>
-            <div className="relative z-20 h-full p-3 md:p-5 flex flex-col justify-between text-slate-950">
-              <div className="flex justify-end">
-                <Badge className="bg-slate-950 text-white border border-slate-800 font-mono text-[8px] md:text-[10px] rounded-full px-2 py-0.5 shadow-sm">
-                  Live
-                </Badge>
-              </div>
-              <div>
-                <h3 className="font-extrabold text-xs md:text-lg flex items-center justify-between tracking-tight text-slate-950">
-                  <span className="truncate">Account Intel</span>
-                  <ChevronRight className="hidden md:block size-4 text-slate-950 group-hover:translate-x-1 transition-transform" />
-                </h3>
-                <p className="text-[10px] md:text-xs text-slate-800 font-semibold line-clamp-1 md:line-clamp-2 mt-0.5">
-                  Live drawdown limits & safety tracking.
-                </p>
-              </div>
+            <div>
+              <h3 className="font-extrabold text-sm md:text-lg flex items-center justify-between tracking-tight text-slate-900 dark:text-zinc-100">
+                <span className="truncate">Account Intel</span>
+                <ChevronRight className="hidden md:block size-4 text-muted-foreground group-hover:translate-x-1 transition-transform" />
+              </h3>
+              <p className="text-[10px] md:text-xs text-muted-foreground font-medium line-clamp-1 md:line-clamp-2 mt-0.5">
+                Live drawdown limits & safety tracking.
+              </p>
             </div>
           </Card>
 
           <Card
             onClick={() => changeView("journal")}
-            className="group relative overflow-hidden h-32 md:h-52 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
+            className="group relative h-36 md:h-52 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-850 bg-slate-50/50 dark:bg-zinc-900/50 hover:bg-slate-100/50 dark:hover:bg-zinc-900/80 cursor-pointer transition-all p-4 md:p-6 flex flex-col justify-between"
           >
-            <div className="absolute inset-0 z-0">
-              <Image
-                src="/images/userpane/trading-journal.png"
-                alt="Trading Journal"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-300 brightness-90 opacity-90"
-              />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center justify-center size-10 md:size-14 rounded-full bg-slate-200/50 dark:bg-zinc-800/80 group-hover:bg-slate-200 dark:group-hover:bg-zinc-800 transition-all shadow-inner">
+                <BookOpen className="size-5 md:size-7 text-slate-700 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
+              </div>
+              <Badge className="bg-slate-950 text-white border border-slate-800 font-mono text-[8px] md:text-[10px] rounded-full px-2 py-0.5 shadow-sm">
+                Analytics
+              </Badge>
             </div>
-            <div className="relative z-20 h-full p-3 md:p-5 flex flex-col justify-between text-slate-950">
-              <div className="flex justify-end">
-                <Badge className="bg-slate-950 text-white border border-slate-800 font-mono text-[8px] md:text-[10px] rounded-full px-2 py-0.5 shadow-sm">
-                  Analytics
-                </Badge>
-              </div>
-              <div>
-                <h3 className="font-extrabold text-xs md:text-lg flex items-center justify-between tracking-tight text-slate-950">
-                  <span className="truncate">Trading Journal</span>
-                  <ChevronRight className="hidden md:block size-4 text-slate-950 group-hover:translate-x-1 transition-transform" />
-                </h3>
-                <p className="text-[10px] md:text-xs text-slate-800 font-semibold line-clamp-1 md:line-clamp-2 mt-0.5">
-                  Log trades, track wins & evaluate RR.
-                </p>
-              </div>
+            <div>
+              <h3 className="font-extrabold text-sm md:text-lg flex items-center justify-between tracking-tight text-slate-900 dark:text-zinc-100">
+                <span className="truncate">Trading Journal</span>
+                <ChevronRight className="hidden md:block size-4 text-muted-foreground group-hover:translate-x-1 transition-transform" />
+              </h3>
+              <p className="text-[10px] md:text-xs text-muted-foreground font-medium line-clamp-1 md:line-clamp-2 mt-0.5">
+                Log trades, track wins & evaluate RR.
+              </p>
             </div>
           </Card>
         </div>
@@ -306,55 +290,40 @@ function UserpaneContent() {
         <div className="grid grid-cols-3 gap-2 md:gap-4">
           <Card
             onClick={() => changeView("roadmap")}
-            className="group relative overflow-hidden h-32 md:h-48 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
+            className="group relative h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-850 bg-slate-50/50 dark:bg-zinc-900/50 hover:bg-slate-100/50 dark:hover:bg-zinc-900/80 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center gap-2"
           >
-            <div className="absolute inset-0 z-0">
-              <Image
-                src="/images/userpane/roadmap.png"
-                alt="Roadmap"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-300 brightness-90 opacity-90"
-              />
+            <div className="flex items-center justify-center size-9 md:size-14 rounded-full bg-slate-200/50 dark:bg-zinc-800/80 group-hover:bg-slate-200 dark:group-hover:bg-zinc-800 transition-all shadow-inner">
+              <Map className="size-4 md:size-6 text-slate-700 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
             </div>
-            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-slate-950">
-              <h3 className="font-extrabold text-[11px] md:text-sm truncate leading-tight text-slate-950">Roadmap</h3>
-              <p className="hidden md:block text-[11px] text-slate-800 font-semibold line-clamp-2 mt-0.5">Capital compounding blueprint.</p>
+            <div className="space-y-0.5 max-w-full">
+              <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-900 dark:text-zinc-100">Roadmap</h4>
+              <p className="hidden md:block text-[10px] md:text-xs text-muted-foreground truncate font-semibold">Compounding blueprint</p>
             </div>
           </Card>
 
           <Card
             onClick={() => changeView("trade-notifier")}
-            className="group relative overflow-hidden h-32 md:h-48 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
+            className="group relative h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-850 bg-slate-50/50 dark:bg-zinc-900/50 hover:bg-slate-100/50 dark:hover:bg-zinc-900/80 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center gap-2"
           >
-            <div className="absolute inset-0 z-0">
-              <Image
-                src="/images/userpane/alerts.png"
-                alt="Alerts"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-300 brightness-90 opacity-90"
-              />
+            <div className="flex items-center justify-center size-9 md:size-14 rounded-full bg-slate-200/50 dark:bg-zinc-800/80 group-hover:bg-slate-200 dark:group-hover:bg-zinc-800 transition-all shadow-inner">
+              <BellRing className="size-4 md:size-6 text-slate-700 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
             </div>
-            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-slate-950">
-              <h3 className="font-extrabold text-[11px] md:text-sm truncate leading-tight text-slate-950">Alerts</h3>
-              <p className="hidden md:block text-[11px] text-slate-800 font-semibold line-clamp-2 mt-0.5">Custom limit notifications.</p>
+            <div className="space-y-0.5 max-w-full">
+              <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-900 dark:text-zinc-100">Alerts</h4>
+              <p className="hidden md:block text-[10px] md:text-xs text-muted-foreground truncate font-semibold">Limit notifications</p>
             </div>
           </Card>
 
           <Card
             onClick={() => changeView("trade-ideas")}
-            className="group relative overflow-hidden h-32 md:h-48 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all"
+            className="group relative h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-850 bg-slate-50/50 dark:bg-zinc-900/50 hover:bg-slate-100/50 dark:hover:bg-zinc-900/80 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center gap-2"
           >
-            <div className="absolute inset-0 z-0">
-              <Image
-                src="/images/userpane/trade-ideas.png"
-                alt="Trade Ideas"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-300 brightness-90 opacity-90"
-              />
+            <div className="flex items-center justify-center size-9 md:size-14 rounded-full bg-slate-200/50 dark:bg-zinc-800/80 group-hover:bg-slate-200 dark:group-hover:bg-zinc-800 transition-all shadow-inner">
+              <Lightbulb className="size-4 md:size-6 text-slate-700 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
             </div>
-            <div className="relative z-20 h-full p-2.5 md:p-4 flex flex-col justify-end text-slate-950">
-              <h3 className="font-extrabold text-[11px] md:text-sm truncate leading-tight text-slate-950">Ideas</h3>
-              <p className="hidden md:block text-[11px] text-slate-800 font-semibold line-clamp-2 mt-0.5">Daily bias & setup analysis.</p>
+            <div className="space-y-0.5 max-w-full">
+              <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-900 dark:text-zinc-100">Ideas</h4>
+              <p className="hidden md:block text-[10px] md:text-xs text-muted-foreground truncate font-semibold">Bias & setup analysis</p>
             </div>
           </Card>
         </div>
