@@ -178,7 +178,7 @@ export function Navbar() {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/tools/ai-trade-planner" className="flex items-center gap-2 w-full cursor-pointer">
+                <Link href="/tools/trade-planner" className="flex items-center gap-2 w-full cursor-pointer">
                   <span>Trade Assist</span>
                 </Link>
               </DropdownMenuItem>
@@ -290,7 +290,7 @@ export function Navbar() {
                     <span>Prop Match</span>
                   </Link>
                   <Link
-                    href="/tools/ai-trade-planner"
+                    href="/tools/trade-planner"
                     onClick={() => setMobileMenuOpen(false)}
                     className="py-1 hover:text-foreground transition-colors flex items-center gap-2"
                   >

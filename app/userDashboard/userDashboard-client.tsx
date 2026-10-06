@@ -9,7 +9,7 @@ import {
   Calculator, 
   Building2, 
   Map, 
-  BellRing, 
+  Newspaper, 
   Lightbulb, 
   ChevronRight,
   ShieldCheck,
@@ -22,7 +22,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { RiskLotCalculator } from "@/components/tools/risk-calculator";
 import { PropMatchEvaluator } from "@/components/tools/prop-match";
-import { AITradePlanner } from "@/components/tools/ai-trade-planner";
+import { TradePlanner } from "@/components/tools/ai-trade-planner";
 
 export const dynamic = "force-dynamic";
 
@@ -34,7 +34,7 @@ type ViewType =
   | "prop-match"
   | "trade-assist"
   | "roadmap"
-  | "trade-notifier"
+  | "market-news"
   | "trade-ideas";
 
 interface UserProfile {
@@ -120,7 +120,7 @@ function UserpaneContent() {
         ) : activeView === "prop-match" ? (
           <PropMatchEvaluator />
         ) : activeView === "trade-assist" ? (
-          <AITradePlanner />
+          <TradePlanner />
         ) : (
           <SectionSkeletonView activeView={activeView} />
         )}
@@ -182,11 +182,11 @@ function UserpaneContent() {
         <div className="grid grid-cols-2 gap-2 md:gap-4">
           <Card
             onClick={() => changeView("account-intel")}
-            className="group relative h-36 md:h-52 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-850 bg-slate-50/50 dark:bg-zinc-900/50 hover:bg-slate-100/50 dark:hover:bg-zinc-900/80 cursor-pointer transition-all p-4 md:p-6 flex flex-col justify-between"
+            className="group relative h-36 md:h-52 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 hover:bg-slate-200/80 dark:hover:bg-zinc-850/90 cursor-pointer transition-all p-4 md:p-6 flex flex-col justify-between shadow-sm hover:shadow-md"
           >
             <div className="flex items-center justify-between">
-              <div className="flex items-center justify-center size-10 md:size-14 rounded-full bg-slate-200/50 dark:bg-zinc-800/80 group-hover:bg-slate-200 dark:group-hover:bg-zinc-800 transition-all shadow-inner">
-                <ShieldCheck className="size-5 md:size-7 text-slate-700 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
+              <div className="flex items-center justify-center size-10 md:size-14 rounded-full bg-slate-200 dark:bg-zinc-800/90 group-hover:bg-slate-300/70 dark:group-hover:bg-zinc-700/80 transition-all shadow-inner">
+                <ShieldCheck className="size-5 md:size-7 text-slate-800 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
               </div>
               <Badge className="bg-slate-950 text-white border border-slate-800 font-mono text-[8px] md:text-[10px] rounded-full px-2 py-0.5 shadow-sm">
                 Live
@@ -205,11 +205,11 @@ function UserpaneContent() {
 
           <Card
             onClick={() => changeView("journal")}
-            className="group relative h-36 md:h-52 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-850 bg-slate-50/50 dark:bg-zinc-900/50 hover:bg-slate-100/50 dark:hover:bg-zinc-900/80 cursor-pointer transition-all p-4 md:p-6 flex flex-col justify-between"
+            className="group relative h-36 md:h-52 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 hover:bg-slate-200/80 dark:hover:bg-zinc-850/90 cursor-pointer transition-all p-4 md:p-6 flex flex-col justify-between shadow-sm hover:shadow-md"
           >
             <div className="flex items-center justify-between">
-              <div className="flex items-center justify-center size-10 md:size-14 rounded-full bg-slate-200/50 dark:bg-zinc-800/80 group-hover:bg-slate-200 dark:group-hover:bg-zinc-800 transition-all shadow-inner">
-                <BookOpen className="size-5 md:size-7 text-slate-700 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
+              <div className="flex items-center justify-center size-10 md:size-14 rounded-full bg-slate-200 dark:bg-zinc-800/90 group-hover:bg-slate-300/70 dark:group-hover:bg-zinc-700/80 transition-all shadow-inner">
+                <BookOpen className="size-5 md:size-7 text-slate-800 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
               </div>
               <Badge className="bg-slate-950 text-white border border-slate-800 font-mono text-[8px] md:text-[10px] rounded-full px-2 py-0.5 shadow-sm">
                 Analytics
@@ -240,10 +240,10 @@ function UserpaneContent() {
         <div className="grid grid-cols-3 gap-2 md:gap-4">
           <Card
             onClick={() => changeView("lot-calculator")}
-            className="group relative h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-850 bg-slate-50/50 dark:bg-zinc-900/50 hover:bg-slate-100/50 dark:hover:bg-zinc-900/80 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center gap-2"
+            className="group relative h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 hover:bg-slate-200/80 dark:hover:bg-zinc-850/90 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center gap-2 shadow-sm hover:shadow-md"
           >
-            <div className="flex items-center justify-center size-9 md:size-14 rounded-full bg-slate-200/50 dark:bg-zinc-800/80 group-hover:bg-slate-200 dark:group-hover:bg-zinc-800 transition-all shadow-inner">
-              <Calculator className="size-4 md:size-6 text-slate-700 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
+            <div className="flex items-center justify-center size-9 md:size-14 rounded-full bg-slate-200 dark:bg-zinc-800/90 group-hover:bg-slate-300/70 dark:group-hover:bg-zinc-700/80 transition-all shadow-inner">
+              <Calculator className="size-4 md:size-6 text-slate-800 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
             </div>
             <div className="space-y-0.5 max-w-full">
               <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-900 dark:text-zinc-100">Lot Calc</h4>
@@ -253,10 +253,10 @@ function UserpaneContent() {
 
           <Card
             onClick={() => changeView("prop-match")}
-            className="group relative h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-850 bg-slate-50/50 dark:bg-zinc-900/50 hover:bg-slate-100/50 dark:hover:bg-zinc-900/80 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center gap-2"
+            className="group relative h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 hover:bg-slate-200/80 dark:hover:bg-zinc-850/90 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center gap-2 shadow-sm hover:shadow-md"
           >
-            <div className="flex items-center justify-center size-9 md:size-14 rounded-full bg-slate-200/50 dark:bg-zinc-800/80 group-hover:bg-slate-200 dark:group-hover:bg-zinc-800 transition-all shadow-inner">
-              <Building2 className="size-4 md:size-6 text-slate-700 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
+            <div className="flex items-center justify-center size-9 md:size-14 rounded-full bg-slate-200 dark:bg-zinc-800/90 group-hover:bg-slate-300/70 dark:group-hover:bg-zinc-700/80 transition-all shadow-inner">
+              <Building2 className="size-4 md:size-6 text-slate-800 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
             </div>
             <div className="space-y-0.5 max-w-full">
               <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-900 dark:text-zinc-100">Prop Match</h4>
@@ -266,10 +266,10 @@ function UserpaneContent() {
 
           <Card
             onClick={() => changeView("trade-assist")}
-            className="group relative h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-850 bg-slate-50/50 dark:bg-zinc-900/50 hover:bg-slate-100/50 dark:hover:bg-zinc-900/80 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center gap-2"
+            className="group relative h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 hover:bg-slate-200/80 dark:hover:bg-zinc-850/90 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center gap-2 shadow-sm hover:shadow-md"
           >
-            <div className="flex items-center justify-center size-9 md:size-14 rounded-full bg-slate-200/50 dark:bg-zinc-800/80 group-hover:bg-slate-200 dark:group-hover:bg-zinc-800 transition-all shadow-inner">
-              <MonitorCog className="size-4 md:size-6 text-slate-700 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
+            <div className="flex items-center justify-center size-9 md:size-14 rounded-full bg-slate-200 dark:bg-zinc-800/90 group-hover:bg-slate-300/70 dark:group-hover:bg-zinc-700/80 transition-all shadow-inner">
+              <MonitorCog className="size-4 md:size-6 text-slate-800 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
             </div>
             <div className="space-y-0.5 max-w-full">
               <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-900 dark:text-zinc-100">Assist</h4>
@@ -290,10 +290,10 @@ function UserpaneContent() {
         <div className="grid grid-cols-3 gap-2 md:gap-4">
           <Card
             onClick={() => changeView("roadmap")}
-            className="group relative h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-850 bg-slate-50/50 dark:bg-zinc-900/50 hover:bg-slate-100/50 dark:hover:bg-zinc-900/80 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center gap-2"
+            className="group relative h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 hover:bg-slate-200/80 dark:hover:bg-zinc-850/90 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center gap-2 shadow-sm hover:shadow-md"
           >
-            <div className="flex items-center justify-center size-9 md:size-14 rounded-full bg-slate-200/50 dark:bg-zinc-800/80 group-hover:bg-slate-200 dark:group-hover:bg-zinc-800 transition-all shadow-inner">
-              <Map className="size-4 md:size-6 text-slate-700 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
+            <div className="flex items-center justify-center size-9 md:size-14 rounded-full bg-slate-200 dark:bg-zinc-800/90 group-hover:bg-slate-300/70 dark:group-hover:bg-zinc-700/80 transition-all shadow-inner">
+              <Map className="size-4 md:size-6 text-slate-800 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
             </div>
             <div className="space-y-0.5 max-w-full">
               <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-900 dark:text-zinc-100">Roadmap</h4>
@@ -302,24 +302,24 @@ function UserpaneContent() {
           </Card>
 
           <Card
-            onClick={() => changeView("trade-notifier")}
-            className="group relative h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-850 bg-slate-50/50 dark:bg-zinc-900/50 hover:bg-slate-100/50 dark:hover:bg-zinc-900/80 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center gap-2"
+            onClick={() => changeView("market-news")}
+            className="group relative h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 hover:bg-slate-200/80 dark:hover:bg-zinc-850/90 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center gap-2 shadow-sm hover:shadow-md"
           >
-            <div className="flex items-center justify-center size-9 md:size-14 rounded-full bg-slate-200/50 dark:bg-zinc-800/80 group-hover:bg-slate-200 dark:group-hover:bg-zinc-800 transition-all shadow-inner">
-              <BellRing className="size-4 md:size-6 text-slate-700 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
+            <div className="flex items-center justify-center size-9 md:size-14 rounded-full bg-slate-200 dark:bg-zinc-800/90 group-hover:bg-slate-300/70 dark:group-hover:bg-zinc-700/80 transition-all shadow-inner">
+              <Newspaper className="size-4 md:size-6 text-slate-800 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
             </div>
             <div className="space-y-0.5 max-w-full">
-              <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-900 dark:text-zinc-100">Alerts</h4>
-              <p className="hidden md:block text-[10px] md:text-xs text-muted-foreground truncate font-semibold">Limit notifications</p>
+              <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-900 dark:text-zinc-100">Market News</h4>
+              <p className="hidden md:block text-[10px] md:text-xs text-muted-foreground truncate font-semibold">Economic & macro updates</p>
             </div>
           </Card>
 
           <Card
             onClick={() => changeView("trade-ideas")}
-            className="group relative h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-300 dark:border-slate-850 bg-slate-50/50 dark:bg-zinc-900/50 hover:bg-slate-100/50 dark:hover:bg-zinc-900/80 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center gap-2"
+            className="group relative h-28 md:h-36 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 hover:bg-slate-200/80 dark:hover:bg-zinc-850/90 cursor-pointer transition-all flex flex-col items-center justify-center p-3 text-center gap-2 shadow-sm hover:shadow-md"
           >
-            <div className="flex items-center justify-center size-9 md:size-14 rounded-full bg-slate-200/50 dark:bg-zinc-800/80 group-hover:bg-slate-200 dark:group-hover:bg-zinc-800 transition-all shadow-inner">
-              <Lightbulb className="size-4 md:size-6 text-slate-700 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
+            <div className="flex items-center justify-center size-9 md:size-14 rounded-full bg-slate-200 dark:bg-zinc-800/90 group-hover:bg-slate-300/70 dark:group-hover:bg-zinc-700/80 transition-all shadow-inner">
+              <Lightbulb className="size-4 md:size-6 text-slate-800 dark:text-zinc-100 group-hover:scale-110 transition-transform" />
             </div>
             <div className="space-y-0.5 max-w-full">
               <h4 className="text-[11px] md:text-sm font-extrabold truncate text-slate-900 dark:text-zinc-100">Ideas</h4>
@@ -349,7 +349,7 @@ function ViewWrapper({ activeView, onBack, children }: { activeView: ViewType; o
     "prop-match": { title: "Prop Match", desc: "Funding Firm Comparison Matrix" },
     "trade-assist": { title: "Trade Assist", desc: "Execution & Rules Checklist" },
     roadmap: { title: "Millionaire Roadmap", desc: "Account Scaling & Growth Strategy" },
-    "trade-notifier": { title: "Trade Notifier", desc: "Custom Threshold & Drawdown Alerts" },
+    "market-news": { title: "Market News", desc: "Live Economic Events & Financial Updates" },
     "trade-ideas": { title: "Trade Ideas", desc: "Market Bias & Confluence Setups" },
   };
 

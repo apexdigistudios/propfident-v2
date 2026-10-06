@@ -198,7 +198,7 @@ export function RiskLotCalculator() {
       <CardHeader className="border-b border-white/10 py-2.5 px-4 shrink-0 flex flex-row items-center justify-between backdrop-blur-md bg-white/5 rounded-t-[28px]">
         <div className="flex items-center gap-2 text-primary text-xs font-semibold tracking-wide">
           <Calculator className="h-4 w-4" />
-          <span>AI RISK & LOT ASSISTANT</span>
+          <span>RISK & LOT ASSISTANT</span>
         </div>
         {step === 5 && (
           <Button variant="ghost" size="sm" onClick={handleReset} className="h-7 text-[11px] rounded-full gap-1 hover:bg-white/10">

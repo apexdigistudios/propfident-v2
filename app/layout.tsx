@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     "position sizer",
     "funded trading",
     "risk management",
-    "AI trade planner",
+    "Trade planner",
   ],
   authors: [{ name: "Propfident Team" }],
   creator: "Propfident",

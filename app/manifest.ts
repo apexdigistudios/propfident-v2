@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Propfident | Prop Firm Trading Risk & AI Suite",
+    name: "Propfident | Prop Firm Account Protection Suite",
     short_name: "Propfident",
-    description: "Prop firm risk management, position sizing, AI trade planning, and challenge matching.",
+    description: "Prop firm risk management, position sizing, trade planning, and challenge matching.",
     start_url: "/userDashboard",
     display: "standalone",
     background_color: "#000000",

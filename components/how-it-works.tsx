@@ -36,8 +36,8 @@ const steps = [
   },
   {
     step: "05",
-    title: "AI Trade Journaling",
-    description: "Log setups automatically and let AI analyze execution metrics to prevent revenge trading.",
+    title: "Trade Journaling",
+    description: "Log setups automatically and review execution metrics to help prevent revenge trading.",
     icon: BrainCircuit,
   },
   {

@@ -4,10 +4,10 @@ import { useState } from "react";
 import { Calculator, Scale, Brain } from "lucide-react";
 import { RiskLotCalculator } from "@/components/tools/risk-calculator";
 import { PropMatchEvaluator } from "@/components/tools/prop-match";
-import { AITradePlanner } from "@/components/tools/ai-trade-planner";
+import { TradePlanner } from "@/components/tools/ai-trade-planner";
 
 export function Tools() {
-  const [activeTab, setActiveTab] = useState<"calculator" | "prop-match" | "ai-planner">("calculator");
+  const [activeTab, setActiveTab] = useState<"calculator" | "prop-match" | "trade-planner">("calculator");
 
   return (
     <section id="tools" className="py-20 sm:py-28 border-t border-border/40 relative z-10 font-sans bg-surface/30">
@@ -54,15 +54,15 @@ export function Tools() {
             </button>
 
             <button
-              onClick={() => setActiveTab("ai-planner")}
+              onClick={() => setActiveTab("trade-planner")}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-medium transition-all ${
-                activeTab === "ai-planner"
+                activeTab === "trade-planner"
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground hover:bg-surface-hover"
               }`}
             >
               <Brain className="h-3.5 w-3.5" />
-              <span>AI Trade Planner</span>
+              <span>Trade Planner</span>
             </button>
           </div>
         </div>
@@ -71,7 +71,7 @@ export function Tools() {
         <div className="transition-all duration-200 max-w-3xl mx-auto">
           {activeTab === "calculator" && <RiskLotCalculator />}
           {activeTab === "prop-match" && <PropMatchEvaluator />}
-          {activeTab === "ai-planner" && <AITradePlanner />}
+          {activeTab === "trade-planner" && <TradePlanner />}
         </div>
       </div>
     </section>

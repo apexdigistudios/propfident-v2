@@ -23,7 +23,7 @@ interface Message {
   };
 }
 
-export function AITradePlanner() {
+export function TradePlanner() {
   const [step, setStep] = useState<number>(0);
   const [isTyping, setIsTyping] = useState<boolean>(true);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -53,7 +53,7 @@ export function AITradePlanner() {
       setMessages([
         {
           sender: "bot",
-          text: "🧠 Welcome to the AI Pre-Trade Audit. Let's vet your trade setup against prop firm rules.",
+          text: "🧠 Welcome to the Pre-Trade Audit. Let's review your trade setup against prop firm rules.",
         },
       ]);
 
@@ -210,7 +210,7 @@ export function AITradePlanner() {
       <CardHeader className="border-b border-white/10 py-2.5 px-4 shrink-0 flex flex-row items-center justify-between backdrop-blur-md bg-white/5 rounded-t-[28px]">
         <div className="flex items-center gap-2 text-primary text-xs font-semibold tracking-wide">
           <Brain className="h-4 w-4" />
-          <span>AI TRADE PLANNER</span>
+          <span>TRADE PLANNER</span>
         </div>
         {step === 7 && (
           <Button variant="ghost" size="sm" onClick={handleReset} className="h-7 text-[11px] rounded-full gap-1 hover:bg-white/10">

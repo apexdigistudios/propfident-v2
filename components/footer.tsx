@@ -15,7 +15,7 @@ const columns = [
     links: [
       ["Lot Calculator", "/tools/position-sizer"],
       ["Prop Match", "/tools/prop-match"],
-      ["Trade Assist", "/tools/ai-trade-planner"],
+      ["Trade Assist", "/tools/trade-planner"],
     ],
   },
   {

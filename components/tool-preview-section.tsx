@@ -53,7 +53,7 @@ export function ToolPreviewSection() {
           className="font-mono text-xs gap-2 transition-all rounded-full"
         >
           <Brain className="h-4 w-4" />
-          AI Trade Planner
+          Trade Planner
         </Button>
         <Button
           variant={activeTab === "matcher" ? "default" : "outline"}

@@ -1,6 +1,6 @@
 # PropFident
 
-> AI Context File: This document provides LLMs and AI agents with a comprehensive understanding of PropFident, its goals, architecture, and feature set.
+> Context File: This document provides a comprehensive overview of PropFident, its goals, architecture, and feature set.
 
 ## Overview
 PropFident (propfident.online) is a SaaS platform designed for proprietary firm traders. It provides real-time drawdown monitoring, account matching, and advanced risk management tools to ensure traders never breach their funded accounts.
