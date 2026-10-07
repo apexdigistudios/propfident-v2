@@ -23,6 +23,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { RiskLotCalculator } from "@/components/tools/risk-calculator";
 import { PropMatchEvaluator } from "@/components/tools/prop-match";
 import { TradePlanner } from "@/components/tools/ai-trade-planner";
+import { AccountIntel } from "@/components/tools/account-intel";
 
 export const dynamic = "force-dynamic";
 
@@ -115,6 +116,8 @@ function UserpaneContent() {
       <ViewWrapper activeView={activeView} onBack={() => changeView("overview")}>
         {isTransitioning ? (
           <SectionSkeletonView activeView={activeView} />
+        ) : activeView === "account-intel" ? (
+          <AccountIntel onChangeView={changeView} />
         ) : activeView === "lot-calculator" ? (
           <RiskLotCalculator />
         ) : activeView === "prop-match" ? (
