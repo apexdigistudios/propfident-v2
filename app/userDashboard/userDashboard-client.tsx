@@ -24,6 +24,7 @@ import { RiskLotCalculator } from "@/components/tools/risk-calculator";
 import { PropMatchEvaluator } from "@/components/tools/prop-match";
 import { TradePlanner } from "@/components/tools/ai-trade-planner";
 import { AccountIntel } from "@/components/tools/account-intel";
+import { TradingJournal } from "@/components/tools/journal";
 
 export const dynamic = "force-dynamic";
 
@@ -118,6 +119,8 @@ function UserpaneContent() {
           <SectionSkeletonView activeView={activeView} />
         ) : activeView === "account-intel" ? (
           <AccountIntel onChangeView={changeView} />
+        ) : activeView === "journal" ? (
+          <TradingJournal onChangeView={changeView} />
         ) : activeView === "lot-calculator" ? (
           <RiskLotCalculator />
         ) : activeView === "prop-match" ? (
