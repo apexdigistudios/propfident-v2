@@ -25,6 +25,7 @@ import { PropMatchEvaluator } from "@/components/tools/prop-match";
 import { TradePlanner } from "@/components/tools/ai-trade-planner";
 import { AccountIntel } from "@/components/tools/account-intel";
 import { TradingJournal } from "@/components/tools/journal";
+import { MarketNews } from "@/components/tools/market-news";
 
 export const dynamic = "force-dynamic";
 
@@ -127,6 +128,8 @@ function UserpaneContent() {
           <PropMatchEvaluator />
         ) : activeView === "trade-assist" ? (
           <TradePlanner />
+        ) : activeView === "market-news" ? (
+          <MarketNews onChangeView={changeView} />
         ) : (
           <SectionSkeletonView activeView={activeView} />
         )}
@@ -381,7 +384,7 @@ function ViewWrapper({ activeView, onBack, children }: { activeView: ViewType; o
 }
 
 function SectionSkeletonView({ activeView }: { activeView: ViewType }) {
-  if (activeView === "journal" || activeView === "account-intel") {
+  if (activeView === "journal" || activeView === "account-intel" || activeView === "market-news") {
     return (
       <div className="space-y-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
