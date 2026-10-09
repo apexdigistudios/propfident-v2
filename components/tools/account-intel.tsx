@@ -70,7 +70,6 @@ export function AccountIntel({ onChangeView }: AccountIntelProps) {
         return;
       }
 
-      // 1. Subscription status
       const { data: subData } = await supabase
         .from("user_subscriptions")
         .select("status")
@@ -80,7 +79,6 @@ export function AccountIntel({ onChangeView }: AccountIntelProps) {
 
       setIsSubscribed(!!subData);
 
-      // 2. Fetch trading accounts
       const { data: accountData } = await supabase
         .from("trading_accounts")
         .select("*")
@@ -92,7 +90,6 @@ export function AccountIntel({ onChangeView }: AccountIntelProps) {
         const activeAcc = accountData[0];
         setSelectedAccountId(activeAcc.id);
 
-        // 3. Fetch strictly recorded equity points for selected account
         const { data: historyData } = await supabase
           .from("account_equity_history")
           .select("id, equity, balance, recorded_at")
@@ -115,7 +112,6 @@ export function AccountIntel({ onChangeView }: AccountIntelProps) {
     }
   };
 
-  // Re-fetch equity points when switching account dropdown
   const handleAccountChange = async (accountId: string) => {
     setSelectedAccountId(accountId);
     const { data: historyData } = await supabase
@@ -129,7 +125,6 @@ export function AccountIntel({ onChangeView }: AccountIntelProps) {
 
   const currentAccount = accounts.find((a) => a.id === selectedAccountId);
 
-  // Metrics calculation
   const initialBalance = currentAccount?.initial_balance || 0;
   const currentBalance = currentAccount?.current_balance || 0;
   const currentEquity = currentAccount?.current_equity || 0;
@@ -154,7 +149,6 @@ export function AccountIntel({ onChangeView }: AccountIntelProps) {
     ? Math.min(100, ((initialBalance - currentBalance) / (initialBalance * (maxTotalDDPct / 100))) * 100)
     : 0;
 
-  // Strict mapping from database query results
   const chartPoints = useMemo(() => {
     return equityHistory.map((pt) => Number(pt.equity));
   }, [equityHistory]);
@@ -164,36 +158,36 @@ export function AccountIntel({ onChangeView }: AccountIntelProps) {
   }
 
   return (
-    <div className="space-y-6 font-sans">
+    <div className="space-y-4 md:space-y-6 font-sans">
       {/* 1. SUBSCRIPTION & ACCOUNT CONNECT BANNER */}
       {(!isSubscribed || accounts.length === 0) && (
-        <Card className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-gradient-to-r from-zinc-900 via-slate-900 to-zinc-950 border border-amber-500/30 p-5 md:p-6 text-white shadow-md">
-          <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+        <Card className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-gradient-to-r from-zinc-900 via-slate-900 to-zinc-950 border border-amber-500/30 p-4 sm:p-5 md:p-6 text-white shadow-md">
+          <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none hidden sm:block">
             <Sparkles className="size-32 text-amber-400" />
           </div>
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 z-10 relative">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 z-10 relative">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <Badge className="bg-amber-500/20 text-amber-300 border-amber-500/40 text-[10px] font-semibold">
                   {!isSubscribed ? "Subscription Required" : "No Account Linked"}
                 </Badge>
               </div>
-              <h3 className="text-base md:text-xl font-extrabold tracking-tight text-white">
+              <h3 className="text-sm sm:text-base md:text-xl font-extrabold tracking-tight text-white leading-snug">
                 {!isSubscribed
                   ? "Subscribe to Propfident Shield for Automated Live Protection"
                   : "Connect your MetaTrader Account to sync live account performance"}
               </h3>
-              <p className="text-xs md:text-sm text-zinc-400 max-w-2xl font-medium">
+              <p className="text-[11px] sm:text-xs md:text-sm text-zinc-400 max-w-2xl font-medium leading-normal">
                 {!isSubscribed
                   ? "Unlock automated drawdown protection, live floating equity charts, and instant rule breach alerts."
                   : "Link your prop firm account credentials to sync live balance, equity, and rule boundaries directly."}
               </p>
             </div>
-            <div className="flex items-center gap-3 shrink-0">
+            <div className="flex items-center gap-3 w-full sm:w-auto shrink-0 pt-1 sm:pt-0">
               {accounts.length === 0 ? (
                 <Button
                   size="sm"
-                  className="bg-amber-500 text-black hover:bg-amber-400 font-bold text-xs rounded-full px-5 h-9"
+                  className="w-full sm:w-auto bg-amber-500 text-black hover:bg-amber-400 font-bold text-xs rounded-full px-5 h-9"
                   onClick={() => onChangeView && onChangeView("prop-match")}
                 >
                   <Plus className="size-3.5 mr-1.5" /> Connect Account
@@ -201,7 +195,7 @@ export function AccountIntel({ onChangeView }: AccountIntelProps) {
               ) : (
                 <Button
                   size="sm"
-                  className="bg-amber-500 text-black hover:bg-amber-400 font-bold text-xs rounded-full px-5 h-9"
+                  className="w-full sm:w-auto bg-amber-500 text-black hover:bg-amber-400 font-bold text-xs rounded-full px-5 h-9"
                 >
                   <Zap className="size-3.5 mr-1.5" /> Upgrade Subscription
                 </Button>
@@ -212,18 +206,18 @@ export function AccountIntel({ onChangeView }: AccountIntelProps) {
       )}
 
       {/* 2. ACCOUNT SELECTOR & BAR */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-slate-100/80 dark:bg-zinc-900/80 p-3.5 rounded-2xl border border-slate-200/90 dark:border-zinc-800/90">
-        <div className="flex items-center gap-3 w-full sm:w-auto">
-          <Building2 className="size-5 text-muted-foreground ml-1" />
-          <div className="flex flex-col">
-            <span className="text-[10px] font-semibold uppercase text-muted-foreground tracking-wide">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-slate-100/80 dark:bg-zinc-900/80 p-3 sm:p-3.5 rounded-2xl border border-slate-200/90 dark:border-zinc-800/90">
+        <div className="flex items-center gap-2.5 w-full sm:w-auto">
+          <Building2 className="size-4 sm:size-5 text-muted-foreground shrink-0" />
+          <div className="flex flex-col w-full min-w-0">
+            <span className="text-[9px] sm:text-[10px] font-semibold uppercase text-muted-foreground tracking-wide truncate">
               Active Monitored Account
             </span>
             {accounts.length > 0 ? (
               <select
                 value={selectedAccountId || ""}
                 onChange={(e) => handleAccountChange(e.target.value)}
-                className="bg-transparent text-sm font-bold text-foreground focus:outline-none cursor-pointer"
+                className="bg-transparent text-xs sm:text-sm font-bold text-foreground focus:outline-none cursor-pointer truncate pr-2"
               >
                 {accounts.map((acc) => (
                   <option key={acc.id} value={acc.id} className="bg-background text-foreground">
@@ -237,10 +231,10 @@ export function AccountIntel({ onChangeView }: AccountIntelProps) {
           </div>
         </div>
 
-        <div className="flex items-center gap-2 self-end sm:self-auto">
+        <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto pt-1 sm:pt-0 border-t sm:border-t-0 border-slate-200/60 dark:border-zinc-800/60">
           <Badge
             variant={currentAccount?.status === "active" ? "default" : "secondary"}
-            className="text-[10px] font-bold rounded-full px-2.5 py-0.5"
+            className="text-[9px] sm:text-[10px] font-bold rounded-full px-2.5 py-0.5"
           >
             {currentAccount?.status ? currentAccount.status.toUpperCase() : "UNLINKED"}
           </Badge>
@@ -248,7 +242,7 @@ export function AccountIntel({ onChangeView }: AccountIntelProps) {
             variant="ghost"
             size="icon"
             onClick={fetchIntelData}
-            className="size-8 rounded-full"
+            className="size-7 sm:size-8 rounded-full"
             title="Refresh Intel"
           >
             <RefreshCw className="size-3.5" />
@@ -256,163 +250,163 @@ export function AccountIntel({ onChangeView }: AccountIntelProps) {
         </div>
       </div>
 
-      {/* 3. METRIC CARDS GRID */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* 3. METRIC CARDS GRID (2x2 on Mobile, 4x1 on Desktop) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
         {/* Balance */}
-        <Card className="p-4 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm flex flex-col justify-between space-y-3">
+        <Card className="p-3.5 sm:p-4 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm flex flex-col justify-between space-y-2 sm:space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wide">
-              Current Balance
+            <span className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-wide truncate">
+              Balance
             </span>
-            <div className="p-2 rounded-xl bg-slate-200 dark:bg-zinc-800 text-foreground">
-              <DollarSign className="size-4" />
+            <div className="p-1.5 sm:p-2 rounded-xl bg-slate-200 dark:bg-zinc-800 text-foreground shrink-0">
+              <DollarSign className="size-3.5 sm:size-4" />
             </div>
           </div>
           <div>
-            <div className="text-2xl font-extrabold tracking-tight">
+            <div className="text-base sm:text-xl md:text-2xl font-extrabold tracking-tight truncate">
               ${currentBalance.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </div>
-            <div className="flex items-center gap-1 mt-1 text-xs font-medium">
+            <div className="flex flex-wrap items-center gap-1 mt-0.5 sm:mt-1 text-[10px] sm:text-xs font-medium">
               {totalPnl >= 0 ? (
-                <span className="text-emerald-500 font-bold flex items-center">
-                  <ArrowUpRight className="size-3.5 mr-0.5" />+${totalPnl.toFixed(2)} (+{totalPnlPct.toFixed(2)}%)
+                <span className="text-emerald-500 font-bold flex items-center truncate">
+                  <ArrowUpRight className="size-3 mr-0.5 shrink-0" />+${totalPnl.toFixed(0)}
                 </span>
               ) : (
-                <span className="text-rose-500 font-bold flex items-center">
-                  <ArrowDownRight className="size-3.5 mr-0.5" />-${Math.abs(totalPnl).toFixed(2)} ({totalPnlPct.toFixed(2)}%)
+                <span className="text-rose-500 font-bold flex items-center truncate">
+                  <ArrowDownRight className="size-3 mr-0.5 shrink-0" />-${Math.abs(totalPnl).toFixed(0)}
                 </span>
               )}
-              <span className="text-muted-foreground">vs starting</span>
+              <span className="text-muted-foreground hidden sm:inline">vs initial</span>
             </div>
           </div>
         </Card>
 
         {/* Equity */}
-        <Card className="p-4 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm flex flex-col justify-between space-y-3">
+        <Card className="p-3.5 sm:p-4 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm flex flex-col justify-between space-y-2 sm:space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wide">
-              Current Equity
+            <span className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-wide truncate">
+              Equity
             </span>
-            <div className="p-2 rounded-xl bg-slate-200 dark:bg-zinc-800 text-foreground">
-              <Activity className="size-4" />
+            <div className="p-1.5 sm:p-2 rounded-xl bg-slate-200 dark:bg-zinc-800 text-foreground shrink-0">
+              <Activity className="size-3.5 sm:size-4" />
             </div>
           </div>
           <div>
-            <div className="text-2xl font-extrabold tracking-tight">
+            <div className="text-base sm:text-xl md:text-2xl font-extrabold tracking-tight truncate">
               ${currentEquity.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </div>
-            <p className="text-xs text-muted-foreground font-medium mt-1">
-              Floating P&L: ${(currentEquity - currentBalance).toFixed(2)}
+            <p className="text-[10px] sm:text-xs text-muted-foreground font-medium mt-0.5 sm:mt-1 truncate">
+              Floating: ${(currentEquity - currentBalance).toFixed(2)}
             </p>
           </div>
         </Card>
 
         {/* Daily DD */}
-        <Card className="p-4 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm flex flex-col justify-between space-y-3">
+        <Card className="p-3.5 sm:p-4 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm flex flex-col justify-between space-y-2 sm:space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wide">
-              Daily DD Used
+            <span className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-wide truncate">
+              Daily DD
             </span>
-            <div className="p-2 rounded-xl bg-slate-200 dark:bg-zinc-800 text-amber-500">
-              <AlertTriangle className="size-4" />
+            <div className="p-1.5 sm:p-2 rounded-xl bg-slate-200 dark:bg-zinc-800 text-amber-500 shrink-0">
+              <AlertTriangle className="size-3.5 sm:size-4" />
             </div>
           </div>
           <div className="space-y-1.5">
-            <div className="flex items-center justify-between text-xs font-bold">
+            <div className="flex items-center justify-between text-[10px] sm:text-xs font-bold">
               <span>{dailyDrawdownUsedPct.toFixed(1)}%</span>
-              <span className="text-muted-foreground">Limit: {maxDailyDDPct}%</span>
+              <span className="text-muted-foreground">Max {maxDailyDDPct}%</span>
             </div>
-            <Progress value={dailyDrawdownUsedPct} className="h-2" />
+            <Progress value={dailyDrawdownUsedPct} className="h-1.5 sm:h-2" />
           </div>
         </Card>
 
         {/* Total DD */}
-        <Card className="p-4 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm flex flex-col justify-between space-y-3">
+        <Card className="p-3.5 sm:p-4 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm flex flex-col justify-between space-y-2 sm:space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wide">
-              Max DD Buffer
+            <span className="text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-wide truncate">
+              Max Buffer
             </span>
-            <div className="p-2 rounded-xl bg-slate-200 dark:bg-zinc-800 text-emerald-500">
-              <ShieldCheck className="size-4" />
+            <div className="p-1.5 sm:p-2 rounded-xl bg-slate-200 dark:bg-zinc-800 text-emerald-500 shrink-0">
+              <ShieldCheck className="size-3.5 sm:size-4" />
             </div>
           </div>
           <div className="space-y-1.5">
-            <div className="flex items-center justify-between text-xs font-bold">
-              <span>{(100 - totalDrawdownUsedPct).toFixed(1)}% safe</span>
-              <span className="text-muted-foreground">Max DD: {maxTotalDDPct}%</span>
+            <div className="flex items-center justify-between text-[10px] sm:text-xs font-bold">
+              <span>{(100 - totalDrawdownUsedPct).toFixed(0)}% safe</span>
+              <span className="text-muted-foreground">Limit {maxTotalDDPct}%</span>
             </div>
-            <Progress value={totalDrawdownUsedPct} className="h-2" />
+            <Progress value={totalDrawdownUsedPct} className="h-1.5 sm:h-2" />
           </div>
         </Card>
       </div>
 
       {/* 4. LOWER SECTION: PROFIT TARGET & LIVE EQUITY CHART */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
         {/* Profit Target Progress */}
-        <Card className="lg:col-span-1 p-5 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm space-y-4 flex flex-col justify-between">
-          <div className="space-y-1">
-            <span className="text-xs uppercase font-bold text-muted-foreground tracking-wide">
+        <Card className="lg:col-span-1 p-4 sm:p-5 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm space-y-3 sm:space-y-4 flex flex-col justify-between">
+          <div className="space-y-0.5">
+            <span className="text-[10px] sm:text-xs uppercase font-bold text-muted-foreground tracking-wide">
               Target Evaluation
             </span>
-            <h4 className="text-lg font-extrabold tracking-tight">Account Growth Goal</h4>
+            <h4 className="text-base sm:text-lg font-extrabold tracking-tight">Account Growth Goal</h4>
           </div>
 
-          <div className="space-y-3 my-2">
+          <div className="space-y-2.5 my-1 sm:my-2">
             <div className="flex items-center justify-between text-xs font-medium">
-              <span className="text-muted-foreground">Profit Target ({profitTargetPct}%)</span>
+              <span className="text-muted-foreground">Target ({profitTargetPct}%)</span>
               <span className="font-bold">${targetAmount.toLocaleString()}</span>
             </div>
-            <Progress value={profitProgress} className="h-2.5" />
+            <Progress value={profitProgress} className="h-2 sm:h-2.5" />
             <div className="flex items-center justify-between text-xs font-medium">
               <span className="text-muted-foreground">Overall Progress</span>
               <span className="font-bold text-emerald-500">{profitProgress.toFixed(1)}%</span>
             </div>
           </div>
 
-          <div className="p-3.5 rounded-2xl bg-slate-200/60 dark:bg-zinc-800/60 text-xs space-y-1">
+          <div className="p-3 sm:p-3.5 rounded-2xl bg-slate-200/60 dark:bg-zinc-800/60 text-xs space-y-1">
             <div className="flex items-center gap-1.5 font-bold text-foreground">
-              <CheckCircle2 className="size-4 text-emerald-500" />
+              <CheckCircle2 className="size-3.5 text-emerald-500 shrink-0" />
               <span>Risk Shield Boundary</span>
             </div>
-            <p className="text-[11px] text-muted-foreground font-medium leading-relaxed">
+            <p className="text-[10px] sm:text-[11px] text-muted-foreground font-medium leading-relaxed">
               Keep peak daily drawdown below {maxDailyDDPct}% to maintain evaluation status and compliance.
             </p>
           </div>
         </Card>
 
-        {/* Strictly Supabase-Backed Live Equity Curve */}
-        <Card className="lg:col-span-2 p-5 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm space-y-4 flex flex-col justify-between">
+        {/* Live Equity Line Chart */}
+        <Card className="lg:col-span-2 p-4 sm:p-5 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm space-y-3 sm:space-y-4 flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="text-lg font-extrabold tracking-tight">Live Equity Curve</h4>
-              <p className="text-xs text-muted-foreground font-medium">Real-time snapshots from account equity history</p>
+              <h4 className="text-base sm:text-lg font-extrabold tracking-tight">Live Equity Curve</h4>
+              <p className="text-[10px] sm:text-xs text-muted-foreground font-medium">Real-time snapshots from account equity history</p>
             </div>
-            <Badge variant="outline" className="text-[10px] font-bold rounded-full px-3 py-1">
+            <Badge variant="outline" className="text-[9px] sm:text-[10px] font-bold rounded-full px-2.5 py-0.5">
               Database Sync
             </Badge>
           </div>
 
-          <div className="w-full pt-2">
+          <div className="w-full pt-1 sm:pt-2">
             {chartPoints.length > 0 ? (
               <EquityLineChart data={chartPoints} />
             ) : (
-              <div className="h-44 sm:h-52 w-full flex flex-col items-center justify-center border border-dashed border-slate-300 dark:border-zinc-800 rounded-2xl bg-slate-50/50 dark:bg-zinc-900/50 p-6 text-center">
-                <Activity className="size-8 text-muted-foreground/40 mb-2" />
+              <div className="h-36 sm:h-52 w-full flex flex-col items-center justify-center border border-dashed border-slate-300 dark:border-zinc-800 rounded-2xl bg-slate-50/50 dark:bg-zinc-900/50 p-4 sm:p-6 text-center">
+                <Activity className="size-6 sm:size-8 text-muted-foreground/40 mb-1.5" />
                 <p className="text-xs font-semibold text-muted-foreground">
                   No equity history snapshots recorded yet
                 </p>
-                <p className="text-[11px] text-muted-foreground/70 max-w-xs mt-1">
+                <p className="text-[10px] sm:text-[11px] text-muted-foreground/70 max-w-xs mt-0.5">
                   Equity datapoints will chart here automatically as MetaApi or account updates stream into Supabase.
                 </p>
               </div>
             )}
           </div>
 
-          <div className="flex items-center justify-between text-xs text-muted-foreground font-medium pt-2 border-t border-slate-200/60 dark:border-zinc-800/60">
-            <span>Points Recorded: {chartPoints.length}</span>
+          <div className="flex items-center justify-between text-[10px] sm:text-xs text-muted-foreground font-medium pt-2 border-t border-slate-200/60 dark:border-zinc-800/60">
+            <span>Points: {chartPoints.length}</span>
             {chartPoints.length > 0 && (
-              <span className="font-bold text-foreground">
-                Latest Equity: ${chartPoints[chartPoints.length - 1].toLocaleString()}
+              <span className="font-bold text-foreground truncate ml-2">
+                Latest: ${chartPoints[chartPoints.length - 1].toLocaleString()}
               </span>
             )}
           </div>
@@ -422,16 +416,15 @@ export function AccountIntel({ onChangeView }: AccountIntelProps) {
   );
 }
 
-{/* SVG Equity Line Chart Component */}
 function EquityLineChart({ data }: { data: number[] }) {
   if (!data || data.length === 0) return null;
 
   if (data.length === 1) {
     return (
-      <div className="h-44 sm:h-52 w-full flex flex-col items-center justify-center border border-slate-200 dark:border-zinc-800 rounded-2xl bg-slate-50/50 dark:bg-zinc-900/50 p-4">
-        <span className="text-xs text-muted-foreground uppercase font-bold tracking-wider">Single Equity Snapshot</span>
-        <span className="text-2xl font-extrabold text-foreground mt-1">${data[0].toLocaleString()}</span>
-        <span className="text-[11px] text-muted-foreground mt-1">Awaiting additional data points to render curve</span>
+      <div className="h-36 sm:h-52 w-full flex flex-col items-center justify-center border border-slate-200 dark:border-zinc-800 rounded-2xl bg-slate-50/50 dark:bg-zinc-900/50 p-4">
+        <span className="text-[10px] sm:text-xs text-muted-foreground uppercase font-bold tracking-wider">Single Equity Snapshot</span>
+        <span className="text-xl sm:text-2xl font-extrabold text-foreground mt-1">${data[0].toLocaleString()}</span>
+        <span className="text-[10px] sm:text-[11px] text-muted-foreground mt-0.5">Awaiting additional data points</span>
       </div>
     );
   }
@@ -462,7 +455,7 @@ function EquityLineChart({ data }: { data: number[] }) {
 
   return (
     <div className="w-full overflow-hidden">
-      <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-44 sm:h-52 overflow-visible">
+      <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-36 sm:h-52 overflow-visible">
         <defs>
           <linearGradient id="equityGradientStrict" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor={strokeColor} stopOpacity="0.25" />
@@ -492,18 +485,18 @@ function EquityLineChart({ data }: { data: number[] }) {
 
 function AccountIntelSkeleton() {
   return (
-    <div className="space-y-6">
-      <Skeleton className="h-28 w-full rounded-3xl" />
+    <div className="space-y-4 sm:space-y-6">
+      <Skeleton className="h-24 sm:h-28 w-full rounded-2xl md:rounded-3xl" />
       <Skeleton className="h-12 w-full rounded-2xl" />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Skeleton className="h-28 rounded-3xl" />
-        <Skeleton className="h-28 rounded-3xl" />
-        <Skeleton className="h-28 rounded-3xl" />
-        <Skeleton className="h-28 rounded-3xl" />
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+        <Skeleton className="h-24 sm:h-28 rounded-2xl sm:rounded-3xl" />
+        <Skeleton className="h-24 sm:h-28 rounded-2xl sm:rounded-3xl" />
+        <Skeleton className="h-24 sm:h-28 rounded-2xl sm:rounded-3xl" />
+        <Skeleton className="h-24 sm:h-28 rounded-2xl sm:rounded-3xl" />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <Skeleton className="h-64 rounded-3xl" />
-        <Skeleton className="h-64 lg:col-span-2 rounded-3xl" />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
+        <Skeleton className="h-48 sm:h-64 rounded-2xl sm:rounded-3xl" />
+        <Skeleton className="h-48 sm:h-64 lg:col-span-2 rounded-2xl sm:rounded-3xl" />
       </div>
     </div>
   );

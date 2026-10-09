@@ -10,6 +10,9 @@ import {
   ArrowDown,
   CandlestickChart,
   X,
+  Calendar,
+  Clock,
+  SlidersHorizontal,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -74,7 +77,6 @@ export function TradingJournal({ onChangeView }: JournalProps) {
         return;
       }
 
-      // 1. Fetch user accounts
       const { data: accountData } = await supabase
         .from("trading_accounts")
         .select("id, account_name, broker, initial_balance")
@@ -86,7 +88,6 @@ export function TradingJournal({ onChangeView }: JournalProps) {
         const activeAccId = accountData[0].id;
         setSelectedAccountId(activeAccId);
 
-        // 2. Fetch MT5 trade records from Supabase
         await fetchTrades(activeAccId);
       } else {
         setAccounts([]);
@@ -118,7 +119,6 @@ export function TradingJournal({ onChangeView }: JournalProps) {
     await fetchTrades(accId);
   };
 
-  // Filtered dataset
   const filteredTrades = useMemo(() => {
     return trades.filter((trade) => {
       const matchesSearch =
@@ -135,24 +135,24 @@ export function TradingJournal({ onChangeView }: JournalProps) {
   }
 
   return (
-    <div className="space-y-4 font-sans text-foreground">
+    <div className="space-y-3 sm:space-y-4 font-sans text-foreground">
       {/* 1. TOP CONTROL BAR */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-slate-100/90 dark:bg-zinc-900/90 p-3 md:p-4 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-slate-100/90 dark:bg-zinc-900/90 p-3 sm:p-4 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm">
         
         {/* Account Switcher */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center size-9 rounded-xl bg-slate-200 dark:bg-zinc-800 text-foreground shrink-0">
+        <div className="flex items-center gap-2.5">
+          <div className="flex items-center justify-center size-8 sm:size-9 rounded-xl bg-slate-200 dark:bg-zinc-800 text-foreground shrink-0">
             <Building2 className="size-4" />
           </div>
-          <div className="flex flex-col">
-            <span className="text-[10px] font-bold uppercase text-muted-foreground tracking-wider">
+          <div className="flex flex-col w-full min-w-0">
+            <span className="text-[9px] sm:text-[10px] font-bold uppercase text-muted-foreground tracking-wider truncate">
               Connected MT5 Account
             </span>
             {accounts.length > 0 ? (
               <select
                 value={selectedAccountId || ""}
                 onChange={(e) => handleAccountSelect(e.target.value)}
-                className="bg-transparent text-xs md:text-sm font-extrabold text-foreground focus:outline-none cursor-pointer"
+                className="bg-transparent text-xs sm:text-sm font-extrabold text-foreground focus:outline-none cursor-pointer truncate pr-2"
               >
                 {accounts.map((acc) => (
                   <option key={acc.id} value={acc.id} className="bg-background text-foreground">
@@ -167,13 +167,13 @@ export function TradingJournal({ onChangeView }: JournalProps) {
         </div>
 
         {/* Filters & Actions */}
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex items-center gap-2 w-full md:w-auto">
           {/* Search Input */}
-          <div className="relative flex-1 sm:w-48">
+          <div className="relative flex-1 md:w-48">
             <Search className="absolute left-2.5 top-2.5 size-3.5 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Filter pair or tag..."
+              placeholder="Pair or tag..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl bg-background border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-primary font-medium"
@@ -181,10 +181,10 @@ export function TradingJournal({ onChangeView }: JournalProps) {
           </div>
 
           {/* Long / Short Filter */}
-          <div className="flex items-center bg-background border border-slate-200 dark:border-zinc-800 p-1 rounded-xl text-xs font-semibold">
+          <div className="flex items-center bg-background border border-slate-200 dark:border-zinc-800 p-1 rounded-xl text-xs font-semibold shrink-0">
             <button
               onClick={() => setTypeFilter("ALL")}
-              className={`px-2 py-0.5 rounded-lg transition-all ${
+              className={`px-2 py-0.5 rounded-lg text-[11px] sm:text-xs transition-all ${
                 typeFilter === "ALL" ? "bg-slate-200 dark:bg-zinc-800 text-foreground font-bold" : "text-muted-foreground"
               }`}
             >
@@ -192,7 +192,7 @@ export function TradingJournal({ onChangeView }: JournalProps) {
             </button>
             <button
               onClick={() => setTypeFilter("LONG")}
-              className={`px-2 py-0.5 rounded-lg transition-all ${
+              className={`px-2 py-0.5 rounded-lg text-[11px] sm:text-xs transition-all ${
                 typeFilter === "LONG" ? "bg-emerald-500/20 text-emerald-500 font-bold" : "text-muted-foreground"
               }`}
             >
@@ -200,7 +200,7 @@ export function TradingJournal({ onChangeView }: JournalProps) {
             </button>
             <button
               onClick={() => setTypeFilter("SHORT")}
-              className={`px-2 py-0.5 rounded-lg transition-all ${
+              className={`px-2 py-0.5 rounded-lg text-[11px] sm:text-xs transition-all ${
                 typeFilter === "SHORT" ? "bg-rose-500/20 text-rose-500 font-bold" : "text-muted-foreground"
               }`}
             >
@@ -220,11 +220,101 @@ export function TradingJournal({ onChangeView }: JournalProps) {
         </div>
       </div>
 
-      {/* 2. JOURNAL DATA TABLE CONTAINER */}
-      <Card className="rounded-2xl border border-slate-200 dark:border-zinc-800 bg-slate-100/60 dark:bg-zinc-900/80 shadow-sm overflow-hidden">
+      {/* 2. RESPONSIVE TRADE LOG CONTAINER (Cards on Mobile, Table on Tablet/Desktop) */}
+
+      {/* MOBILE CARD VIEW (Block on Mobile, Hidden on md+) */}
+      <div className="block md:hidden space-y-2.5">
+        {filteredTrades.length > 0 ? (
+          filteredTrades.map((trade) => {
+            const isLong = trade.trade_type === "LONG";
+            const isProfit = trade.profit_loss >= 0;
+
+            return (
+              <Card
+                key={trade.id}
+                onClick={() => setSelectedTrade(trade)}
+                className="p-3.5 rounded-2xl border border-slate-200 dark:border-zinc-800 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm active:scale-[0.99] transition-transform cursor-pointer space-y-2"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div
+                      className={`size-6 rounded-full flex items-center justify-center text-white font-bold ${
+                        isLong ? "bg-emerald-500" : "bg-rose-500"
+                      }`}
+                    >
+                      {isLong ? <ArrowUp className="size-3.5" /> : <ArrowDown className="size-3.5" />}
+                    </div>
+                    <span className="font-extrabold text-sm text-foreground">{trade.pair}</span>
+                    <span
+                      className={`font-extrabold text-[10px] ${
+                        isLong ? "text-emerald-500" : "text-rose-500"
+                      }`}
+                    >
+                      {trade.trade_type}
+                    </span>
+                  </div>
+
+                  <span
+                    className={`font-extrabold text-xs px-2 py-0.5 rounded-lg ${
+                      isProfit
+                        ? "text-emerald-600 dark:text-emerald-400 bg-emerald-500/10"
+                        : "text-rose-600 dark:text-rose-400 bg-rose-500/10"
+                    }`}
+                  >
+                    {isProfit ? `+$${trade.profit_loss.toFixed(2)}` : `-$${Math.abs(trade.profit_loss).toFixed(2)}`}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-3 gap-2 text-[10px] font-mono text-muted-foreground pt-1 border-t border-slate-200/60 dark:border-zinc-800/60">
+                  <div>
+                    <span className="block text-[9px] uppercase font-sans">Entry</span>
+                    <strong className="text-foreground">{trade.entry_price}</strong>
+                  </div>
+                  <div>
+                    <span className="block text-[9px] uppercase font-sans">Type</span>
+                    <strong className="text-foreground">{trade.execution_type}</strong>
+                  </div>
+                  <div className="text-right">
+                    <span className="block text-[9px] uppercase font-sans">Date</span>
+                    <strong className="text-foreground">
+                      {new Date(trade.start_date).toLocaleDateString([], { month: "numeric", day: "numeric" })}
+                    </strong>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-1">
+                  <Badge
+                    variant="outline"
+                    className={`text-[9px] font-bold px-2 py-0.2 rounded-full ${
+                      trade.status === "OPEN"
+                        ? "border-amber-500/40 text-amber-500 bg-amber-500/10"
+                        : "border-slate-300 dark:border-zinc-700 text-muted-foreground"
+                    }`}
+                  >
+                    {trade.status}
+                  </Badge>
+
+                  <Badge
+                    variant="secondary"
+                    className="bg-slate-200/80 dark:bg-zinc-800 text-foreground border-none font-bold text-[10px] px-2 py-0.5 rounded-xl"
+                  >
+                    {trade.emotion_emoji} {trade.emotion_tag}
+                  </Badge>
+                </div>
+              </Card>
+            );
+          })
+        ) : (
+          <Card className="p-8 text-center text-muted-foreground rounded-2xl border border-slate-200 dark:border-zinc-800 bg-slate-100/60 dark:bg-zinc-900/80">
+            <p className="text-xs font-semibold">No trade results found</p>
+          </Card>
+        )}
+      </div>
+
+      {/* DESKTOP TABLE VIEW (Hidden on Mobile, Table on md+) */}
+      <Card className="hidden md:block rounded-2xl border border-slate-200 dark:border-zinc-800 bg-slate-100/60 dark:bg-zinc-900/80 shadow-sm overflow-hidden">
         <div className="overflow-x-auto w-full">
           <table className="w-full text-left border-collapse text-xs">
-            {/* Table Header */}
             <thead>
               <tr className="border-b border-slate-200 dark:border-zinc-800 bg-slate-200/50 dark:bg-zinc-800/50 text-muted-foreground font-bold uppercase tracking-wider text-[11px]">
                 <th className="py-3.5 px-4">Pair</th>
@@ -241,7 +331,6 @@ export function TradingJournal({ onChangeView }: JournalProps) {
               </tr>
             </thead>
 
-            {/* Table Body */}
             <tbody className="divide-y divide-slate-200/60 dark:divide-zinc-800/60 font-medium">
               {filteredTrades.length > 0 ? (
                 filteredTrades.map((trade) => {
@@ -254,7 +343,6 @@ export function TradingJournal({ onChangeView }: JournalProps) {
                       onClick={() => setSelectedTrade(trade)}
                       className="hover:bg-slate-200/40 dark:hover:bg-zinc-800/40 transition-colors cursor-pointer group"
                     >
-                      {/* Pair with Direction Icon & Candlestick Accent */}
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-2.5">
                           <div
@@ -273,12 +361,10 @@ export function TradingJournal({ onChangeView }: JournalProps) {
                         </div>
                       </td>
 
-                      {/* Start Date */}
                       <td className="py-3 px-4 text-muted-foreground whitespace-nowrap font-mono">
                         {new Date(trade.start_date).toLocaleDateString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
                       </td>
 
-                      {/* Status */}
                       <td className="py-3 px-4">
                         <Badge
                           variant="outline"
@@ -292,7 +378,6 @@ export function TradingJournal({ onChangeView }: JournalProps) {
                         </Badge>
                       </td>
 
-                      {/* Trade Type */}
                       <td className="py-3 px-4">
                         <span
                           className={`font-extrabold text-[11px] ${
@@ -303,7 +388,6 @@ export function TradingJournal({ onChangeView }: JournalProps) {
                         </span>
                       </td>
 
-                      {/* Profit/Loss */}
                       <td className="py-3 px-4 whitespace-nowrap">
                         <span
                           className={`font-extrabold text-xs px-2 py-1 rounded-lg ${
@@ -316,34 +400,28 @@ export function TradingJournal({ onChangeView }: JournalProps) {
                         </span>
                       </td>
 
-                      {/* End Date */}
                       <td className="py-3 px-4 text-muted-foreground whitespace-nowrap font-mono">
                         {trade.end_date
                           ? new Date(trade.end_date).toLocaleDateString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })
                           : "—"}
                       </td>
 
-                      {/* Execution Type */}
                       <td className="py-3 px-4 text-muted-foreground font-semibold">
                         {trade.execution_type}
                       </td>
 
-                      {/* Entry Price */}
                       <td className="py-3 px-4 font-mono font-bold text-foreground">
                         {trade.entry_price}
                       </td>
 
-                      {/* Stop Loss */}
                       <td className="py-3 px-4 font-mono text-rose-500 font-semibold">
                         {trade.stop_loss ? trade.stop_loss : "—"}
                       </td>
 
-                      {/* Take Profit */}
                       <td className="py-3 px-4 font-mono text-emerald-500 font-semibold">
                         {trade.take_profit ? trade.take_profit : "—"}
                       </td>
 
-                      {/* Emotion Tags */}
                       <td className="py-3 px-4 text-right whitespace-nowrap">
                         <Badge
                           variant="secondary"
@@ -356,7 +434,6 @@ export function TradingJournal({ onChangeView }: JournalProps) {
                   );
                 })
               ) : (
-                /* Empty state matching user reference image */
                 <tr>
                   <td colSpan={11} className="py-16 text-center text-muted-foreground">
                     <div className="flex flex-col items-center justify-center space-y-2">
@@ -375,39 +452,39 @@ export function TradingJournal({ onChangeView }: JournalProps) {
 
       {/* 3. TRADE INSPECTOR MODAL / SLIDE-OUT PANEL */}
       {selectedTrade && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-background border border-slate-200 dark:border-zinc-800 rounded-3xl p-6 max-w-lg w-full space-y-4 shadow-2xl relative">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-background border border-slate-200 dark:border-zinc-800 rounded-2xl sm:rounded-3xl p-4 sm:p-6 max-w-lg w-full space-y-3 sm:space-y-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setSelectedTrade(null)}
-              className="absolute top-4 right-4 p-1.5 rounded-full hover:bg-slate-200 dark:hover:bg-zinc-800 text-muted-foreground transition-colors"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 p-1.5 rounded-full hover:bg-slate-200 dark:hover:bg-zinc-800 text-muted-foreground transition-colors"
             >
               <X className="size-4" />
             </button>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5 sm:gap-3 pr-6">
               <div
-                className={`size-10 rounded-2xl flex items-center justify-center text-white font-extrabold ${
+                className={`size-9 sm:size-10 rounded-2xl flex items-center justify-center text-white font-extrabold shrink-0 ${
                   selectedTrade.trade_type === "LONG" ? "bg-emerald-500" : "bg-rose-500"
                 }`}
               >
-                {selectedTrade.trade_type === "LONG" ? <ArrowUp className="size-5" /> : <ArrowDown className="size-5" />}
+                {selectedTrade.trade_type === "LONG" ? <ArrowUp className="size-4 sm:size-5" /> : <ArrowDown className="size-4 sm:size-5" />}
               </div>
-              <div>
-                <h3 className="text-lg font-extrabold">{selectedTrade.pair} Execution Log</h3>
-                <p className="text-xs text-muted-foreground">Automated Analysis & Execution Audit</p>
+              <div className="min-w-0">
+                <h3 className="text-base sm:text-lg font-extrabold truncate">{selectedTrade.pair} Execution Log</h3>
+                <p className="text-[10px] sm:text-xs text-muted-foreground">Automated Analysis & Execution Audit</p>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 pt-2">
-              <div className="p-3 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 space-y-0.5">
-                <span className="text-[10px] font-bold text-muted-foreground uppercase">Trade Type</span>
-                <p className="text-sm font-extrabold text-foreground">{selectedTrade.trade_type}</p>
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 pt-1 sm:pt-2">
+              <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 space-y-0.5">
+                <span className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase">Trade Type</span>
+                <p className="text-xs sm:text-sm font-extrabold text-foreground">{selectedTrade.trade_type}</p>
               </div>
 
-              <div className="p-3 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 space-y-0.5">
-                <span className="text-[10px] font-bold text-muted-foreground uppercase">Net P&L</span>
+              <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 space-y-0.5">
+                <span className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase">Net P&L</span>
                 <p
-                  className={`text-sm font-extrabold ${
+                  className={`text-xs sm:text-sm font-extrabold ${
                     selectedTrade.profit_loss >= 0 ? "text-emerald-500" : "text-rose-500"
                   }`}
                 >
@@ -415,24 +492,23 @@ export function TradingJournal({ onChangeView }: JournalProps) {
                 </p>
               </div>
 
-              <div className="p-3 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 space-y-0.5">
-                <span className="text-[10px] font-bold text-muted-foreground uppercase">Entry Price</span>
-                <p className="text-sm font-bold font-mono text-foreground">{selectedTrade.entry_price}</p>
+              <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 space-y-0.5">
+                <span className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase">Entry Price</span>
+                <p className="text-xs sm:text-sm font-bold font-mono text-foreground">{selectedTrade.entry_price}</p>
               </div>
 
-              <div className="p-3 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 space-y-0.5">
-                <span className="text-[10px] font-bold text-muted-foreground uppercase">Execution Type</span>
-                <p className="text-sm font-bold text-foreground">{selectedTrade.execution_type}</p>
+              <div className="p-2.5 sm:p-3 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 space-y-0.5">
+                <span className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase">Execution Type</span>
+                <p className="text-xs sm:text-sm font-bold text-foreground">{selectedTrade.execution_type}</p>
               </div>
             </div>
 
-            {/* Automated Emotion Tagging Box */}
-            <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 space-y-1">
-              <div className="flex items-center gap-2 font-bold text-xs text-amber-500">
-                <span className="text-base">{selectedTrade.emotion_emoji}</span>
+            <div className="p-3 sm:p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 space-y-1">
+              <div className="flex items-center gap-1.5 font-bold text-xs text-amber-500">
+                <span className="text-sm sm:text-base">{selectedTrade.emotion_emoji}</span>
                 <span>Emotion Tag: {selectedTrade.emotion_tag}</span>
               </div>
-              <p className="text-xs text-foreground/90 leading-relaxed font-medium">
+              <p className="text-[11px] sm:text-xs text-foreground/90 leading-relaxed font-medium">
                 {selectedTrade.notes ||
                   "Trade parameters and stop discipline matched automated setup rules upon execution."}
               </p>
@@ -440,7 +516,7 @@ export function TradingJournal({ onChangeView }: JournalProps) {
 
             <Button
               onClick={() => setSelectedTrade(null)}
-              className="w-full rounded-2xl font-bold bg-slate-200 dark:bg-zinc-800 hover:bg-slate-300 dark:hover:bg-zinc-700 text-foreground border-none"
+              className="w-full rounded-2xl font-bold bg-slate-200 dark:bg-zinc-800 hover:bg-slate-300 dark:hover:bg-zinc-700 text-foreground border-none text-xs sm:text-sm h-9 sm:h-10"
             >
               Close Record
             </Button>

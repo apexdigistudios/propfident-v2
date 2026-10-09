@@ -7,11 +7,8 @@ import {
   Search,
   Flame,
   Globe2,
-  Calendar,
   AlertCircle,
-  ExternalLink,
   Clock,
-  CheckCircle2,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -43,7 +40,7 @@ export function MarketNews({ onChangeView }: MarketNewsProps) {
   // Filters
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCurrency, setSelectedCurrency] = useState("ALL");
-  const [impactFilter, setImpactFilter] = useState<"ALL" | "HIGH_ONLY" | "MED_HIGH">("MED_HIGH");
+  const [impactFilter, setImpactFilter] = useState<"ALL" | "HIGH_ONLY" | "MED_HIGH">("ALL");
 
   useEffect(() => {
     fetchMarketNews();
@@ -56,10 +53,10 @@ export function MarketNews({ onChangeView }: MarketNewsProps) {
       const res = await fetch("/api/market-news");
       const data = await res.json();
 
-      if (data.success && data.events) {
+      if (data.success && data.events && data.events.length > 0) {
         setEvents(data.events);
       } else {
-        setError("Unable to load live Forex Factory news. Retrying feed...");
+        setError("Unable to load live Forex Factory news feed.");
       }
     } catch (err) {
       console.error("Error fetching market news:", err);
@@ -69,7 +66,6 @@ export function MarketNews({ onChangeView }: MarketNewsProps) {
     }
   };
 
-  // Filtered dataset
   const filteredEvents = useMemo(() => {
     return events.filter((event) => {
       const matchesSearch =
@@ -90,7 +86,6 @@ export function MarketNews({ onChangeView }: MarketNewsProps) {
     });
   }, [events, searchQuery, selectedCurrency, impactFilter]);
 
-  // High Impact Count for Badge
   const highImpactCount = events.filter((e) => e.impact?.toLowerCase() === "high").length;
 
   if (loading) {
@@ -98,33 +93,33 @@ export function MarketNews({ onChangeView }: MarketNewsProps) {
   }
 
   return (
-    <div className="space-y-4 font-sans text-foreground">
+    <div className="space-y-3 sm:space-y-4 font-sans text-foreground">
       {/* 1. TOP CONTROL BAR */}
-      <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 bg-slate-100/90 dark:bg-zinc-900/90 p-3.5 md:p-4 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center size-10 rounded-2xl bg-amber-500/15 text-amber-500 shrink-0">
-            <Newspaper className="size-5" />
+      <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 bg-slate-100/90 dark:bg-zinc-900/90 p-3 sm:p-4 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm">
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="flex items-center justify-center size-9 sm:size-10 rounded-2xl bg-amber-500/15 text-amber-500 shrink-0">
+            <Newspaper className="size-4 sm:size-5" />
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-sm md:text-base font-extrabold tracking-tight">Forex Factory Terminal Feed</h3>
-              <Badge className="bg-red-500/15 text-red-500 border-red-500/30 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
-                <Flame className="size-3 fill-red-500" />
-                {highImpactCount} High Impact
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+              <h3 className="text-xs sm:text-base font-extrabold tracking-tight truncate">Forex Factory Feed</h3>
+              <Badge className="bg-red-500/15 text-red-500 border-red-500/30 text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                <Flame className="size-2.5 sm:size-3 fill-red-500" />
+                {highImpactCount} High
               </Badge>
             </div>
-            <p className="text-xs text-muted-foreground font-medium">Real-time economic calendar & volatility events</p>
+            <p className="text-[10px] sm:text-xs text-muted-foreground font-medium truncate">Real-time economic calendar</p>
           </div>
         </div>
 
         {/* Filters & Actions */}
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex items-center gap-2 w-full lg:w-auto">
           {/* Search Box */}
-          <div className="relative flex-1 sm:w-44">
+          <div className="relative flex-1 lg:w-44">
             <Search className="absolute left-2.5 top-2.5 size-3.5 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Filter event or currency..."
+              placeholder="Event or currency..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl bg-background border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-primary font-medium"
@@ -132,10 +127,10 @@ export function MarketNews({ onChangeView }: MarketNewsProps) {
           </div>
 
           {/* Impact Filter Pills */}
-          <div className="flex items-center bg-background border border-slate-200 dark:border-zinc-800 p-1 rounded-xl text-xs font-semibold">
+          <div className="flex items-center bg-background border border-slate-200 dark:border-zinc-800 p-1 rounded-xl text-xs font-semibold shrink-0">
             <button
               onClick={() => setImpactFilter("ALL")}
-              className={`px-2.5 py-1 rounded-lg transition-all ${
+              className={`px-2 py-0.5 rounded-lg text-[11px] sm:text-xs transition-all ${
                 impactFilter === "ALL" ? "bg-slate-200 dark:bg-zinc-800 text-foreground font-bold" : "text-muted-foreground"
               }`}
             >
@@ -143,7 +138,7 @@ export function MarketNews({ onChangeView }: MarketNewsProps) {
             </button>
             <button
               onClick={() => setImpactFilter("MED_HIGH")}
-              className={`px-2.5 py-1 rounded-lg transition-all ${
+              className={`px-2 py-0.5 rounded-lg text-[11px] sm:text-xs transition-all ${
                 impactFilter === "MED_HIGH" ? "bg-amber-500/20 text-amber-500 font-bold" : "text-muted-foreground"
               }`}
             >
@@ -151,11 +146,11 @@ export function MarketNews({ onChangeView }: MarketNewsProps) {
             </button>
             <button
               onClick={() => setImpactFilter("HIGH_ONLY")}
-              className={`px-2.5 py-1 rounded-lg transition-all ${
+              className={`px-2 py-0.5 rounded-lg text-[11px] sm:text-xs transition-all ${
                 impactFilter === "HIGH_ONLY" ? "bg-red-500/20 text-red-500 font-bold" : "text-muted-foreground"
               }`}
             >
-              High Only
+              High
             </button>
           </div>
 
@@ -172,15 +167,15 @@ export function MarketNews({ onChangeView }: MarketNewsProps) {
       </div>
 
       {/* 2. CURRENCY SELECTOR STRIP */}
-      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
-        <span className="text-xs font-bold text-muted-foreground mr-1 flex items-center gap-1 shrink-0">
-          <Globe2 className="size-3.5" /> Currency:
+      <div className="flex items-center gap-1 overflow-x-auto pb-1 scrollbar-none">
+        <span className="text-[10px] sm:text-xs font-bold text-muted-foreground mr-1 flex items-center gap-1 shrink-0">
+          <Globe2 className="size-3" /> Pair:
         </span>
         {CURRENCIES.map((curr) => (
           <button
             key={curr}
             onClick={() => setSelectedCurrency(curr)}
-            className={`px-3 py-1 rounded-xl text-xs font-extrabold transition-all shrink-0 border ${
+            className={`px-2.5 sm:px-3 py-1 rounded-xl text-[11px] sm:text-xs font-extrabold transition-all shrink-0 border ${
               selectedCurrency === curr
                 ? "bg-slate-900 text-white dark:bg-zinc-100 dark:text-zinc-900 border-transparent shadow-sm"
                 : "bg-slate-100/80 dark:bg-zinc-900/80 border-slate-200/80 dark:border-zinc-800/80 text-muted-foreground hover:bg-slate-200/60 dark:hover:bg-zinc-800"
@@ -191,8 +186,79 @@ export function MarketNews({ onChangeView }: MarketNewsProps) {
         ))}
       </div>
 
-      {/* 3. CALENDAR TABLE */}
-      <Card className="rounded-2xl border border-slate-200 dark:border-zinc-800 bg-slate-100/60 dark:bg-zinc-900/80 shadow-sm overflow-hidden">
+      {/* 3. CALENDAR CONTAINER (Cards on Mobile, Table on Desktop) */}
+
+      {/* MOBILE CARD VIEW */}
+      <div className="block md:hidden space-y-2">
+        {filteredEvents.length > 0 ? (
+          filteredEvents.map((event) => {
+            const impactLower = event.impact?.toLowerCase();
+            const isHigh = impactLower === "high";
+            const isMed = impactLower === "medium";
+
+            return (
+              <Card
+                key={event.id}
+                className={`p-3 rounded-2xl border border-slate-200 dark:border-zinc-800 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm space-y-1.5 ${
+                  isHigh ? "bg-red-500/5 dark:bg-red-500/10 border-red-500/30" : ""
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline" className="font-mono text-[10px] font-extrabold px-1.5 py-0 rounded-md">
+                      {event.country || "USD"}
+                    </Badge>
+                    <Badge
+                      className={`text-[9px] font-extrabold px-2 py-0 rounded-full border-none ${
+                        isHigh
+                          ? "bg-red-500 text-white"
+                          : isMed
+                          ? "bg-amber-500 text-black"
+                          : "bg-slate-200 dark:bg-zinc-800 text-muted-foreground"
+                      }`}
+                    >
+                      {isHigh ? "HIGH" : isMed ? "MED" : "LOW"}
+                    </Badge>
+                  </div>
+
+                  <div className="flex items-center gap-1 font-mono text-[10px] text-muted-foreground font-bold">
+                    <Clock className="size-3" />
+                    <span>
+                      {event.date ? new Date(event.date).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "All Day"}
+                    </span>
+                  </div>
+                </div>
+
+                <h4 className="font-extrabold text-xs text-foreground leading-snug">{event.title}</h4>
+
+                <div className="grid grid-cols-3 gap-1 pt-1 border-t border-slate-200/60 dark:border-zinc-800/60 text-[10px] font-mono">
+                  <div>
+                    <span className="block text-[8px] font-sans text-muted-foreground uppercase">Forecast</span>
+                    <strong className="text-muted-foreground">{event.forecast || "—"}</strong>
+                  </div>
+                  <div>
+                    <span className="block text-[8px] font-sans text-muted-foreground uppercase">Previous</span>
+                    <strong className="text-muted-foreground">{event.previous || "—"}</strong>
+                  </div>
+                  <div className="text-right">
+                    <span className="block text-[8px] font-sans text-muted-foreground uppercase">Actual</span>
+                    <strong className={event.actual !== "—" ? "text-emerald-500 font-extrabold" : "text-foreground"}>
+                      {event.actual || "—"}
+                    </strong>
+                  </div>
+                </div>
+              </Card>
+            );
+          })
+        ) : (
+          <Card className="p-8 text-center text-muted-foreground rounded-2xl border border-slate-200 dark:border-zinc-800 bg-slate-100/60 dark:bg-zinc-900/80">
+            <p className="text-xs font-semibold">No news events match filters</p>
+          </Card>
+        )}
+      </div>
+
+      {/* DESKTOP TABLE VIEW */}
+      <Card className="hidden md:block rounded-2xl border border-slate-200 dark:border-zinc-800 bg-slate-100/60 dark:bg-zinc-900/80 shadow-sm overflow-hidden">
         <div className="overflow-x-auto w-full">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
@@ -221,25 +287,24 @@ export function MarketNews({ onChangeView }: MarketNewsProps) {
                         isHigh ? "bg-red-500/5 dark:bg-red-500/10" : ""
                       }`}
                     >
-                      {/* Time / Date */}
                       <td className="py-3.5 px-4 whitespace-nowrap font-mono text-muted-foreground">
                         <div className="flex items-center gap-1.5 font-bold text-foreground">
                           <Clock className="size-3.5 text-muted-foreground" />
-                          <span>{event.date ? new Date(event.date).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "All Day"}</span>
+                          <span>
+                            {event.date ? new Date(event.date).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "All Day"}
+                          </span>
                         </div>
                         <span className="text-[10px] text-muted-foreground">
                           {event.date ? new Date(event.date).toLocaleDateString([], { month: "short", day: "numeric" }) : ""}
                         </span>
                       </td>
 
-                      {/* Currency */}
                       <td className="py-3.5 px-4 font-extrabold text-sm text-foreground">
                         <Badge variant="outline" className="font-mono text-xs font-extrabold px-2 py-0.5 rounded-lg">
                           {event.country || "USD"}
                         </Badge>
                       </td>
 
-                      {/* Impact Badge */}
                       <td className="py-3.5 px-4">
                         <Badge
                           className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border-none ${
@@ -254,22 +319,18 @@ export function MarketNews({ onChangeView }: MarketNewsProps) {
                         </Badge>
                       </td>
 
-                      {/* Event Title */}
                       <td className="py-3.5 px-4 font-bold text-slate-900 dark:text-zinc-100 text-sm max-w-xs md:max-w-md truncate">
                         {event.title}
                       </td>
 
-                      {/* Forecast */}
                       <td className="py-3.5 px-4 text-center font-mono font-semibold text-muted-foreground">
                         {event.forecast || "—"}
                       </td>
 
-                      {/* Previous */}
                       <td className="py-3.5 px-4 text-center font-mono font-semibold text-muted-foreground">
                         {event.previous || "—"}
                       </td>
 
-                      {/* Actual */}
                       <td className="py-3.5 px-4 text-right font-mono font-extrabold text-foreground">
                         <span className={event.actual !== "—" ? "text-emerald-500 font-bold" : ""}>
                           {event.actual || "—"}
