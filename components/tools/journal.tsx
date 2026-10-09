@@ -3,22 +3,13 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { createClient } from "@/lib/supabase/client";
 import {
-  BookOpen,
-  TrendingUp,
-  TrendingDown,
-  Brain,
-  Sparkles,
-  RefreshCw,
   Building2,
-  PieChart,
-  BarChart3,
-  Target,
-  ArrowUpRight,
-  ArrowDownRight,
-  DollarSign,
-  Activity,
-  Zap,
-  Filter,
+  RefreshCw,
+  Search,
+  ArrowUp,
+  ArrowDown,
+  CandlestickChart,
+  X,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -32,22 +23,22 @@ interface TradingAccount {
   initial_balance: number;
 }
 
-export interface TradeLog {
+export interface JournalTradeRecord {
   id: string;
   account_id: string;
-  symbol: string;
-  direction: "LONG" | "SHORT";
+  pair: string;
+  trade_type: "LONG" | "SHORT";
+  status: "OPEN" | "CLOSED" | "CANCELLED";
+  profit_loss: number;
+  start_date: string;
+  end_date?: string;
+  execution_type: "MARKET" | "LIMIT" | "STOP";
   entry_price: number;
-  exit_price?: number;
-  lot_size: number;
-  pnl: number;
-  pnl_pct: number;
-  setup_type: string;
-  emotion: string;
+  stop_loss?: number;
+  take_profit?: number;
+  emotion_tag: string;
   emotion_emoji: string;
-  ai_notes: string;
-  status: "OPEN" | "CLOSED";
-  executed_at: string;
+  notes?: string;
 }
 
 interface JournalProps {
@@ -60,9 +51,15 @@ export function TradingJournal({ onChangeView }: JournalProps) {
   const [loading, setLoading] = useState(true);
   const [accounts, setAccounts] = useState<TradingAccount[]>([]);
   const [selectedAccountId, setSelectedAccountId] = useState<string | null>(null);
-  const [trades, setTrades] = useState<TradeLog[]>([]);
-  const [selectedTrade, setSelectedTrade] = useState<TradeLog | null>(null);
-  const [filterDirection, setFilterDirection] = useState<"ALL" | "LONG" | "SHORT">("ALL");
+  const [trades, setTrades] = useState<JournalTradeRecord[]>([]);
+  
+  // Search & Filters
+  const [searchQuery, setSearchQuery] = useState("");
+  const [typeFilter, setTypeFilter] = useState<"ALL" | "LONG" | "SHORT">("ALL");
+  const [statusFilter, setStatusFilter] = useState<"ALL" | "OPEN" | "CLOSED">("ALL");
+  
+  // Selected trade for inspection panel
+  const [selectedTrade, setSelectedTrade] = useState<JournalTradeRecord | null>(null);
 
   useEffect(() => {
     fetchJournalData();
@@ -77,7 +74,7 @@ export function TradingJournal({ onChangeView }: JournalProps) {
         return;
       }
 
-      // 1. Fetch user trading accounts
+      // 1. Fetch user accounts
       const { data: accountData } = await supabase
         .from("trading_accounts")
         .select("id, account_name, broker, initial_balance")
@@ -89,76 +86,73 @@ export function TradingJournal({ onChangeView }: JournalProps) {
         const activeAccId = accountData[0].id;
         setSelectedAccountId(activeAccId);
 
-        // 2. Fetch MT5 live trade logs for active account
-        await fetchTradesForAccount(activeAccId);
+        // 2. Fetch MT5 trade records from Supabase
+        await fetchTrades(activeAccId);
       } else {
         setAccounts([]);
         setTrades([]);
       }
     } catch (err) {
-      console.error("Error fetching Journal data:", err);
+      console.error("Error loading journal records:", err);
     } finally {
       setLoading(false);
     }
   };
 
-  const fetchTradesForAccount = async (accountId: string) => {
+  const fetchTrades = async (accountId: string) => {
     const { data: tradeData } = await supabase
       .from("journal_trades")
       .select("*")
       .eq("account_id", accountId)
-      .order("executed_at", { ascending: false });
+      .order("start_date", { ascending: false });
 
-    if (tradeData && tradeData.length > 0) {
+    if (tradeData) {
       setTrades(tradeData);
-      setSelectedTrade(tradeData[0]);
     } else {
       setTrades([]);
-      setSelectedTrade(null);
     }
   };
 
-  const handleAccountChange = async (accId: string) => {
+  const handleAccountSelect = async (accId: string) => {
     setSelectedAccountId(accId);
-    await fetchTradesForAccount(accId);
+    await fetchTrades(accId);
   };
 
-  // Filtered trades based on Long/Short selection
+  // Filtered dataset
   const filteredTrades = useMemo(() => {
-    if (filterDirection === "ALL") return trades;
-    return trades.filter((t) => t.direction === filterDirection);
-  }, [trades, filterDirection]);
-
-  // Calculated Metrics
-  const totalTrades = trades.length;
-  const winningTrades = trades.filter((t) => t.pnl > 0).length;
-  const winRate = totalTrades > 0 ? (winningTrades / totalTrades) * 100 : 0;
-  const totalPnl = trades.reduce((acc, t) => acc + (Number(t.pnl) || 0), 0);
-
-  const disciplinedCount = trades.filter((t) =>
-    ["Disciplined", "Calm", "Target Met", "Focused"].includes(t.emotion)
-  ).length;
-  const disciplinedPct = totalTrades > 0 ? (disciplinedCount / totalTrades) * 100 : 0;
+    return trades.filter((trade) => {
+      const matchesSearch =
+        trade.pair.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        trade.emotion_tag.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesType = typeFilter === "ALL" || trade.trade_type === typeFilter;
+      const matchesStatus = statusFilter === "ALL" || trade.status === statusFilter;
+      return matchesSearch && matchesType && matchesStatus;
+    });
+  }, [trades, searchQuery, typeFilter, statusFilter]);
 
   if (loading) {
     return <JournalSkeleton />;
   }
 
   return (
-    <div className="space-y-6 font-sans">
-      {/* 1. HEADER & ACCOUNT SELECTOR */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-slate-100/80 dark:bg-zinc-900/80 p-3.5 rounded-2xl border border-slate-200/90 dark:border-zinc-800/90">
-        <div className="flex items-center gap-3 w-full sm:w-auto">
-          <Building2 className="size-5 text-muted-foreground ml-1" />
+    <div className="space-y-4 font-sans text-foreground">
+      {/* 1. TOP CONTROL BAR */}
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-slate-100/90 dark:bg-zinc-900/90 p-3 md:p-4 rounded-2xl border border-slate-200 dark:border-zinc-800 shadow-sm">
+        
+        {/* Account Switcher */}
+        <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center size-9 rounded-xl bg-slate-200 dark:bg-zinc-800 text-foreground shrink-0">
+            <Building2 className="size-4" />
+          </div>
           <div className="flex flex-col">
-            <span className="text-[10px] font-semibold uppercase text-muted-foreground tracking-wide">
-              Active Trading Journal
+            <span className="text-[10px] font-bold uppercase text-muted-foreground tracking-wider">
+              Connected MT5 Account
             </span>
             {accounts.length > 0 ? (
               <select
                 value={selectedAccountId || ""}
-                onChange={(e) => handleAccountChange(e.target.value)}
-                className="bg-transparent text-sm font-bold text-foreground focus:outline-none cursor-pointer"
+                onChange={(e) => handleAccountSelect(e.target.value)}
+                className="bg-transparent text-xs md:text-sm font-extrabold text-foreground focus:outline-none cursor-pointer"
               >
                 {accounts.map((acc) => (
                   <option key={acc.id} value={acc.id} className="bg-background text-foreground">
@@ -167,316 +161,301 @@ export function TradingJournal({ onChangeView }: JournalProps) {
                 ))}
               </select>
             ) : (
-              <span className="text-xs font-bold text-muted-foreground">No account linked</span>
+              <span className="text-xs font-bold text-muted-foreground">No accounts synced</span>
             )}
           </div>
         </div>
 
-        <div className="flex items-center gap-2 self-end sm:self-auto">
-          <Badge variant="outline" className="text-[10px] font-bold rounded-full px-3 py-1">
-            MT5 Auto-Sync Active
-          </Badge>
+        {/* Filters & Actions */}
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Search Input */}
+          <div className="relative flex-1 sm:w-48">
+            <Search className="absolute left-2.5 top-2.5 size-3.5 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Filter pair or tag..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl bg-background border border-slate-200 dark:border-zinc-800 focus:outline-none focus:ring-1 focus:ring-primary font-medium"
+            />
+          </div>
+
+          {/* Long / Short Filter */}
+          <div className="flex items-center bg-background border border-slate-200 dark:border-zinc-800 p-1 rounded-xl text-xs font-semibold">
+            <button
+              onClick={() => setTypeFilter("ALL")}
+              className={`px-2 py-0.5 rounded-lg transition-all ${
+                typeFilter === "ALL" ? "bg-slate-200 dark:bg-zinc-800 text-foreground font-bold" : "text-muted-foreground"
+              }`}
+            >
+              All
+            </button>
+            <button
+              onClick={() => setTypeFilter("LONG")}
+              className={`px-2 py-0.5 rounded-lg transition-all ${
+                typeFilter === "LONG" ? "bg-emerald-500/20 text-emerald-500 font-bold" : "text-muted-foreground"
+              }`}
+            >
+              Long
+            </button>
+            <button
+              onClick={() => setTypeFilter("SHORT")}
+              className={`px-2 py-0.5 rounded-lg transition-all ${
+                typeFilter === "SHORT" ? "bg-rose-500/20 text-rose-500 font-bold" : "text-muted-foreground"
+              }`}
+            >
+              Short
+            </button>
+          </div>
+
           <Button
-            variant="ghost"
+            variant="outline"
             size="icon"
             onClick={fetchJournalData}
-            className="size-8 rounded-full"
-            title="Sync MT5 Trades"
+            className="size-8 rounded-xl shrink-0"
+            title="Refresh MT5 Logs"
           >
-            <RefreshCw className="size-3.5" />
+            <RefreshCw className="size-3.5 text-muted-foreground" />
           </Button>
         </div>
       </div>
 
-      {/* 2. PSYCHOLOGICAL & STATISTICAL METRICS BAR */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="p-4 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm flex flex-col justify-between space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wide">Total P&L</span>
-            <div className="p-2 rounded-xl bg-slate-200 dark:bg-zinc-800 text-foreground">
-              <DollarSign className="size-4" />
-            </div>
-          </div>
-          <div className="text-2xl font-extrabold tracking-tight">
-            ${totalPnl.toLocaleString(undefined, { minimumFractionDigits: 2 })}
-          </div>
-          <div className="text-xs text-muted-foreground font-medium">From {totalTrades} synced trades</div>
-        </Card>
+      {/* 2. JOURNAL DATA TABLE CONTAINER */}
+      <Card className="rounded-2xl border border-slate-200 dark:border-zinc-800 bg-slate-100/60 dark:bg-zinc-900/80 shadow-sm overflow-hidden">
+        <div className="overflow-x-auto w-full">
+          <table className="w-full text-left border-collapse text-xs">
+            {/* Table Header */}
+            <thead>
+              <tr className="border-b border-slate-200 dark:border-zinc-800 bg-slate-200/50 dark:bg-zinc-800/50 text-muted-foreground font-bold uppercase tracking-wider text-[11px]">
+                <th className="py-3.5 px-4">Pair</th>
+                <th className="py-3.5 px-4">Start Date</th>
+                <th className="py-3.5 px-4">Status</th>
+                <th className="py-3.5 px-4">Trade Type</th>
+                <th className="py-3.5 px-4">Profit/Loss</th>
+                <th className="py-3.5 px-4">End Date</th>
+                <th className="py-3.5 px-4">Execution Type</th>
+                <th className="py-3.5 px-4">Entry Price</th>
+                <th className="py-3.5 px-4">Stop Loss</th>
+                <th className="py-3.5 px-4">Take Profit</th>
+                <th className="py-3.5 px-4 text-right">Tags & Emotion</th>
+              </tr>
+            </thead>
 
-        <Card className="p-4 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm flex flex-col justify-between space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wide">Win Rate</span>
-            <div className="p-2 rounded-xl bg-slate-200 dark:bg-zinc-800 text-emerald-500">
-              <Target className="size-4" />
-            </div>
-          </div>
-          <div className="text-2xl font-extrabold tracking-tight">{winRate.toFixed(1)}%</div>
-          <div className="text-xs text-muted-foreground font-medium">{winningTrades} Wins / {totalTrades - winningTrades} Losses</div>
-        </Card>
-
-        <Card className="p-4 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm flex flex-col justify-between space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wide">AI Discipline Index</span>
-            <div className="p-2 rounded-xl bg-slate-200 dark:bg-zinc-800 text-amber-500">
-              <Brain className="size-4" />
-            </div>
-          </div>
-          <div className="text-2xl font-extrabold tracking-tight">{disciplinedPct.toFixed(0)}%</div>
-          <div className="text-xs text-muted-foreground font-medium">Trades aligned with plan</div>
-        </Card>
-
-        <Card className="p-4 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm flex flex-col justify-between space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wide">AI Engine</span>
-            <div className="p-2 rounded-xl bg-slate-200 dark:bg-zinc-800 text-indigo-400">
-              <Sparkles className="size-4" />
-            </div>
-          </div>
-          <div className="text-sm font-bold text-foreground">Auto-Emotion Tagging</div>
-          <div className="text-xs text-muted-foreground font-medium">Analyzes MT5 execution speed & stops</div>
-        </Card>
-      </div>
-
-      {/* 3. MAIN JOURNAL BOOK LAYOUT (LEFT: LIVE TRADES FEED, RIGHT: CHART & AI ANALYSIS) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
-        {/* LEFT BOOK PAGE: LIVE TRADE LISTING */}
-        <Card className="lg:col-span-5 p-5 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm space-y-4 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-zinc-800/80">
-              <div className="flex items-center gap-2">
-                <BookOpen className="size-4 text-amber-500" />
-                <h3 className="text-base font-extrabold tracking-tight">Trade Logs</h3>
-              </div>
-
-              {/* Long / Short Filter Pills */}
-              <div className="flex items-center gap-1 bg-slate-200/70 dark:bg-zinc-800/70 p-1 rounded-xl text-[11px] font-bold">
-                <button
-                  onClick={() => setFilterDirection("ALL")}
-                  className={`px-2.5 py-1 rounded-lg transition-all ${
-                    filterDirection === "ALL" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground"
-                  }`}
-                >
-                  All
-                </button>
-                <button
-                  onClick={() => setFilterDirection("LONG")}
-                  className={`px-2.5 py-1 rounded-lg transition-all ${
-                    filterDirection === "LONG" ? "bg-emerald-500/20 text-emerald-400 font-extrabold" : "text-muted-foreground"
-                  }`}
-                >
-                  Longs
-                </button>
-                <button
-                  onClick={() => setFilterDirection("SHORT")}
-                  className={`px-2.5 py-1 rounded-lg transition-all ${
-                    filterDirection === "SHORT" ? "bg-rose-500/20 text-rose-400 font-extrabold" : "text-muted-foreground"
-                  }`}
-                >
-                  Shorts
-                </button>
-              </div>
-            </div>
-
-            {/* Trades List */}
-            <div className="mt-4 space-y-2.5 max-h-[520px] overflow-y-auto pr-1">
+            {/* Table Body */}
+            <tbody className="divide-y divide-slate-200/60 dark:divide-zinc-800/60 font-medium">
               {filteredTrades.length > 0 ? (
                 filteredTrades.map((trade) => {
-                  const isLong = trade.direction === "LONG";
-                  const isProfit = trade.pnl >= 0;
+                  const isLong = trade.trade_type === "LONG";
+                  const isProfit = trade.profit_loss >= 0;
 
                   return (
-                    <div
+                    <tr
                       key={trade.id}
                       onClick={() => setSelectedTrade(trade)}
-                      className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between ${
-                        selectedTrade?.id === trade.id
-                          ? "border-amber-500/80 bg-amber-500/10 shadow-sm"
-                          : "border-slate-200/80 dark:border-zinc-800/80 bg-background/60 hover:bg-background"
-                      }`}
+                      className="hover:bg-slate-200/40 dark:hover:bg-zinc-800/40 transition-colors cursor-pointer group"
                     >
-                      {/* Left Side: Direction Indicator + Symbol + Emotion Tag */}
-                      <div className="flex items-center gap-3">
-                        <div
-                          className={`size-10 rounded-xl flex items-center justify-center shrink-0 ${
-                            isLong ? "bg-emerald-500/15 text-emerald-500" : "bg-rose-500/15 text-rose-500"
-                          }`}
-                        >
-                          {isLong ? <ArrowUpRight className="size-5" /> : <ArrowDownRight className="size-5" />}
-                        </div>
-
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <span className="font-extrabold text-sm text-foreground">{trade.symbol}</span>
-                            <Badge
-                              variant="outline"
-                              className={`text-[9px] px-1.5 py-0 font-bold ${
-                                isLong ? "border-emerald-500/40 text-emerald-500" : "border-rose-500/40 text-rose-500"
-                              }`}
-                            >
-                              {trade.direction}
-                            </Badge>
-                            <span className="text-[10px] text-muted-foreground font-medium">
-                              {trade.lot_size} Lots
+                      {/* Pair with Direction Icon & Candlestick Accent */}
+                      <td className="py-3 px-4">
+                        <div className="flex items-center gap-2.5">
+                          <div
+                            className={`size-7 rounded-full flex items-center justify-center shrink-0 text-white font-extrabold ${
+                              isLong ? "bg-emerald-500" : "bg-rose-500"
+                            }`}
+                          >
+                            {isLong ? <ArrowUp className="size-4" /> : <ArrowDown className="size-4" />}
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <CandlestickChart className="size-4 text-muted-foreground/60" />
+                            <span className="font-extrabold text-slate-900 dark:text-zinc-100 text-sm">
+                              {trade.pair}
                             </span>
                           </div>
+                        </div>
+                      </td>
 
-                          <div className="flex items-center gap-2 mt-1">
-                            <Badge className="bg-slate-200/80 dark:bg-zinc-800 text-foreground border-none text-[10px] font-semibold py-0.5">
-                              {trade.emotion_emoji} {trade.emotion}
-                            </Badge>
-                            <span className="text-[10px] text-muted-foreground">{trade.setup_type}</span>
-                          </div>
-                        </div>
-                      </div>
+                      {/* Start Date */}
+                      <td className="py-3 px-4 text-muted-foreground whitespace-nowrap font-mono">
+                        {new Date(trade.start_date).toLocaleDateString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
+                      </td>
 
-                      {/* Right Side: P&L */}
-                      <div className="text-right">
-                        <div className={`text-sm font-extrabold ${isProfit ? "text-emerald-500" : "text-rose-500"}`}>
-                          {isProfit ? `+$${trade.pnl.toFixed(2)}` : `-$${Math.abs(trade.pnl).toFixed(2)}`}
-                        </div>
-                        <div className="text-[10px] text-muted-foreground font-medium">
-                          {new Date(trade.executed_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                        </div>
-                      </div>
-                    </div>
+                      {/* Status */}
+                      <td className="py-3 px-4">
+                        <Badge
+                          variant="outline"
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                            trade.status === "OPEN"
+                              ? "border-amber-500/40 text-amber-500 bg-amber-500/10"
+                              : "border-slate-300 dark:border-zinc-700 text-muted-foreground"
+                          }`}
+                        >
+                          {trade.status}
+                        </Badge>
+                      </td>
+
+                      {/* Trade Type */}
+                      <td className="py-3 px-4">
+                        <span
+                          className={`font-extrabold text-[11px] ${
+                            isLong ? "text-emerald-500" : "text-rose-500"
+                          }`}
+                        >
+                          {trade.trade_type}
+                        </span>
+                      </td>
+
+                      {/* Profit/Loss */}
+                      <td className="py-3 px-4 whitespace-nowrap">
+                        <span
+                          className={`font-extrabold text-xs px-2 py-1 rounded-lg ${
+                            isProfit
+                              ? "text-emerald-600 dark:text-emerald-400 bg-emerald-500/10"
+                              : "text-rose-600 dark:text-rose-400 bg-rose-500/10"
+                          }`}
+                        >
+                          {isProfit ? `+$${trade.profit_loss.toFixed(2)}` : `-$${Math.abs(trade.profit_loss).toFixed(2)}`}
+                        </span>
+                      </td>
+
+                      {/* End Date */}
+                      <td className="py-3 px-4 text-muted-foreground whitespace-nowrap font-mono">
+                        {trade.end_date
+                          ? new Date(trade.end_date).toLocaleDateString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })
+                          : "—"}
+                      </td>
+
+                      {/* Execution Type */}
+                      <td className="py-3 px-4 text-muted-foreground font-semibold">
+                        {trade.execution_type}
+                      </td>
+
+                      {/* Entry Price */}
+                      <td className="py-3 px-4 font-mono font-bold text-foreground">
+                        {trade.entry_price}
+                      </td>
+
+                      {/* Stop Loss */}
+                      <td className="py-3 px-4 font-mono text-rose-500 font-semibold">
+                        {trade.stop_loss ? trade.stop_loss : "—"}
+                      </td>
+
+                      {/* Take Profit */}
+                      <td className="py-3 px-4 font-mono text-emerald-500 font-semibold">
+                        {trade.take_profit ? trade.take_profit : "—"}
+                      </td>
+
+                      {/* Emotion Tags */}
+                      <td className="py-3 px-4 text-right whitespace-nowrap">
+                        <Badge
+                          variant="secondary"
+                          className="bg-slate-200/80 dark:bg-zinc-800 text-foreground border-none font-bold text-[11px] px-2.5 py-1 rounded-xl"
+                        >
+                          {trade.emotion_emoji} {trade.emotion_tag}
+                        </Badge>
+                      </td>
+                    </tr>
                   );
                 })
               ) : (
-                <div className="py-12 text-center text-muted-foreground space-y-2">
-                  <Activity className="size-8 mx-auto opacity-40" />
-                  <p className="text-xs font-bold">No MT5 trades recorded yet</p>
-                  <p className="text-[11px] max-w-xs mx-auto">
-                    When you take a position on MT5, the connected AI will tag your emotions and display the trade here live.
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-        </Card>
-
-        {/* RIGHT BOOK PAGE: TRADE CHART PREVIEW & AI EMOTIONAL BREAKDOWN */}
-        <Card className="lg:col-span-7 p-5 rounded-2xl md:rounded-3xl border border-slate-200/90 dark:border-zinc-800/90 bg-slate-100/80 dark:bg-zinc-900/90 shadow-sm space-y-5 flex flex-col justify-between">
-          {selectedTrade ? (
-            <>
-              {/* Selected Trade Overview */}
-              <div>
-                <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-zinc-800/80">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xl">{selectedTrade.emotion_emoji}</span>
-                    <div>
-                      <h4 className="text-base font-extrabold tracking-tight">
-                        {selectedTrade.symbol} Execution Analysis
-                      </h4>
-                      <p className="text-xs text-muted-foreground font-medium">
-                        Executed via MT5 • {new Date(selectedTrade.executed_at).toLocaleString()}
+                /* Empty state matching user reference image */
+                <tr>
+                  <td colSpan={11} className="py-16 text-center text-muted-foreground">
+                    <div className="flex flex-col items-center justify-center space-y-2">
+                      <p className="text-sm font-semibold">No results</p>
+                      <p className="text-xs text-muted-foreground/70 max-w-sm">
+                        Trades taken on your connected MT5 terminal will automatically sync and populate in this log.
                       </p>
                     </div>
-                  </div>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </Card>
 
-                  <Badge
-                    className={`text-xs font-bold px-3 py-1 ${
-                      selectedTrade.direction === "LONG"
-                        ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
-                        : "bg-rose-500/20 text-rose-400 border-rose-500/30"
-                    }`}
-                  >
-                    {selectedTrade.direction} POSITION
-                  </Badge>
-                </div>
+      {/* 3. TRADE INSPECTOR MODAL / SLIDE-OUT PANEL */}
+      {selectedTrade && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-background border border-slate-200 dark:border-zinc-800 rounded-3xl p-6 max-w-lg w-full space-y-4 shadow-2xl relative">
+            <button
+              onClick={() => setSelectedTrade(null)}
+              className="absolute top-4 right-4 p-1.5 rounded-full hover:bg-slate-200 dark:hover:bg-zinc-800 text-muted-foreground transition-colors"
+            >
+              <X className="size-4" />
+            </button>
 
-                {/* Price Execution Visualizer */}
-                <div className="mt-4 p-4 rounded-2xl bg-background/80 border border-slate-200/80 dark:border-zinc-800/80 space-y-3">
-                  <div className="flex items-center justify-between text-xs font-bold">
-                    <span>Entry: ${selectedTrade.entry_price}</span>
-                    <span>
-                      Exit: {selectedTrade.exit_price ? `$${selectedTrade.exit_price}` : "Active Position"}
-                    </span>
-                  </div>
+            <div className="flex items-center gap-3">
+              <div
+                className={`size-10 rounded-2xl flex items-center justify-center text-white font-extrabold ${
+                  selectedTrade.trade_type === "LONG" ? "bg-emerald-500" : "bg-rose-500"
+                }`}
+              >
+                {selectedTrade.trade_type === "LONG" ? <ArrowUp className="size-5" /> : <ArrowDown className="size-5" />}
+              </div>
+              <div>
+                <h3 className="text-lg font-extrabold">{selectedTrade.pair} Execution Log</h3>
+                <p className="text-xs text-muted-foreground">Automated Analysis & Execution Audit</p>
+              </div>
+            </div>
 
-                  {/* SVG Price Trail Mock Component */}
-                  <div className="w-full h-28 flex items-center justify-center relative overflow-hidden rounded-xl bg-slate-900/5 dark:bg-zinc-950/50 p-2">
-                    <svg viewBox="0 0 400 80" className="w-full h-full">
-                      <path
-                        d="M 10 50 Q 100 20, 200 60 T 390 30"
-                        fill="none"
-                        stroke={selectedTrade.pnl >= 0 ? "#10b981" : "#f43f5e"}
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                      />
-                      <circle cx="10" cy="50" r="5" fill="#3b82f6" />
-                      <circle cx="390" cy="30" r="5" fill={selectedTrade.pnl >= 0 ? "#10b981" : "#f43f5e"} />
-                    </svg>
-                  </div>
-                </div>
-
-                {/* AI Emotion & Behavioral Analysis Card */}
-                <div className="mt-4 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 space-y-2">
-                  <div className="flex items-center gap-2 font-extrabold text-amber-500 text-xs">
-                    <Brain className="size-4" />
-                    <span>AI Psychological Assessment</span>
-                  </div>
-                  <p className="text-xs text-foreground/90 font-medium leading-relaxed">
-                    {selectedTrade.ai_notes ||
-                      `AI detected a state of ${selectedTrade.emotion} during this ${selectedTrade.direction} entry. Execution was aligned with the ${selectedTrade.setup_type} setup guidelines.`}
-                  </p>
-                </div>
+            <div className="grid grid-cols-2 gap-3 pt-2">
+              <div className="p-3 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 space-y-0.5">
+                <span className="text-[10px] font-bold text-muted-foreground uppercase">Trade Type</span>
+                <p className="text-sm font-extrabold text-foreground">{selectedTrade.trade_type}</p>
               </div>
 
-              {/* Bottom Analytics Breakdowns */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3 border-t border-slate-200/80 dark:border-zinc-800/80">
-                <div className="p-3.5 rounded-2xl bg-background/60 border border-slate-200/80 dark:border-zinc-800/80 space-y-1">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-muted-foreground">
-                    <PieChart className="size-3.5" />
-                    <span>Setup Type</span>
-                  </div>
-                  <div className="text-sm font-extrabold text-foreground">{selectedTrade.setup_type}</div>
-                </div>
-
-                <div className="p-3.5 rounded-2xl bg-background/60 border border-slate-200/80 dark:border-zinc-800/80 space-y-1">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-muted-foreground">
-                    <BarChart3 className="size-3.5" />
-                    <span>Net Result</span>
-                  </div>
-                  <div
-                    className={`text-sm font-extrabold ${
-                      selectedTrade.pnl >= 0 ? "text-emerald-500" : "text-rose-500"
-                    }`}
-                  >
-                    {selectedTrade.pnl >= 0 ? `+$${selectedTrade.pnl}` : `-$${Math.abs(selectedTrade.pnl)}`}
-                  </div>
-                </div>
+              <div className="p-3 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 space-y-0.5">
+                <span className="text-[10px] font-bold text-muted-foreground uppercase">Net P&L</span>
+                <p
+                  className={`text-sm font-extrabold ${
+                    selectedTrade.profit_loss >= 0 ? "text-emerald-500" : "text-rose-500"
+                  }`}
+                >
+                  ${selectedTrade.profit_loss.toFixed(2)}
+                </p>
               </div>
-            </>
-          ) : (
-            <div className="h-full min-h-[300px] flex flex-col items-center justify-center text-center p-6 text-muted-foreground space-y-2">
-              <BookOpen className="size-10 opacity-30" />
-              <p className="text-sm font-bold">Select a trade log to view AI analysis</p>
-              <p className="text-xs max-w-xs">
-                Click any trade on the left page to inspect the entry/exit visualization, AI emotion tags, and trade notes.
+
+              <div className="p-3 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 space-y-0.5">
+                <span className="text-[10px] font-bold text-muted-foreground uppercase">Entry Price</span>
+                <p className="text-sm font-bold font-mono text-foreground">{selectedTrade.entry_price}</p>
+              </div>
+
+              <div className="p-3 rounded-2xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 space-y-0.5">
+                <span className="text-[10px] font-bold text-muted-foreground uppercase">Execution Type</span>
+                <p className="text-sm font-bold text-foreground">{selectedTrade.execution_type}</p>
+              </div>
+            </div>
+
+            {/* Automated Emotion Tagging Box */}
+            <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 space-y-1">
+              <div className="flex items-center gap-2 font-bold text-xs text-amber-500">
+                <span className="text-base">{selectedTrade.emotion_emoji}</span>
+                <span>Emotion Tag: {selectedTrade.emotion_tag}</span>
+              </div>
+              <p className="text-xs text-foreground/90 leading-relaxed font-medium">
+                {selectedTrade.notes ||
+                  "Trade parameters and stop discipline matched automated setup rules upon execution."}
               </p>
             </div>
-          )}
-        </Card>
-      </div>
+
+            <Button
+              onClick={() => setSelectedTrade(null)}
+              className="w-full rounded-2xl font-bold bg-slate-200 dark:bg-zinc-800 hover:bg-slate-300 dark:hover:bg-zinc-700 text-foreground border-none"
+            >
+              Close Record
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
 function JournalSkeleton() {
   return (
-    <div className="space-y-6">
-      <Skeleton className="h-12 w-full rounded-2xl" />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Skeleton className="h-28 rounded-3xl" />
-        <Skeleton className="h-28 rounded-3xl" />
-        <Skeleton className="h-28 rounded-3xl" />
-        <Skeleton className="h-28 rounded-3xl" />
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <Skeleton className="lg:col-span-5 h-[500px] rounded-3xl" />
-        <Skeleton className="lg:col-span-7 h-[500px] rounded-3xl" />
-      </div>
+    <div className="space-y-4">
+      <Skeleton className="h-14 w-full rounded-2xl" />
+      <Skeleton className="h-96 w-full rounded-2xl" />
     </div>
   );
 }
